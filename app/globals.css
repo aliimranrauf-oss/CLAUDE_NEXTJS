@@ -14,9 +14,18 @@
 }
 
 @layer base {
-  * { @apply border-border; }
-  body { background: var(--bg); }
-  h1,h2,h3,h4,h5,h6 { font-family: 'Syne', sans-serif; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: var(--bg);
+    color: white;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-family: 'Syne', sans-serif;
+  }
 }
 
 @layer utilities {
@@ -28,7 +37,12 @@
   }
   .btn-primary {
     background: var(--gradient);
-    @apply text-white font-semibold rounded-xl px-7 py-3 transition-all duration-200;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.75rem;
+    transition: all 0.2s;
+    display: inline-block;
   }
   .btn-primary:hover {
     box-shadow: 0 0 28px rgba(0,212,255,0.4);
@@ -37,11 +51,10 @@
   .glass {
     background: rgba(17,24,39,0.6);
     backdrop-filter: blur(16px);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.07);
   }
   .card-glow:hover {
     box-shadow: 0 0 32px rgba(0,212,255,0.12);
-    border-color: rgba(0,212,255,0.25) !important;
   }
 }
 
