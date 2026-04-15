@@ -40,10 +40,15 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline — compact, matching RIGHT screenshot */}
+      {/* Headline — compact font matching RIGHT screenshot */}
       <h1
-        className="text-4xl sm:text-5xl font-extrabold leading-tight max-w-2xl"
-        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+        className="font-extrabold leading-tight"
+        style={{
+          fontFamily: 'Syne, sans-serif',
+          letterSpacing: '-0.02em',
+          fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+          maxWidth: '600px',
+        }}
       >
         Build Your Ecommerce Website
         <br />
@@ -69,8 +74,8 @@ export default function Hero() {
 
       {/* Typing line */}
       <p
-        className="mt-6 text-base font-bold min-h-[26px]"
-        style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
+        className="mt-6 font-bold min-h-[26px]"
+        style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif', fontSize: '1rem' }}
       >
         {typed}
         <span className="animate-pulse">|</span>
