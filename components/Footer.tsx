@@ -21,10 +21,21 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <p className="font-bold text-xl mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>
-              <span className="text-gradient">MakeMyStore</span>
-              <span className="text-gray-500">.online</span>
-            </p>
+            <div className="flex items-center gap-2 mb-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="MakeMyStore logo"
+                width={32}
+                height={32}
+                className="rounded-lg object-contain"
+                style={{ mixBlendMode: 'lighten' }}
+              />
+              <p className="font-bold text-lg" style={{ fontFamily: 'Syne, sans-serif' }}>
+                <span className="text-gradient">MakeMyStore</span>
+                <span className="text-gray-500">.online</span>
+              </p>
+            </div>
             <p className="text-sm text-gray-400 mb-4 leading-relaxed">
               Custom ecommerce stores with zero monthly fees. Built with Next.js,
               Vercel &amp; Supabase. Serving clients worldwide.
@@ -45,11 +56,7 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-2 text-sm text-gray-400">
               {quickLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="hover:text-[#00d4ff] transition-colors"
-                >
+                <Link key={l.href} href={l.href} className="hover:text-[#00d4ff] transition-colors">
                   {l.label}
                 </Link>
               ))}
@@ -64,14 +71,14 @@ export default function Footer() {
             <div className="flex flex-col gap-3 text-sm">
               <a
                 href="#pricing"
-                className="inline-flex items-center gap-2 text-gray-300 hover:text-[#00d4ff] transition-colors group"
+                className="inline-flex items-center gap-2 text-gray-300 hover:text-[#00d4ff] transition-colors"
               >
                 <span className="w-2 h-2 rounded-full bg-[#00d4ff] shrink-0" />
                 Payoneer
                 <span className="text-xs text-gray-500 ml-auto">→ See plans</span>
               </a>
               <a
-                href="https://www.fiverr.com/s/yvPomWA"
+                href="https://www.fiverr.com/s/kLB1m0k"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-gray-300 hover:text-[#00d4ff] transition-colors"
@@ -105,11 +112,12 @@ export default function Footer() {
                 <Linkedin size={18} />
               </a>
               <a
-                href="https://www.fiverr.com/s/yvPomWA"
+                href="https://www.fiverr.com/s/kLB1m0k"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Fiverr"
                 className="w-10 h-10 rounded-xl glass flex items-center justify-center hover:border-[#00d4ff]/40 hover:text-[#00d4ff] transition-all"
+                title="View on Fiverr"
               >
                 <ExternalLink size={18} />
               </a>
