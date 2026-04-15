@@ -27,7 +27,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline - Exact match to screenshot */}
+      {/* EXACT HEADLINE FROM YOUR SCREENSHOT */}
       <h1
         className="text-5xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
         style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
@@ -45,7 +45,7 @@ export default function Hero() {
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges - Exact icons & layout from screenshot */}
+      {/* Benefit badges - Exact layout & icons from screenshot */}
       <div
         className="mt-5 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
@@ -57,7 +57,7 @@ export default function Hero() {
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Built by line - Static (exact match to screenshot) */}
+      {/* Static "Built by Real Experts" line - NO typing animation */}
       <p
         className="mt-6 text-lg font-bold"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
@@ -89,7 +89,7 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* YouTube video (kept because it’s already in your design) */}
+      {/* YouTube video embed */}
       <div className="mt-14 w-full max-w-3xl mx-auto">
         <div
           className="relative rounded-2xl overflow-hidden bg-black"
