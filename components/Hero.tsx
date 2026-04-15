@@ -1,9 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+const TYPING_TEXT = '✦ Built by Real Experts, Powered by AI — Fully Custom & SEO Optimized'
 
 export default function Hero() {
+  const [typed, setTyped] = useState('')
   const [videoLoaded, setVideoLoaded] = useState(false)
+
+  // Typing animation (exactly like your original React site)
+  useEffect(() => {
+    let i = 0
+    const interval = setInterval(() => {
+      setTyped(TYPING_TEXT.slice(0, i + 1))
+      i++
+      if (i >= TYPING_TEXT.length) clearInterval(interval)
+    }, 40)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <section className="relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
@@ -13,7 +27,6 @@ export default function Hero() {
 
       {/* Logo */}
       <div className="animate-float mb-6">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
           alt="MakeMyStore"
@@ -27,10 +40,10 @@ export default function Hero() {
         />
       </div>
 
-      {/* EXACT HEADLINE FROM YOUR SCREENSHOT */}
+      {/* HEADLINE - Bigger size + exact font like your screenshot */}
       <h1
-        className="text-5xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
-        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+        className="text-6xl sm:text-7xl md:text-[78px] font-extrabold leading-[1.05] tracking-[-0.04em] max-w-4xl"
+        style={{ fontFamily: 'Syne, sans-serif' }}
       >
         Build Your Ecommerce Website
         <br />
@@ -39,15 +52,15 @@ export default function Hero() {
 
       {/* Subtext */}
       <p
-        className="mt-5 text-gray-400 text-lg max-w-xl"
+        className="mt-6 text-gray-400 text-xl max-w-xl"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges - Exact layout & icons from screenshot */}
+      {/* Benefit badges - exact icons & layout from screenshot */}
       <div
-        className="mt-5 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
+        className="mt-6 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         <span>🚀 Live in 3–10 days</span>
@@ -57,16 +70,17 @@ export default function Hero() {
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Static "Built by Real Experts" line - NO typing animation */}
+      {/* Shimmer + Typing line (you said you like shimmer typing) */}
       <p
-        className="mt-6 text-lg font-bold"
+        className="mt-8 text-xl font-bold min-h-[32px]"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
       >
-        ✦ Built by Real Experts, Powered by AI — Fully Custom &amp; SEO Optimized
+        {typed}
+        <span className="animate-pulse">|</span>
       </p>
 
       {/* CTA Buttons */}
-      <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="#pricing"
           className="btn-primary text-base"
@@ -89,7 +103,7 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* YouTube video embed */}
+      {/* YouTube video */}
       <div className="mt-14 w-full max-w-3xl mx-auto">
         <div
           className="relative rounded-2xl overflow-hidden bg-black"
@@ -105,7 +119,6 @@ export default function Hero() {
               className="w-full h-full absolute inset-0 group"
               aria-label="Play video"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://i.ytimg.com/vi/D7jsdZtfeu8/hqdefault.jpg"
                 alt="MakeMyStore demo video"
