@@ -20,16 +20,20 @@ export default function Hero() {
 
   return (
     <section className="relative flex flex-col items-center justify-center text-center px-4 pt-20 pb-12 overflow-hidden">
+      {/* SEO TIP: This H1 contains your primary keywords. 
+        Google uses this to understand that you are a "Shopify Alternative" 
+      */}
+      
       {/* Background glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Logo - Matches the smaller scale in the reference */}
+      {/* Logo */}
       <div className="animate-float mb-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
-          alt="MakeMyStore"
+          alt="MakeMyStore - Custom Ecommerce Solutions"
           width={70} 
           height={70}
           className="mx-auto rounded-2xl object-contain"
@@ -40,7 +44,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline - Matches the exact 2-line layout and blue color */}
+      {/* Headline - Smaller & Focused */}
       <h1
         className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
         style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
@@ -50,7 +54,7 @@ export default function Hero() {
         <span className="text-[#40e0ff] block mt-1">One-Time Cost, No Monthly Fees</span>
       </h1>
 
-      {/* Subtext - Matches the grey, smaller font */}
+      {/* Subtext - Gray & Professional */}
       <p
         className="mt-5 text-gray-500 text-sm sm:text-base max-w-lg mx-auto"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
@@ -58,7 +62,7 @@ export default function Hero() {
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges - Matches the small text and icon spacing */}
+      {/* Benefit badges - Compact for trust building */}
       <div
         className="mt-5 flex flex-wrap justify-center items-center gap-1 text-[13px] sm:text-sm text-white/70"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
@@ -70,7 +74,7 @@ export default function Hero() {
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Typing line - Matches the bright blue center text */}
+      {/* Typing line - Highlighted Feature */}
       <p
         className="mt-8 text-sm sm:text-[17px] font-bold min-h-[26px]"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
@@ -79,11 +83,11 @@ export default function Hero() {
         <span className="animate-pulse ml-0.5">|</span>
       </p>
 
-      {/* CTA - Primary button focused on 'Get Your Store' */}
+      {/* CTA Button */}
       <div className="mt-8 flex justify-center">
         <a
           href="#pricing"
-          className="btn-primary text-sm px-8 py-3.5 rounded-lg font-bold"
+          className="btn-primary text-sm px-8 py-3.5 rounded-lg font-bold transition-transform hover:scale-105"
           style={{
             background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
             boxShadow: '0 4px 15px rgba(0,212,255,0.3)'
@@ -97,7 +101,7 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Video Container - Matches the thinner border and alignment */}
+      {/* Video Section - Optimized for Engagement */}
       <div className="mt-12 w-full max-w-[700px] mx-auto">
         <div
           className="relative rounded-xl overflow-hidden bg-black"
@@ -110,17 +114,17 @@ export default function Hero() {
           {!videoLoaded ? (
             <button
               onClick={() => setVideoLoaded(true)}
-              className="w-full h-full absolute inset-0"
-              aria-label="Play video"
+              className="w-full h-full absolute inset-0 group"
+              aria-label="Play MakeMyStore Demo Video"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://i.ytimg.com/vi/D7jsdZtfeu8/hqdefault.jpg"
-                alt="MakeMyStore demo video"
-                className="w-full h-full object-cover opacity-80"
+                alt="Ecommerce Website Demo"
+                className="w-full h-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-transform group-hover:scale-110">
                    <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1" />
                 </div>
               </div>
@@ -135,6 +139,18 @@ export default function Hero() {
             />
           )}
         </div>
+      </div>
+      
+      {/* Hidden SEO Content: This helps Google index your specific 
+        business model without cluttering the UI. 
+      */}
+      <div className="sr-only">
+        <h2>Professional Shopify Alternative</h2>
+        <p>
+          MakeMyStore offers custom-coded ecommerce websites with a one-time payment model. 
+          Unlike subscription platforms, we provide full ownership, high-speed performance, 
+          and advanced SEO features for growing businesses.
+        </p>
       </div>
     </section>
   )
