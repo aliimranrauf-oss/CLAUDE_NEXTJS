@@ -24,66 +24,70 @@ export default function Hero() {
       <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Logo - Reduced size slightly */}
-      <div className="animate-float mb-4">
+      {/* Logo - Matches the smaller scale in the reference */}
+      <div className="animate-float mb-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
           alt="MakeMyStore"
-          width={80} 
-          height={80}
+          width={70} 
+          height={70}
           className="mx-auto rounded-2xl object-contain"
           style={{
             mixBlendMode: 'lighten',
-            filter: 'drop-shadow(0 0 24px rgba(122,92,255,0.55))',
+            filter: 'drop-shadow(0 0 20px rgba(122,92,255,0.4))',
           }}
         />
       </div>
 
-      {/* Headline - Changed from 6xl to 4xl/5xl and tightened max-width */}
+      {/* Headline - Matches the exact 2-line layout and blue color */}
       <h1
-        className="text-4xl sm:text-5xl font-extrabold leading-[1.1] max-w-2xl mx-auto"
-        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.03em' }}
+        className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
+        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
       >
         Build Your Ecommerce Website
         <br />
-        <span className="shimmer-text">One-Time Cost, No Monthly Fees</span>
+        <span className="text-[#40e0ff] block mt-1">One-Time Cost, No Monthly Fees</span>
       </h1>
 
-      {/* Subtext - Reduced text size and margin */}
+      {/* Subtext - Matches the grey, smaller font */}
       <p
-        className="mt-4 text-gray-400 text-base sm:text-lg max-w-lg mx-auto"
+        className="mt-5 text-gray-500 text-sm sm:text-base max-w-lg mx-auto"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges - Reduced text size and gap */}
+      {/* Benefit badges - Matches the small text and icon spacing */}
       <div
-        className="mt-6 flex flex-wrap justify-center items-center gap-1 text-sm sm:text-base text-white/80"
+        className="mt-5 flex flex-wrap justify-center items-center gap-1 text-[13px] sm:text-sm text-white/70"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         <span>🚀 Live in 3–10 days</span>
-        <span className="text-white/30 mx-1">|</span>
+        <span className="text-white/20 mx-1">|</span>
         <span>💳 Stripe &amp; PayPal Ready</span>
-        <span className="text-white/30 mx-1">|</span>
+        <span className="text-white/20 mx-1">|</span>
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Typing line - Reduced font size */}
+      {/* Typing line - Matches the bright blue center text */}
       <p
-        className="mt-6 text-base sm:text-lg font-bold min-h-[28px]"
+        className="mt-8 text-sm sm:text-[17px] font-bold min-h-[26px]"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
       >
         {typed}
-        <span className="animate-pulse">|</span>
+        <span className="animate-pulse ml-0.5">|</span>
       </p>
 
-      {/* CTA - Adjusted button padding and text */}
-      <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+      {/* CTA - Primary button focused on 'Get Your Store' */}
+      <div className="mt-8 flex justify-center">
         <a
           href="#pricing"
-          className="btn-primary text-sm sm:text-base px-6 py-3"
+          className="btn-primary text-sm px-8 py-3.5 rounded-lg font-bold"
+          style={{
+            background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
+            boxShadow: '0 4px 15px rgba(0,212,255,0.3)'
+          }}
           onClick={(e) => {
             e.preventDefault()
             document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
@@ -91,46 +95,33 @@ export default function Hero() {
         >
           Get Your Store →
         </a>
-        <a
-          href="#templates"
-          className="px-6 py-3 rounded-xl border border-white/15 text-white/80 hover:border-[#00d4ff]/40 hover:text-[#00d4ff] transition-all duration-200 text-sm sm:text-base font-semibold"
-          onClick={(e) => {
-            e.preventDefault()
-            document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })
-          }}
-        >
-          See Templates
-        </a>
       </div>
 
-      {/* YouTube lazy embed - Adjusted top margin */}
-      <div className="mt-12 w-full max-w-2xl mx-auto">
+      {/* Video Container - Matches the thinner border and alignment */}
+      <div className="mt-12 w-full max-w-[700px] mx-auto">
         <div
-          className="relative rounded-2xl overflow-hidden bg-black"
+          className="relative rounded-xl overflow-hidden bg-black"
           style={{
             aspectRatio: '16/9',
-            border: '2px solid rgba(0,212,255,0.35)',
-            boxShadow: '0 0 40px rgba(0,212,255,0.15)',
+            border: '1px solid rgba(0,212,255,0.2)',
+            boxShadow: '0 0 30px rgba(0,212,255,0.1)',
           }}
         >
           {!videoLoaded ? (
             <button
               onClick={() => setVideoLoaded(true)}
-              className="w-full h-full absolute inset-0 group"
+              className="w-full h-full absolute inset-0"
               aria-label="Play video"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://i.ytimg.com/vi/D7jsdZtfeu8/hqdefault.jpg"
                 alt="MakeMyStore demo video"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover opacity-80"
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center transition-transform group-hover:scale-110"
-                  style={{ background: 'rgba(255,0,0,0.9)', boxShadow: '0 0 30px rgba(255,0,0,0.5)' }}
-                >
-                  <span className="text-white text-3xl ml-1">▶</span>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                   <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1" />
                 </div>
               </div>
             </button>
