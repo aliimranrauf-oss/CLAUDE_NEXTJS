@@ -40,15 +40,10 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline — compact font matching RIGHT screenshot */}
+      {/* Headline */}
       <h1
-        className="font-extrabold leading-tight"
-        style={{
-          fontFamily: 'Syne, sans-serif',
-          letterSpacing: '-0.02em',
-          fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
-          maxWidth: '600px',
-        }}
+        className="text-5xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
+        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
       >
         Build Your Ecommerce Website
         <br />
@@ -56,26 +51,29 @@ export default function Hero() {
       </h1>
 
       {/* Subtext */}
-      <p className="mt-4 text-gray-400 text-base max-w-lg">
+      <p
+        className="mt-5 text-gray-400 text-lg max-w-xl"
+        style={{ fontFamily: 'DM Sans, sans-serif' }}
+      >
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges */}
-      <div className="mt-5 flex flex-wrap justify-center gap-3 text-sm">
-        {['🚀 Live in 3–10 days', '💳 Stripe & PayPal Ready', '🔒 No platform lock-in'].map((b) => (
-          <span
-            key={b}
-            className="glass px-4 py-2 rounded-full text-white/80 border border-[#00d4ff]/15 text-sm"
-          >
-            {b}
-          </span>
-        ))}
+      {/* Benefit badges — inline with separators, matching screenshot */}
+      <div
+        className="mt-5 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
+        style={{ fontFamily: 'DM Sans, sans-serif' }}
+      >
+        <span>🚀 Live in 3–10 days</span>
+        <span className="text-white/30 mx-1">|</span>
+        <span>💳 Stripe &amp; PayPal Ready</span>
+        <span className="text-white/30 mx-1">|</span>
+        <span>🔒 No platform lock-in</span>
       </div>
 
       {/* Typing line */}
       <p
-        className="mt-6 font-bold min-h-[26px]"
-        style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif', fontSize: '1rem' }}
+        className="mt-6 text-lg font-bold min-h-[28px]"
+        style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
       >
         {typed}
         <span className="animate-pulse">|</span>
