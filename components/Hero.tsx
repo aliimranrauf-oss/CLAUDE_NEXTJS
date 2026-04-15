@@ -40,10 +40,16 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline */}
+      {/* Headline — MASSIVE like the screenshot using clamp so Tailwind cant limit it */}
       <h1
-        className="text-5xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
-        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+        style={{
+          fontFamily: 'Syne, sans-serif',
+          fontWeight: 800,
+          fontSize: 'clamp(3.5rem, 12vw, 9rem)',
+          lineHeight: 1.05,
+          letterSpacing: '-0.03em',
+          maxWidth: '95vw',
+        }}
       >
         Build Your Ecommerce Website
         <br />
@@ -52,35 +58,39 @@ export default function Hero() {
 
       {/* Subtext */}
       <p
-        className="mt-5 text-gray-400 text-lg max-w-xl"
-        style={{ fontFamily: 'DM Sans, sans-serif' }}
+        className="mt-6 text-gray-400 max-w-xl"
+        style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}
       >
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges — inline with separators, matching screenshot */}
+      {/* Benefit badges — inline with separators like screenshot */}
       <div
-        className="mt-5 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
-        style={{ fontFamily: 'DM Sans, sans-serif' }}
+        className="mt-4 flex flex-wrap justify-center items-center gap-1 text-white/80"
+        style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)' }}
       >
         <span>🚀 Live in 3–10 days</span>
-        <span className="text-white/30 mx-1">|</span>
+        <span className="text-white/30 mx-2">|</span>
         <span>💳 Stripe &amp; PayPal Ready</span>
-        <span className="text-white/30 mx-1">|</span>
+        <span className="text-white/30 mx-2">|</span>
         <span>🔒 No platform lock-in</span>
       </div>
 
       {/* Typing line */}
       <p
-        className="mt-6 text-lg font-bold min-h-[28px]"
-        style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
+        className="mt-6 font-bold min-h-[28px]"
+        style={{
+          color: '#00d4ff',
+          fontFamily: 'Syne, sans-serif',
+          fontSize: 'clamp(0.95rem, 1.8vw, 1.2rem)',
+        }}
       >
         {typed}
         <span className="animate-pulse">|</span>
       </p>
 
       {/* CTA */}
-      <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="#pricing"
           className="btn-primary text-base"
