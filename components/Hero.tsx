@@ -19,19 +19,19 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 overflow-hidden">
+    <section className="relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
       {/* Background glow orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Logo */}
-      <div className="animate-float mb-8">
+      <div className="animate-float mb-6">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
           alt="MakeMyStore"
-          width={110}
-          height={110}
+          width={100}
+          height={100}
           className="mx-auto rounded-2xl object-contain"
           style={{
             mixBlendMode: 'lighten',
@@ -40,10 +40,10 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline */}
+      {/* Headline — compact, matching RIGHT screenshot */}
       <h1
-        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight max-w-3xl"
-        style={{ fontFamily: 'Syne, sans-serif' }}
+        className="text-4xl sm:text-5xl font-extrabold leading-tight max-w-2xl"
+        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
       >
         Build Your Ecommerce Website
         <br />
@@ -51,16 +51,16 @@ export default function Hero() {
       </h1>
 
       {/* Subtext */}
-      <p className="mt-5 text-gray-400 text-lg max-w-xl">
-        Custom online store with Stripe &amp; PayPal, SEO optimized, and fast hosting — yours forever.
+      <p className="mt-4 text-gray-400 text-base max-w-lg">
+        Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
       {/* Benefit badges */}
-      <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
+      <div className="mt-5 flex flex-wrap justify-center gap-3 text-sm">
         {['🚀 Live in 3–10 days', '💳 Stripe & PayPal Ready', '🔒 No platform lock-in'].map((b) => (
           <span
             key={b}
-            className="glass px-4 py-2 rounded-full text-white/80 border border-[#00d4ff]/15"
+            className="glass px-4 py-2 rounded-full text-white/80 border border-[#00d4ff]/15 text-sm"
           >
             {b}
           </span>
@@ -69,7 +69,7 @@ export default function Hero() {
 
       {/* Typing line */}
       <p
-        className="mt-8 text-xl font-bold min-h-[30px]"
+        className="mt-6 text-base font-bold min-h-[26px]"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
       >
         {typed}
@@ -77,7 +77,7 @@ export default function Hero() {
       </p>
 
       {/* CTA */}
-      <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="#pricing"
           className="btn-primary text-base"
@@ -101,7 +101,7 @@ export default function Hero() {
       </div>
 
       {/* YouTube lazy embed */}
-      <div className="mt-16 w-full max-w-3xl mx-auto">
+      <div className="mt-14 w-full max-w-3xl mx-auto">
         <div
           className="relative rounded-2xl overflow-hidden bg-black"
           style={{
@@ -116,14 +116,12 @@ export default function Hero() {
               className="w-full h-full absolute inset-0 group"
               aria-label="Play video"
             >
-              {/* Thumbnail */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://i.ytimg.com/vi/D7jsdZtfeu8/hqdefault.jpg"
-                alt="MakeMyStore demo video thumbnail"
+                alt="MakeMyStore demo video"
                 className="w-full h-full object-cover"
               />
-              {/* Play button */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
                 <div
                   className="w-20 h-20 rounded-full flex items-center justify-center transition-transform group-hover:scale-110"
