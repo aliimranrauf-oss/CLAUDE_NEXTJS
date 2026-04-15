@@ -1,22 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
-const TYPING_TEXT = '✦ Built by Real Experts, Powered by AI — Fully Custom & SEO Optimized'
+import { useState } from 'react'
 
 export default function Hero() {
-  const [typed, setTyped] = useState('')
   const [videoLoaded, setVideoLoaded] = useState(false)
-
-  useEffect(() => {
-    let i = 0
-    const interval = setInterval(() => {
-      setTyped(TYPING_TEXT.slice(0, i + 1))
-      i++
-      if (i >= TYPING_TEXT.length) clearInterval(interval)
-    }, 40)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <section className="relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
@@ -40,7 +27,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline */}
+      {/* Headline - Exact match to screenshot */}
       <h1
         className="text-5xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
         style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
@@ -58,28 +45,27 @@ export default function Hero() {
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges — inline with separators, matching screenshot */}
+      {/* Benefit badges - Exact icons & layout from screenshot */}
       <div
         className="mt-5 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         <span>🚀 Live in 3–10 days</span>
         <span className="text-white/30 mx-1">|</span>
-        <span>💳 Stripe &amp; PayPal Ready</span>
+        <span>📦 Stripe &amp; PayPal Ready</span>
         <span className="text-white/30 mx-1">|</span>
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Typing line */}
+      {/* Built by line - Static (exact match to screenshot) */}
       <p
-        className="mt-6 text-lg font-bold min-h-[28px]"
+        className="mt-6 text-lg font-bold"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
       >
-        {typed}
-        <span className="animate-pulse">|</span>
+        ✦ Built by Real Experts, Powered by AI — Fully Custom &amp; SEO Optimized
       </p>
 
-      {/* CTA */}
+      {/* CTA Buttons */}
       <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="#pricing"
@@ -103,7 +89,7 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* YouTube lazy embed */}
+      {/* YouTube video (kept because it’s already in your design) */}
       <div className="mt-14 w-full max-w-3xl mx-auto">
         <div
           className="relative rounded-2xl overflow-hidden bg-black"
