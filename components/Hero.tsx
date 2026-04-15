@@ -19,19 +19,19 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
+    <section className="relative flex flex-col items-center justify-center text-center px-4 pt-20 pb-12 overflow-hidden">
       {/* Background glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Logo */}
-      <div className="animate-float mb-6">
+      {/* Logo - Reduced size slightly */}
+      <div className="animate-float mb-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
           alt="MakeMyStore"
-          width={100}
-          height={100}
+          width={80} 
+          height={80}
           className="mx-auto rounded-2xl object-contain"
           style={{
             mixBlendMode: 'lighten',
@@ -40,27 +40,27 @@ export default function Hero() {
         />
       </div>
 
-      {/* Headline */}
+      {/* Headline - Changed from 6xl to 4xl/5xl and tightened max-width */}
       <h1
-        className="text-5xl sm:text-6xl font-extrabold leading-tight max-w-3xl"
-        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+        className="text-4xl sm:text-5xl font-extrabold leading-[1.1] max-w-2xl mx-auto"
+        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.03em' }}
       >
         Build Your Ecommerce Website
         <br />
         <span className="shimmer-text">One-Time Cost, No Monthly Fees</span>
       </h1>
 
-      {/* Subtext */}
+      {/* Subtext - Reduced text size and margin */}
       <p
-        className="mt-5 text-gray-400 text-lg max-w-xl"
+        className="mt-4 text-gray-400 text-base sm:text-lg max-w-lg mx-auto"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         Custom online store with Stripe &amp; PayPal, SEO optimized, fast hosting
       </p>
 
-      {/* Benefit badges — inline with separators, matching screenshot */}
+      {/* Benefit badges - Reduced text size and gap */}
       <div
-        className="mt-5 flex flex-wrap justify-center items-center gap-1 text-base text-white/80"
+        className="mt-6 flex flex-wrap justify-center items-center gap-1 text-sm sm:text-base text-white/80"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
         <span>🚀 Live in 3–10 days</span>
@@ -70,20 +70,20 @@ export default function Hero() {
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Typing line */}
+      {/* Typing line - Reduced font size */}
       <p
-        className="mt-6 text-lg font-bold min-h-[28px]"
+        className="mt-6 text-base sm:text-lg font-bold min-h-[28px]"
         style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
       >
         {typed}
         <span className="animate-pulse">|</span>
       </p>
 
-      {/* CTA */}
-      <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center">
+      {/* CTA - Adjusted button padding and text */}
+      <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <a
           href="#pricing"
-          className="btn-primary text-base"
+          className="btn-primary text-sm sm:text-base px-6 py-3"
           onClick={(e) => {
             e.preventDefault()
             document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
@@ -93,7 +93,7 @@ export default function Hero() {
         </a>
         <a
           href="#templates"
-          className="px-7 py-3 rounded-xl border border-white/15 text-white/80 hover:border-[#00d4ff]/40 hover:text-[#00d4ff] transition-all duration-200 text-base font-semibold"
+          className="px-6 py-3 rounded-xl border border-white/15 text-white/80 hover:border-[#00d4ff]/40 hover:text-[#00d4ff] transition-all duration-200 text-sm sm:text-base font-semibold"
           onClick={(e) => {
             e.preventDefault()
             document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })
@@ -103,8 +103,8 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* YouTube lazy embed */}
-      <div className="mt-14 w-full max-w-3xl mx-auto">
+      {/* YouTube lazy embed - Adjusted top margin */}
+      <div className="mt-12 w-full max-w-2xl mx-auto">
         <div
           className="relative rounded-2xl overflow-hidden bg-black"
           style={{
@@ -127,10 +127,10 @@ export default function Hero() {
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
                 <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center transition-transform group-hover:scale-110"
+                  className="w-16 h-16 rounded-full flex items-center justify-center transition-transform group-hover:scale-110"
                   style={{ background: 'rgba(255,0,0,0.9)', boxShadow: '0 0 30px rgba(255,0,0,0.5)' }}
                 >
-                  <span className="text-white text-4xl ml-1">▶</span>
+                  <span className="text-white text-3xl ml-1">▶</span>
                 </div>
               </div>
             </button>
