@@ -34,11 +34,11 @@ export default function Templates() {
             Store Templates
           </span>
           <h2
-            className="text-4xl sm:text-5xl font-extrabold text-white"
-            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+            className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
+            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
           >
             Ready-Made Designs,{' '}
-            <span className="shimmer-text">Fully Customized</span> for You
+            <span className="text-[#40e0ff]">Fully Customized</span> for You
           </h2>
           <p className="mt-4 text-gray-400 max-w-xl mx-auto">
             Every template is a starting point — we tailor it completely to your brand, products, and goals.
