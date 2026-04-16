@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Check, Sparkles, ExternalLink, Zap, Shield, Clock } from 'lucide-react'
-import { supabase } from '@/supabaseClient'
+import { supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
