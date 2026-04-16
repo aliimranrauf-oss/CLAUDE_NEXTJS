@@ -1,33 +1,18 @@
 'use client'
 
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { useState } from 'react'
 
-// ─── Static metadata (Arabic SEO page) ────────────────────────────────────────
-// Note: Since this is now a 'use client' component, metadata must be moved to a
-// separate layout.tsx or a parent server component. Keep it here as reference.
-/*
-export const metadata: Metadata = {
-  title: 'بديل سلة وزد — متجر إلكتروني بدون رسوم شهرية | MakeMyStore',
-  description: '...',
-  alternates: {
-    canonical: 'https://www.makemystore.online/ar/badil-salla-zid',
-    languages: {
-      en: 'https://www.makemystore.online',
-      ar: 'https://www.makemystore.online/ar/badil-salla-zid',
-    },
-  },
-}
-*/
-
+// ─── All external links — same as homepage ────────────────────────────────────
 const LINKS = {
-  whatsapp: 'https://wa.me/923000000000?text=مرحبا، أريد متجر إلكتروني',
+  whatsapp: 'https://wa.me/923293943161?text=مرحبا، أريد متجر إلكتروني',
   fiverr: 'https://www.fiverr.com/s/kLB1m0k',
   email: 'mailto:info@makemystore.online',
+  pricing: '#pricing',
+  contact: '/contact',
 }
 
-// ─── Content ──────────────────────────────────────────────────────────────────
+// ─── Bilingual content ────────────────────────────────────────────────────────
 const content = {
   ar: {
     dir: 'rtl' as const,
@@ -63,10 +48,7 @@ const content = {
     comparison: {
       heading: 'مقارنة مباشرة',
       sub: 'سلة vs زد vs MakeMyStore',
-      col1: 'الميزة',
-      col2: 'سلة',
-      col3: 'زد',
-      col4: 'MakeMyStore ✨',
+      col1: 'الميزة', col2: 'سلة', col3: 'زد', col4: 'MakeMyStore ✨',
       rows: [
         { feature: 'الرسوم الشهرية', salla: '299 ريال/شهر', zid: '199 ريال/شهر', us: '✅ صفر' },
         { feature: 'تخصيص التصميم', salla: '❌ محدود', zid: '❌ محدود', us: '✅ كامل' },
@@ -81,29 +63,22 @@ const content = {
       sub: 'لا مفاجآت، لا اشتراكات، لا عمولات',
       plans: [
         {
-          name: 'البداية',
-          price: '$99',
+          name: 'البداية', price: '$99',
           desc: 'حتى 50 منتج · تصميم مخصص · SEO أساسي',
           features: ['✔ تصميم مخصص', '✔ لوحة تحكم سهلة', '✔ استضافة مجانية', '✔ دعم المدفوعات'],
-          cta: 'ابدأ الآن',
-          highlight: false,
+          cta: 'ابدأ الآن', highlight: false,
         },
         {
-          name: 'النمو',
-          price: '$199',
+          name: 'النمو', price: '$199',
           desc: 'منتجات غير محدودة · SEO متقدم · بلوج',
           features: ['✔ كل ميزات البداية', '✔ منتجات غير محدودة', '✔ SEO متقدم', '✔ بلوج + محتوى'],
-          cta: 'اطلب الآن',
-          highlight: true,
-          badge: 'الأكثر طلباً',
+          cta: 'اطلب الآن', highlight: true, badge: 'الأكثر طلباً',
         },
         {
-          name: 'الاحترافي',
-          price: '$499',
+          name: 'الاحترافي', price: '$499',
           desc: 'متجر متكامل · تكاملات متقدمة · أولوية دعم',
           features: ['✔ كل ميزات النمو', '✔ تكاملات API', '✔ لوحة تحليلات', '✔ أولوية في الدعم'],
-          cta: 'ابدأ الآن',
-          highlight: false,
+          cta: 'ابدأ الآن', highlight: false,
         },
       ],
     },
@@ -119,9 +94,7 @@ const content = {
     cta: {
       heading: 'جاهز تبدأ متجرك بدون رسوم شهرية؟',
       sub: 'انضم لعشرات التجار الذين تركوا سلة وزد وبنوا متاجرهم المستقلة معنا',
-      whatsapp: '💬 واتساب',
-      fiverr: 'Fiverr',
-      email: '📧 إيميل',
+      btn1: '💬 واتساب', btn2: 'اطلب الآن', btn3: 'Fiverr',
     },
   },
 
@@ -150,7 +123,7 @@ const content = {
     },
     features: [
       { icon: '🚫', title: 'No Monthly Fees', desc: 'Pay once and own your store forever. No subscriptions, no surprises.' },
-      { icon: '🎨', title: '100% Custom Design', desc: 'Not a template — your store is built from scratch to match your brand identity.' },
+      { icon: '🎨', title: '100% Custom Design', desc: 'Not a template — your store is built from scratch to match your brand.' },
       { icon: '⚡', title: 'Blazing Fast', desc: 'Built with Next.js and Vercel for the fastest possible shopping experience.' },
       { icon: '📈', title: 'Advanced SEO', desc: 'Strong Google visibility from day one with a professional SEO architecture.' },
       { icon: '💳', title: 'Stripe & PayPal', desc: 'Accept payments from anywhere in the world with ease.' },
@@ -159,10 +132,7 @@ const content = {
     comparison: {
       heading: 'Direct Comparison',
       sub: 'Salla vs Zid vs MakeMyStore',
-      col1: 'Feature',
-      col2: 'Salla',
-      col3: 'Zid',
-      col4: 'MakeMyStore ✨',
+      col1: 'Feature', col2: 'Salla', col3: 'Zid', col4: 'MakeMyStore ✨',
       rows: [
         { feature: 'Monthly Fees', salla: '299 SAR/mo', zid: '199 SAR/mo', us: '✅ Zero' },
         { feature: 'Design Customization', salla: '❌ Limited', zid: '❌ Limited', us: '✅ Full' },
@@ -177,29 +147,22 @@ const content = {
       sub: 'No surprises, no subscriptions, no commissions',
       plans: [
         {
-          name: 'Starter',
-          price: '$99',
+          name: 'Starter', price: '$99',
           desc: 'Up to 50 products · Custom design · Basic SEO',
           features: ['✔ Custom design', '✔ Easy dashboard', '✔ Free hosting', '✔ Payment support'],
-          cta: 'Get Started',
-          highlight: false,
+          cta: 'Get Started', highlight: false,
         },
         {
-          name: 'Growth',
-          price: '$199',
+          name: 'Growth', price: '$199',
           desc: 'Unlimited products · Advanced SEO · Blog',
           features: ['✔ All Starter features', '✔ Unlimited products', '✔ Advanced SEO', '✔ Blog + content'],
-          cta: 'Order Now',
-          highlight: true,
-          badge: 'Most Popular',
+          cta: 'Order Now', highlight: true, badge: 'Most Popular',
         },
         {
-          name: 'Professional',
-          price: '$499',
+          name: 'Professional', price: '$499',
           desc: 'Full store · Advanced integrations · Priority support',
           features: ['✔ All Growth features', '✔ API integrations', '✔ Analytics dashboard', '✔ Priority support'],
-          cta: 'Get Started',
-          highlight: false,
+          cta: 'Get Started', highlight: false,
         },
       ],
     },
@@ -215,9 +178,7 @@ const content = {
     cta: {
       heading: 'Ready to launch your store with zero monthly fees?',
       sub: 'Join dozens of merchants who left Salla & Zid and built their independent stores with us',
-      whatsapp: '💬 WhatsApp',
-      fiverr: 'Fiverr',
-      email: '📧 Email',
+      btn1: '💬 WhatsApp', btn2: 'Order Now', btn3: 'Fiverr',
     },
   },
 }
@@ -230,56 +191,86 @@ export default function Page() {
   return (
     <div dir={t.dir} lang={t.lang} className="bg-[#0b0f1a] text-white min-h-screen">
 
-      {/* Top bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4 bg-[#0b0f1a]/80 backdrop-blur border-b border-white/5">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="MakeMyStore" width={32} height={32} className="rounded-lg" style={{ mixBlendMode: 'lighten' }} />
-          <span className="font-bold text-lg text-[#00d4ff]">MakeMyStore.online</span>
-        </Link>
-
-        {/* ✅ Language toggle — same page, switches content */}
+      {/* ── Language toggle bar — sits below the shared Navbar from layout.tsx ── */}
+      <div className="flex justify-end items-center px-6 py-3 border-b border-white/5 bg-[#0b0f1a]/60 backdrop-blur pt-20">
         <button
           onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          className="text-sm px-4 py-2 rounded-lg border border-white/10 text-white/70 hover:text-white hover:border-[#00d4ff]/40 transition-all"
+          className="text-sm font-semibold px-4 py-2 rounded-lg border border-white/10 text-white/70 hover:text-white hover:border-[#00d4ff]/40 transition-all"
+          style={{ fontFamily: 'Syne, sans-serif' }}
         >
           {t.toggleLabel}
         </button>
       </div>
 
-      {/* HERO */}
-      <section className="text-center px-6 pt-36 pb-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-[#00d4ff]/5 via-transparent to-transparent pointer-events-none" />
-        <p className="text-[#00d4ff] text-sm font-bold tracking-widest uppercase mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
+      {/* ── HERO ──────────────────────────────────────────────────────────── */}
+      <section className="relative flex flex-col items-center justify-center text-center px-4 pt-16 pb-16 overflow-hidden">
+        {/* Glow orbs — identical to homepage Hero */}
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Badge */}
+        <p
+          className="text-[#00d4ff] text-sm font-bold tracking-widest uppercase mb-5"
+          style={{ fontFamily: 'Syne, sans-serif' }}
+        >
           {t.hero.badge}
         </p>
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6" style={{ fontFamily: 'Syne, sans-serif' }}>
+
+        {/* H1 — exact same size/style as homepage Hero */}
+        <h1
+          className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
+          style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
+        >
           {t.hero.h1Line1}
           <br />
-          <span className="text-[#00d4ff]">{t.hero.h1Line2}</span>
+          <span className="text-[#40e0ff] block mt-1">{t.hero.h1Line2}</span>
         </h1>
-        <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
+
+        {/* Subtitle */}
+        <p
+          className="mt-5 text-gray-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
+          style={{ fontFamily: 'DM Sans, sans-serif' }}
+        >
           {t.hero.subtitle}
         </p>
-        <div className="flex flex-wrap gap-4 justify-center">
+
+        {/* Benefit badges — same inline pipe style as homepage Hero */}
+        <div
+          className="mt-5 flex flex-wrap justify-center items-center gap-1 text-[13px] sm:text-sm text-white/70"
+          style={{ fontFamily: 'DM Sans, sans-serif' }}
+        >
+          {t.hero.badges.map((b, i) => (
+            <span key={i} className="flex items-center gap-1">
+              {i > 0 && <span className="text-white/20 mx-1">|</span>}
+              {b}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA buttons — btn-primary + outlined, matching homepage exactly */}
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           <a
             href={LINKS.whatsapp}
-            className="bg-[#00d4ff] text-black px-8 py-4 rounded-xl font-bold text-lg hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] transition-all"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm px-8 py-3.5 rounded-lg font-bold"
           >
             {t.hero.ctaPrimary}
           </a>
           <a
-            href="#pricing"
-            className="border border-white/20 px-8 py-4 rounded-xl font-bold text-lg hover:border-[#00d4ff]/50 transition-all"
+            href={LINKS.pricing}
+            className="text-sm px-8 py-3.5 rounded-lg font-bold border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all"
+            onClick={(e) => {
+              e.preventDefault()
+              document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
+            }}
           >
             {t.hero.ctaSecondary}
           </a>
         </div>
-        <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-          {t.hero.badges.map((b) => <span key={b}>{b}</span>)}
-        </div>
       </section>
 
-      {/* WHY US */}
+      {/* ── WHY US ────────────────────────────────────────────────────────── */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -298,7 +289,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* COMPARISON TABLE */}
+      {/* ── COMPARISON TABLE ──────────────────────────────────────────────── */}
       <section className="py-20 px-6 max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -330,8 +321,8 @@ export default function Page() {
         </div>
       </section>
 
-      {/* PRICING */}
-      <section id="pricing" className="py-20 px-6 text-center">
+      {/* ── PRICING ───────────────────────────────────────────────────────── */}
+      <section id="pricing" className="py-20 px-6">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>
             {t.pricing.heading}
@@ -343,9 +334,7 @@ export default function Page() {
             <div
               key={plan.name}
               className={`glass rounded-2xl p-8 relative transition-all ${
-                plan.highlight
-                  ? 'border-2 border-[#00d4ff]'
-                  : 'border border-white/10 hover:border-[#00d4ff]/20'
+                plan.highlight ? 'border-2 border-[#00d4ff]' : 'border border-white/10 hover:border-[#00d4ff]/20'
               }`}
             >
               {'badge' in plan && plan.badge && (
@@ -359,22 +348,23 @@ export default function Page() {
               <ul className={`text-gray-400 text-sm space-y-2 mb-8 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
                 {plan.features.map((f) => <li key={f}>{f}</li>)}
               </ul>
-              <a
-                href={LINKS.whatsapp}
-                className={`block py-3 rounded-xl font-bold transition-all ${
-                  plan.highlight
-                    ? 'bg-[#00d4ff] text-black hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]'
-                    : 'border border-white/20 hover:border-[#00d4ff]/50'
-                }`}
-              >
-                {plan.cta}
-              </a>
+
+              {/* btn-primary for highlighted plan, outlined for others — same as homepage pricing */}
+              {plan.highlight ? (
+                <a href={LINKS.contact} className="btn-primary block text-center text-sm py-3 rounded-xl">
+                  {plan.cta}
+                </a>
+              ) : (
+                <a href={LINKS.contact} className="block text-center text-sm py-3 rounded-xl border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all font-semibold">
+                  {plan.cta}
+                </a>
+              )}
             </div>
           ))}
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="py-20 px-6 max-w-3xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>{t.faq.heading}</h2>
@@ -389,21 +379,37 @@ export default function Page() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
       <section className="py-24 text-center px-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
           {t.cta.heading}
         </h2>
         <p className="text-gray-400 mb-8 max-w-xl mx-auto">{t.cta.sub}</p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <a href={LINKS.whatsapp} className="bg-[#00d4ff] text-black px-8 py-4 rounded-xl font-bold text-lg hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] transition-all">
-            {t.cta.whatsapp}
+          {/* Primary — WhatsApp */}
+          <a
+            href={LINKS.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm px-8 py-3.5 rounded-xl font-bold"
+          >
+            {t.cta.btn1}
           </a>
-          <a href={LINKS.fiverr} className="border border-white/20 px-8 py-4 rounded-xl font-bold text-lg hover:border-[#00d4ff]/50 transition-all">
-            {t.cta.fiverr}
+          {/* Outlined — Contact/Order (mirrors homepage "Order Now") */}
+          <a
+            href={LINKS.contact}
+            className="text-sm px-8 py-3.5 rounded-xl font-bold border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all"
+          >
+            {t.cta.btn2}
           </a>
-          <a href={LINKS.email} className="border border-white/20 px-8 py-4 rounded-xl font-bold text-lg hover:border-[#00d4ff]/50 transition-all">
-            {t.cta.email}
+          {/* Outlined — Fiverr */}
+          <a
+            href={LINKS.fiverr}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm px-8 py-3.5 rounded-xl font-bold border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all"
+          >
+            {t.cta.btn3}
           </a>
         </div>
       </section>
@@ -414,7 +420,6 @@ export default function Page() {
         انشاء متجر الكتروني احترافي بدفعة واحدة. بديل shopify عربي رخيص.
         Salla alternative, Zid alternative, custom ecommerce Saudi Arabia, no monthly fees online store.
       </div>
-
     </div>
   )
 }
