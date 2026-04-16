@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from 'react'
 import { supabase } from '@/lib/supabaseClient'
-import Link from 'next/link'
 
 // ── Icons ────────────────────────────────────────
 function IconMail() {
@@ -55,7 +54,6 @@ const inputCls =
 const selectCls =
   'w-full rounded-lg border border-cyan-400/15 bg-[#0d1220] px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40 focus:border-cyan-400/40 transition-all'
 
-// ── Label ────────────────────────────────────────
 function Label({ children }: { children: React.ReactNode }) {
   return (
     <label className="block text-xs font-semibold uppercase tracking-widest text-cyan-400/70 mb-1.5">
@@ -64,7 +62,6 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-// ── Main Page ────────────────────────────────────
 export default function ContactPage() {
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
@@ -104,15 +101,15 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-[#0b0f1a] text-white">
-      {/* ── Background glow ── */}
+      {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 pt-28">
 
-        {/* ── Header ── */}
+        {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400 mb-4">
             Let&apos;s Build Together
@@ -128,10 +125,10 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* ── Grid ── */}
+        {/* Grid */}
         <div className="grid lg:grid-cols-5 gap-8 items-start">
 
-          {/* ── Form ── */}
+          {/* Form */}
           <div className="lg:col-span-3 rounded-2xl border border-cyan-400/10 bg-white/[0.03] backdrop-blur-sm p-7">
             {sent ? (
               <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
@@ -237,7 +234,7 @@ export default function ContactPage() {
             )}
           </div>
 
-          {/* ── Sidebar ── */}
+          {/* Sidebar */}
           <div className="lg:col-span-2 flex flex-col gap-4">
 
             {/* Global badge */}
@@ -280,9 +277,9 @@ export default function ContactPage() {
               </div>
             </a>
 
-            {/* Fiverr */}
+            {/* Fiverr — updated link */}
             <a
-              href="https://www.fiverr.com/aliimranrauf"
+              href="https://www.fiverr.com/s/6YvgzVA"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4 rounded-2xl border border-green-400/10 bg-white/[0.03] hover:border-green-400/30 hover:bg-green-400/5 p-5 transition-all duration-200"
@@ -292,14 +289,14 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="font-semibold text-white group-hover:text-green-400 transition-colors text-sm">Order on Fiverr</p>
-                <p className="text-xs text-gray-400">fiverr.com/aliimranrauf</p>
+                <p className="text-xs text-gray-400">fiverr.com/s/6YvgzVA</p>
                 <p className="text-xs text-gray-500 mt-0.5">Secure escrow payment</p>
               </div>
             </a>
 
-            {/* Payoneer */}
+            {/* Payoneer — links to pricing page */}
             <a
-              href="https://payoneer.com"
+              href="https://claude-nextjs-sigma.vercel.app/pricing"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4 rounded-2xl border border-orange-400/10 bg-white/[0.03] hover:border-orange-400/30 hover:bg-orange-400/5 p-5 transition-all duration-200"
@@ -309,8 +306,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="font-semibold text-white group-hover:text-orange-400 transition-colors text-sm">Pay via Payoneer</p>
-                <p className="text-xs text-gray-400">Direct transfer accepted</p>
-                <p className="text-xs text-gray-500 mt-0.5">After reviewing your demo build</p>
+                <p className="text-xs text-gray-400">View pricing plans</p>
+                <p className="text-xs text-gray-500 mt-0.5">Payment after demo review</p>
               </div>
             </a>
 
