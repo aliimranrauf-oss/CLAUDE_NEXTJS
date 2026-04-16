@@ -116,13 +116,13 @@ export default function Page() {
           بدفعة واحدة فقط، مع ملكية كاملة وسرعة فائقة وتحسين SEO احترافي.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
-          
+          <a
             href={LINKS.whatsapp}
             className="bg-[#00d4ff] text-black px-8 py-4 rounded-xl font-bold text-lg hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] transition-all"
           >
             💬 تواصل عبر واتساب
           </a>
-          
+          <a
             href="#pricing"
             className="border border-white/20 px-8 py-4 rounded-xl font-bold text-lg hover:border-[#00d4ff]/50 transition-all"
           >
