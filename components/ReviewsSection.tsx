@@ -474,16 +474,17 @@ export default function ReviewsSection() {
           <h2
             style={{
               fontFamily: 'Syne, sans-serif',
-              fontSize: 'clamp(24px, 4vw, 36px)',
-              fontWeight: 800,
+              fontSize: 'clamp(36px, 5vw, 42px)',
+              fontWeight: 700,
               color: '#fff',
               margin: '0 auto',
-              maxWidth: '680px',
+              maxWidth: '700px',
               lineHeight: 1.2,
               letterSpacing: '-0.01em',
             }}
           >
-            Don&apos;t Just Take Our Word –{' '}
+            Don&apos;t Just Take Our Word –
+            <br />
             <span style={{ color: '#40e0ff' }}>See What 500+ Store Owners Say</span>
           </h2>
           <p
