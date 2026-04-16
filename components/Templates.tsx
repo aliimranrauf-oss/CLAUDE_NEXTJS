@@ -1,12 +1,25 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { supabase, type Template } from '@/lib/supabaseClient'
+
+// Preload a single image URL into browser cache
+function preloadImage(src: string): Promise<void> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve()
+    img.onerror = () => resolve() // resolve anyway so we never block
+    img.src = src
+  })
+}
 
 export default function Templates() {
   const [templates, setTemplates] = useState<Template[]>([])
   const [current, setCurrent] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [imgReady, setImgReady] = useState(false)
+  // Track which indexes are already in browser cache
+  const preloadedRef = useRef<Set<number>>(new Set())
 
   useEffect(() => {
     async function fetchTemplates() {
@@ -16,14 +29,41 @@ export default function Templates() {
         .order('is_primary', { ascending: false })
         .order('created_at', { ascending: false })
 
-      if (!error && data) setTemplates(data)
+      if (!error && data) {
+        setTemplates(data)
+
+        // Preload ALL template images immediately after data arrives.
+        // By the time the user clicks next/prev, images are already in browser cache → instant switch.
+        data.forEach((t, i) => {
+          const urls = [t.desktop_image, t.mobile_image].filter(Boolean) as string[]
+          Promise.all(urls.map(preloadImage)).then(() => {
+            preloadedRef.current.add(i)
+            if (i === 0) setImgReady(true) // first template ready
+          })
+        })
+      }
       setLoading(false)
     }
     fetchTemplates()
   }, [])
 
-  const prev = () => setCurrent((c) => (c === 0 ? templates.length - 1 : c - 1))
-  const next = () => setCurrent((c) => (c === templates.length - 1 ? 0 : c + 1))
+  const goTo = (index: number) => {
+    // If already preloaded, show instantly with no fade delay
+    setImgReady(preloadedRef.current.has(index))
+    setCurrent(index)
+
+    // Edge case: not preloaded yet — wait for it
+    if (!preloadedRef.current.has(index) && templates[index]) {
+      const urls = [templates[index].desktop_image, templates[index].mobile_image].filter(Boolean) as string[]
+      Promise.all(urls.map(preloadImage)).then(() => {
+        preloadedRef.current.add(index)
+        setImgReady(true)
+      })
+    }
+  }
+
+  const prev = () => goTo(current === 0 ? templates.length - 1 : current - 1)
+  const next = () => goTo(current === templates.length - 1 ? 0 : current + 1)
 
   return (
     <section id="templates" className="py-24 px-4">
@@ -95,12 +135,27 @@ export default function Templates() {
               {/* Desktop image */}
               <div className="relative w-full aspect-video bg-[#0b0f1a] overflow-hidden">
                 {templates[current].desktop_image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={templates[current].desktop_image}
-                    alt={`${templates[current].name} desktop preview`}
-                    className="w-full h-full object-cover"
-                  />
+                  <>
+                    {/* Skeleton pulse shown while image loads (only on first visit to this slide) */}
+                    {!imgReady && (
+                      <div className="absolute inset-0 bg-white/5 animate-pulse z-10" />
+                    )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      key={templates[current].desktop_image}
+                      src={templates[current].desktop_image}
+                      alt={`${templates[current].name} desktop preview`}
+                      className="w-full h-full object-cover"
+                      // @ts-ignore — fetchpriority is valid HTML but not yet in TS types
+                      fetchpriority="high"
+                      decoding="async"
+                      onLoad={() => setImgReady(true)}
+                      style={{
+                        opacity: imgReady ? 1 : 0,
+                        transition: 'opacity 0.15s ease',
+                      }}
+                    />
+                  </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-600">
                     No preview available
@@ -112,15 +167,17 @@ export default function Templates() {
                   <div className="absolute bottom-3 right-3 w-16 rounded-xl overflow-hidden border-2 border-[#00d4ff]/40 shadow-xl">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
+                      key={templates[current].mobile_image}
                       src={templates[current].mobile_image}
                       alt={`${templates[current].name} mobile preview`}
                       className="w-full object-cover"
+                      decoding="async"
                     />
                   </div>
                 )}
               </div>
 
-              {/* Card body */}
+              {/* Card body — always renders instantly, independent of image load */}
               <div className="p-6">
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <h3
@@ -166,7 +223,7 @@ export default function Templates() {
                 {templates.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => setCurrent(i)}
+                    onClick={() => goTo(i)}
                     className="rounded-full transition-all duration-200"
                     style={{
                       width: i === current ? '24px' : '8px',
@@ -195,7 +252,7 @@ export default function Templates() {
         )}
 
         <div className="mt-12 text-center">
-          <p className="text-gray-400 mb-4">Don't see what you need? We build fully custom too.</p>
+          <p className="text-gray-400 mb-4">Don&apos;t see what you need? We build fully custom too.</p>
           <a
             href="https://www.fiverr.com/s/kLB1m0k"
             target="_blank"
