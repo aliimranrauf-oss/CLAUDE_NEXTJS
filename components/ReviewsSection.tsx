@@ -61,7 +61,7 @@ const PLACEHOLDER_REVIEWS: Review[] = [
     id: 4,
     name: 'Carlos R.',
     rating: 5,
-    message: 'One-time payment model is genius. My store has been live for 6 months and I've paid nothing extra. Pure profit.',
+    message: "One-time payment model is genius. My store has been live for 6 months and I've paid nothing extra. Pure profit.",
     date: new Date().toISOString(),
     avatar_url: null,
     order_number: 'MMS-0756',
