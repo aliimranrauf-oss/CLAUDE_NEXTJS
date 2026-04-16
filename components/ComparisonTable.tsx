@@ -57,11 +57,11 @@ export default function ComparisonTable() {
             Why MakeMyStore?
           </span>
           <h2
-            className="text-4xl sm:text-5xl font-extrabold text-white"
-            style={{ fontFamily: 'Syne, sans-serif' }}
+            className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
+            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
           >
             How We Stack Up Against{' '}
-            <span className="text-gradient">the Rest</span>
+            <span className="text-[#40e0ff]">the Rest</span>
           </h2>
           <p className="mt-4 text-gray-400 max-w-xl mx-auto">
             Stop paying monthly. Own your store completely and keep every dollar you earn.
