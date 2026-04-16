@@ -3,19 +3,11 @@ import { useState, useEffect } from 'react'
 
 const TYPING_TEXT = '✦ Built by Real Experts, Powered by AI — Fully Custom & SEO Optimized'
 
-// ─── Tech logos used to build your store ─────────────────────────────────────
-// Place these files in /public/logos/ in your Next.js project:
-//   supabase.svg  vercel.png  github.webp  analytics.png  cloudflare.png
-const TECH_LOGOS = [
-  { src: '/logos/supabase.svg',    alt: 'Supabase',          width: 110 },
-  { src: '/logos/vercel.png',      alt: 'Vercel',            width: 90  },
-  { src: '/logos/github.webp',     alt: 'GitHub',            width: 100 },
-  { src: '/logos/analytics.png',   alt: 'Google Analytics',  width: 130 },
-  { src: '/logos/cloudflare.png',  alt: 'Cloudflare',        width: 120 },
-]
+// ─── Tech stack text ticker ───────────────────────────────────────────────────
+const TECH_STACK_TEXT = 'Supabase • GitHub • Vercel • Google Analytics • Next.js • Tailwind CSS'
 
 // Duplicate for seamless infinite scroll
-const MARQUEE_ITEMS = [...TECH_LOGOS, ...TECH_LOGOS, ...TECH_LOGOS]
+const TICKER_ITEMS = [TECH_STACK_TEXT, TECH_STACK_TEXT, TECH_STACK_TEXT]
 
 export default function Hero() {
   const [typed, setTyped] = useState('')
@@ -109,47 +101,39 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* ── TECH LOGOS MARQUEE ─────────────────────────────────────────────── */}
+      {/* ── TECH STACK TEXT TICKER ─────────────────────────────────────────── */}
       <div className="mt-12 w-full max-w-3xl mx-auto">
         {/* Label */}
         <p
-          className="text-[11px] uppercase tracking-[0.2em] text-white/25 mb-5 font-medium"
+          className="text-[11px] uppercase tracking-[0.2em] text-white/25 mb-4 font-medium"
           style={{ fontFamily: 'DM Sans, sans-serif' }}
         >
-          Built with industry-leading tech
+          Tech Stack Used in Our Projects
         </p>
 
-        {/* Marquee container */}
+        {/* Ticker container */}
         <div className="relative overflow-hidden">
           {/* Left fade */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10"
-            style={{ background: 'linear-gradient(to right, #0b0f1a, transparent)' }} />
+          <div
+            className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10"
+            style={{ background: 'linear-gradient(to right, #0b0f1a, transparent)' }}
+          />
           {/* Right fade */}
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
-            style={{ background: 'linear-gradient(to left, #0b0f1a, transparent)' }} />
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
+            style={{ background: 'linear-gradient(to left, #0b0f1a, transparent)' }}
+          />
 
           {/* Scrolling track */}
-          <div className="flex items-center gap-10 marquee-track">
-            {MARQUEE_ITEMS.map((logo, i) => (
-              <div
+          <div className="flex items-center marquee-track whitespace-nowrap">
+            {TICKER_ITEMS.map((text, i) => (
+              <span
                 key={i}
-                className="flex-shrink-0 flex items-center justify-center opacity-40 hover:opacity-80 transition-opacity duration-300"
-                style={{ height: 32 }}
+                className="flex-shrink-0 text-[13px] text-white/30 px-8"
+                style={{ fontFamily: 'DM Sans, sans-serif', letterSpacing: '0.04em' }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={32}
-                  className="object-contain"
-                  style={{
-                    filter: 'brightness(0) invert(1)',
-                    maxHeight: 28,
-                    width: 'auto',
-                  }}
-                />
-              </div>
+                {text}
+              </span>
             ))}
           </div>
         </div>
