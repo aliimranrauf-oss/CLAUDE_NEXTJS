@@ -12,6 +12,7 @@ const navLinks = [
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
+  { label: 'بديل سلة وزد', href: '/ar/badil-salla-zid' },
 ]
 
 export default function Navbar() {
