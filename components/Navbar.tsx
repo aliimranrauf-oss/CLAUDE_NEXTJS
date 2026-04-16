@@ -12,7 +12,6 @@ const navLinks = [
   { label: 'Blog',       href: '/blog' },
   { label: 'About',      href: '/about' },
   { label: 'Contact',    href: '/contact' },
-  { label: 'عربي 🇸🇦',   href: '/ar/badil-salla-zid' },
 ]
 
 export default function Navbar() {
@@ -36,7 +35,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2 group shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
@@ -68,6 +67,19 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
+
+          {/* Arabic page — separate styled pill */}
+          <Link
+            href="/ar/badil-salla-zid"
+            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border
+              ${pathname === '/ar/badil-salla-zid'
+                ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10'
+                : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'
+              }`}
+          >
+            عربي 🇸🇦
+          </Link>
+
           <a href={orderHref} className="btn-primary ml-2 text-sm">
             Order Now
           </a>
@@ -97,7 +109,17 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <a
+
+            {/* Arabic link in mobile menu */}
+            <Link
+              href="/ar/badil-salla-zid"
+              onClick={() => setOpen(false)}
+              className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
+            >
+              عربي 🇸🇦
+            </Link>
+
+            
               href={orderHref}
               onClick={() => setOpen(false)}
               className="btn-primary text-center text-sm mt-2"
