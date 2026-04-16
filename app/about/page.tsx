@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { CheckCircle, XCircle, AlertTriangle, Code2, ShieldCheck, Zap, Clock, ArrowRight } from 'lucide-react'
-import Navbar from '@/components/Navbar' // Adjust path if your Navbar is elsewhere
-import Footer from '@/components/Footer'   // Adjust path if your Footer is elsewhere
+import Navbar from '@/components/Navbar' // Adjust path if needed
+import Footer from '@/components/Footer'   // Adjust path if needed
 
 export default function AboutPage() {
   const comparisonData = [
@@ -104,78 +104,54 @@ export default function AboutPage() {
     },
   ]
 
-  const techStack = [
-    { name: 'Next.js 15', desc: 'App Router + Server Components' },
-    { name: 'Tailwind CSS', desc: 'Pixel-perfect custom design' },
-    { name: 'Supabase', desc: 'PostgreSQL + Auth + Storage' },
-    { name: 'Vercel', desc: 'Free global hosting + Edge' },
-    { name: 'Cloudflare', desc: 'DNS + DDoS protection' },
-    { name: 'Stripe + PayPal', desc: 'Instant checkout setup' },
-    { name: 'GitHub', desc: 'Full source code delivery' },
-  ]
-
   return (
     <>
       <Navbar />
 
       <main className="pt-16 bg-[#0b0f1a]">
-        {/* HERO */}
-        <section className="relative py-24 overflow-hidden">
+        {/* HERO - Zoomed out & matches your Hero.tsx style */}
+        <section className="relative py-20 md:py-24 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col items-center text-center">
-              {/* Small badge like in screenshot */}
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-3xl px-6 py-2 text-sm font-medium mb-6">
+              {/* Small badge */}
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-3xl px-6 py-2 text-sm font-medium mb-8">
                 <span className="text-[#00d4ff]">✦</span>
                 <span className="text-white">MAKE MY STORE</span>
               </div>
 
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight max-w-3xl mb-6">
+              <h1 className="text-4xl sm:text-[42px] md:text-5xl font-bold leading-[1.15] max-w-3xl mx-auto mb-6" style={{ fontFamily: 'Syne, sans-serif' }}>
                 We Don&apos;t Just Build Stores.<br />
                 <span className="text-gradient">We Build Scalable E-commerce Systems.</span>
               </h1>
 
-              <p className="max-w-2xl text-xl text-gray-300 mb-10">
+              <p className="max-w-2xl text-base sm:text-lg text-gray-300 mb-10" style={{ fontFamily: 'DM Sans, sans-serif' }}>
                 Custom-coded from scratch with Next.js, Vercel &amp; Supabase.<br />
-                One-time payment. Full ownership. Zero monthly fees. No lock-in.
+                One-time payment. Full ownership. Zero monthly fees.
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link
                   href="/contact"
-                  className="btn-primary text-lg px-10 py-6 flex items-center gap-3 group"
+                  className="btn-primary text-base px-10 py-6 flex items-center gap-3 group"
                 >
                   Get Your Custom Store
                   <ArrowRight className="group-active:translate-x-1 transition" />
                 </Link>
                 <a
                   href="#why-us"
-                  className="glass text-white text-lg px-10 py-6 flex items-center gap-3 hover:bg-white/10 transition"
+                  className="glass text-white text-base px-10 py-6 flex items-center gap-3 hover:bg-white/10 transition"
                 >
-                  See Why We&apos;re Different
+                  Why We&apos;re Different
                 </a>
               </div>
 
-              <p className="text-sm text-gray-400 mt-8 flex items-center gap-6">
+              <p className="text-sm text-gray-400 mt-10 flex items-center gap-6">
                 <span className="flex items-center gap-1">
                   <span className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse" />
-                  100% custom • From Shopify, Wix, WordPress &amp; more
+                  100% custom • Migration from Shopify, Wix &amp; more
                 </span>
-                <span className="h-3 w-px bg-white/20" />
-                Migration in 3–10 business days
               </p>
             </div>
-          </div>
-
-          {/* Subtle floating logo in background */}
-          <div className="absolute bottom-12 right-12 opacity-10 hidden xl:block animate-float">
-            <img
-              src="/logo.png"
-              alt="MakeMyStore"
-              width={180}
-              height={180}
-              className="rounded-3xl"
-              style={{ mixBlendMode: 'lighten' }}
-            />
           </div>
         </section>
 
@@ -183,32 +159,32 @@ export default function AboutPage() {
         <section id="why-us" className="py-20 border-t border-white/10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-3">Why We Are Different</h2>
-              <p className="text-gray-400 max-w-md mx-auto">
-                Most platforms lock you in with monthly fees and limited control.<br />
+              <h2 className="text-4xl font-bold mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>Why We Are Different</h2>
+              <p className="text-gray-400 max-w-md mx-auto text-base" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                Most platforms lock you in with monthly fees.<br />
                 We give you a real business asset.
               </p>
             </div>
 
             <div className="glass rounded-3xl p-2 shadow-2xl overflow-hidden">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/10">
-                    <th className="text-left py-6 px-8 font-semibold text-gray-400">Feature</th>
-                    <th className="text-center py-6 px-4 font-semibold text-[#ff3b5f]">Shopify</th>
-                    <th className="text-center py-6 px-4 font-semibold text-[#00b4ff]">Wix</th>
-                    <th className="text-center py-6 px-4 font-semibold text-[#21759b]">WordPress</th>
-                    <th className="text-center py-6 px-4 font-semibold text-gradient">MakeMyStore</th>
+                    <th className="text-left py-7 px-8 font-semibold text-gray-400">Feature</th>
+                    <th className="text-center py-7 px-4 font-semibold text-[#ff3b5f]">Shopify</th>
+                    <th className="text-center py-7 px-4 font-semibold text-[#00b4ff]">Wix</th>
+                    <th className="text-center py-7 px-4 font-semibold text-[#21759b]">WordPress</th>
+                    <th className="text-center py-7 px-4 font-semibold text-gradient">MakeMyStore</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10">
                   {comparisonData.map((row, i) => (
                     <tr key={i} className="hover:bg-white/5 transition-colors">
-                      <td className="py-6 px-8 font-medium">{row.feature}</td>
-                      <td className="text-center py-6 px-4 text-gray-400">{row.shopify}</td>
-                      <td className="text-center py-6 px-4 text-gray-400">{row.wix}</td>
-                      <td className="text-center py-6 px-4 text-gray-400">{row.wordpress}</td>
-                      <td className={`text-center py-6 px-4 font-semibold ${row.usColor}`}>
+                      <td className="py-7 px-8 font-medium">{row.feature}</td>
+                      <td className="text-center py-7 px-4 text-gray-400">{row.shopify}</td>
+                      <td className="text-center py-7 px-4 text-gray-400">{row.wix}</td>
+                      <td className="text-center py-7 px-4 text-gray-400">{row.wordpress}</td>
+                      <td className={`text-center py-7 px-4 font-semibold ${row.usColor}`}>
                         {row.us}
                       </td>
                     </tr>
@@ -217,7 +193,7 @@ export default function AboutPage() {
               </table>
             </div>
 
-            <p className="text-center text-xs text-gray-500 mt-6">
+            <p className="text-center text-xs text-gray-500 mt-8">
               One-time payment • Full source code delivered • Ready to scale forever
             </p>
           </div>
@@ -227,8 +203,8 @@ export default function AboutPage() {
         <section className="py-20 bg-[#111827]">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-3">Built Different — By Design</h2>
-              <p className="text-gray-400">Four principles that separate us from every other builder</p>
+              <h2 className="text-4xl font-bold mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>Built Different — By Design</h2>
+              <p className="text-gray-400 text-base" style={{ fontFamily: 'DM Sans, sans-serif' }}>Four principles that separate us from every other builder</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -242,8 +218,8 @@ export default function AboutPage() {
                     <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00d4ff] to-[#7a5cff] flex items-center justify-center mb-6 group-hover:scale-110 transition">
                       <Icon className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-2xl font-semibold mb-3">{item.title}</h3>
-                    <p className="text-gray-400 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-2xl font-semibold mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>{item.title}</h3>
+                    <p className="text-gray-400 leading-relaxed text-base" style={{ fontFamily: 'DM Sans, sans-serif' }}>{item.desc}</p>
                   </div>
                 )
               })}
@@ -251,24 +227,24 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* MIGRATION SECTION - NEW & ENHANCED */}
+        {/* MIGRATION SECTION */}
         <section className="py-20 border-t border-white/10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-5">
                 <div className="sticky top-8">
                   <span className="px-4 py-2 text-xs font-bold bg-[#00d4ff]/10 text-[#00d4ff] rounded-2xl">NEW</span>
-                  <h2 className="text-4xl font-bold mt-4 mb-6 leading-tight">
+                  <h2 className="text-4xl font-bold mt-4 mb-6 leading-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
                     Already have a store?<br />
                     <span className="text-gradient">We migrate it in days.</span>
                   </h2>
-                  <p className="text-xl text-gray-300 mb-8">
+                  <p className="text-base text-gray-300 mb-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
                     From Shopify, Wix, WooCommerce, Squarespace, or any other platform.<br />
                     We export your products, customers, orders, and SEO settings — then rebuild it better.
                   </p>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-3 text-[#00d4ff] hover:text-white transition font-semibold"
+                    className="inline-flex items-center gap-3 text-[#00d4ff] hover:text-white transition font-semibold text-base"
                   >
                     Start migration today <ArrowRight />
                   </Link>
@@ -276,20 +252,20 @@ export default function AboutPage() {
               </div>
 
               <div className="lg:col-span-7">
-                <div className="glass rounded-3xl p-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <div className="text-center">
+                <div className="glass rounded-3xl p-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                  <div>
                     <div className="text-6xl font-bold text-gradient mb-2">1</div>
-                    <h4 className="font-semibold mb-1">Export your data</h4>
+                    <h4 className="font-semibold mb-1 text-base">Export your data</h4>
                     <p className="text-sm text-gray-400">We handle everything</p>
                   </div>
-                  <div className="text-center">
+                  <div>
                     <div className="text-6xl font-bold text-gradient mb-2">2</div>
-                    <h4 className="font-semibold mb-1">Rebuild on Next.js</h4>
+                    <h4 className="font-semibold mb-1 text-base">Rebuild on Next.js</h4>
                     <p className="text-sm text-gray-400">Lightning-fast &amp; custom</p>
                   </div>
-                  <div className="text-center">
+                  <div>
                     <div className="text-6xl font-bold text-gradient mb-2">3</div>
-                    <h4 className="font-semibold mb-1">Launch &amp; celebrate</h4>
+                    <h4 className="font-semibold mb-1 text-base">Launch &amp; celebrate</h4>
                     <p className="text-sm text-gray-400">Zero downtime</p>
                   </div>
                 </div>
@@ -298,37 +274,13 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* TECHNOLOGY THAT GIVES YOU AN EDGE */}
-        <section className="py-20 border-t border-white/10 bg-[#111827]">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-3">Technology That Gives You an Edge</h2>
-              <p className="text-gray-400">Modern stack. Future-proof. Zero monthly hosting bills.</p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {techStack.map((tech, i) => (
-                <div
-                  key={i}
-                  className="glass rounded-3xl px-8 py-6 text-center hover:border-[#00d4ff]/30 transition-all"
-                >
-                  <div className="font-semibold text-lg mb-1">{tech.name}</div>
-                  <div className="text-xs text-gray-400 tracking-widest">{tech.desc}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12 text-sm text-gray-500">
-              Hosted on Vercel • Backed by Supabase • Deployed with GitHub • Protected by Cloudflare
-            </div>
-          </div>
-        </section>
-
-        {/* FINAL CTA */}
+        {/* FINAL CTA - Spacious & clean */}
         <section className="py-20 bg-gradient-to-b from-transparent via-[#00d4ff]/5 to-transparent">
           <div className="max-w-4xl mx-auto text-center px-6">
-            <h2 className="text-5xl font-bold mb-6">Ready for a store that actually belongs to you?</h2>
-            <p className="text-2xl text-gray-400 mb-10">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+              Ready for a store that actually belongs to you?
+            </h2>
+            <p className="text-xl text-gray-400 mb-10" style={{ fontFamily: 'DM Sans, sans-serif' }}>
               One conversation. One price. Lifetime ownership.
             </p>
             <Link
