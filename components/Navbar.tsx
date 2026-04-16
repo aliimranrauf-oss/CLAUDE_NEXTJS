@@ -34,9 +34,9 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="MakeMyStore logo"
@@ -57,25 +57,24 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border border-transparent
-                ${pathname === l.href
+              className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border border-transparent ${
+                pathname === l.href
                   ? 'text-[#00d4ff] border-[#00d4ff]/20 bg-[#00d4ff]/[0.06]'
                   : 'text-white/75 hover:text-white hover:border-[#00d4ff]/20 hover:bg-[#00d4ff]/[0.06]'
-                }`}
+              }`}
               style={{ textShadow: '0 0 8px rgba(0,212,255,0.4)' }}
             >
               {l.label}
             </Link>
           ))}
 
-          {/* Arabic page — separate styled pill */}
           <Link
             href="/ar/badil-salla-zid"
-            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border
-              ${pathname === '/ar/badil-salla-zid'
+            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border ${
+              pathname === '/ar/badil-salla-zid'
                 ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10'
                 : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'
-              }`}
+            }`}
           >
             عربي 🇸🇦
           </Link>
@@ -110,7 +109,6 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Arabic link in mobile menu */}
             <Link
               href="/ar/badil-salla-zid"
               onClick={() => setOpen(false)}
