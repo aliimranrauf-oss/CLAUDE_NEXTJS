@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 
 export const revalidate = 3600
 
-// Generates static paths at build time (optional but good for SEO)
 export async function generateStaticParams() {
   const { data: posts } = await supabase
     .from('blogs')
@@ -16,24 +15,25 @@ export async function generateStaticParams() {
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
+  const { slug } = await params
+
   const { data: post, error } = await supabase
     .from('blogs')
     .select('*')
-    .eq('slug', params.slug)
+    .eq('slug', slug)
     .eq('is_live', true)
     .single()
 
   if (error || !post) {
-    notFound() // renders Next.js 404 page
+    notFound()
   }
 
   return (
     <main className="min-h-screen pt-24 pb-20 px-4 bg-[#0b0f1a]">
       <div className="max-w-3xl mx-auto">
 
-        {/* Meta */}
         <div className="flex items-center gap-3 mb-6">
           <span className="bg-[#00d4ff]/10 text-[#00d4ff] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
             {post.category}
@@ -46,7 +46,6 @@ export default async function BlogPostPage({
           )}
         </div>
 
-        {/* Title */}
         <h1
           className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight"
           style={{ fontFamily: 'Syne, sans-serif' }}
@@ -54,7 +53,6 @@ export default async function BlogPostPage({
           {post.title}
         </h1>
 
-        {/* Cover image */}
         {post.image_url && (
           <img
             src={post.image_url}
@@ -63,7 +61,6 @@ export default async function BlogPostPage({
           />
         )}
 
-        {/* Content */}
         <div
           className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed"
           style={{ fontFamily: 'DM Sans, sans-serif' }}
