@@ -6,15 +6,13 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Home',      href: '/' },
+  { label: 'Home',       href: '/' },
   { label: 'Free Tools', href: '/tools' },
-  { label: 'Why Us',    href: '/why-us' },
-  { label: 'Pricing',   href: '/pricing' },
-  { label: 'Blog',      href: '/blog' },
-  { label: 'About',     href: '/about' },
-  { label: 'Contact',   href: '/contact' },
-  { label: 'بديل سلة', href: '/بديل-سلة' },
-  { label: 'بديل زد',  href: '/بديل-زد' },
+  { label: 'Pricing',    href: '/pricing' },
+  { label: 'Blog',       href: '/blog' },
+  { label: 'About',      href: '/about' },
+  { label: 'Contact',    href: '/contact' },
+  { label: 'عربي 🇸🇦',   href: '/ar/badil-salla-zid' },
 ]
 
 export default function Navbar() {
