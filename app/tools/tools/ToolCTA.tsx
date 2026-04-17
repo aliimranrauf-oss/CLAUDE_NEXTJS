@@ -1,41 +1,13 @@
 'use client'
 
 // app/tools/tools/ToolCTA.tsx
-import { useState } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import { ArrowRight, Mail, CheckCircle } from 'lucide-react'
+import { ArrowRight, Store, Wrench, LayoutGrid } from 'lucide-react'
 
 interface ToolCTAProps {
   toolName: string
 }
 
-export default function ToolCTA({ toolName }: ToolCTAProps) {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
-  const handleSubmit = async () => {
-    if (!email.includes('@')) {
-      setError('Please enter a valid email.')
-      return
-    }
-    setLoading(true)
-    setError('')
-    try {
-      await supabase.from('leads').insert({
-        email,
-        tool_used: toolName,
-        created_at: new Date().toISOString(),
-      })
-      setSubmitted(true)
-    } catch {
-      setError('Something went wrong. Try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
+export default function ToolCTA({ toolName: _toolName }: ToolCTAProps) {
   return (
     <div
       className="mt-8 rounded-2xl p-7 text-center"
@@ -49,59 +21,64 @@ export default function ToolCTA({ toolName }: ToolCTAProps) {
         className="text-xl font-extrabold text-white mb-2"
         style={{ fontFamily: 'Syne, sans-serif' }}
       >
-        Get Your Ecommerce Store Built
+        Ready to Take Action?
       </h3>
-      <p className="text-[#999] text-sm mb-5">
-        One-time payment. No monthly fees. Live in 3–10 days. Built by real experts — not a
-        template.
+      <p className="text-[#999] text-sm mb-6" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+        One-time payment. No monthly fees. Live in 3–10 days.
       </p>
 
-      {submitted ? (
-        <div className="flex items-center justify-center gap-2 font-semibold text-[#00ffaa]">
-          <CheckCircle size={20} />
-          We&apos;ll be in touch shortly!
-        </div>
-      ) : (
-        <>
-          <div className="flex gap-2 max-w-sm mx-auto">
-            <div className="relative flex-1">
-              <Mail
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#555]"
-              />
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                className="w-full pl-9 pr-3 py-2.5 text-sm text-white rounded-lg outline-none"
-                style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                }}
-              />
-            </div>
-            <button
-              onClick={handleSubmit}
-              disabled={loading}
-              className="btn-primary text-sm flex items-center gap-1.5 whitespace-nowrap"
-            >
-              {loading ? '...' : <><span>Get Started</span><ArrowRight size={14} /></>}
-            </button>
-          </div>
-
-          {error && <p className="text-[#ff6b6b] text-xs mt-2">{error}</p>}
-          <p className="text-[#555] text-xs mt-2.5">No spam. Just a free consultation.</p>
-        </>
-      )}
-
-      <div className="mt-4">
+      <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+        {/* Option 1 */}
         <a
-          href="/pricing"
-          className="text-[#00d4ff] text-sm font-semibold inline-flex items-center gap-1 hover:underline"
+          href="https://www.makemystore.online/contact"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-white transition-transform hover:scale-105"
+          style={{
+            background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
+            boxShadow: '0 4px 15px rgba(0,212,255,0.25)',
+            fontFamily: 'Syne, sans-serif',
+          }}
         >
-          View Pricing <ArrowRight size={12} />
+          <Store size={15} />
+          Get Your Store Built
+          <ArrowRight size={13} />
+        </a>
+
+        {/* Option 2 */}
+        <a
+          href="https://www.fiverr.com/s/DBYND3P"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105"
+          style={{
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,107,107,0.4)',
+            color: '#ff6b6b',
+            fontFamily: 'Syne, sans-serif',
+          }}
+        >
+          <Wrench size={15} />
+          Fix My Website
+          <ArrowRight size={13} />
+        </a>
+
+        {/* Option 3 */}
+        <a
+          href="https://www.makemystore.online"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105"
+          style={{
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            color: '#aaa',
+            fontFamily: 'Syne, sans-serif',
+          }}
+        >
+          <LayoutGrid size={15} />
+          Our Services
+          <ArrowRight size={13} />
         </a>
       </div>
     </div>
