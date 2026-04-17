@@ -3,7 +3,10 @@ import { useState, useEffect } from 'react'
 
 const TYPING_TEXT = '✦ Built by Real Experts, Powered by AI — Fully Custom & SEO Optimized'
 
+// ─── Tech stack text ticker ───────────────────────────────────────────────────
 const TECH_STACK_TEXT = 'Supabase • GitHub • Vercel • Google Analytics • Next.js • Tailwind CSS'
+
+// Duplicate for seamless infinite scroll
 const TICKER_ITEMS = [TECH_STACK_TEXT, TECH_STACK_TEXT, TECH_STACK_TEXT]
 
 export default function Hero() {
@@ -80,7 +83,7 @@ export default function Hero() {
         <span className="animate-pulse ml-0.5">|</span>
       </p>
 
-      {/* CTA Button — goes to /contact */}
+      {/* ── CHANGE 2: "Get Your Store" → /contact ── */}
       <div className="mt-8 flex justify-center">
         <a
           href="https://www.makemystore.online/contact"
@@ -96,6 +99,7 @@ export default function Hero() {
 
       {/* ── TECH STACK TEXT TICKER ─────────────────────────────────────────── */}
       <div className="mt-12 w-full max-w-3xl mx-auto">
+        {/* Label */}
         <p
           className="text-[11px] uppercase tracking-[0.2em] text-white/25 mb-4 font-medium"
           style={{ fontFamily: 'DM Sans, sans-serif' }}
@@ -103,16 +107,20 @@ export default function Hero() {
           Tech Stack Used in Our Projects
         </p>
 
+        {/* Ticker container */}
         <div className="relative overflow-hidden">
+          {/* Left fade */}
           <div
             className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10"
             style={{ background: 'linear-gradient(to right, #0b0f1a, transparent)' }}
           />
+          {/* Right fade */}
           <div
             className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
             style={{ background: 'linear-gradient(to left, #0b0f1a, transparent)' }}
           />
 
+          {/* Scrolling track */}
           <div className="flex items-center marquee-track whitespace-nowrap">
             {TICKER_ITEMS.map((text, i) => (
               <span
@@ -137,6 +145,7 @@ export default function Hero() {
         </p>
       </div>
 
+      {/* Marquee animation styles */}
       <style jsx>{`
         .marquee-track {
           animation: marquee-scroll 22s linear infinite;
