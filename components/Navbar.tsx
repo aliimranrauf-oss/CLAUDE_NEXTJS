@@ -26,8 +26,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const orderHref = pathname === '/' ? '#contact' : '/contact'
-
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
@@ -66,7 +64,8 @@ export default function Navbar() {
             عربي 🇸🇦
           </Link>
 
-          <Link href={orderHref} className="btn-primary ml-2 text-sm">
+          {/* ── CHANGE 1: Order Now → /pricing ── */}
+          <Link href="https://www.makemystore.online/pricing" className="btn-primary ml-2 text-sm">
             Order Now
           </Link>
         </div>
@@ -102,8 +101,9 @@ export default function Navbar() {
               عربي 🇸🇦
             </Link>
 
+            {/* ── CHANGE 1 (mobile): Order Now → /pricing ── */}
             <Link
-              href={orderHref}
+              href="https://www.makemystore.online/pricing"
               onClick={() => setOpen(false)}
               className="btn-primary text-center text-sm mt-2"
             >
