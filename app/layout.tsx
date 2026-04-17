@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Syne, DM_Sans } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const syne = Syne({ subsets: ['latin'], variable: '--font-syne' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
 
 export const metadata: Metadata = {
   title: 'Custom Ecommerce Website – Zero Monthly Fees | MakeMyStore.online',
@@ -42,8 +44,42 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-[#0b0f1a] text-white antialiased`}>
+      <body className={`${syne.variable} ${dmSans.variable} bg-[#0b0f1a] text-white antialiased`}>
         {children}
+
+        {/* ── Google Analytics GA4 ─────────────────────────────────────────── */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GG4NQ13Z67"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GG4NQ13Z67');
+          `}
+        </Script>
+
+        {/* ── Facebook Pixel ───────────────────────────────────────────────── */}
+        <Script id="facebook-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s){
+            if(f.fbq)return;
+            n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];
+            t=b.createElement(e);t.async=!0;
+            t.src=v;
+            s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);
+            }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1410911290788317');
+            fbq('track', 'PageView');
+          `}
+        </Script>
       </body>
     </html>
   )
