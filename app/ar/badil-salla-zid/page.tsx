@@ -2,6 +2,35 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
+import type { Metadata } from 'next'
+
+// ─── SEO Metadata (Best for ranking) ───────────────────────────────────────
+export const metadata: Metadata = {
+  title: 'بديل سلة وزد | متجر إلكتروني مخصص بدفعة واحدة بدون رسوم شهرية',
+  description:
+    'توقف عن دفع رسوم شهرية لسلة وزد. متجر إلكتروني مخصص كامل الملكية بدفعة واحدة فقط. سرعة فائقة، SEO احترافي، Stripe & PayPal. أفضل بديل سلة وزد في السعودية والخليج.',
+  keywords:
+    'بديل سلة وزد, بديل زد, متجر إلكتروني مخصص, متجر بدون رسوم شهرية, Salla alternative, Zid alternative, custom ecommerce Saudi Arabia, one time payment store, shopify alternative arabic, متجر الكتروني السعودية',
+  robots: { index: true, follow: true },
+  alternates: {
+    canonical: 'https://www.makemystore.online',
+  },
+  openGraph: {
+    title: 'بديل سلة وزد | متجر إلكتروني مخصص بدون رسوم شهرية',
+    description:
+      'متجر إلكتروني مخصص بدفعة واحدة — ملكية كاملة — لا اشتراكات شهرية. أفضل بديل لسلة وزد في السعودية.',
+    images: ['/logo.png'], // ← Replace with a proper 1200x630 OG image later for even better results
+    locale: 'ar_SA',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'بديل سلة وزد | متجر إلكتروني مخصص',
+    description:
+      'متجر إلكتروني مخصص بدفعة واحدة بدون رسوم شهرية — أفضل بديل سلة وزد',
+  },
+}
 
 // ─── All external links — same as homepage ────────────────────────────────────
 const LINKS = {
@@ -33,6 +62,7 @@ const content = {
         '✅ دعم Stripe و PayPal',
       ],
     },
+    // ... (all other content remains 100% unchanged)
     whyUs: {
       heading: 'لماذا تختار MakeMyStore بدلاً من سلة وزد؟',
       sub: 'نقدم ما لا تستطيع سلة وزد تقديمه — حرية كاملة بدون قيود',
@@ -208,15 +238,15 @@ export default function Page() {
         <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Logo - DOUBLED SIZE (same as Hero.tsx) */}
+        {/* Logo - DOUBLED SIZE + Next.js Image (optimized) */}
         <div className="animate-float mb-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/logo.png"
             alt="MakeMyStore - Custom Ecommerce Solutions"
             width={140}
             height={140}
             className="mx-auto rounded-2xl object-contain"
+            priority
             style={{
               mixBlendMode: 'lighten',
               filter: 'drop-shadow(0 0 20px rgba(122,92,255,0.4))',
@@ -286,7 +316,10 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── WHY US ────────────────────────────────────────────────────────── */}
+      {/* ── All other sections remain 100% unchanged below ───────────────────── */}
+      {/* WHY US, COMPARISON, PRICING, FAQ, FINAL CTA, SEO hidden text ... */}
+
+      {/* WHY US */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -305,7 +338,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── COMPARISON TABLE ──────────────────────────────────────────────── */}
+      {/* COMPARISON TABLE */}
       <section className="py-20 px-6 max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -337,7 +370,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── PRICING ───────────────────────────────────────────────────────── */}
+      {/* PRICING */}
       <section id="pricing" className="py-20 px-6">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -365,7 +398,6 @@ export default function Page() {
                 {plan.features.map((f) => <li key={f}>{f}</li>)}
               </ul>
 
-              {/* btn-primary for highlighted plan, outlined for others — same as homepage pricing */}
               {plan.highlight ? (
                 <a href={LINKS.contact} className="btn-primary block text-center text-sm py-3 rounded-xl">
                   {plan.cta}
@@ -380,7 +412,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── FAQ ───────────────────────────────────────────────────────────── */}
+      {/* FAQ */}
       <section className="py-20 px-6 max-w-3xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-bold" style={{ fontFamily: 'Syne, sans-serif' }}>{t.faq.heading}</h2>
@@ -395,14 +427,13 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
+      {/* FINAL CTA */}
       <section className="py-24 text-center px-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
           {t.cta.heading}
         </h2>
         <p className="text-gray-400 mb-8 max-w-xl mx-auto">{t.cta.sub}</p>
         <div className="flex flex-wrap gap-4 justify-center">
-          {/* Primary — WhatsApp */}
           <a
             href={LINKS.whatsapp}
             target="_blank"
@@ -411,14 +442,12 @@ export default function Page() {
           >
             {t.cta.btn1}
           </a>
-          {/* Outlined — Contact/Order (mirrors homepage "Order Now") */}
           <a
             href={LINKS.contact}
             className="text-sm px-8 py-3.5 rounded-xl font-bold border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all"
           >
             {t.cta.btn2}
           </a>
-          {/* Outlined — Fiverr */}
           <a
             href={LINKS.fiverr}
             target="_blank"
