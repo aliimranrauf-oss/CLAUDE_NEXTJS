@@ -93,35 +93,41 @@ export default function ToolsClient() {
       <Navbar />
 
       {/* ── Hero ── */}
-      <section className="pt-32 pb-16 px-5 text-center">
+      <section className="pt-28 pb-12 px-5 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
+          {/* Badge — matches home hero typing line style */}
           <div
             className="inline-block rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest mb-5"
             style={{
               background: 'linear-gradient(90deg, rgba(0,212,255,0.15), rgba(122,92,255,0.15))',
               border: '1px solid rgba(0,212,255,0.3)',
               color: '#00d4ff',
+              fontFamily: 'Syne, sans-serif',
             }}
           >
             ✦ 7 FREE TOOLS FOR ECOMMERCE OWNERS
           </div>
 
+          {/* Headline — same size/style as Hero h1 */}
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4"
-            style={{ fontFamily: 'Syne, sans-serif' }}
+            className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white mb-1"
+            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
           >
             Free Ecommerce Tools
             <br />
-            <span className="text-gradient">That Actually Help You Grow</span>
+            <span className="text-[#40e0ff]">That Actually Help You Grow</span>
           </h1>
 
-          <p className="text-[#888] text-lg max-w-xl mx-auto">
-            No sign-up needed. Run audits, calculate profits, and find out if your store is losing
-            money.
+          {/* Subtext — same style as Hero subtext */}
+          <p
+            className="mt-4 text-gray-500 text-sm sm:text-base max-w-lg mx-auto"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
+            No sign-up needed. Run audits, calculate profits, and find out if your store is losing money.
           </p>
         </motion.div>
       </section>
