@@ -208,6 +208,22 @@ export default function Page() {
         <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
+        {/* Logo - DOUBLED SIZE (same as Hero.tsx) */}
+        <div className="animate-float mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="MakeMyStore - Custom Ecommerce Solutions"
+            width={140}
+            height={140}
+            className="mx-auto rounded-2xl object-contain"
+            style={{
+              mixBlendMode: 'lighten',
+              filter: 'drop-shadow(0 0 20px rgba(122,92,255,0.4))',
+            }}
+          />
+        </div>
+
         {/* Badge */}
         <p
           className="text-[#00d4ff] text-sm font-bold tracking-widest uppercase mb-5"
