@@ -126,8 +126,8 @@ export default function Templates() {
                     />
                   )}
 
-                  {/* Fallback gradient bg */}
-                  <div className="absolute inset-0 -z-0 bg-gradient-to-br from-[#0d1220] to-[#1a2035]" />
+                  {/* Fallback gradient bg - FIXED: now behind the image */}
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0d1220] to-[#1a2035]" />
                 </div>
 
                 {/* Card body */}
