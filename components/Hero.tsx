@@ -28,14 +28,14 @@ export default function Hero() {
       <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#00d4ff]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#7a5cff]/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Logo */}
+      {/* Logo - DOUBLED SIZE (70 → 140) */}
       <div className="animate-float mb-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
           alt="MakeMyStore - Custom Ecommerce Solutions"
-          width={70}
-          height={70}
+          width={140}
+          height={140}
           className="mx-auto rounded-2xl object-contain"
           style={{
             mixBlendMode: 'lighten',
