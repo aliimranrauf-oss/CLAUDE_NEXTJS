@@ -2,26 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { createClient } from '@supabase/supabase-js'
-
-// ── Supabase client (reads from your env vars) ────────────────────────────────
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-
-// ── Type matching your Supabase schema ────────────────────────────────────────
-interface Template {
-  id: string
-  template_id: string | null
-  name: string | null
-  category: string | null
-  desktop_image: string | null
-  mobile_image: string | null
-  description: string | null
-  created_at: string | null
-  is_primary: boolean | null
-}
+import { supabase, type Template } from '@/lib/supabaseClient'
 
 export default function Templates() {
   const [templates, setTemplates] = useState<Template[]>([])
@@ -86,14 +67,20 @@ export default function Templates() {
 
         {/* ── Error state ───────────────────────────────────────────────────── */}
         {!loading && error && (
-          <div className="text-center py-16 text-white/40 text-sm" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+          <div
+            className="text-center py-16 text-white/40 text-sm"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
             {error}
           </div>
         )}
 
         {/* ── Empty state ───────────────────────────────────────────────────── */}
         {!loading && !error && templates.length === 0 && (
-          <div className="text-center py-16 text-white/40 text-sm" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+          <div
+            className="text-center py-16 text-white/40 text-sm"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
             No templates found. Add some in your Supabase dashboard.
           </div>
         )}
@@ -114,7 +101,7 @@ export default function Templates() {
                 </svg>
               </button>
 
-              {/* ── Template Card ─────────────────────────────────────────────── */}
+              {/* ── Template Card ──────────────────────────────────────────── */}
               <div
                 className="flex-1 rounded-2xl border border-white/8 bg-[#111827]/80 overflow-hidden"
                 style={{ boxShadow: '0 0 40px rgba(0,212,255,0.06)' }}
@@ -127,7 +114,7 @@ export default function Templates() {
                     </span>
                   )}
 
-                  {t.desktop_image ? (
+                  {t.desktop_image && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={t.desktop_image}
@@ -137,7 +124,7 @@ export default function Templates() {
                         ;(e.currentTarget as HTMLImageElement).style.display = 'none'
                       }}
                     />
-                  ) : null}
+                  )}
 
                   {/* Fallback gradient bg */}
                   <div className="absolute inset-0 -z-0 bg-gradient-to-br from-[#0d1220] to-[#1a2035]" />
@@ -208,7 +195,9 @@ export default function Templates() {
                   key={i}
                   onClick={() => setCurrent(i)}
                   aria-label={`Go to template ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'w-6 bg-[#00d4ff]' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current ? 'w-6 bg-[#00d4ff]' : 'w-2 bg-white/20 hover:bg-white/40'
+                  }`}
                 />
               ))}
             </div>
