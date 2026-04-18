@@ -44,6 +44,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
 
         <Link href="/" className="flex items-center gap-2 group shrink-0" aria-label="MakeMyStore home">
+          {/*
+            ── CLS fix ───────────────────────────────────────────────────────
+            Added explicit width/height attributes AND inline style dimensions.
+            Without these the browser doesn't know the image size until it loads,
+            causing layout shift (CLS penalty). The preload in layout.tsx ensures
+            the image is already cached before render.
+          */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="MakeMyStore logo"
@@ -52,9 +60,12 @@ export default function Navbar() {
             fetchPriority="high"
             decoding="async"
             className="rounded-lg object-contain"
-            style={{ mixBlendMode: 'lighten' }}
+            style={{ mixBlendMode: 'lighten', width: 36, height: 36 }}
           />
-          <span className="font-bold text-xl" style={{ fontFamily: 'Syne, sans-serif' }}>
+          <span
+            className="font-bold text-xl"
+            style={{ fontFamily: 'var(--font-syne), Syne, sans-serif' }}
+          >
             <span className="text-gradient">MakeMyStore</span>
             <span className="text-gray-400">.online</span>
           </span>
