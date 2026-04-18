@@ -1,9 +1,4 @@
-// ── WhatsApp pre-filled CTA ────────────────────────────────────────────────
-const WA_MESSAGE = encodeURIComponent(
-  "Hi Imran, I saw the MakeMyStore home page. I want to own my store with a one-time setup fee. How do we start?"
-)
-const WA_HREF = `https://wa.me/923293943161?text=${WA_MESSAGE}`
-// ↑ Replace 923001234567 with your actual WhatsApp number (no + sign)
+const CONTACT_URL = 'https://www.makemystore.online/contact'
 
 const platforms = ['Shopify', 'Wix', 'WordPress', 'MakeMyStore ✦']
 
@@ -147,9 +142,7 @@ export default function ComparisonTable() {
         {/* CHANGE 5: WhatsApp pre-filled CTA — replaces old #pricing anchor */}
         <div className="mt-8 text-center">
           <a
-            href={WA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={CONTACT_URL}
             className="btn-primary inline-block text-base"
           >
             Start With MakeMyStore Today →
