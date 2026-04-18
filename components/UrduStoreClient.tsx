@@ -164,6 +164,24 @@ export default function UrduStoreClient() {
         <div aria-hidden className="orb orb-1" />
         <div aria-hidden className="orb orb-2" />
 
+        {/* Logo */}
+        <div className="animate-float mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="MakeMyStore - Custom Ecommerce Solutions"
+            width={140}
+            height={140}
+            fetchPriority="high"
+            decoding="async"
+            className="mx-auto rounded-2xl object-contain"
+            style={{
+              mixBlendMode: 'lighten',
+              filter: 'drop-shadow(0 0 20px rgba(122,92,255,0.4))',
+            }}
+          />
+        </div>
+
         {/* Badge */}
         <div className="hero-badge mb-6">
           🇵🇰 پاکستان کے لیے خصوصی — براہ راست مقامی ادائیگی
@@ -434,15 +452,17 @@ export default function UrduStoreClient() {
       <style jsx>{`
         /* ── Fonts & Base ─────────────────────────────────────────── */
         .urdu-page {
-          font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Nafees Web Naskh', serif;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
         }
         .urdu-heading {
           font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-          line-height: 1.6;
+          line-height: 1.7;
         }
         .urdu-body {
-          font-family: 'Noto Nastaliq Urdu', 'Nafees Web Naskh', serif;
-          line-height: 2;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          line-height: 2.2;
+          font-size: 16px;
+          color: rgba(255,255,255,0.75);
         }
 
         /* ── Orbs ─────────────────────────────────────────────────── */
@@ -572,12 +592,12 @@ export default function UrduStoreClient() {
           margin: 0 auto;
         }
         .section-sub {
-          font-family: 'Noto Nastaliq Urdu', serif;
-          font-size: 15px;
-          color: rgba(255,255,255,0.5);
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          font-size: 17px;
+          color: rgba(255,255,255,0.7);
           max-width: 560px;
           margin: 14px auto 0;
-          line-height: 2;
+          line-height: 2.2;
         }
 
         /* ── Payment cards ────────────────────────────────────────── */
@@ -599,7 +619,7 @@ export default function UrduStoreClient() {
         }
         .payment-emoji { font-size: 32px; }
         .payment-name { font-weight: 700; font-size: 14px; font-family: sans-serif; }
-        .payment-desc { font-size: 12px; color: rgba(255,255,255,0.4); font-family: 'Noto Nastaliq Urdu', serif; }
+        .payment-desc { font-size: 13px; color: rgba(255,255,255,0.65); font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
 
         /* ── Courier cards ────────────────────────────────────────── */
         .courier-card {
@@ -620,7 +640,7 @@ export default function UrduStoreClient() {
         }
         .courier-emoji { font-size: 28px; }
         .courier-name { font-weight: 700; font-size: 13px; font-family: sans-serif; color: white; }
-        .courier-cities { font-size: 12px; color: rgba(255,255,255,0.4); font-family: 'Noto Nastaliq Urdu', serif; }
+        .courier-cities { font-size: 13px; color: rgba(255,255,255,0.65); font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
 
         .courier-features {
           display: flex;
@@ -631,11 +651,11 @@ export default function UrduStoreClient() {
         .cf-item {
           background: rgba(122,92,255,0.08);
           border: 1px solid rgba(122,92,255,0.2);
-          color: rgba(255,255,255,0.75);
+          color: rgba(255,255,255,0.85);
           padding: 10px 20px;
           border-radius: 10px;
-          font-size: 13px;
-          font-family: 'Noto Nastaliq Urdu', serif;
+          font-size: 14px;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
         }
 
         /* ── Comparison Table ─────────────────────────────────────── */
@@ -655,10 +675,10 @@ export default function UrduStoreClient() {
         .comparison-table th {
           padding: 16px 20px;
           text-align: center;
-          font-family: 'Noto Nastaliq Urdu', serif;
-          color: rgba(255,255,255,0.6);
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          color: rgba(255,255,255,0.8);
           font-weight: 600;
-          font-size: 13px;
+          font-size: 15px;
           border-bottom: 1px solid rgba(255,255,255,0.07);
         }
         .comparison-table th:first-child { text-align: right; }
@@ -667,8 +687,9 @@ export default function UrduStoreClient() {
           padding: 14px 20px;
           text-align: center;
           border-bottom: 1px solid rgba(255,255,255,0.04);
-          font-family: 'Noto Nastaliq Urdu', serif;
-          color: rgba(255,255,255,0.7);
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          color: rgba(255,255,255,0.8);
+          font-size: 14px;
         }
         .row-even td { background: rgba(255,255,255,0.01); }
         .feature-cell {
@@ -687,11 +708,11 @@ export default function UrduStoreClient() {
           background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%);
           color: white;
           font-weight: 700;
-          font-size: 16px;
+          font-size: 17px;
           padding: 16px 40px;
           border-radius: 16px;
           text-decoration: none;
-          font-family: 'Noto Nastaliq Urdu', serif;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           transition: all 0.2s;
           box-shadow: 0 4px 24px rgba(0,212,255,0.25);
         }
@@ -733,7 +754,7 @@ export default function UrduStoreClient() {
           font-family: serif;
         }
         .step-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 8px; }
-        .step-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.9; }
+        .step-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 2.1; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
 
         /* ── FAQ ──────────────────────────────────────────────────── */
         .faq-list { display: flex; flex-direction: column; gap: 12px; }
@@ -755,10 +776,10 @@ export default function UrduStoreClient() {
           border: none;
           cursor: pointer;
           color: white;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
           font-family: 'Noto Nastaliq Urdu', serif;
-          line-height: 1.6;
+          line-height: 1.8;
         }
         .faq-icon {
           flex-shrink: 0;
@@ -769,12 +790,13 @@ export default function UrduStoreClient() {
         .faq-icon.open { transform: rotate(180deg); }
         .faq-answer {
           padding: 0 22px 18px;
-          font-size: 13px;
-          color: rgba(255,255,255,0.6);
+          font-size: 15px;
+          color: rgba(255,255,255,0.75);
           text-align: right;
-          line-height: 2;
+          line-height: 2.2;
           border-top: 1px solid rgba(255,255,255,0.05);
           padding-top: 14px;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
         }
 
         /* ── Final CTA ────────────────────────────────────────────── */
@@ -793,7 +815,7 @@ export default function UrduStoreClient() {
       {/* Noto Nastaliq Urdu font from Google Fonts */}
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Gulzar&family=Jameel+Noori+Nastaleeq&display=swap');
       `}</style>
     </div>
   )
