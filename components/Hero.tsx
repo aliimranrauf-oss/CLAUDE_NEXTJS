@@ -38,8 +38,15 @@ export default function Hero() {
         style={{ background: 'rgba(122,92,255,0.04)' }}
       />
 
-      {/* Logo — priority load, explicit dimensions for CLS */}
-      <div className="animate-float mb-8">
+      {/*
+        ── LCP Logo fixes ────────────────────────────────────────────────────
+        1. REMOVED animate-float class — CSS animation on the LCP element
+           confuses Lighthouse and delays LCP measurement by ~300ms.
+           Float animation is a nice-to-have; LCP score is more important.
+        2. Explicit width/height on wrapper div prevents CLS.
+        3. fetchPriority="high" + decoding="async" already correct.
+      */}
+      <div className="mb-8" style={{ width: 140, height: 140 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
@@ -56,20 +63,18 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── CHANGE 1: Updated headline ────────────────────────────────────── */}
       <h1
         className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
-        style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
+        style={{ fontFamily: 'var(--font-syne), Syne, sans-serif', letterSpacing: '-0.01em' }}
       >
         Build Your Ecommerce Website
         <br />
         <span className="text-[#40e0ff] block mt-1">One-Time Setup, Zero Platform Fees</span>
       </h1>
 
-      {/* ── CHANGE 1b: "fast hosting" → "Self-Hosted Freedom" ─────────────── */}
       <p
         className="mt-5 text-gray-500 text-sm sm:text-base max-w-lg mx-auto"
-        style={{ fontFamily: 'DM Sans, sans-serif' }}
+        style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
       >
         Custom online store with Stripe &amp; PayPal, SEO optimized, Self-Hosted Freedom
       </p>
@@ -77,7 +82,7 @@ export default function Hero() {
       {/* Benefit badges */}
       <div
         className="mt-5 flex flex-wrap justify-center items-center gap-1 text-[13px] sm:text-sm text-white/70"
-        style={{ fontFamily: 'DM Sans, sans-serif' }}
+        style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
       >
         <span>🚀 Live in 3–10 days</span>
         <span className="text-white/20 mx-1">|</span>
@@ -86,12 +91,14 @@ export default function Hero() {
         <span>🔒 No platform lock-in</span>
       </div>
 
-      {/* Typing line */}
+      {/* Typing line — min-h prevents CLS when text appears */}
       <p
         className="mt-8 text-sm sm:text-[17px] font-bold min-h-[26px]"
-        style={{ color: '#00d4ff', fontFamily: 'Syne, sans-serif' }}
+        style={{ color: '#00d4ff', fontFamily: 'var(--font-syne), Syne, sans-serif' }}
+        aria-live="polite"
+        aria-label={typed}
       >
-        {typed}
+        <span aria-hidden="true">{typed}</span>
         <span className="animate-pulse ml-0.5" aria-hidden="true">|</span>
       </p>
 
@@ -109,10 +116,9 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* ── CHANGE 4: Performance & Cost note ────────────────────────────── */}
       <p
         className="mt-6 text-[12px] sm:text-[13px] text-white/40 max-w-md mx-auto"
-        style={{ fontFamily: 'DM Sans, sans-serif' }}
+        style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
       >
         💡 Most our clients spend <strong className="text-white/60">$0/month</strong> on operations by utilizing professional-grade Free Tiers from Vercel and Supabase.
       </p>
@@ -121,7 +127,7 @@ export default function Hero() {
       <div className="mt-10 w-full max-w-3xl mx-auto">
         <p
           className="text-[11px] uppercase tracking-[0.2em] text-white/25 mb-4 font-medium"
-          style={{ fontFamily: 'DM Sans, sans-serif' }}
+          style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
         >
           Tech Stack Used in Our Projects
         </p>
@@ -140,7 +146,7 @@ export default function Hero() {
               <span
                 key={i}
                 className="flex-shrink-0 text-[13px] text-white/30 px-8"
-                style={{ fontFamily: 'DM Sans, sans-serif', letterSpacing: '0.04em' }}
+                style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif', letterSpacing: '0.04em' }}
               >
                 {text}
               </span>
@@ -149,7 +155,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── CHANGE 3: Hidden SEO block — updated description ─────────────── */}
+      {/* ── Hidden SEO block ─────────────────────────────── */}
       <div className="sr-only">
         <h2>Professional Shopify Alternative</h2>
         <p>
