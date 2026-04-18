@@ -75,6 +75,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* ── Preconnect for GA & FB (reduces connection latency) ───────── */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
+
+        {/* ── Preconnect for YouTube thumbnails (used in VideoSection) ──── */}
+        <link rel="preconnect" href="https://i.ytimg.com" />
+        <link rel="dns-prefetch" href="https://i.ytimg.com" />
+        <link rel="dns-prefetch" href="https://www.youtube.com" />
+
         {/* ── Preload logo as LCP resource ─────────────────────────────── */}
         <link rel="preload" href="/logo.png" as="image" type="image/png" />
       </head>
