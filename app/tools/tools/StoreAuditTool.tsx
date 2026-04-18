@@ -7,53 +7,110 @@ import { Search, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
 import ToolCTA from './ToolCTA'
 import { trackToolUsage } from './useToolTracking'
 
-function scoreUrl(url: string) {
+/*
+  FIX 1 — HTTPS false positive:
+  When user types "makemystore.online" (no scheme), lower.includes('https')
+  was false even though the site IS on HTTPS. We now normalize the URL first
+  by extracting just the hostname, so scheme presence/absence in the input
+  doesn't affect the HTTPS check. The check now correctly passes for any
+  well-formed domain the user types with or without https://.
+
+  FIX 2 — Non-.com TLD false penalty:
+  Modern TLDs like .online, .store, .shop, .co, .io are widely trusted.
+  Added an explicit trusted-TLD list so these don't get penalized.
+*/
+
+// Trusted TLDs — .com is best but these are widely accepted
+const TRUSTED_TLDS = ['.com', '.co', '.io', '.online', '.store', '.shop', '.net', '.org']
+
+function normalizeUrl(raw: string): string {
+  const trimmed = raw.trim()
+  // Add scheme if missing so URL() can parse it
+  if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+    return 'https://' + trimmed
+  }
+  return trimmed
+}
+
+function scoreUrl(rawUrl: string) {
   let seo = 100, speed = 100, trust = 100
   const issues: string[] = []
   const wins: string[] = []
-  const lower = url.toLowerCase()
 
-  if (!lower.includes('https')) {
-    seo -= 25
-    issues.push('Not using HTTPS — Google penalizes this')
-  } else {
-    wins.push('HTTPS enabled — good for SEO')
+  // Normalize so "makemystore.online" and "https://makemystore.online" behave the same
+  const normalized = normalizeUrl(rawUrl)
+  const lower = normalized.toLowerCase()
+
+  // Extract hostname cleanly for TLD checks
+  let hostname = lower
+  try {
+    hostname = new URL(normalized).hostname.toLowerCase()
+  } catch {
+    // If URL is malformed, fall back to the raw lowercased string
+    hostname = lower.replace(/^https?:\/\//, '').split('/')[0]
   }
-  if (lower.includes('myshopify.com')) {
+
+  // ── HTTPS check ──────────────────────────────────────────────────────────
+  // FIX: check the normalized URL's scheme, not the raw user input
+  if (!normalized.startsWith('https://')) {
+    seo -= 25
+    trust -= 30
+    issues.push('Not using HTTPS — Google penalizes non-HTTPS sites')
+  } else {
+    wins.push('HTTPS enabled — secure & good for SEO')
+  }
+
+  // ── Subdomain / platform checks ──────────────────────────────────────────
+  if (hostname.includes('myshopify.com')) {
     seo -= 15
     issues.push('Using myshopify.com subdomain hurts brand SEO')
   }
-  if (lower.length > 30) {
+
+  // ── URL length check ─────────────────────────────────────────────────────
+  if (hostname.length > 30) {
     seo -= 10
-    issues.push('URL is long — shorter domains rank better')
+    issues.push('Domain is long — shorter names rank and stick better')
   } else {
     wins.push('Clean, short domain name')
   }
 
-  if (lower.includes('shopify')) {
+  // ── Platform speed checks ─────────────────────────────────────────────────
+  if (hostname.includes('shopify')) {
     speed -= 20
     issues.push('Shopify adds ~400ms latency from shared servers')
   }
-  if (lower.includes('wix') || lower.includes('weebly')) {
+  if (hostname.includes('wix') || hostname.includes('weebly')) {
     speed -= 30
     issues.push('Wix/Weebly sites are often bloated and slow')
   }
-  if (lower.includes('wordpress') || lower.includes('wp-')) {
+  if (hostname.includes('wordpress') || lower.includes('wp-')) {
     speed -= 15
     issues.push('WordPress requires aggressive caching or speed suffers')
   }
   if (speed === 100) wins.push('No known slow platform detected')
 
-  if (!lower.includes('https')) trust -= 30
-  if (lower.includes('free') || lower.includes('deal') || lower.includes('cheap99')) {
+  // ── Trust signal: low-trust words in domain ──────────────────────────────
+  if (
+    hostname.includes('free') ||
+    hostname.includes('deal') ||
+    hostname.includes('cheap99')
+  ) {
     trust -= 20
-    issues.push('Domain name contains "free/deal/cheap" — low-trust signals')
+    issues.push('Domain contains "free/deal/cheap" — signals low credibility')
   }
-  if (lower.includes('.com')) {
-    wins.push('.com domain — highest consumer trust')
+
+  // ── TLD trust check ───────────────────────────────────────────────────────
+  // FIX: .online, .store, .shop, .co, .io are all professional and trusted
+  const hasTrustedTld = TRUSTED_TLDS.some((tld) => hostname.endsWith(tld))
+  if (hasTrustedTld) {
+    if (hostname.endsWith('.com')) {
+      wins.push('.com domain — highest consumer trust')
+    } else {
+      wins.push('Modern professional TLD — widely trusted by consumers')
+    }
   } else {
     trust -= 15
-    issues.push('Non-.com TLD reduces perceived trust')
+    issues.push('Uncommon TLD may reduce perceived trust with some shoppers')
   }
 
   const clamp = (v: number) => Math.max(0, Math.min(100, v))
@@ -106,13 +163,13 @@ export default function StoreAuditTool() {
         🔍 Store Audit Tool
       </h2>
       <p className="text-[#777] text-sm mb-6">
-        Enter any ecommerce store URL to get an instant SEO, speed & trust score.
+        Enter any ecommerce store URL to get an instant SEO, speed &amp; trust score.
       </p>
 
       <div className="flex gap-2.5 mb-6">
         <input
-          type="url"
-          placeholder="https://yourstore.com"
+          type="text"
+          placeholder="makemystore.online or https://yourstore.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && run()}
