@@ -527,15 +527,13 @@ export default function AboutPage() {
               One conversation. One price. Lifetime ownership.
             </p>
 
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/pricing"
               className="btn-primary text-xl sm:text-2xl px-10 sm:px-16 py-6 sm:py-8 inline-flex items-center gap-4"
             >
               Order Your Custom Store Now
               <span className="text-3xl sm:text-4xl">→</span>
-            </a>
+            </Link>
 
             <p className="text-xs text-gray-500 mt-8">
               Average delivery: 3–10 business days • 7 days of free support included •
