@@ -6,12 +6,7 @@ const TYPING_TEXT = '✦ Built by Real Experts, Powered by AI — Fully Custom &
 const TECH_STACK_TEXT = 'Supabase • GitHub • Vercel • Google Analytics • Next.js • Tailwind CSS'
 const TICKER_ITEMS = [TECH_STACK_TEXT, TECH_STACK_TEXT, TECH_STACK_TEXT]
 
-// ── Pre-filled WhatsApp CTA link ───────────────────────────────────────────
-const WA_MESSAGE = encodeURIComponent(
-  "Hi Imran, I saw the MakeMyStore home page. I want to own my store with a one-time setup fee. How do we start?"
-)
-export const WA_HREF = `https://wa.me/message/your-number?text=${WA_MESSAGE}`
-// Replace "your-number" with your actual WhatsApp number e.g. 923001234567
+const CONTACT_URL = 'https://www.makemystore.online/contact'
 
 export default function Hero() {
   const [typed, setTyped] = useState('')
@@ -100,12 +95,10 @@ export default function Hero() {
         <span className="animate-pulse ml-0.5" aria-hidden="true">|</span>
       </p>
 
-      {/* ── CHANGE 5: WhatsApp pre-filled CTA ────────────────────────────── */}
+      {/* CTA → /contact */}
       <div className="mt-8 flex justify-center">
         <a
-          href={WA_HREF}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={CONTACT_URL}
           className="btn-primary text-sm px-8 py-3.5 rounded-lg font-bold transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00d4ff]"
           style={{
             background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
