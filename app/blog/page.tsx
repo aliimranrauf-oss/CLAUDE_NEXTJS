@@ -88,8 +88,6 @@ export default async function BlogPage() {
     console.error('Supabase Error:', error.message)
   }
 
-  const [featured, ...rest] = posts ?? []
-
   return (
     <>
       <script
@@ -122,73 +120,19 @@ export default async function BlogPage() {
             </p>
           </div>
 
-          {/* ── Featured Post (hero treatment) ── */}
-          {featured && (
-            <Link
-              href={`/blog/${featured.slug}`}
-              className="group block mb-14 rounded-2xl overflow-hidden border border-white/5 hover:border-[#00d4ff]/30 transition-all duration-300 card-glow"
-              style={{ background: 'rgba(255,255,255,0.03)' }}
-            >
-              <div className="grid md:grid-cols-2 gap-0">
-                {/* Image */}
-                <div className="relative h-56 md:h-full min-h-[280px] overflow-hidden">
-                  {featured.image_url ? (
-                    <Image
-                      src={featured.image_url}
-                      alt={featured.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      priority
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-[#0d1220]" />
-                  )}
-                </div>
-                {/* Content */}
-                <div className="p-8 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="bg-[#00d4ff]/10 text-[#00d4ff] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
-                      {featured.category || 'Ecommerce'}
-                    </span>
-                    <span className="text-gray-500 text-[11px]">
-                      {new Date(featured.published_at).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                      })}
-                    </span>
-                  </div>
-                  <h2
-                    className="text-2xl md:text-3xl font-bold text-white group-hover:text-[#00d4ff] transition-colors leading-tight mb-4"
-                    style={{ fontFamily: 'Syne, sans-serif' }}
-                  >
-                    {featured.title}
-                  </h2>
-                  <p
-                    className="text-gray-400 text-sm leading-relaxed line-clamp-3 mb-6"
-                    style={{ fontFamily: 'DM Sans, sans-serif' }}
-                  >
-                    {featured.excerpt}
-                  </p>
-                  <span className="text-[#00d4ff] text-sm font-bold inline-flex items-center gap-2">
-                    Read article →
-                  </span>
-                </div>
-              </div>
-            </Link>
-          )}
-
-          {/* ── Blog Grid — uniform 3-column ── */}
+          {/* ── Uniform Blog Grid — ALL posts same size, no featured hero ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(rest.length > 0 ? rest : []).map((post) => (
+            {posts?.map((post, index) => (
               <article
                 key={post.id}
-                className="glass rounded-2xl overflow-hidden flex flex-col group border border-white/5 hover:border-[#00d4ff]/30 transition-all duration-300 card-glow"
+                className="rounded-2xl overflow-hidden flex flex-col group border border-white/5 hover:border-[#00d4ff]/30 transition-all duration-300"
                 style={{ background: 'rgba(255,255,255,0.03)' }}
               >
-                {/* Card image — fixed height so all cards are equal */}
-                <Link href={`/blog/${post.slug}`} className="block relative h-52 overflow-hidden bg-[#0d1220] flex-shrink-0">
+                {/* Fixed-height image so all cards are identical */}
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="block relative h-52 overflow-hidden bg-[#0d1220] flex-shrink-0"
+                >
                   {post.image_url ? (
                     <Image
                       src={post.image_url}
@@ -196,7 +140,8 @@ export default async function BlogPage() {
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
+                      priority={index < 3}
+                      loading={index < 3 ? 'eager' : 'lazy'}
                     />
                   ) : (
                     <div className="w-full h-full bg-[#0d1220]" />
@@ -204,7 +149,7 @@ export default async function BlogPage() {
                 </Link>
 
                 <div className="p-5 flex flex-col flex-grow">
-                  <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-3 mb-3 flex-wrap">
                     <span className="bg-[#00d4ff]/10 text-[#00d4ff] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
                       {post.category || 'Ecommerce Tips'}
                     </span>
@@ -218,7 +163,7 @@ export default async function BlogPage() {
                   </div>
 
                   <h2
-                    className="text-lg font-bold mb-2 text-white group-hover:text-[#00d4ff] transition-colors leading-snug"
+                    className="text-lg font-bold mb-2 text-white group-hover:text-[#00d4ff] transition-colors leading-snug line-clamp-2"
                     style={{ fontFamily: 'Syne, sans-serif' }}
                   >
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
@@ -233,7 +178,7 @@ export default async function BlogPage() {
 
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="text-[#00d4ff] text-sm font-bold inline-flex items-center gap-1 mt-auto"
+                    className="text-[#00d4ff] text-sm font-bold inline-flex items-center gap-1 mt-auto hover:gap-2 transition-all"
                   >
                     Read article →
                   </Link>
