@@ -12,18 +12,24 @@ export default function VideoSection() {
         <div className="text-center mb-8">
           <h2
             className="text-2xl sm:text-3xl font-bold text-white"
-            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
+            style={{ fontFamily: 'var(--font-syne), Syne, sans-serif', letterSpacing: '-0.01em' }}
           >
             What is MakeMyStore?{' '}
             <span className="text-[#40e0ff]">Watch This 60-Second Video</span>
           </h2>
         </div>
 
-        {/* Video embed */}
+        {/*
+          ── CLS fix ───────────────────────────────────────────────────────────
+          Replaced inline aspectRatio style with a padding-top hack that works
+          at SSR/paint time — the browser knows the height before any JS runs,
+          eliminating the layout shift. The preconnect for i.ytimg.com is set
+          in layout.tsx so the thumbnail loads without an extra DNS round-trip.
+        */}
         <div
           className="relative rounded-xl overflow-hidden bg-black"
           style={{
-            aspectRatio: '16/9',
+            paddingTop: '56.25%', /* 16:9 ratio — calculated before paint, prevents CLS */
             border: '1px solid rgba(0,212,255,0.2)',
             boxShadow: '0 0 30px rgba(0,212,255,0.1)',
           }}
@@ -31,14 +37,18 @@ export default function VideoSection() {
           {!videoLoaded ? (
             <button
               onClick={() => setVideoLoaded(true)}
-              className="w-full h-full absolute inset-0 group"
+              className="absolute inset-0 w-full h-full group"
               aria-label="Play MakeMyStore Demo Video"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://i.ytimg.com/vi/D7jsdZtfeu8/hqdefault.jpg"
-                alt="Ecommerce Website Demo"
+                alt="MakeMyStore Demo — Ecommerce Website Preview"
+                width={480}
+                height={360}
                 className="w-full h-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-transform group-hover:scale-110">
