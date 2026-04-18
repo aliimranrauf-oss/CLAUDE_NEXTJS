@@ -319,10 +319,10 @@ export default function PricingPage() {
                         </p>
                       )}
 
-                      {/* Price — large, clean, like Home hero price style */}
+                      {/* Price — FIXED: smaller & cleaner font (only change) */}
                       <div className="flex items-baseline gap-1 mb-1">
                         <span
-                          className="text-[48px] sm:text-[54px] font-black text-white leading-none"
+                          className="text-[36px] sm:text-[42px] font-bold text-white leading-none"
                           style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
                         >
                           ${plan.price.toLocaleString()}
