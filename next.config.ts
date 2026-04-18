@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // Update with your actual Supabase storage domain
+        hostname: 'cozmgcrpnwoztaetnxeo.supabase.co',
       },
     ],
   },
