@@ -59,13 +59,21 @@ export const metadata: Metadata = {
         alt: 'MakeMyStore - Custom Ecommerce, Zero Platform Fees',
       },
     ],
+    locale: 'en_US',                    // ← Added for better social sharing
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
     description: 'Own your ecommerce store — one-time setup, zero platform fees.',
+    images: ['https://www.makemystore.online/og-image.png'],   // ← Added (very important for X/Twitter)
   },
-  alternates: { canonical: 'https://www.makemystore.online/' },
+  alternates: {
+    canonical: 'https://www.makemystore.online/',
+    languages: {                                            // ← Added Arabic support
+      'en-US': 'https://www.makemystore.online/',
+      'ar': 'https://www.makemystore.online/ar/badil-salla-zid',
+    },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
