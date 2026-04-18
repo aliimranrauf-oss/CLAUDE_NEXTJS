@@ -14,12 +14,7 @@ const navLinks = [
   { label: 'Contact', href: '/contact' },
 ]
 
-// ── Pre-filled WhatsApp CTA ───────────────────────────────────────────────────
-const WA_MESSAGE = encodeURIComponent(
-  "Hi Imran, I saw the MakeMyStore home page. I want to own my store with a one-time setup fee. How do we start?"
-)
-const WA_HREF = `https://wa.me/923293943161?text=${WA_MESSAGE}`
-// ↑ Replace 923001234567 with your actual WhatsApp number (country code + number, no +)
+const CONTACT_URL = '/contact'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -93,15 +88,13 @@ export default function Navbar() {
             بديل سلة وزد 🇸🇦
           </Link>
 
-          {/* ── CHANGE 5: WhatsApp CTA ── */}
-          <a
-            href={WA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Order Now → /contact */}
+          <Link
+            href={CONTACT_URL}
             className="btn-primary ml-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00d4ff]"
           >
             Order Now
-          </a>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -142,16 +135,14 @@ export default function Navbar() {
               بديل سلة وزد 🇸🇦
             </Link>
 
-            {/* ── CHANGE 5 mobile: WhatsApp CTA ── */}
-            <a
-              href={WA_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Order Now → /contact */}
+            <Link
+              href={CONTACT_URL}
               onClick={closeMenu}
               className="btn-primary text-center text-sm mt-2"
             >
               Order Now
-            </a>
+            </Link>
           </div>
         </div>
       )}
