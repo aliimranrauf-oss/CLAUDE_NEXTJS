@@ -64,7 +64,6 @@ const BOLD_FEATURES = new Set(['Full Source Code Ownership'])
 const getFeatures = (name: string) => PLAN_FEATURES[name] ?? []
 
 // ─── WhatsApp ─────────────────────────────────────────────────────────────────
-// ⚠️ Replace with your real number (no + sign, no spaces)
 const WA_NUMBER = '923293943161'
 const getWaLink = (plan: string) =>
   `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
@@ -94,6 +93,170 @@ function buildJsonLd(plans: MergedPlan[]) {
     })),
   }
 }
+
+// ─── Memoized Plan Card (only performance change) ─────────────────────────────
+const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
+  return (
+    <article
+      aria-label={`${plan.name} plan`}
+      className={`relative rounded-2xl flex flex-col transition-all duration-300
+        ${pop
+          ? 'border border-[#00d4ff]/35 bg-[#00d4ff]/[0.035] shadow-[0_0_50px_rgba(0,212,255,0.07)]'
+          : 'border border-white/10 bg-white/[0.025] hover:border-white/18'
+        }`}
+    >
+      {pop && (
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1 px-3 py-1 rounded-full bg-[#00d4ff] text-[#0b0f1a] text-[11px] font-bold tracking-wider whitespace-nowrap z-10" style={{ fontFamily: 'Syne, sans-serif' }}>
+          <Sparkles size={10} aria-hidden /> Most Popular
+        </div>
+      )}
+
+      <div className="p-5 sm:p-6 flex flex-col flex-1">
+
+        <h2
+          className="text-[22px] font-bold text-white mb-0.5"
+          style={{ fontFamily: 'Syne, sans-serif' }}
+        >
+          {plan.name}
+        </h2>
+
+        {plan.description && (
+          <p
+            className="text-[11px] font-semibold text-[#00d4ff] mb-4 tracking-widest uppercase"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
+            {plan.description}
+          </p>
+        )}
+
+        {/* Price — optimized size & weight (already fixed in previous version) */}
+        <div className="flex items-baseline gap-1 mb-1">
+          <span
+            className="text-[36px] sm:text-[42px] font-bold text-white leading-none"
+            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+          >
+            ${plan.price.toLocaleString()}
+          </span>
+          <span
+            className="text-white/30 text-sm ml-1"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
+            one-time
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1.5 mb-2">
+          <span className="text-[11px] text-white/35" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+            Full ownership · No monthly fees
+          </span>
+          <div className="group relative shrink-0">
+            <Info size={10} className="text-white/20 cursor-help hover:text-[#00d4ff] transition-colors" />
+            <div
+              role="tooltip"
+              className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 bg-[#161c2e] border border-white/12 rounded-xl px-3 py-2.5 text-[11px] text-white/60 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity z-30 shadow-2xl"
+              style={{ fontFamily: 'DM Sans, sans-serif' }}
+            >
+              Deployed to your personal Vercel &amp; Supabase accounts. You only pay for your domain (~$10/yr).
+              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#161c2e]" />
+            </div>
+          </div>
+        </div>
+
+        {plan.delivery && (
+          <div
+            className="inline-flex items-center gap-1.5 mt-1 mb-5 px-2.5 py-1 rounded-lg bg-[#00d4ff]/[0.07] border border-[#00d4ff]/15 text-[11px] text-[#00d4ff] font-semibold w-fit"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
+            <Clock size={10} aria-hidden />
+            Delivery: {plan.delivery}
+          </div>
+        )}
+
+        <div className="h-px bg-white/8 mb-5" />
+
+        <ul className="space-y-2 flex-1 mb-6">
+          {plan.features.map(f => (
+            <li key={f} className="flex items-start gap-2 text-[13px]">
+              <Check size={13} className={`mt-[2px] shrink-0 ${pop ? 'text-[#00d4ff]' : 'text-white/35'}`} aria-hidden />
+              {BOLD_FEATURES.has(f)
+                ? <span className="font-bold text-white" style={{ fontFamily: 'Syne, sans-serif' }}>{f}</span>
+                : <span className="text-white/70" style={{ fontFamily: 'DM Sans, sans-serif' }}>{f}</span>
+              }
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-auto space-y-2.5">
+          <p className="text-[10px] text-white/25 text-center uppercase tracking-widest" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+            Choose Payment Method
+          </p>
+
+          {plan.payoneerLink && (
+            <a
+              href={plan.payoneerLink}
+              target="_blank" rel="noopener noreferrer"
+              className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:border-[#00d4ff]/25 hover:bg-[#00d4ff]/[0.04] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="w-6 h-6 rounded-full bg-[#FF4800]/15 flex items-center justify-center shrink-0">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <circle cx="12" cy="12" r="10" fill="#FF4800" opacity="0.9" />
+                    <path d="M8 12h8M12 8v8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </span>
+                <div>
+                  <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Payoneer</p>
+                  <p className="text-[10px] text-white/35 mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Direct secure transfer</p>
+                </div>
+              </div>
+              <ExternalLink size={11} className="text-white/20 group-hover:text-[#00d4ff] transition-colors" aria-hidden />
+            </a>
+          )}
+
+          <div className="flex items-center gap-2">
+            <div className="flex-1 h-px bg-white/8" />
+            <span className="text-[10px] text-white/20" style={{ fontFamily: 'DM Sans, sans-serif' }}>or</span>
+            <div className="flex-1 h-px bg-white/8" />
+          </div>
+
+          <a
+            href="https://www.fiverr.com/s/ZmjDE2Q"
+            target="_blank" rel="noopener noreferrer"
+            className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-green-500/20 bg-green-500/[0.03] hover:border-green-400/40 hover:bg-green-500/[0.06] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="w-6 h-6 rounded-full bg-green-500/12 flex items-center justify-center shrink-0">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="#22c55e" opacity="0.85" />
+                  <path d="M9 12l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Fiverr</p>
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-green-500/15 text-green-400">Buyer Protected</span>
+                </div>
+                <p className="text-[10px] text-white/35 mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Held until delivered</p>
+              </div>
+            </div>
+            <ExternalLink size={11} className="text-green-500/30 group-hover:text-green-400 transition-colors" aria-hidden />
+          </a>
+
+          <a
+            href={getWaLink(plan.name)}
+            target="_blank" rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-dashed border-white/12 hover:border-[#25D366]/35 text-[12px] text-white/30 hover:text-[#25D366] transition-all duration-200"
+            style={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
+            <WaIcon />
+            Need custom features? <span className="font-bold ml-0.5">Chat →</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  )
+})
+PlanCard.displayName = 'PlanCard'
 
 // ─── Skeleton ─────────────────────────────────────────────────────────────────
 const SkeletonCard = memo(() => (
@@ -188,33 +351,21 @@ export default function PricingPage() {
 
       <main className="min-h-screen bg-[#0b0f1a] text-white overflow-x-hidden">
 
-        {/* ════════════════════════════════════════════════════════════════════
-            HERO  —  matches Home page typographic weight & proportions
-        ════════════════════════════════════════════════════════════════════ */}
-        <section className="relative pt-28 pb-16 text-center overflow-hidden">
+        {/* HERO, TRUST BADGES, etc. — completely unchanged */}
 
-          {/* Glow — contained, won't cause horizontal scroll */}
+        <section className="relative pt-28 pb-16 text-center overflow-hidden">
           <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-[#00d4ff]/[0.07] blur-[100px]" />
           </div>
-          {/* Grid */}
           <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.025]"
             style={{ backgroundImage: 'linear-gradient(#00d4ff 1px,transparent 1px),linear-gradient(90deg,#00d4ff 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
 
           <div className="relative max-w-3xl mx-auto px-5 sm:px-6">
-
-            {/* Pill badge — same as Home */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/25 bg-[#00d4ff]/[0.08] text-[#00d4ff] text-xs font-semibold mb-7 tracking-widest uppercase" style={{ fontFamily: 'DM Sans, sans-serif' }}>
               <Sparkles size={11} aria-hidden />
               One-time payment · No subscriptions ever
             </div>
 
-            {/*
-              H1 — FIXED TYPOGRAPHY
-              Home page uses ~42px bold, 2 lines, clean.
-              Pricing had clamp() going too large → 3 awkward lines + purple bleed.
-              Fix: cap at 48px on desktop, 36px on mobile, 2-line max via max-w.
-            */}
             <h1
               className="text-[36px] sm:text-[44px] md:text-[52px] font-bold leading-[1.15] tracking-tight mb-5"
               style={{ fontFamily: 'Syne, sans-serif' }}
@@ -229,7 +380,6 @@ export default function PricingPage() {
               </span>
             </h1>
 
-            {/* Subtext — same weight/size as Home */}
             <p
               className="text-white/55 text-base sm:text-[17px] max-w-lg mx-auto mb-4 leading-relaxed"
               style={{ fontFamily: 'DM Sans, sans-serif' }}
@@ -238,12 +388,10 @@ export default function PricingPage() {
               full source code, $0 platform fees, 100/100 Google PageSpeed.
             </p>
 
-            {/* Migration line */}
             <p className="text-[#00d4ff]/65 text-sm mb-8 font-medium" style={{ fontFamily: 'DM Sans, sans-serif' }}>
               ✦ Seamless migration from Shopify &amp; Wix available
             </p>
 
-            {/* Comparison pill */}
             <div
               className="inline-flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 px-5 py-3 rounded-2xl border border-white/10 bg-white/[0.04] text-sm"
               style={{ fontFamily: 'DM Sans, sans-serif' }}
@@ -255,9 +403,6 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
-            TRUST BADGES  —  tighter, more like Home benefit badges
-        ════════════════════════════════════════════════════════════════════ */}
         <section aria-label="Trust signals" className="max-w-2xl mx-auto px-5 sm:px-6 mb-14">
           <div className="grid grid-cols-3 gap-3">
             {TRUST_ITEMS.map(({ icon: Icon, label, sub }) => (
@@ -270,9 +415,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
-            PLAN CARDS
-        ════════════════════════════════════════════════════════════════════ */}
+        {/* PLAN CARDS — now using memoized PlanCard */}
         <section id="plans" aria-label="Pricing plans" className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
           {loading ? (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -282,173 +425,9 @@ export default function PricingPage() {
             <p className="text-center py-20 text-red-400" role="alert">{error}</p>
           ) : (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {plans.map((plan, i) => {
+              {plans.map((plan) => {
                 const pop = plan.is_popular
-                return (
-                  <article
-                    key={plan.id}
-                    aria-label={`${plan.name} plan`}
-                    className={`relative rounded-2xl flex flex-col transition-all duration-300
-                      ${pop
-                        ? 'border border-[#00d4ff]/35 bg-[#00d4ff]/[0.035] shadow-[0_0_50px_rgba(0,212,255,0.07)]'
-                        : 'border border-white/10 bg-white/[0.025] hover:border-white/18'
-                      }`}
-                  >
-                    {pop && (
-                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1 px-3 py-1 rounded-full bg-[#00d4ff] text-[#0b0f1a] text-[11px] font-bold tracking-wider whitespace-nowrap z-10" style={{ fontFamily: 'Syne, sans-serif' }}>
-                        <Sparkles size={10} aria-hidden /> Most Popular
-                      </div>
-                    )}
-
-                    <div className="p-5 sm:p-6 flex flex-col flex-1">
-
-                      {/* Plan name — matches Home h2 weight */}
-                      <h2
-                        className="text-[22px] font-bold text-white mb-0.5"
-                        style={{ fontFamily: 'Syne, sans-serif' }}
-                      >
-                        {plan.name}
-                      </h2>
-
-                      {plan.description && (
-                        <p
-                          className="text-[11px] font-semibold text-[#00d4ff] mb-4 tracking-widest uppercase"
-                          style={{ fontFamily: 'DM Sans, sans-serif' }}
-                        >
-                          {plan.description}
-                        </p>
-                      )}
-
-                      {/* Price — FIXED: smaller & cleaner font (only change) */}
-                      <div className="flex items-baseline gap-1 mb-1">
-                        <span
-                          className="text-[36px] sm:text-[42px] font-bold text-white leading-none"
-                          style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
-                        >
-                          ${plan.price.toLocaleString()}
-                        </span>
-                        <span
-                          className="text-white/30 text-sm ml-1"
-                          style={{ fontFamily: 'DM Sans, sans-serif' }}
-                        >
-                          one-time
-                        </span>
-                      </div>
-
-                      {/* No monthly fees + tooltip */}
-                      <div className="flex items-center gap-1.5 mb-2">
-                        <span className="text-[11px] text-white/35" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-                          Full ownership · No monthly fees
-                        </span>
-                        <div className="group relative shrink-0">
-                          <Info size={10} className="text-white/20 cursor-help hover:text-[#00d4ff] transition-colors" />
-                          <div
-                            role="tooltip"
-                            className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 bg-[#161c2e] border border-white/12 rounded-xl px-3 py-2.5 text-[11px] text-white/60 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity z-30 shadow-2xl"
-                            style={{ fontFamily: 'DM Sans, sans-serif' }}
-                          >
-                            Deployed to your personal Vercel &amp; Supabase accounts. You only pay for your domain (~$10/yr).
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#161c2e]" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Delivery pill */}
-                      {plan.delivery && (
-                        <div
-                          className="inline-flex items-center gap-1.5 mt-1 mb-5 px-2.5 py-1 rounded-lg bg-[#00d4ff]/[0.07] border border-[#00d4ff]/15 text-[11px] text-[#00d4ff] font-semibold w-fit"
-                          style={{ fontFamily: 'DM Sans, sans-serif' }}
-                        >
-                          <Clock size={10} aria-hidden />
-                          Delivery: {plan.delivery}
-                        </div>
-                      )}
-
-                      <div className="h-px bg-white/8 mb-5" />
-
-                      {/* Features */}
-                      <ul className="space-y-2 flex-1 mb-6">
-                        {plan.features.map(f => (
-                          <li key={f} className="flex items-start gap-2 text-[13px]">
-                            <Check size={13} className={`mt-[2px] shrink-0 ${pop ? 'text-[#00d4ff]' : 'text-white/35'}`} aria-hidden />
-                            {BOLD_FEATURES.has(f)
-                              ? <span className="font-bold text-white" style={{ fontFamily: 'Syne, sans-serif' }}>{f}</span>
-                              : <span className="text-white/70" style={{ fontFamily: 'DM Sans, sans-serif' }}>{f}</span>
-                            }
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* CTAs */}
-                      <div className="mt-auto space-y-2.5">
-                        <p className="text-[10px] text-white/25 text-center uppercase tracking-widest" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-                          Choose Payment Method
-                        </p>
-
-                        {plan.payoneerLink && (
-                          <a
-                            href={plan.payoneerLink}
-                            target="_blank" rel="noopener noreferrer"
-                            className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:border-[#00d4ff]/25 hover:bg-[#00d4ff]/[0.04] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
-                          >
-                            <div className="flex items-center gap-2.5">
-                              <span className="w-6 h-6 rounded-full bg-[#FF4800]/15 flex items-center justify-center shrink-0">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                  <circle cx="12" cy="12" r="10" fill="#FF4800" opacity="0.9" />
-                                  <path d="M8 12h8M12 8v8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
-                                </svg>
-                              </span>
-                              <div>
-                                <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Payoneer</p>
-                                <p className="text-[10px] text-white/35 mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Direct secure transfer</p>
-                              </div>
-                            </div>
-                            <ExternalLink size={11} className="text-white/20 group-hover:text-[#00d4ff] transition-colors" aria-hidden />
-                          </a>
-                        )}
-
-                        <div className="flex items-center gap-2">
-                          <div className="flex-1 h-px bg-white/8" />
-                          <span className="text-[10px] text-white/20" style={{ fontFamily: 'DM Sans, sans-serif' }}>or</span>
-                          <div className="flex-1 h-px bg-white/8" />
-                        </div>
-
-                        <a
-                          href="https://www.fiverr.com/s/ZmjDE2Q"
-                          target="_blank" rel="noopener noreferrer"
-                          className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-green-500/20 bg-green-500/[0.03] hover:border-green-400/40 hover:bg-green-500/[0.06] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <span className="w-6 h-6 rounded-full bg-green-500/12 flex items-center justify-center shrink-0">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="#22c55e" opacity="0.85" />
-                                <path d="M9 12l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                              </svg>
-                            </span>
-                            <div>
-                              <div className="flex items-center gap-1.5">
-                                <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Fiverr</p>
-                                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-green-500/15 text-green-400">Buyer Protected</span>
-                              </div>
-                              <p className="text-[10px] text-white/35 mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Held until delivered</p>
-                            </div>
-                          </div>
-                          <ExternalLink size={11} className="text-green-500/30 group-hover:text-green-400 transition-colors" aria-hidden />
-                        </a>
-
-                        <a
-                          href={getWaLink(plan.name)}
-                          target="_blank" rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-dashed border-white/12 hover:border-[#25D366]/35 text-[12px] text-white/30 hover:text-[#25D366] transition-all duration-200"
-                          style={{ fontFamily: 'DM Sans, sans-serif' }}
-                        >
-                          <WaIcon />
-                          Need custom features? <span className="font-bold ml-0.5">Chat →</span>
-                        </a>
-                      </div>
-                    </div>
-                  </article>
-                )
+                return <PlanCard key={plan.id} plan={plan} pop={pop} />
               })}
             </div>
           )}
@@ -458,22 +437,12 @@ export default function PricingPage() {
           </p>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
-            COMPARISON TABLE
-        ════════════════════════════════════════════════════════════════════ */}
+        {/* All remaining sections (comparison, FAQ, performance badge, final CTA) are 100% unchanged */}
+
         <section aria-label="MakeMyStore vs Shopify" className="border-y border-white/8 bg-white/[0.015] py-12 mb-20">
           <div className="max-w-2xl mx-auto px-5 sm:px-6 text-center">
-
-            <h2
-              className="text-[28px] sm:text-[34px] font-bold mb-2"
-              style={{ fontFamily: 'Syne, sans-serif' }}
-            >
-              Why not Shopify?
-            </h2>
-            <p className="text-white/40 text-sm mb-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-              Stop paying monthly rent. Own your store permanently.
-            </p>
-
+            <h2 className="text-[28px] sm:text-[34px] font-bold mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>Why not Shopify?</h2>
+            <p className="text-white/40 text-sm mb-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>Stop paying monthly rent. Own your store permanently.</p>
             <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
               <table className="w-full text-sm min-w-[300px]">
                 <thead>
@@ -497,17 +466,8 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
-            FAQ
-        ════════════════════════════════════════════════════════════════════ */}
         <section aria-label="FAQ" className="max-w-2xl mx-auto px-5 sm:px-6 pb-20">
-          <h2
-            className="text-[28px] sm:text-[34px] font-bold text-center mb-10"
-            style={{ fontFamily: 'Syne, sans-serif' }}
-          >
-            Frequently Asked Questions
-          </h2>
-
+          <h2 className="text-[28px] sm:text-[34px] font-bold text-center mb-10" style={{ fontFamily: 'Syne, sans-serif' }}>Frequently Asked Questions</h2>
           <div className="space-y-2.5">
             {FAQS.map((item, i) => (
               <div key={i} className="rounded-xl border border-white/10 bg-white/[0.025] overflow-hidden">
@@ -518,16 +478,10 @@ export default function PricingPage() {
                   aria-expanded={openFaq === i}
                 >
                   <span>{item.q}</span>
-                  <span
-                    className={`text-[#00d4ff] transition-transform duration-200 shrink-0 text-xl leading-none font-light ${openFaq === i ? 'rotate-45' : ''}`}
-                    aria-hidden
-                  >+</span>
+                  <span className={`text-[#00d4ff] transition-transform duration-200 shrink-0 text-xl leading-none font-light ${openFaq === i ? 'rotate-45' : ''}`} aria-hidden>+</span>
                 </button>
                 {openFaq === i && (
-                  <div
-                    className="px-5 pb-4 pt-3 text-[13px] text-white/45 leading-relaxed border-t border-white/8"
-                    style={{ fontFamily: 'DM Sans, sans-serif' }}
-                  >
+                  <div className="px-5 pb-4 pt-3 text-[13px] text-white/45 leading-relaxed border-t border-white/8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
                     {item.a}
                   </div>
                 )}
@@ -536,9 +490,6 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
-            PERFORMANCE BADGE
-        ════════════════════════════════════════════════════════════════════ */}
         <section aria-label="Performance" className="max-w-2xl mx-auto px-5 sm:px-6 pb-14">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-6 py-4 rounded-2xl border border-[#00d4ff]/12 bg-[#00d4ff]/[0.025]">
             <div className="flex items-center gap-2 shrink-0">
@@ -555,14 +506,9 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
-            FINAL CTA  —  matches Home "Get Your Store" button style
-        ════════════════════════════════════════════════════════════════════ */}
         <section className="pb-24 px-4">
           <div className="max-w-md mx-auto text-center">
-            <p className="text-white/35 text-sm mb-5" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-              Still have questions? Chat directly on WhatsApp.
-            </p>
+            <p className="text-white/35 text-sm mb-5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Still have questions? Chat directly on WhatsApp.</p>
             <a
               href={getWaLink('Custom')}
               target="_blank" rel="noopener noreferrer"
@@ -583,14 +529,9 @@ export default function PricingPage() {
 
       </main>
 
-      {/* Hidden SEO crawler content */}
       <div className="sr-only">
         <h2>Shopify Migration Service</h2>
-        <p>
-          MakeMyStore offers seamless Shopify and Wix migration to custom Next.js ecommerce stores.
-          One-time payment, zero platform fees, full source code ownership. Stop paying monthly rent.
-          Custom ecommerce developer available in UAE, Pakistan, and worldwide.
-        </p>
+        <p>MakeMyStore offers seamless Shopify and Wix migration to custom Next.js ecommerce stores. One-time payment, zero platform fees, full source code ownership. Stop paying monthly rent. Custom ecommerce developer available in UAE, Pakistan, and worldwide.</p>
       </div>
 
       <Footer />
