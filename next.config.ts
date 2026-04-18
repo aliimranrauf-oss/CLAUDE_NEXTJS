@@ -15,6 +15,13 @@ const nextConfig: NextConfig = {
     ],
     // Serve AVIF first (smaller than WebP), then WebP as fallback
     formats: ['image/avif', 'image/webp'],
+    /*
+      PERF FIX: Supabase images were caching for only 1h (Lighthouse flagged
+      203 KiB of repeat-visit waste). 1 year TTL means returning visitors
+      serve images from cache — zero network requests for template images.
+      Only applies to images served through Next.js Image Optimization API.
+    */
+    minimumCacheTTL: 31536000, // 1 year in seconds
   },
 
   /*
