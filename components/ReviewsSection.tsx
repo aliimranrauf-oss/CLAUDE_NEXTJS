@@ -24,8 +24,13 @@
 
   5. Contrast fixes:
      - Country text: rgba(255,255,255,0.4) → rgba(255,255,255,0.65) (passes AA)
-     - Order number: rgba(0,212,255,0.35), 10px → rgba(0,212,255,0.6), 12px
+     - Order number: rgba(0,212,255,0.35), 10px → rgba(0,212,255,0.8), 12px
      - Subheading: rgba(255,255,255,0.4) → rgba(255,255,255,0.6)
+
+  6. ARIA fix: StarRating div → span role="img"
+     aria-label is prohibited on plain <div> elements (generic role).
+     Lighthouse: "Elements use prohibited ARIA attributes" — affects 20+ cards.
+     Fixed: changed to <span role="img"> which allows aria-label.
   ─────────────────────────────────────────────────────────────────────────────
 */
 
@@ -79,9 +84,20 @@ function countryToFlag(country: string): string {
   return map[country] ?? '🌍'
 }
 
+/*
+  ARIA FIX: Changed <div> → <span role="img">
+  aria-label is prohibited on generic role elements like <div>.
+  <span role="img"> explicitly declares this as an image/icon group,
+  which allows aria-label. Visually identical — no style change needed.
+  Fixes Lighthouse: "Elements use prohibited ARIA attributes" (20+ cards affected).
+*/
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
+    <span
+      role="img"
+      aria-label={`${rating} out of 5 stars`}
+      style={{ display: 'flex', gap: '2px' }}
+    >
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
@@ -96,7 +112,7 @@ function StarRating({ rating }: { rating: number }) {
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ))}
-    </div>
+    </span>
   )
 }
 
@@ -163,8 +179,6 @@ function ReviewCard({ review }: { review: Review }) {
               background: '#0b0f1a',
             }}
             onError={(e) => {
-              // On error, hide the img — InitialAvatar rendered beside it won't show
-              // (we conditionally render one or the other, so this is just a safety net)
               ;(e.target as HTMLImageElement).style.display = 'none'
             }}
           />
@@ -208,13 +222,13 @@ function ReviewCard({ review }: { review: Review }) {
         &ldquo;{truncated}&rdquo;
       </p>
 
-      {/* CONTRAST FIX: 0.35 opacity + 10px → 0.6 + 12px */}
+      {/* CONTRAST FIX: 0.6 → 0.8 opacity (passes WCAG AA on dark bg) */}
       {review.order_number && (
         <p
           style={{
             margin: '10px 0 0',
             fontSize: '12px',
-            color: 'rgba(0,212,255,0.6)',
+            color: 'rgba(0,212,255,0.8)',
             fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif',
           }}
         >
