@@ -99,6 +99,18 @@ export default function Navbar() {
             بديل سلة وزد 🇸🇦
           </Link>
 
+          {/* ── ADDED: Pakistan Urdu page ── */}
+          <Link
+            href="/pk"
+            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border ${
+              pathname === '/pk'
+                ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10'
+                : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'
+            }`}
+          >
+            آن لائن اسٹور 🇵🇰
+          </Link>
+
           {/* Order Now → /contact */}
           <Link
             href={CONTACT_URL}
@@ -144,6 +156,15 @@ export default function Navbar() {
               className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
             >
               بديل سلة وزد 🇸🇦
+            </Link>
+
+            {/* ── ADDED: Pakistan Urdu page ── */}
+            <Link
+              href="/pk"
+              onClick={closeMenu}
+              className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
+            >
+              آن لائن اسٹور 🇵🇰
             </Link>
 
             {/* Order Now → /contact */}
