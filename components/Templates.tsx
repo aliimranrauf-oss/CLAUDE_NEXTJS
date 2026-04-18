@@ -4,11 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { supabase, type Template } from '@/lib/supabaseClient'
 
-// ── WhatsApp CTA ───────────────────────────────────────────────────────────
-const WA_MESSAGE = encodeURIComponent(
-  "Hi Imran, I saw the MakeMyStore home page. I want to own my store with a one-time setup fee. How do we start?"
-)
-const WA_HREF = `https://wa.me/923293943161?text=${WA_MESSAGE}`
+const CONTACT_URL = 'https://www.makemystore.online/contact'
 
 // Preload a single image URL into browser cache
 function preloadImage(src: string) {
@@ -225,11 +221,8 @@ export default function Templates() {
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-3">
-                    {/* Order — WhatsApp CTA */}
-                    <a
-                      href={WA_HREF}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={CONTACT_URL}
                       className="flex-1 text-center text-sm font-bold px-5 py-3 rounded-lg transition-all duration-200 hover:scale-[1.02]"
                       style={{
                         background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
@@ -238,17 +231,14 @@ export default function Templates() {
                       }}
                     >
                       Order This Template →
-                    </a>
+                    </Link>
 
-                    {/* Custom design — WhatsApp CTA */}
-                    <a
-                      href={WA_HREF}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={CONTACT_URL}
                       className="flex-1 text-center text-sm font-semibold px-5 py-3 rounded-lg border border-white/10 text-white/70 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06] transition-all duration-200"
                     >
                       Need Custom Design
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -298,10 +288,8 @@ export default function Templates() {
           >
             Don&apos;t see what you need? We build fully custom too.
           </p>
-          <a
-            href={WA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={CONTACT_URL}
             className="inline-block text-sm font-bold px-8 py-3.5 rounded-lg transition-all duration-200 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
@@ -310,7 +298,7 @@ export default function Templates() {
             }}
           >
             Start With MakeMyStore Today →
-          </a>
+          </Link>
         </div>
 
       </div>
