@@ -1,23 +1,42 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
-const syne = Syne({ subsets: ['latin'], variable: '--font-syne' })
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
+// ── Font loading with display:swap for FCP perf ────────────────────────────
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
+  display: 'swap',
+  preload: true,
+})
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+  preload: true,
+})
+
+// ── Viewport export (Next.js 14+) — prevents layout shift on mobile ────────
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0b0f1a',
+}
 
 export const metadata: Metadata = {
-  title: 'Custom Ecommerce Website – Zero Monthly Fees | MakeMyStore.online',
+  title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
   description:
-    'Own your ecommerce store — no subscriptions, no platform lock-in. MakeMyStore builds fully custom online stores from $99 one-time payment, with Stripe & PayPal integration and lifetime free hosting.',
+    'Own your ecommerce store — one-time setup fee, zero platform fees, self-hosted on YOUR Vercel & Supabase accounts. MakeMyStore builds fully custom online stores from $99 with Stripe & PayPal integration.',
   keywords: [
     'custom ecommerce website',
     'shopify alternative',
-    'no monthly fees',
-    'one-time payment ecommerce',
+    'zero platform fees',
+    'one-time setup ecommerce',
+    'self-hosted ecommerce',
     'ecommerce website builder',
     'online store development',
-    'zero subscription ecommerce',
+    'no subscription ecommerce',
   ],
   authors: [{ name: 'MakeMyStore.online' }],
   robots: {
@@ -26,17 +45,25 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
   },
   openGraph: {
-    title: 'Custom Ecommerce Website – Zero Monthly Fees | MakeMyStore.online',
+    title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
     description:
-      'Own your ecommerce store — no subscriptions, no platform lock-in. Built with Next.js, Vercel & Supabase.',
+      'Own your ecommerce store — one-time setup, zero platform fees. Deployed to YOUR Vercel & Supabase accounts.',
     url: 'https://www.makemystore.online',
     siteName: 'MakeMyStore.online',
     type: 'website',
+    images: [
+      {
+        url: 'https://www.makemystore.online/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'MakeMyStore - Custom Ecommerce, Zero Platform Fees',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Custom Ecommerce Website – Zero Monthly Fees | MakeMyStore.online',
-    description: 'Own your ecommerce store — no subscriptions, no platform lock-in.',
+    title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
+    description: 'Own your ecommerce store — one-time setup, zero platform fees.',
   },
   alternates: { canonical: 'https://www.makemystore.online/' },
 }
@@ -44,10 +71,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${syne.variable} ${dmSans.variable} bg-[#0b0f1a] text-white antialiased`}>
+      <head>
+        {/* ── Preconnect for GA & FB (reduces connection latency) ───────── */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        {/* ── Preload logo as LCP resource ─────────────────────────────── */}
+        <link rel="preload" href="/logo.png" as="image" type="image/png" />
+      </head>
+      <body
+        className={`${syne.variable} ${dmSans.variable} bg-[#0b0f1a] text-white antialiased`}
+      >
         {children}
 
-        {/* ── Google Analytics GA4 ─────────────────────────────────────────── */}
+        {/* ── Google Analytics GA4 — afterInteractive for perf ──────────── */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GG4NQ13Z67"
           strategy="afterInteractive"
@@ -57,12 +93,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-GG4NQ13Z67');
+            gtag('config', 'G-GG4NQ13Z67', { send_page_view: false });
           `}
         </Script>
 
-        {/* ── Facebook Pixel ───────────────────────────────────────────────── */}
-        <Script id="facebook-pixel" strategy="afterInteractive">
+        {/* ── Facebook Pixel — lazyOnload for mobile perf ───────────────── */}
+        <Script id="facebook-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s){
             if(f.fbq)return;
