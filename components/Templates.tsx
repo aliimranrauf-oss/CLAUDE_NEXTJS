@@ -65,7 +65,7 @@ export default function Templates() {
       fadeTimer.current = setTimeout(() => {
         setCurrent((c) => (c + dir + templates.length) % templates.length)
         setFading(false)
-      }, 160) // short fade-out, then swap
+      }, 160)
     },
     [fading, templates.length]
   )
@@ -99,13 +99,13 @@ export default function Templates() {
         <div className="text-center mb-10">
           <p
             className="text-[11px] uppercase tracking-[0.25em] text-white/30 mb-3 font-medium"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
+            style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
           >
             Ready-Made Designs
           </p>
           <h2
             className="text-3xl sm:text-4xl font-bold text-white"
-            style={{ fontFamily: 'Syne, sans-serif' }}
+            style={{ fontFamily: 'var(--font-syne), Syne, sans-serif' }}
           >
             Browse Our <span className="text-[#00d4ff]">Templates</span>
           </h2>
@@ -114,20 +114,30 @@ export default function Templates() {
         {/* Loading */}
         {loading && (
           <div className="flex justify-center items-center py-24">
-            <div className="w-8 h-8 rounded-full border-2 border-[#00d4ff]/30 border-t-[#00d4ff] animate-spin" />
+            <div
+              className="w-8 h-8 rounded-full border-2 border-[#00d4ff]/30 border-t-[#00d4ff] animate-spin"
+              role="status"
+              aria-label="Loading templates"
+            />
           </div>
         )}
 
         {/* Error */}
         {!loading && error && (
-          <div className="text-center py-16 text-white/40 text-sm" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+          <div
+            className="text-center py-16 text-white/40 text-sm"
+            style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
+          >
             {error}
           </div>
         )}
 
         {/* Empty */}
         {!loading && !error && templates.length === 0 && (
-          <div className="text-center py-16 text-white/40 text-sm" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+          <div
+            className="text-center py-16 text-white/40 text-sm"
+            style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
+          >
             No templates found. Add some in your Supabase dashboard.
           </div>
         )}
@@ -142,9 +152,9 @@ export default function Templates() {
                 onClick={prev}
                 aria-label="Previous template"
                 disabled={fading}
-                className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-white/10 bg-white/5 hover:bg-[#00d4ff]/10 hover:border-[#00d4ff]/40 text-white/60 hover:text-[#00d4ff] transition-all duration-200 disabled:opacity-40"
+                className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-white/10 bg-white/5 hover:bg-[#00d4ff]/10 hover:border-[#00d4ff]/40 text-white/60 hover:text-[#00d4ff] transition-all duration-200 disabled:opacity-40"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="15 18 9 12 15 6" />
                 </svg>
               </button>
@@ -170,9 +180,9 @@ export default function Templates() {
                   {t.desktop_image && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      key={t.desktop_image} // forces re-mount on src change
+                      key={t.desktop_image}
                       src={t.desktop_image}
-                      alt={t.name ?? 'Template preview'}
+                      alt={`${t.name ?? 'Template'} preview — ecommerce store design`}
                       fetchPriority={current === 0 ? 'high' : 'auto'}
                       decoding="async"
                       className="w-full h-full object-cover object-top"
@@ -202,7 +212,7 @@ export default function Templates() {
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <h3
                       className="text-lg sm:text-xl font-bold text-white"
-                      style={{ fontFamily: 'Syne, sans-serif' }}
+                      style={{ fontFamily: 'var(--font-syne), Syne, sans-serif' }}
                     >
                       {t.name ?? 'Untitled Template'}
                     </h3>
@@ -215,7 +225,7 @@ export default function Templates() {
 
                   <p
                     className="text-sm text-white/50 leading-relaxed mb-6"
-                    style={{ fontFamily: 'DM Sans, sans-serif' }}
+                    style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
                   >
                     {t.description ?? ''}
                   </p>
@@ -248,32 +258,46 @@ export default function Templates() {
                 onClick={next}
                 aria-label="Next template"
                 disabled={fading}
-                className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-white/10 bg-white/5 hover:bg-[#00d4ff]/10 hover:border-[#00d4ff]/40 text-white/60 hover:text-[#00d4ff] transition-all duration-200 disabled:opacity-40"
+                className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-white/10 bg-white/5 hover:bg-[#00d4ff]/10 hover:border-[#00d4ff]/40 text-white/60 hover:text-[#00d4ff] transition-all duration-200 disabled:opacity-40"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </button>
             </div>
 
-            {/* Dot indicators */}
-            <div className="flex justify-center gap-2 mt-6">
-              {templates.map((_, i) => (
+            {/*
+              ── Touch target fix ─────────────────────────────────────────────
+              Old dots: w-2 h-2 (8px) — far too small, Lighthouse flags < 24px.
+              New dots: min 44×44px tap area via padding, visual size unchanged.
+              The inner span provides the visual dot; the button provides the tap area.
+            */}
+            <div className="flex justify-center gap-1 mt-6" role="tablist" aria-label="Template navigation">
+              {templates.map((tmpl, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  aria-label={`Go to template ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current ? 'w-6 bg-[#00d4ff]' : 'w-2 bg-white/20 hover:bg-white/40'
-                  }`}
-                />
+                  role="tab"
+                  aria-selected={i === current}
+                  aria-label={`View template ${i + 1}${tmpl.name ? `: ${tmpl.name}` : ''}`}
+                  className="flex items-center justify-center p-3"
+                  style={{ minWidth: 44, minHeight: 44 }}
+                >
+                  <span
+                    className={`block rounded-full transition-all duration-300 ${
+                      i === current ? 'w-6 h-2 bg-[#00d4ff]' : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
             {/* Counter */}
             <p
-              className="text-center text-xs text-white/20 mt-3"
-              style={{ fontFamily: 'DM Sans, sans-serif' }}
+              className="text-center text-xs text-white/20 mt-1"
+              style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
+              aria-live="polite"
+              aria-atomic="true"
             >
               {current + 1} / {templates.length}
             </p>
@@ -284,7 +308,7 @@ export default function Templates() {
         <div className="text-center mt-10">
           <p
             className="text-sm text-white/40 mb-4"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
+            style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
           >
             Don&apos;t see what you need? We build fully custom too.
           </p>
