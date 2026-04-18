@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
@@ -12,30 +12,50 @@ const navLinks = [
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
-  { label: 'بديل سلة وزد', href: '/ar/badil-salla-zid' },
 ]
+
+// ── Pre-filled WhatsApp CTA ───────────────────────────────────────────────────
+const WA_MESSAGE = encodeURIComponent(
+  "Hi Imran, I saw the MakeMyStore home page. I want to own my store with a one-time setup fee. How do we start?"
+)
+const WA_HREF = `https://wa.me/923293943161?text=${WA_MESSAGE}`
+// ↑ Replace 923001234567 with your actual WhatsApp number (country code + number, no +)
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
 
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handler)
-    return () => window.removeEventListener('scroll', handler)
+  // Throttle scroll listener for performance
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 20)
   }, [])
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  const closeMenu = useCallback(() => setOpen(false), [])
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg' : 'bg-transparent'}`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'glass shadow-lg' : 'bg-transparent'
+      }`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
 
-        <Link href="/" className="flex items-center gap-2 group shrink-0">
+        <Link href="/" className="flex items-center gap-2 group shrink-0" aria-label="MakeMyStore home">
           <img
             src="/logo.png"
             alt="MakeMyStore logo"
             width={36}
             height={36}
+            fetchPriority="high"
+            decoding="async"
             className="rounded-lg object-contain"
             style={{ mixBlendMode: 'lighten' }}
           />
@@ -45,12 +65,17 @@ export default function Navbar() {
           </span>
         </Link>
 
+        {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border border-transparent ${pathname === l.href ? 'text-[#00d4ff] border-[#00d4ff]/20 bg-[#00d4ff]/[0.06]' : 'text-white/75 hover:text-white hover:border-[#00d4ff]/20 hover:bg-[#00d4ff]/[0.06]'}`}
+              className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border border-transparent ${
+                pathname === l.href
+                  ? 'text-[#00d4ff] border-[#00d4ff]/20 bg-[#00d4ff]/[0.06]'
+                  : 'text-white/75 hover:text-white hover:border-[#00d4ff]/20 hover:bg-[#00d4ff]/[0.06]'
+              }`}
               style={{ textShadow: '0 0 8px rgba(0,212,255,0.4)' }}
             >
               {l.label}
@@ -59,34 +84,50 @@ export default function Navbar() {
 
           <Link
             href="/ar/badil-salla-zid"
-            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border ${pathname === '/ar/badil-salla-zid' ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10' : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'}`}
+            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border ${
+              pathname === '/ar/badil-salla-zid'
+                ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10'
+                : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'
+            }`}
           >
-            عربي 🇸🇦
+            بديل سلة وزد 🇸🇦
           </Link>
 
-          {/* ── CHANGE 1: Order Now → /pricing ── */}
-          <Link href="https://www.makemystore.online/pricing" className="btn-primary ml-2 text-sm">
+          {/* ── CHANGE 5: WhatsApp CTA ── */}
+          <a
+            href={WA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary ml-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00d4ff]"
+          >
             Order Now
-          </Link>
+          </a>
         </div>
 
+        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
           className="lg:hidden p-2 text-white rounded-lg hover:bg-white/10 transition-colors"
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
+      {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden glass border-t border-white/5">
+        <div
+          id="mobile-menu"
+          className="lg:hidden glass border-t border-white/5"
+        >
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                onClick={() => setOpen(false)}
+                onClick={closeMenu}
                 className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
               >
                 {l.label}
@@ -95,20 +136,22 @@ export default function Navbar() {
 
             <Link
               href="/ar/badil-salla-zid"
-              onClick={() => setOpen(false)}
+              onClick={closeMenu}
               className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
             >
-              عربي 🇸🇦
+              بديل سلة وزد 🇸🇦
             </Link>
 
-            {/* ── CHANGE 1 (mobile): Order Now → /pricing ── */}
-            <Link
-              href="https://www.makemystore.online/pricing"
-              onClick={() => setOpen(false)}
+            {/* ── CHANGE 5 mobile: WhatsApp CTA ── */}
+            <a
+              href={WA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMenu}
               className="btn-primary text-center text-sm mt-2"
             >
               Order Now
-            </Link>
+            </a>
           </div>
         </div>
       )}
