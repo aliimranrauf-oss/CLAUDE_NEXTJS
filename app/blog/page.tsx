@@ -122,7 +122,7 @@ export default async function BlogPage() {
             </p>
           </div>
 
-          {/* ── Featured Post (first post gets hero treatment) ── */}
+          {/* ── Featured Post (hero treatment) ── */}
           {featured && (
             <Link
               href={`/blog/${featured.slug}`}
@@ -131,7 +131,7 @@ export default async function BlogPage() {
             >
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Image */}
-                <div className="relative h-56 md:h-full min-h-[240px] overflow-hidden">
+                <div className="relative h-56 md:h-full min-h-[280px] overflow-hidden">
                   {featured.image_url ? (
                     <Image
                       src={featured.image_url}
@@ -179,15 +179,16 @@ export default async function BlogPage() {
             </Link>
           )}
 
-          {/* ── Blog Grid ── */}
+          {/* ── Blog Grid — uniform 3-column ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rest.map((post) => (
+            {(rest.length > 0 ? rest : []).map((post) => (
               <article
                 key={post.id}
                 className="glass rounded-2xl overflow-hidden flex flex-col group border border-white/5 hover:border-[#00d4ff]/30 transition-all duration-300 card-glow"
+                style={{ background: 'rgba(255,255,255,0.03)' }}
               >
-                {/* Card image with next/image for lazy loading */}
-                <Link href={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden bg-[#0d1220]">
+                {/* Card image — fixed height so all cards are equal */}
+                <Link href={`/blog/${post.slug}`} className="block relative h-52 overflow-hidden bg-[#0d1220] flex-shrink-0">
                   {post.image_url ? (
                     <Image
                       src={post.image_url}
