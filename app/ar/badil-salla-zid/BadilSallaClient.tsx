@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 const LINKS = {
-  whatsapp: 'https://wa.me/923293943161?text=مرحبا، أريد متجر إلكتروني',
+  whatsapp: 'https://wa.me/923293943161?text=مرحباً، أريد استشارة بخصوص نقل متجري من سلة/زد إلى نظمتكم.',
   fiverr: 'https://www.fiverr.com/s/kLB1m0k',
   email: 'mailto:info@makemystore.online',
   pricing: '#pricing',
@@ -19,7 +19,7 @@ const content = {
     hero: {
       badge: 'البديل الأفضل لسلة وزد',
       h1Line1: 'متجرك الإلكتروني',
-      h1Line2: 'بدون رسوم شهرية — أبداً',
+      h1Line2: 'بدفعة واحدة — صفر رسوم منصة',
       subtitle:
         'توقف عن دفع مئات الريالات شهرياً لسلة وزد. احصل على متجر إلكتروني مخصص بالكامل بدفعة واحدة فقط، مع ملكية كاملة وسرعة فائقة وتحسين SEO احترافي.',
       ctaPrimary: '💬 تواصل عبر واتساب',
@@ -27,7 +27,7 @@ const content = {
       badges: [
         '✅ إطلاق خلال 3–10 أيام',
         '✅ ملكية كاملة للكود',
-        '✅ استضافة مجانية مدى الحياة',
+        '✅ استضافة على حسابك الخاص (Vercel Free Tier)',
         '✅ دعم Stripe و PayPal',
       ],
     },
@@ -48,9 +48,10 @@ const content = {
       sub: 'سلة vs زد vs MakeMyStore',
       col1: 'الميزة', col2: 'سلة', col3: 'زد', col4: 'MakeMyStore ✨',
       rows: [
-        { feature: 'الرسوم الشهرية', salla: '299 ريال/شهر', zid: '199 ريال/شهر', us: '✅ صفر' },
+        { feature: 'الرسوم الشهرية', salla: '299 ريال/شهر', zid: '199 ريال/شهر', us: '✅ 0 ريال (صفر رسوم منصة)' },
         { feature: 'تخصيص التصميم', salla: '❌ محدود', zid: '❌ محدود', us: '✅ كامل' },
-        { feature: 'ملكية الكود', salla: '❌ لا', zid: '❌ لا', us: '✅ نعم' },
+        { feature: 'ملكية الكود', salla: '❌ لا', zid: '❌ لا', us: '✅ نعم (ملكية كاملة)' },
+        { feature: 'الاستضافة', salla: '✅ مدمجة (مدفوعة)', zid: '✅ مدمجة (مدفوعة)', us: '✅ Vercel (حسابك الشخصي)' },
         { feature: 'عمولة على المبيعات', salla: '✅ نعم', zid: '✅ نعم', us: '✅ لا' },
         { feature: 'سرعة الموقع', salla: '⚠️ متوسطة', zid: '⚠️ متوسطة', us: '✅ فائقة' },
         { feature: 'SEO متقدم', salla: '⚠️ أساسي', zid: '⚠️ أساسي', us: '✅ احترافي' },
@@ -83,7 +84,7 @@ const content = {
     faq: {
       heading: 'أسئلة شائعة',
       items: [
-        { q: 'هل أحتاج دفع أي رسوم بعد الإطلاق؟', a: 'لا، الدفع مرة واحدة فقط. الاستضافة مجانية مدى الحياة عبر Vercel.' },
+        { q: 'هل أحتاج دفع أي رسوم بعد الإطلاق؟', a: 'لا توجد رسوم للمنصة. نقوم بإعداد المتجر على حسابات Vercel و Supabase الخاصة بك، مما يمنحك تحكماً كاملاً وملكية 100%.' },
         { q: 'كم يستغرق بناء المتجر؟', a: 'من 3 إلى 10 أيام عمل حسب حجم المتجر والمتطلبات.' },
         { q: 'هل يدعم المتجر اللغة العربية والعملات السعودية؟', a: 'نعم، المتجر يدعم العربية والإنجليزية والريال السعودي وجميع العملات.' },
         { q: 'ماذا لو أردت تعديل المتجر لاحقاً؟', a: 'تحصل على الكود الكامل وتستطيع تعديله متى شئت، أو نقدم خدمة الدعم بسعر مناسب.' },
@@ -102,7 +103,7 @@ const content = {
     hero: {
       badge: 'The Best Alternative to Salla & Zid',
       h1Line1: 'Your Online Store',
-      h1Line2: 'Zero Monthly Fees — Forever',
+      h1Line2: 'One-Time Payment — Zero Platform Fees',
       subtitle:
         'Stop paying hundreds of Riyals every month to Salla or Zid. Get a fully custom ecommerce store for a single one-time payment — with complete ownership, blazing speed, and professional SEO.',
       ctaPrimary: '💬 Chat on WhatsApp',
@@ -110,7 +111,7 @@ const content = {
       badges: [
         '✅ Launched in 3–10 days',
         '✅ Full code ownership',
-        '✅ Free hosting for life',
+        '✅ Hosted on your own account (Vercel Free Tier)',
         '✅ Stripe & PayPal support',
       ],
     },
@@ -131,9 +132,10 @@ const content = {
       sub: 'Salla vs Zid vs MakeMyStore',
       col1: 'Feature', col2: 'Salla', col3: 'Zid', col4: 'MakeMyStore ✨',
       rows: [
-        { feature: 'Monthly Fees', salla: '299 SAR/mo', zid: '199 SAR/mo', us: '✅ Zero' },
+        { feature: 'Monthly Fees', salla: '299 SAR/mo', zid: '199 SAR/mo', us: '✅ 0 SAR (Zero platform fees)' },
         { feature: 'Design Customization', salla: '❌ Limited', zid: '❌ Limited', us: '✅ Full' },
-        { feature: 'Code Ownership', salla: '❌ No', zid: '❌ No', us: '✅ Yes' },
+        { feature: 'Code Ownership', salla: '❌ No', zid: '❌ No', us: '✅ Yes (Full ownership)' },
+        { feature: 'Hosting', salla: '✅ Built-in (paid)', zid: '✅ Built-in (paid)', us: '✅ Vercel (your own account)' },
         { feature: 'Sales Commission', salla: '✅ Yes', zid: '✅ Yes', us: '✅ None' },
         { feature: 'Site Speed', salla: '⚠️ Average', zid: '⚠️ Average', us: '✅ Blazing Fast' },
         { feature: 'Advanced SEO', salla: '⚠️ Basic', zid: '⚠️ Basic', us: '✅ Professional' },
@@ -166,7 +168,7 @@ const content = {
     faq: {
       heading: 'Frequently Asked Questions',
       items: [
-        { q: 'Do I need to pay anything after launch?', a: 'No — you pay once. Hosting is free for life via Vercel.' },
+        { q: 'Do I need to pay anything after launch?', a: 'No platform fees. We set up the store on your own Vercel and Supabase accounts, giving you full control and 100% ownership.' },
         { q: 'How long does it take to build the store?', a: '3 to 10 business days depending on the size and requirements.' },
         { q: 'Does the store support Arabic and Saudi currency?', a: 'Yes, the store supports both Arabic and English, Saudi Riyal, and all currencies.' },
         { q: 'What if I want to modify the store later?', a: 'You get the full source code and can modify it anytime, or we offer affordable ongoing support.' },
