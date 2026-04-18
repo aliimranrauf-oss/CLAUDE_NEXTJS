@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+/* ── Google Fonts @import REMOVED ────────────────────────────────────────────
+   Fonts are loaded via next/font/google in layout.tsx (Syne + DM_Sans).
+   The @import here was causing a render-blocking network request (+1,230 ms penalty).
+   Do NOT re-add it. next/font handles preloading, display:swap, and self-hosting.
+   ─────────────────────────────────────────────────────────────────────────── */
 
 @tailwind base;
 @tailwind components;
@@ -24,7 +28,7 @@
     color: white;
   }
   h1,h2,h3,h4,h5,h6 {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-syne), 'Syne', sans-serif;
   }
 }
 
@@ -62,6 +66,8 @@
   0%,100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
 }
+/* animate-float is intentionally NOT applied to the Hero LCP logo.
+   It is kept here for other non-LCP decorative elements if needed. */
 .animate-float { animation: float 5s ease-in-out infinite; }
 
 @keyframes shimmer {
