@@ -1,21 +1,31 @@
+// ── WhatsApp pre-filled CTA ────────────────────────────────────────────────
+const WA_MESSAGE = encodeURIComponent(
+  "Hi Imran, I saw the MakeMyStore home page. I want to own my store with a one-time setup fee. How do we start?"
+)
+const WA_HREF = `https://wa.me/923293943161?text=${WA_MESSAGE}`
+// ↑ Replace 923001234567 with your actual WhatsApp number (no + sign)
+
 const platforms = ['Shopify', 'Wix', 'WordPress', 'MakeMyStore ✦']
 
 const rows = [
   {
-    feature: 'Monthly subscription fee',
-    values: ['From $39/mo', 'From $17/mo', 'From $10/mo', 'None ✓'],
+    // CHANGE: "Monthly subscription fee" → "Platform Fee", "None ✓" → "$0/mo ✓"
+    feature: 'Platform Fee',
+    values: ['From $39/mo', 'From $17/mo', 'From $10/mo', '$0/mo ✓'],
   },
   {
     feature: 'Sales commission',
     values: ['Up to 2%', '0%', '0%', '0% ✓'],
   },
   {
+    // UNCHANGED — stays as "✅ Full ownership"
     feature: 'Source code ownership',
     values: ['❌', '❌', '⚠️ Partial', '✅ Full ownership'],
   },
   {
-    feature: 'Free hosting',
-    values: ['❌ Extra cost', '❌ Extra cost', '❌ Extra cost', '✅ Vercel free'],
+    // CHANGE: "Free hosting" → "Hosting & DB", "✅ Vercel free" → "✅ Your Own Account (Free Tiers)"
+    feature: 'Hosting & DB',
+    values: ['❌ Extra cost', '❌ Extra cost', '❌ Extra cost', '✅ Your Own Account (Free Tiers)'],
   },
   {
     feature: '100% custom design',
@@ -68,7 +78,7 @@ export default function ComparisonTable() {
           </p>
         </div>
 
-        {/* Table wrapper — horizontal scroll on mobile */}
+        {/* Table — horizontal scroll on mobile */}
         <div className="overflow-x-auto rounded-2xl" style={{ border: '1px solid rgba(0,212,255,0.2)' }}>
           <table className="w-full min-w-[640px] text-sm">
             <thead>
@@ -78,9 +88,7 @@ export default function ComparisonTable() {
                   <th
                     key={p}
                     className={`px-5 py-4 text-center font-bold text-sm ${
-                      i === 3
-                        ? 'text-[#00d4ff]'
-                        : 'text-gray-300'
+                      i === 3 ? 'text-[#00d4ff]' : 'text-gray-300'
                     }`}
                     style={i === 3 ? { fontFamily: 'Syne, sans-serif' } : {}}
                   >
@@ -130,9 +138,20 @@ export default function ComparisonTable() {
           </table>
         </div>
 
-        {/* CTA below table */}
-        <div className="mt-10 text-center">
-          <a href="#pricing" className="btn-primary inline-block text-base">
+        {/* CHANGE 3: Added ownership/control sentence */}
+        <p className="mt-6 text-center text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
+          We deploy your store directly to your personal Vercel and Supabase accounts, giving you{' '}
+          <strong className="text-gray-300">100% control</strong> and eliminating the risk of platform price hikes.
+        </p>
+
+        {/* CHANGE 5: WhatsApp pre-filled CTA — replaces old #pricing anchor */}
+        <div className="mt-8 text-center">
+          <a
+            href={WA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-block text-base"
+          >
             Start With MakeMyStore Today →
           </a>
         </div>
