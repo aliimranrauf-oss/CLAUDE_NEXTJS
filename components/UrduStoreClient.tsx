@@ -8,9 +8,9 @@ const WHATSAPP_URL =
   'https://wa.me/923293943161?text=اسلام%20علیکم،%20مجھے%20پاکستان%20میں%20اپنا%20آن%20لائن%20اسٹور%20بنوانا%20ہے'
 
 const TYPING_TEXTS = [
-  'EasyPaisa & JazzCash Integration ✓',
-  'Leopard • TCS • Trax Courier Ready ✓',
-  'Cash on Delivery Built-in ✓',
+  'براہ راست EasyPaisa & JazzCash ادائیگی ✓',
+  'ایک بار ادائیگی — ہمیشہ کی ملکیت ✓',
+  'کوئی ماہانہ فیس نہیں ✓',
   'No Monthly Fees — Ever ✓',
 ]
 
@@ -23,27 +23,21 @@ const COMPARISON = [
     mmsBetter: true,
   },
   {
-    feature: 'مقامی پیمنٹ (EasyPaisa/JazzCash)',
+    feature: 'مقامی ادائیگی (EasyPaisa/JazzCash)',
     shopify: '❌ آفیشل سپورٹ نہیں',
-    mms: '✅ مکمل انٹیگریشن',
+    mms: '✅ براہ راست ادائیگی',
     mmsBetter: true,
   },
   {
-    feature: 'Stripe کارڈ پیمنٹ (پاکستان میں)',
-    shopify: '❌ بینک اکاؤنٹ مسئلہ',
-    mms: '✅ Bank Transfer + Stripe',
+    feature: 'Bank Transfer',
+    shopify: '❌ پاکستانی بینک مسئلہ',
+    mms: '✅ تمام بینک قابل قبول',
     mmsBetter: true,
   },
   {
-    feature: 'Cash on Delivery (COD)',
-    shopify: '❌ تھرڈ پارٹی ایپ چاہیے',
-    mms: '✅ بلٹ ان',
-    mmsBetter: true,
-  },
-  {
-    feature: 'کوریئر انٹیگریشن',
-    shopify: '❌ Leopard/TCS/Trax نہیں',
-    mms: '✅ تمام کوریئر سپورٹ',
+    feature: 'آرڈر مینجمنٹ',
+    shopify: '❌ پیچیدہ اور مہنگا',
+    mms: '✅ آسان ڈیش بورڈ',
     mmsBetter: true,
   },
   {
@@ -68,91 +62,56 @@ const COMPARISON = [
 
 // ── Payment Methods ───────────────────────────────────────────────────────────
 const PAYMENTS = [
-  { name: 'EasyPaisa', color: '#00a651', emoji: '📱', desc: 'موبائل والٹ' },
-  { name: 'JazzCash', color: '#d0021b', emoji: '💸', desc: 'موبائل اکاؤنٹ' },
-  { name: 'Bank Transfer', color: '#1a56db', emoji: '🏦', desc: 'تمام بینک' },
+  { name: 'EasyPaisa', color: '#00a651', emoji: '📱', desc: 'براہ راست ادائیگی' },
+  { name: 'JazzCash', color: '#d0021b', emoji: '💸', desc: 'براہ راست ادائیگی' },
+  { name: 'Bank Transfer', color: '#1a56db', emoji: '🏦', desc: 'تمام بینک قابل قبول' },
   { name: 'Cash on Delivery', color: '#f59e0b', emoji: '💰', desc: 'گھر پر ادائیگی' },
-]
-
-// ── Courier Partners ──────────────────────────────────────────────────────────
-const COURIERS = [
-  { name: 'Leopard Courier', emoji: '🐆', cities: '300+ شہر' },
-  { name: 'TCS', emoji: '🚚', cities: 'ملک گیر نیٹ ورک' },
-  { name: 'Trax', emoji: '📦', cities: 'سستا اور تیز' },
-  { name: 'Swyft / Other', emoji: '⚡', cities: 'کسٹم انٹیگریشن' },
 ]
 
 // ── Trust Badges ──────────────────────────────────────────────────────────────
 const BADGES = [
   { icon: '✅', text: 'ایک بار ادائیگی، ہمیشہ کے لیے ملکیت' },
-  { icon: '✅', text: 'مقامی پیمنٹ میتھڈز کا انٹیگریشن' },
+  { icon: '✅', text: 'براہ راست مقامی ادائیگی کی سہولت' },
   { icon: '✅', text: '24/7 سپورٹ اور ٹریننگ' },
   { icon: '✅', text: '3–10 دن میں لائیو اسٹور' },
   { icon: '✅', text: 'آپ کے اپنے Vercel & Supabase اکاؤنٹ پر' },
 ]
 
-// ── Pricing Packages ──────────────────────────────────────────────────────────
-const PACKAGES = [
+// ── Key Selling Points ────────────────────────────────────────────────────────
+const SELLING_POINTS = [
   {
-    name: 'اسٹارٹر',
-    price: '$99',
-    pkr: '≈ ₨ 27,000',
-    features: [
-      'کسٹم ڈیزائن اسٹور',
-      'EasyPaisa + JazzCash',
-      'Cash on Delivery',
-      '1 کوریئر انٹیگریشن',
-      'بیسک SEO سیٹ اپ',
-      '1 ماہ سپورٹ',
-    ],
-    highlight: false,
+    icon: '🏠',
+    title: 'اونر شپ ماڈل',
+    desc: 'ایک بار ادائیگی کریں اور ہمیشہ کے لیے اپنے اسٹور کے مالک بنیں۔ کوئی کرایہ نہیں، کوئی سبسکرپشن نہیں۔',
   },
   {
-    name: 'پرو',
-    price: '$179',
-    pkr: '≈ ₨ 49,000',
-    features: [
-      'سب کچھ اسٹارٹر میں +',
-      'تمام کوریئر انٹیگریشن',
-      'بینک ٹرانسفر گیٹ وے',
-      'ایڈوانس SEO + بلاگ',
-      'گوگل اینالیٹکس',
-      '3 ماہ سپورٹ + ٹریننگ',
-    ],
-    highlight: true,
+    icon: '🚫',
+    title: 'کوئی ماہانہ فیس نہیں',
+    desc: 'شاپائف یا سلہ کی طرح ہر ماہ پیسے دینے کی ضرورت نہیں۔ ایک بار خرچ کریں، ہمیشہ چلائیں۔',
   },
   {
-    name: 'کسٹم',
-    price: 'بات چیت',
-    pkr: 'آپ کے بجٹ کے مطابق',
-    features: [
-      'مکمل کسٹم فیچرز',
-      'ERP / POS انٹیگریشن',
-      'ملٹی وینڈر مارکیٹ پلیس',
-      'کسٹم کوریئر API',
-      'ڈیڈیکیٹڈ اکاؤنٹ منیجر',
-      'لامحدود سپورٹ',
-    ],
-    highlight: false,
+    icon: '⚡',
+    title: 'فوری سیٹ اپ',
+    desc: 'آپ کا اسٹور 3 سے 10 دنوں میں لائیو ہو جائے گا۔ ہم سب کچھ سیٹ اپ کرتے ہیں — آپ بس بیچیں۔',
   },
 ]
 
 // ── FAQs ─────────────────────────────────────────────────────────────────────
 const FAQS = [
   {
-    q: 'کیا پاکستان میں EasyPaisa اور JazzCash انٹیگریشن ممکن ہے؟',
-    a: 'جی بالکل! ہم آپ کے اسٹور میں EasyPaisa، JazzCash، بینک ٹرانسفر اور Cash on Delivery مکمل طور پر سیٹ اپ کرتے ہیں۔ گاہک آسانی سے اپنی پسند کی پیمنٹ کر سکتے ہیں۔',
+    q: 'پاکستان میں EasyPaisa اور JazzCash سے ادائیگی کیسے ہوگی؟',
+    a: 'گاہک آپ کو براہ راست EasyPaisa، JazzCash یا بینک ٹرانسفر سے پیسے بھیجیں گے۔ یہ سب سے آسان اور قابل اعتماد طریقہ ہے — کوئی تھرڈ پارٹی گیٹ وے نہیں، کوئی اضافی فیس نہیں۔',
   },
   {
     q: 'کیا Shopify پاکستان میں ٹھیک کام کرتا ہے؟',
-    a: 'Shopify کے ساتھ سب سے بڑا مسئلہ Stripe کا ہے — پاکستانی بینک اکاؤنٹ سے Stripe سیٹ اپ کرنا انتہائی مشکل ہے۔ اس کے علاوہ ماہانہ فیس ₨8,000 سے شروع ہوتی ہے۔ ہم یہ تمام مسائل حل کرتے ہیں۔',
+    a: 'Shopify کے ساتھ سب سے بڑا مسئلہ ماہانہ فیس اور پاکستانی پیمنٹ میتھڈز کی کمی ہے۔ ماہانہ فیس ₨8,000 سے شروع ہوتی ہے اور EasyPaisa/JazzCash کی کوئی آفیشل سہولت نہیں۔ ہم یہ تمام مسائل حل کرتے ہیں۔',
   },
   {
-    q: 'Leopard یا TCS کوریئر انٹیگریشن کیسے کام کرتی ہے؟',
-    a: 'آرڈر آتے ہی خودکار طور پر کوریئر بکنگ ہو جاتی ہے۔ ٹریکنگ نمبر گاہک کو SMS/WhatsApp پر مل جاتا ہے۔ آپ کو الگ سے کچھ نہیں کرنا پڑتا۔',
+    q: 'آرڈر مینجمنٹ کیسے کام کرے گی؟',
+    a: 'آپ کو ایک آسان ڈیش بورڈ ملے گا جہاں تمام آرڈر نظر آئیں گے۔ گاہک آرڈر کریں، پیمنٹ براہ راست آپ کو ملے، آپ خود ڈیلیور کریں۔ سب کچھ آپ کے کنٹرول میں۔',
   },
   {
-    q: 'ادائیگی کیسے کریں اور پروجیکٹ کتنے دن میں مکمل ہوگا؟',
+    q: 'اپنے اسٹور کی ادائیگی کیسے کریں اور کتنے دن میں مکمل ہوگا؟',
     a: 'آپ EasyPaisa، JazzCash یا بینک ٹرانسفر سے ادائیگی کر سکتے ہیں۔ سادہ اسٹور 3–5 دن میں، پرو اسٹور 7–10 دن میں مکمل ہوتا ہے۔',
   },
   {
@@ -207,7 +166,7 @@ export default function UrduStoreClient() {
 
         {/* Badge */}
         <div className="hero-badge mb-6">
-          🇵🇰 پاکستان کے لیے خصوصی — Local Payments + Courier Ready
+          🇵🇰 پاکستان کے لیے خصوصی — براہ راست مقامی ادائیگی
         </div>
 
         {/* Headline */}
@@ -220,8 +179,8 @@ export default function UrduStoreClient() {
 
         {/* Sub */}
         <p className="urdu-body mt-6 text-gray-400 text-base sm:text-lg max-w-xl mx-auto leading-[1.9]">
-          پاکستان میں EasyPaisa، JazzCash، Bank Transfer اور Cash on Delivery
-          کے ساتھ اپنا مکمل ای کامرس اسٹور بنائیں۔ ایک بار ادائیگی، ہمیشہ کی ملکیت۔
+          مقامی ادائیگیوں کی سہولت (EasyPaisa, JazzCash, Bank Transfer) کے ذریعے براہ راست ادائیگی —
+          ایک بار ادائیگی، ہمیشہ کی ملکیت۔
         </p>
 
         {/* Typewriter */}
@@ -275,40 +234,40 @@ export default function UrduStoreClient() {
                 <span className="payment-emoji">{p.emoji}</span>
                 <span className="payment-name" style={{ color: p.color }}>{p.name}</span>
                 <span className="payment-desc">{p.desc}</span>
-                <span className="payment-tick">✓ انٹیگریٹڈ</span>
               </div>
             ))}
           </div>
+
+          <p className="urdu-body mt-8 text-sm text-white/40 max-w-lg mx-auto leading-[2]">
+            گاہک آپ کو براہ راست پیسے بھیجیں گے — کوئی درمیانی گیٹ وے نہیں، کوئی اضافی فیس نہیں۔
+          </p>
         </div>
       </section>
 
-      {/* ── COURIER SECTION ───────────────────────────────────────────────── */}
+      {/* ── ORDER MANAGEMENT ──────────────────────────────────────────────── */}
       <section className="section-wrapper alt-bg">
         <div className="section-inner">
-          <div className="section-label">کوریئر انٹیگریشن</div>
+          <div className="section-label">آرڈر مینجمنٹ</div>
           <h2 className="section-heading">
-            آرڈر آئے — خودکار{' '}
-            <span className="text-gradient">کوریئر بکنگ</span> ہو جائے
+            آسان <span className="text-gradient">آرڈر مینجمنٹ</span> — سب کچھ آپ کے ہاتھ میں
           </h2>
           <p className="section-sub">
-            پاکستانی سیلرز کے لیے کوریئر انٹیگریشن لازمی ہے۔ آرڈر آتے ہی سسٹم خود بخود بکنگ بنا دیتا ہے اور گاہک کو ٹریکنگ نمبر WhatsApp پر مل جاتا ہے۔
+            کوئی پیچیدہ سسٹم نہیں۔ آرڈر آئے، پیمنٹ ملے، آپ ڈیلیور کریں — اتنا آسان۔
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
-            {COURIERS.map((c) => (
-              <div key={c.name} className="courier-card">
-                <span className="courier-emoji">{c.emoji}</span>
-                <span className="courier-name">{c.name}</span>
-                <span className="courier-cities">{c.cities}</span>
+            {[
+              { icon: '📋', title: 'آرڈر ڈیش بورڈ', desc: 'تمام آرڈر ایک جگہ' },
+              { icon: '💬', title: 'WhatsApp نوٹیفکیشن', desc: 'فوری آرڈر الرٹ' },
+              { icon: '📦', title: 'اسٹاک مینجمنٹ', desc: 'پروڈکٹ اپ ڈیٹ آسانی سے' },
+              { icon: '📊', title: 'سیلز رپورٹ', desc: 'روزانہ کی رپورٹ' },
+            ].map((item) => (
+              <div key={item.title} className="courier-card">
+                <span className="courier-emoji">{item.icon}</span>
+                <span className="courier-name">{item.title}</span>
+                <span className="courier-cities">{item.desc}</span>
               </div>
             ))}
-          </div>
-
-          <div className="courier-features mt-10">
-            <div className="cf-item">📲 خودکار ٹریکنگ SMS / WhatsApp</div>
-            <div className="cf-item">🏷️ آٹو لیبل پرنٹ</div>
-            <div className="cf-item">📊 شپمنٹ ڈیش بورڈ</div>
-            <div className="cf-item">↩️ Return Management</div>
           </div>
         </div>
       </section>
@@ -348,36 +307,38 @@ export default function UrduStoreClient() {
         </div>
       </section>
 
-      {/* ── PRICING ───────────────────────────────────────────────────────── */}
+      {/* ── KEY SELLING POINTS + PRICING BUTTON ──────────────────────────── */}
       <section className="section-wrapper alt-bg">
         <div className="section-inner">
-          <div className="section-label">قیمتیں</div>
+          <div className="section-label">ہمارا ماڈل</div>
           <h2 className="section-heading">
-            شفاف قیمتیں —{' '}
-            <span className="text-gradient">کوئی چھپی فیس نہیں</span>
+            کیوں <span className="text-gradient">MakeMyStore</span> بہترین انتخاب ہے؟
           </h2>
-          <p className="section-sub">
-            ایک بار ادائیگی کریں، ہمیشہ کے لیے اسٹور آپ کا۔ EasyPaisa یا JazzCash سے ادا کریں۔
-          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
-            {PACKAGES.map((pkg) => (
-              <div key={pkg.name} className={`pricing-card ${pkg.highlight ? 'pricing-highlight' : ''}`}>
-                {pkg.highlight && <div className="popular-badge">🔥 مقبول ترین</div>}
-                <div className="pkg-name urdu-heading">{pkg.name}</div>
-                <div className="pkg-price">{pkg.price}</div>
-                <div className="pkg-pkr">{pkg.pkr}</div>
-                <ul className="pkg-features urdu-body">
-                  {pkg.features.map((f, i) => (
-                    <li key={i}>✓ {f}</li>
-                  ))}
-                </ul>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-                  className={`pkg-cta ${pkg.highlight ? 'pkg-cta-primary' : 'pkg-cta-outline'}`}>
-                  واٹس ایپ پر شروع کریں
-                </a>
+            {SELLING_POINTS.map((sp) => (
+              <div key={sp.title} className="step-card">
+                <div className="step-num">{sp.icon}</div>
+                <div className="step-title urdu-heading">{sp.title}</div>
+                <div className="step-desc urdu-body">{sp.desc}</div>
               </div>
             ))}
+          </div>
+
+          {/* Pricing Button */}
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <p className="urdu-body text-sm text-white/40">
+              قیمتیں دیکھنے کے لیے نیچے کلک کریں
+            </p>
+            <Link
+              href="/pricing"
+              className="pricing-btn"
+            >
+              💰 قیمتیں دیکھنے کے لیے یہاں کلک کریں
+            </Link>
+            <p className="urdu-body text-xs text-white/30 mt-2">
+              یا سیدھا WhatsApp کریں — ہم آپ کے بجٹ کے مطابق پلان بتائیں گے
+            </p>
           </div>
         </div>
       </section>
@@ -639,7 +600,6 @@ export default function UrduStoreClient() {
         .payment-emoji { font-size: 32px; }
         .payment-name { font-weight: 700; font-size: 14px; font-family: sans-serif; }
         .payment-desc { font-size: 12px; color: rgba(255,255,255,0.4); font-family: 'Noto Nastaliq Urdu', serif; }
-        .payment-tick { font-size: 11px; color: #00d4ff; font-family: sans-serif; margin-top: 4px; }
 
         /* ── Courier cards ────────────────────────────────────────── */
         .courier-card {
@@ -719,62 +679,26 @@ export default function UrduStoreClient() {
         .competitor-cell { color: rgba(255,100,100,0.85) !important; }
         .mms-cell { color: #4ade80 !important; font-weight: 600; }
 
-        /* ── Pricing ──────────────────────────────────────────────── */
-        .pricing-card {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 20px;
-          padding: 32px 24px;
-          display: flex;
-          flex-direction: column;
+        /* ── Pricing Button ───────────────────────────────────────── */
+        .pricing-btn {
+          display: inline-flex;
           align-items: center;
-          text-align: center;
-          position: relative;
-          transition: all 0.25s;
-        }
-        .pricing-highlight {
-          border-color: rgba(0,212,255,0.35);
-          background: rgba(0,212,255,0.04);
-          box-shadow: 0 0 40px rgba(0,212,255,0.08);
-        }
-        .popular-badge {
-          position: absolute;
-          top: -14px;
-          background: linear-gradient(135deg, #00d4ff, #7a5cff);
+          gap: 10px;
+          background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%);
           color: white;
-          font-size: 12px;
           font-weight: 700;
-          padding: 4px 18px;
-          border-radius: 999px;
-          font-family: sans-serif;
-        }
-        .pkg-name { font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
-        .pkg-price { font-size: 36px; font-weight: 800; color: #00d4ff; font-family: var(--font-syne), sans-serif; }
-        .pkg-pkr { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 24px; font-family: sans-serif; }
-        .pkg-features { list-style: none; text-align: right; width: 100%; margin-bottom: 28px; }
-        .pkg-features li { padding: 7px 0; font-size: 13px; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .pkg-cta {
-          display: block;
-          width: 100%;
-          padding: 12px 20px;
-          border-radius: 12px;
-          font-weight: 700;
-          font-size: 13px;
-          font-family: 'Noto Nastaliq Urdu', serif;
+          font-size: 16px;
+          padding: 16px 40px;
+          border-radius: 16px;
           text-decoration: none;
+          font-family: 'Noto Nastaliq Urdu', serif;
           transition: all 0.2s;
-          text-align: center;
+          box-shadow: 0 4px 24px rgba(0,212,255,0.25);
         }
-        .pkg-cta-primary {
-          background: linear-gradient(135deg, #00d4ff, #7a5cff);
-          color: white;
+        .pricing-btn:hover {
+          transform: scale(1.04);
+          box-shadow: 0 6px 32px rgba(0,212,255,0.4);
         }
-        .pkg-cta-primary:hover { opacity: 0.9; transform: scale(1.02); }
-        .pkg-cta-outline {
-          border: 1px solid rgba(255,255,255,0.15);
-          color: rgba(255,255,255,0.7);
-        }
-        .pkg-cta-outline:hover { border-color: rgba(0,212,255,0.3); color: #00d4ff; }
 
         /* ── Steps ────────────────────────────────────────────────── */
         .steps-grid {
