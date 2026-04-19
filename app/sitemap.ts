@@ -24,6 +24,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
 
+    {
+      url: 'https://www.makemystore.online/pk/online-store-pakistan',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+      alternates: {
+        languages: {
+          en: 'https://www.makemystore.online/',
+          ur: 'https://www.makemystore.online/pk/online-store-pakistan',
+        },
+      },
+    },
+
     // Service Pages (0.8)
     {
       url: 'https://www.makemystore.online/tools',
