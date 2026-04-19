@@ -19,7 +19,7 @@ const COMPARISON = [
   {
     feature: 'ماہانہ فیس',
     shopify: '₨ 8,000–25,000/ماہ',
-    mms: 'صفر — ایک بار ادائیگی',
+    mms: '✅ صفر — ایک بار ادائیگی',
     mmsBetter: true,
   },
   {
@@ -54,7 +54,7 @@ const COMPARISON = [
   },
   {
     feature: 'SEO کنٹرول',
-    shopify: 'محدود',
+    shopify: '⚠️ محدود',
     mms: '✅ مکمل Next.js SEO',
     mmsBetter: true,
   },
@@ -62,10 +62,10 @@ const COMPARISON = [
 
 // ── Payment Methods ───────────────────────────────────────────────────────────
 const PAYMENTS = [
-  { name: 'EasyPaisa', color: '#00a651', emoji: '📱', desc: 'براہ راست ادائیگی' },
-  { name: 'JazzCash', color: '#d0021b', emoji: '💸', desc: 'براہ راست ادائیگی' },
-  { name: 'Bank Transfer', color: '#1a56db', emoji: '🏦', desc: 'تمام بینک قابل قبول' },
-  { name: 'Cash on Delivery', color: '#f59e0b', emoji: '💰', desc: 'گھر پر ادائیگی' },
+  { name: 'EasyPaisa', color: '#00d4ff', emoji: '📱', desc: 'براہ راست ادائیگی' },
+  { name: 'JazzCash', color: '#00d4ff', emoji: '💸', desc: 'براہ راست ادائیگی' },
+  { name: 'Bank Transfer', color: '#00d4ff', emoji: '🏦', desc: 'تمام بینک قابل قبول' },
+  { name: 'Cash on Delivery', color: '#00d4ff', emoji: '💰', desc: 'گھر پر ادائیگی' },
 ]
 
 // ── Trust Badges ──────────────────────────────────────────────────────────────
@@ -159,10 +159,9 @@ export default function UrduStoreClient() {
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="hero-section relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
-        {/* Subtle background shapes */}
-        <div aria-hidden className="shape shape-1" />
-        <div aria-hidden className="shape shape-2" />
-        <div aria-hidden className="shape shape-3" />
+        {/* Dark glow blobs — matching Arabic page */}
+        <div aria-hidden className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: 'rgba(0,212,255,0.05)' }} />
+        <div aria-hidden className="absolute top-1/3 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: 'rgba(122,92,255,0.05)' }} />
 
         {/* Logo */}
         <div className="animate-float mb-8">
@@ -174,17 +173,18 @@ export default function UrduStoreClient() {
             height={130}
             fetchPriority="high"
             decoding="async"
-            className="mx-auto rounded-2xl object-contain logo-shadow"
+            className="mx-auto rounded-2xl object-contain"
+            style={{ mixBlendMode: 'lighten', filter: 'drop-shadow(0 0 20px rgba(122,92,255,0.4))' }}
           />
         </div>
 
         {/* Badge */}
-        <div className="hero-badge mb-6">
+        <p className="hero-badge mb-6">
           🇵🇰 پاکستان کے لیے خصوصی — براہ راست مقامی ادائیگی
-        </div>
+        </p>
 
         {/* Headline */}
-        <h1 className="urdu-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5] max-w-3xl mx-auto hero-title">
+        <h1 className="urdu-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.6] max-w-3xl mx-auto text-white">
           ماہانہ فیس کو خیرباد کہیں —{' '}
           <span className="text-gradient block mt-2">
             اپنا اسٹور خود مالک بنیں
@@ -192,7 +192,7 @@ export default function UrduStoreClient() {
         </h1>
 
         {/* Sub */}
-        <p className="urdu-body mt-6 text-slate-500 text-base sm:text-lg max-w-xl mx-auto leading-[1.9]">
+        <p className="urdu-body mt-6 text-gray-400 text-base sm:text-lg max-w-xl mx-auto leading-[1.9]">
           مقامی ادائیگیوں کی سہولت (EasyPaisa, JazzCash, Bank Transfer) کے ذریعے براہ راست ادائیگی —
           ایک بار ادائیگی، ہمیشہ کی ملکیت۔
         </p>
@@ -218,14 +218,14 @@ export default function UrduStoreClient() {
             💬 واٹس ایپ پر آرڈر کریں
           </a>
           <Link href="/contact" className="cta-secondary">
-            فری مشاورت لیں →
+            فری مشاورت لیں ←
           </Link>
         </div>
 
         {/* Free tier note */}
-        <p className="mt-8 text-xs sm:text-sm text-slate-400 max-w-md mx-auto urdu-body leading-relaxed">
+        <p className="mt-8 text-xs sm:text-sm text-gray-500 max-w-md mx-auto urdu-body leading-relaxed">
           💡 زیادہ تر کلائنٹس Vercel اور Supabase کے{' '}
-          <strong className="text-slate-600">مفت پلان</strong> پر چلتے ہیں —
+          <strong className="text-gray-300">مفت پلان</strong> پر چلتے ہیں —
           یعنی ہر مہینے ₨0 خرچ!
         </p>
       </section>
@@ -244,15 +244,15 @@ export default function UrduStoreClient() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
             {PAYMENTS.map((p) => (
-              <div key={p.name} className="payment-card">
-                <span className="payment-emoji">{p.emoji}</span>
-                <span className="payment-name" style={{ color: p.color }}>{p.name}</span>
-                <span className="payment-desc">{p.desc}</span>
+              <div key={p.name} className="glass-card rounded-2xl p-6 flex flex-col items-center gap-3 hover:border-[#00d4ff]/40 transition-all">
+                <span className="text-4xl">{p.emoji}</span>
+                <span className="font-bold text-sm" style={{ color: p.color, fontFamily: 'Syne, sans-serif' }}>{p.name}</span>
+                <span className="urdu-body text-gray-400 text-xs">{p.desc}</span>
               </div>
             ))}
           </div>
 
-          <p className="urdu-body mt-8 text-sm text-slate-400 max-w-lg mx-auto leading-[2]">
+          <p className="urdu-body mt-8 text-sm text-gray-500 max-w-lg mx-auto leading-[2]">
             گاہک آپ کو براہ راست پیسے بھیجیں گے — کوئی درمیانی گیٹ وے نہیں، کوئی اضافی فیس نہیں۔
           </p>
         </div>
@@ -276,10 +276,10 @@ export default function UrduStoreClient() {
               { icon: '📦', title: 'اسٹاک مینجمنٹ', desc: 'پروڈکٹ اپ ڈیٹ آسانی سے' },
               { icon: '📊', title: 'سیلز رپورٹ', desc: 'روزانہ کی رپورٹ' },
             ].map((item) => (
-              <div key={item.title} className="feature-card">
-                <span className="feature-emoji">{item.icon}</span>
-                <span className="feature-title">{item.title}</span>
-                <span className="feature-desc">{item.desc}</span>
+              <div key={item.title} className="glass-card rounded-2xl p-6 flex flex-col items-center gap-3 hover:border-[#00d4ff]/40 transition-all">
+                <span className="text-4xl">{item.icon}</span>
+                <span className="urdu-heading font-bold text-sm text-white">{item.title}</span>
+                <span className="urdu-body text-gray-400 text-xs">{item.desc}</span>
               </div>
             ))}
           </div>
@@ -298,21 +298,21 @@ export default function UrduStoreClient() {
             خاص طور پر پاکستان کے حوالے سے فرق دیکھیں
           </p>
 
-          <div className="table-wrapper mt-10">
-            <table className="comparison-table" role="table" aria-label="Shopify vs MakeMyStore comparison">
+          <div className="overflow-x-auto rounded-2xl border border-white/10 mt-10">
+            <table className="w-full text-sm" role="table" aria-label="Shopify vs MakeMyStore comparison">
               <thead>
-                <tr>
-                  <th>فیچر</th>
-                  <th>Shopify / Wix</th>
-                  <th className="mms-col">MakeMyStore</th>
+                <tr className="bg-white/5 text-center">
+                  <th className="p-4 text-gray-400 text-right urdu-heading font-bold">فیچر</th>
+                  <th className="p-4 text-gray-400 urdu-heading font-bold">Shopify / Wix</th>
+                  <th className="p-4 text-[#00d4ff] urdu-heading font-bold">MakeMyStore ✨</th>
                 </tr>
               </thead>
               <tbody>
                 {COMPARISON.map((row, i) => (
-                  <tr key={i} className={i % 2 === 0 ? 'row-even' : ''}>
-                    <td className="feature-cell">{row.feature}</td>
-                    <td className="competitor-cell">{row.shopify}</td>
-                    <td className="mms-cell">{row.mms}</td>
+                  <tr key={i} className="border-t border-white/5 text-center hover:bg-white/[0.02]">
+                    <td className="p-4 text-white font-semibold text-right urdu-body">{row.feature}</td>
+                    <td className="p-4 text-gray-500 urdu-body">{row.shopify}</td>
+                    <td className="p-4 text-[#00d4ff] font-bold urdu-body">{row.mms}</td>
                   </tr>
                 ))}
               </tbody>
@@ -331,23 +331,23 @@ export default function UrduStoreClient() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
             {SELLING_POINTS.map((sp) => (
-              <div key={sp.title} className="step-card">
-                <div className="step-num">{sp.icon}</div>
-                <div className="step-title urdu-heading">{sp.title}</div>
-                <div className="step-desc urdu-body">{sp.desc}</div>
+              <div key={sp.title} className="glass-card rounded-2xl p-6 hover:border-[#00d4ff]/40 transition-all">
+                <div className="text-3xl mb-4">{sp.icon}</div>
+                <div className="urdu-heading font-bold text-white text-base mb-2">{sp.title}</div>
+                <div className="urdu-body text-gray-400 text-sm leading-relaxed">{sp.desc}</div>
               </div>
             ))}
           </div>
 
           {/* Pricing Button */}
           <div className="mt-12 flex flex-col items-center gap-4">
-            <p className="urdu-body text-sm text-slate-400">
+            <p className="urdu-body text-sm text-gray-500">
               قیمتیں دیکھنے کے لیے نیچے کلک کریں
             </p>
-            <Link href="/pricing" className="pricing-btn">
+            <Link href="/pricing" className="btn-primary text-sm px-8 py-4 rounded-xl font-bold urdu-body">
               💰 قیمتیں دیکھنے کے لیے یہاں کلک کریں
             </Link>
-            <p className="urdu-body text-xs text-slate-400 mt-2">
+            <p className="urdu-body text-xs text-gray-500 mt-2">
               یا سیدھا WhatsApp کریں — ہم آپ کے بجٹ کے مطابق پلان بتائیں گے
             </p>
           </div>
@@ -362,17 +362,17 @@ export default function UrduStoreClient() {
             صرف <span className="text-gradient">4 آسان مراحل</span> میں آپ کا اسٹور تیار
           </h2>
 
-          <div className="steps-grid mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
             {[
               { num: '۱', title: 'واٹس ایپ پر رابطہ کریں', desc: 'اپنی ضرورت بتائیں — پیکج سیلیکٹ کریں' },
               { num: '۲', title: 'EasyPaisa / JazzCash سے ادائیگی', desc: 'آسان مقامی پیمنٹ — کوئی بین الاقوامی کارڈ نہیں چاہیے' },
               { num: '۳', title: 'ہم بناتے ہیں — آپ دیکھتے ہیں', desc: '3–10 دن میں مکمل ری ویو اور فیڈ بیک' },
               { num: '۴', title: 'لائیو اور ٹریننگ', desc: 'اسٹور لانچ + آپ خود چلانا سیکھیں' },
             ].map((s) => (
-              <div key={s.num} className="step-card">
-                <div className="step-num">{s.num}</div>
-                <div className="step-title urdu-heading">{s.title}</div>
-                <div className="step-desc urdu-body">{s.desc}</div>
+              <div key={s.num} className="glass-card rounded-2xl p-6 text-center hover:border-[#00d4ff]/40 transition-all">
+                <div className="step-num mx-auto mb-4">{s.num}</div>
+                <div className="urdu-heading font-bold text-white text-sm mb-2">{s.title}</div>
+                <div className="urdu-body text-gray-400 text-xs leading-[2.1]">{s.desc}</div>
               </div>
             ))}
           </div>
@@ -388,19 +388,21 @@ export default function UrduStoreClient() {
             <span className="text-gradient">سوالات</span>
           </h2>
 
-          <div className="faq-list mt-10">
+          <div className="space-y-4 mt-10">
             {FAQS.map((faq, i) => (
-              <div key={i} className="faq-item">
+              <div key={i} className="glass-card rounded-xl overflow-hidden transition-all hover:border-[#00d4ff]/30">
                 <button
                   onClick={() => toggleFaq(i)}
-                  className="faq-question urdu-heading"
+                  className="w-full flex justify-between items-center gap-3 p-5 text-right bg-transparent border-none cursor-pointer text-white urdu-heading font-semibold text-base leading-[1.8]"
                   aria-expanded={openFaq === i}
                 >
+                  <span className={`faq-icon text-[#00d4ff] text-xs flex-shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}>▼</span>
                   <span>{faq.q}</span>
-                  <span className={`faq-icon ${openFaq === i ? 'open' : ''}`}>▼</span>
                 </button>
                 {openFaq === i && (
-                  <div className="faq-answer urdu-body">{faq.a}</div>
+                  <div className="px-5 pb-5 pt-3 urdu-body text-gray-400 text-sm text-right leading-[2.2] border-t border-white/5">
+                    {faq.a}
+                  </div>
                 )}
               </div>
             ))}
@@ -409,130 +411,111 @@ export default function UrduStoreClient() {
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
-      <section className="section-wrapper final-cta-section">
-        <div className="section-inner text-center">
-          <h2 className="urdu-heading text-3xl sm:text-4xl font-bold leading-[1.5] final-cta-title">
+      <section className="section-wrapper py-24 text-center">
+        <div className="section-inner">
+          <h2 className="urdu-heading text-3xl sm:text-4xl font-bold leading-[1.6] text-white">
             آج ہی شروع کریں —{' '}
             <span className="text-gradient">آپ کا اسٹور آپ کا انتظار کر رہا ہے</span>
           </h2>
-          <p className="urdu-body mt-5 text-slate-500 text-base max-w-lg mx-auto leading-[1.9]">
+          <p className="urdu-body mt-5 text-gray-400 text-base max-w-lg mx-auto leading-[1.9]">
             مفت مشاورت کے لیے ابھی WhatsApp کریں۔ کوئی چھپی فیس نہیں، کوئی ماہانہ چارج نہیں۔
           </p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cta-whatsapp mt-8 inline-block"
-          >
-            💬 ابھی واٹس ایپ کریں → 0329-3943161
-          </a>
-
-          {/* Hidden SEO block */}
-          <div className="sr-only">
-            <h2>Pakistan EasyPaisa JazzCash Ecommerce Store Builder</h2>
-            <p>
-              MakeMyStore provides custom ecommerce websites for Pakistani small businesses with
-              EasyPaisa integration, JazzCash payment gateway, Cash on Delivery, Leopard Courier,
-              TCS courier, and Trax courier integration. One-time fee, no monthly subscription,
-              full ownership on your own Vercel and Supabase account. Alternative to Shopify for
-              Pakistan with local payment methods.
-            </p>
+          <div className="mt-8 flex flex-wrap gap-4 justify-center">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-whatsapp"
+            >
+              💬 ابھی واٹس ایپ کریں ← 0329-3943161
+            </a>
+            <Link
+              href="/contact"
+              className="text-sm px-8 py-3.5 rounded-xl font-bold border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all urdu-body"
+            >
+              فری مشاورت لیں
+            </Link>
           </div>
+        </div>
+
+        {/* Hidden SEO block */}
+        <div className="sr-only">
+          <h2>Pakistan EasyPaisa JazzCash Ecommerce Store Builder</h2>
+          <p>
+            MakeMyStore provides custom ecommerce websites for Pakistani small businesses with
+            EasyPaisa integration, JazzCash payment gateway, Cash on Delivery, Leopard Courier,
+            TCS courier, and Trax courier integration. One-time fee, no monthly subscription,
+            full ownership on your own Vercel and Supabase account. Alternative to Shopify for
+            Pakistan with local payment methods.
+          </p>
         </div>
       </section>
 
       {/* ── STYLES ────────────────────────────────────────────────────────── */}
       <style jsx>{`
-        /* ── Google Fonts import ──────────────────────────────────── */
+        /* ── Google Fonts ─────────────────────────────────────────── */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Gulzar&display=swap');
 
-        /* ── Base & Fonts ─────────────────────────────────────────── */
+        /* ── Base ─────────────────────────────────────────────────── */
         .urdu-page {
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-          background: #ffffff;
-          color: #1e293b;
+          background: #0b0f1a;
+          color: #e2e8f0;
+          min-height: 100vh;
         }
+
+        /* ── Urdu Typography ──────────────────────────────────────── */
         .urdu-heading {
-          font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+          font-family: 'Noto Nastaliq Urdu', 'Gulzar', serif;
           line-height: 1.7;
-          color: #0f172a;
         }
         .urdu-body {
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           line-height: 2.2;
           font-size: 16px;
-          color: #475569;
         }
 
-        /* ── Hero section ─────────────────────────────────────────── */
+        /* ── Hero ─────────────────────────────────────────────────── */
         .hero-section {
-          background: linear-gradient(160deg, #f8faff 0%, #ffffff 50%, #f0f7ff 100%);
-          border-bottom: 1px solid #e2e8f0;
+          background: #0b0f1a;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Subtle decorative shapes */
-        .shape {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-        }
-        .shape-1 {
-          width: 500px; height: 500px;
-          top: -80px; right: -100px;
-          background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
-        }
-        .shape-2 {
-          width: 400px; height: 400px;
-          bottom: 0; left: -80px;
-          background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%);
-        }
-        .shape-3 {
-          width: 200px; height: 200px;
-          top: 40%; left: 40%;
-          background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%);
-        }
-
-        .logo-shadow {
-          filter: drop-shadow(0 8px 24px rgba(59,130,246,0.15));
-        }
-
-        /* ── Gradient text ────────────────────────────────────────── */
+        /* ── Gradient Text — cyan matching Arabic page ────────────── */
         .text-gradient {
-          background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+          background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-
-        .hero-title { color: #0f172a; }
-        .final-cta-title { color: #0f172a; }
 
         /* ── Hero badge ───────────────────────────────────────────── */
         .hero-badge {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: #eff6ff;
-          border: 1px solid #bfdbfe;
-          color: #1d4ed8;
+          background: rgba(0, 212, 255, 0.08);
+          border: 1px solid rgba(0, 212, 255, 0.25);
+          color: #00d4ff;
           padding: 8px 20px;
           border-radius: 999px;
           font-size: 13px;
-          font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           letter-spacing: 0.01em;
         }
 
         /* ── Typewriter ───────────────────────────────────────────── */
         .typewriter-line {
-          color: #2563eb;
-          font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+          color: #00d4ff;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           letter-spacing: 0.02em;
         }
 
         /* ── Trust badges ─────────────────────────────────────────── */
         .badge-item {
-          background: #f8fafc;
-          border: 1px solid #e2e8f0;
-          color: #334155;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          color: rgba(255,255,255,0.7);
           padding: 8px 16px;
           border-radius: 10px;
           font-size: 13px;
@@ -540,11 +523,12 @@ export default function UrduStoreClient() {
           transition: all 0.2s;
         }
         .badge-item:hover {
-          border-color: #bfdbfe;
-          background: #eff6ff;
+          border-color: rgba(0,212,255,0.3);
+          background: rgba(0,212,255,0.06);
+          color: #fff;
         }
 
-        /* ── CTAs ─────────────────────────────────────────────────── */
+        /* ── WhatsApp CTA ─────────────────────────────────────────── */
         .cta-whatsapp {
           display: inline-flex;
           align-items: center;
@@ -556,7 +540,7 @@ export default function UrduStoreClient() {
           padding: 14px 32px;
           border-radius: 14px;
           transition: all 0.2s;
-          font-family: var(--font-syne), 'Syne', sans-serif;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           box-shadow: 0 4px 20px rgba(37,211,102,0.25);
           text-decoration: none;
         }
@@ -564,270 +548,122 @@ export default function UrduStoreClient() {
           transform: scale(1.04);
           box-shadow: 0 6px 28px rgba(37,211,102,0.4);
         }
+
+        /* ── Secondary CTA ────────────────────────────────────────── */
         .cta-secondary {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          border: 1.5px solid #bfdbfe;
-          color: #2563eb;
+          border: 1.5px solid rgba(0,212,255,0.3);
+          color: #00d4ff;
           font-weight: 600;
           font-size: 14px;
           padding: 13px 28px;
           border-radius: 14px;
           transition: all 0.2s;
-          font-family: var(--font-syne), 'Syne', sans-serif;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           text-decoration: none;
-          background: #eff6ff;
+          background: rgba(0,212,255,0.06);
         }
         .cta-secondary:hover {
-          background: #dbeafe;
-          border-color: #93c5fd;
+          background: rgba(0,212,255,0.12);
+          border-color: rgba(0,212,255,0.5);
+        }
+
+        /* ── Primary btn (matching Arabic page btn-primary) ───────── */
+        .btn-primary {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%);
+          color: #0b0f1a;
+          font-weight: 700;
+          padding: 14px 36px;
+          border-radius: 14px;
+          text-decoration: none;
+          transition: all 0.2s;
+          box-shadow: 0 4px 20px rgba(0,212,255,0.25);
+        }
+        .btn-primary:hover {
+          transform: scale(1.04);
+          box-shadow: 0 6px 28px rgba(0,212,255,0.4);
         }
 
         /* ── Sections ─────────────────────────────────────────────── */
         .section-wrapper {
-          padding: 72px 16px;
-          background: #ffffff;
+          padding: 80px 16px;
+          background: #0b0f1a;
         }
         .alt-bg {
-          background: #f8fafc;
-          border-top: 1px solid #e2e8f0;
-          border-bottom: 1px solid #e2e8f0;
+          background: #0d1120;
+          border-top: 1px solid rgba(255,255,255,0.04);
+          border-bottom: 1px solid rgba(255,255,255,0.04);
         }
         .section-inner {
           max-width: 1100px;
           margin: 0 auto;
           text-align: center;
         }
+
+        /* ── Section label pill ───────────────────────────────────── */
         .section-label {
           display: inline-block;
           font-size: 11px;
-          font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
-          letter-spacing: 0.15em;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #2563eb;
-          border: 1px solid #bfdbfe;
-          background: #eff6ff;
+          color: #00d4ff;
+          border: 1px solid rgba(0,212,255,0.25);
+          background: rgba(0,212,255,0.08);
           padding: 5px 16px;
           border-radius: 999px;
           margin-bottom: 20px;
         }
+
+        /* ── Section heading ──────────────────────────────────────── */
         .section-heading {
-          font-family: 'Noto Nastaliq Urdu', serif;
+          font-family: 'Noto Nastaliq Urdu', 'Gulzar', serif;
           font-size: clamp(22px, 4vw, 36px);
           font-weight: 700;
-          color: #0f172a;
-          line-height: 1.5;
+          color: #ffffff;
+          line-height: 1.7;
           max-width: 700px;
           margin: 0 auto;
         }
+
+        /* ── Section sub ──────────────────────────────────────────── */
         .section-sub {
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           font-size: 17px;
-          color: #64748b;
+          color: #94a3b8;
           max-width: 560px;
           margin: 14px auto 0;
           line-height: 2.2;
         }
 
-        /* ── Payment cards ────────────────────────────────────────── */
-        .payment-card {
-          background: #ffffff;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 24px 16px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.25s;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        }
-        .payment-card:hover {
-          border-color: #bfdbfe;
-          box-shadow: 0 4px 16px rgba(37,99,235,0.08);
-          transform: translateY(-4px);
-        }
-        .payment-emoji { font-size: 32px; }
-        .payment-name { font-weight: 700; font-size: 14px; font-family: sans-serif; }
-        .payment-desc { font-size: 13px; color: #64748b; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
-
-        /* ── Feature cards (order management) ────────────────────── */
-        .feature-card {
-          background: #ffffff;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 22px 14px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.25s;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        }
-        .feature-card:hover {
-          border-color: #c4b5fd;
-          box-shadow: 0 4px 16px rgba(124,58,237,0.08);
-          transform: translateY(-4px);
-        }
-        .feature-emoji { font-size: 28px; }
-        .feature-title { font-weight: 700; font-size: 13px; font-family: 'Gulzar','Noto Nastaliq Urdu',serif; color: #0f172a; }
-        .feature-desc { font-size: 13px; color: #64748b; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
-
-        /* ── Comparison Table ─────────────────────────────────────── */
-        .table-wrapper {
-          overflow-x: auto;
-          border-radius: 16px;
-          border: 1.5px solid #e2e8f0;
-          box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-        }
-        .comparison-table {
-          width: 100%;
-          border-collapse: collapse;
-          font-size: 14px;
-          background: #ffffff;
-        }
-        .comparison-table thead tr {
-          background: #f1f5f9;
-        }
-        .comparison-table th {
-          padding: 16px 20px;
-          text-align: center;
-          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-          color: #334155;
-          font-weight: 700;
-          font-size: 15px;
-          border-bottom: 1.5px solid #e2e8f0;
-        }
-        .comparison-table th:first-child { text-align: right; }
-        .mms-col { color: #2563eb !important; }
-        .comparison-table td {
-          padding: 14px 20px;
-          text-align: center;
-          border-bottom: 1px solid #f1f5f9;
-          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-          color: #475569;
-          font-size: 14px;
-        }
-        .row-even td { background: #f8fafc; }
-        .feature-cell {
-          text-align: right !important;
-          color: #0f172a !important;
-          font-weight: 600;
-        }
-        .competitor-cell { color: #ef4444 !important; }
-        .mms-cell { color: #16a34a !important; font-weight: 600; }
-
-        /* ── Pricing Button ───────────────────────────────────────── */
-        .pricing-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-          color: white;
-          font-weight: 700;
-          font-size: 17px;
-          padding: 16px 40px;
-          border-radius: 16px;
-          text-decoration: none;
-          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-          transition: all 0.2s;
-          box-shadow: 0 4px 20px rgba(37,99,235,0.2);
-        }
-        .pricing-btn:hover {
-          transform: scale(1.04);
-          box-shadow: 0 6px 28px rgba(37,99,235,0.35);
+        /* ── Glass card — matching Arabic page glass style ────────── */
+        .glass-card {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
         }
 
-        /* ── Steps ────────────────────────────────────────────────── */
-        .steps-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 20px;
-        }
-        .step-card {
-          background: #ffffff;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 28px 20px;
-          text-align: center;
-          transition: all 0.25s;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        }
-        .step-card:hover {
-          border-color: #bfdbfe;
-          box-shadow: 0 4px 16px rgba(37,99,235,0.08);
-          transform: translateY(-4px);
-        }
+        /* ── Step number circle ───────────────────────────────────── */
         .step-num {
-          width: 52px; height: 52px;
+          width: 52px;
+          height: 52px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #eff6ff, #f5f3ff);
-          border: 1.5px solid #bfdbfe;
-          color: #2563eb;
+          background: rgba(0,212,255,0.08);
+          border: 1.5px solid rgba(0,212,255,0.25);
+          color: #00d4ff;
           font-size: 22px;
           font-weight: 700;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 0 auto 16px;
-          font-family: serif;
-        }
-        .step-title { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
-        .step-desc { font-size: 14px; color: #64748b; line-height: 2.1; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
-
-        /* ── FAQ ──────────────────────────────────────────────────── */
-        .faq-list { display: flex; flex-direction: column; gap: 12px; }
-        .faq-item {
-          background: #ffffff;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 14px;
-          overflow: hidden;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-          transition: border-color 0.2s;
-        }
-        .faq-item:hover {
-          border-color: #bfdbfe;
-        }
-        .faq-question {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 12px;
-          padding: 18px 22px;
-          text-align: right;
-          background: none;
-          border: none;
-          cursor: pointer;
-          color: #0f172a;
-          font-size: 16px;
-          font-weight: 600;
           font-family: 'Noto Nastaliq Urdu', serif;
-          line-height: 1.8;
-        }
-        .faq-icon {
-          flex-shrink: 0;
-          color: #2563eb;
-          font-size: 12px;
-          transition: transform 0.2s;
-        }
-        .faq-icon.open { transform: rotate(180deg); }
-        .faq-answer {
-          padding: 0 22px 18px;
-          font-size: 15px;
-          color: #475569;
-          text-align: right;
-          line-height: 2.2;
-          border-top: 1px solid #f1f5f9;
-          padding-top: 14px;
-          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-        }
-
-        /* ── Final CTA section ────────────────────────────────────── */
-        .final-cta-section {
-          background: linear-gradient(160deg, #f0f7ff 0%, #f5f3ff 100%);
-          border-top: 1px solid #e2e8f0;
         }
 
         /* ── Float animation ──────────────────────────────────────── */
@@ -840,15 +676,7 @@ export default function UrduStoreClient() {
         /* ── Mobile tweaks ────────────────────────────────────────── */
         @media (max-width: 640px) {
           .section-wrapper { padding: 52px 16px; }
-          .comparison-table { font-size: 12px; }
-          .comparison-table th, .comparison-table td { padding: 10px 12px; }
         }
-      `}</style>
-
-      {/* Noto Nastaliq Urdu font from Google Fonts */}
-      {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Gulzar&family=Jameel+Noori+Nastaleeq&display=swap');
       `}</style>
     </div>
   )
