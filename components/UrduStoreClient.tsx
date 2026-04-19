@@ -217,7 +217,7 @@ export default function UrduStoreClient() {
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="cta-whatsapp">
             💬 واٹس ایپ پر آرڈر کریں
           </a>
-          <Link href="/contact" className="cta-secondary">
+          <Link href="https://www.makemystore.online/contact" className="cta-secondary">
             فری مشاورت لیں ←
           </Link>
         </div>
@@ -344,7 +344,7 @@ export default function UrduStoreClient() {
             <p className="urdu-body text-sm text-gray-500">
               قیمتیں دیکھنے کے لیے نیچے کلک کریں
             </p>
-            <Link href="/pricing" className="btn-primary text-sm px-8 py-4 rounded-xl font-bold urdu-body">
+            <Link href="https://www.makemystore.online/contact" className="btn-primary text-sm px-8 py-4 rounded-xl font-bold urdu-body">
               💰 قیمتیں دیکھنے کے لیے یہاں کلک کریں
             </Link>
             <p className="urdu-body text-xs text-gray-500 mt-2">
@@ -391,7 +391,7 @@ export default function UrduStoreClient() {
             No surprises, no subscriptions, no commissions
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-14">
+          <div className="pricing-grid grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-14">
             {[
               {
                 name: 'Starter',
@@ -475,25 +475,21 @@ export default function UrduStoreClient() {
                   ))}
                 </ul>
                 {plan.highlight ? (
-                  <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="https://www.makemystore.online/contact"
                     className="btn-primary block text-center text-sm py-3 rounded-xl"
                     style={{ fontFamily: 'Syne, sans-serif' }}
                   >
                     {plan.cta}
-                  </a>
+                  </Link>
                 ) : (
-                  <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="https://www.makemystore.online/contact"
                     className="block text-center text-sm py-3 rounded-xl border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all font-semibold"
                     style={{ fontFamily: 'Syne, sans-serif' }}
                   >
                     {plan.cta}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
@@ -556,7 +552,7 @@ export default function UrduStoreClient() {
               💬 ابھی واٹس ایپ کریں ← 0329-3943161
             </a>
             <Link
-              href="/contact"
+              href="https://www.makemystore.online/contact"
               className="text-sm px-8 py-3.5 rounded-xl font-bold border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all urdu-body"
             >
               فری مشاورت لیں
@@ -799,9 +795,51 @@ export default function UrduStoreClient() {
         }
         .animate-float { animation: float 4s ease-in-out infinite; }
 
-        /* ── Mobile tweaks ────────────────────────────────────────── */
+        /* ── Responsive — Mobile first ────────────────────────────── */
+
+        /* xs / small phones (< 400px) */
+        @media (max-width: 400px) {
+          .hero-section { padding-top: 100px; padding-bottom: 48px; }
+          .urdu-heading  { font-size: clamp(20px, 7vw, 32px); }
+          .section-heading { font-size: clamp(18px, 6vw, 28px); }
+          .section-sub   { font-size: 14px; }
+          .section-wrapper { padding: 44px 14px; }
+          .cta-whatsapp  { font-size: 13px; padding: 12px 20px; }
+          .cta-secondary { font-size: 12px; padding: 11px 18px; }
+          .badge-item    { font-size: 11px; padding: 6px 10px; }
+        }
+
+        /* standard mobile (< 640px) */
         @media (max-width: 640px) {
-          .section-wrapper { padding: 52px 16px; }
+          .section-wrapper   { padding: 52px 16px; }
+          .section-inner     { text-align: center; }
+          .hero-badge        { font-size: 12px; padding: 7px 14px; text-align: center; }
+          .typewriter-line   { font-size: 13px; }
+
+          /* Pricing cards stack to single column */
+          .pricing-grid      { grid-template-columns: 1fr !important; }
+
+          /* Table horizontal scroll hint */
+          .table-scroll-hint { display: block; }
+
+          /* CTAs full-width on mobile */
+          .cta-whatsapp,
+          .cta-secondary     { width: 100%; justify-content: center; box-sizing: border-box; }
+        }
+
+        /* tablet (641px – 1023px) */
+        @media (min-width: 641px) and (max-width: 1023px) {
+          .section-wrapper { padding: 64px 24px; }
+          .urdu-heading    { line-height: 1.8; }
+        }
+
+        /* ── Desktop enhancements ─────────────────────────────────── */
+        @media (min-width: 1024px) {
+          .section-wrapper { padding: 96px 32px; }
+          .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,212,255,0.08);
+          }
         }
       `}</style>
     </div>
