@@ -9,15 +9,23 @@ export const viewport: Viewport = {
 
 // ── Metadata ────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: 'اپنا آن لائن اسٹور بنائیں | بغیر ماہانہ فیس کے | MakeMyStore',
+  title: 'پاکستان میں اپنا آن لائن اسٹور بنائیں | بغیر ماہانہ فیس کے | MakeMyStore',
   description:
-    'پاکستان میں اپنا ای کامرس اسٹور شروع کریں۔ بغیر کسی ماہانہ فیس کے، فل اونر شپ اور مقامی پیمنٹ میتھڈز (EasyPaisa, JazzCash, Bank Transfer) کے ساتھ۔ آج ہی آرڈر کریں۔',
+    'پاکستان میں اپنا ای کامرس بزنس شروع کریں۔ شاپائف اور وِکس کا بہترین متبادل۔ ایک بار ادائیگی، ہمیشہ کے لیے ملکیت۔ EasyPaisa اور JazzCash سپورٹ کے ساتھ۔',
   keywords: [
+    // ── Your exact required keywords ────────────────────────────────────
+    'online store Pakistan',
+    'e-commerce website builder Pakistan',
+    'Shopify alternative Pakistan',
+    'Wix alternative Pakistan',
+    'custom coded website Pakistan',
+    'MakeMyStore Pakistan',
+    'easy online store Urdu',
+    // ── Additional keywords from existing layout ─────────────────────────
     'Pakistani e-commerce',
     'create online store Pakistan',
     'EasyPaisa payment integration',
     'JazzCash online store',
-    'Shopify alternative Pakistan',
     'آن لائن اسٹور پاکستان',
     'ای کامرس ویب سائٹ',
     'EasyPaisa integration',
@@ -41,9 +49,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'اپنا آن لائن اسٹور بنائیں | بغیر ماہانہ فیس کے | MakeMyStore',
+    title: 'پاکستان میں اپنا آن لائن اسٹور بنائیں | بغیر ماہانہ فیس کے | MakeMyStore',
     description:
-      'پاکستان میں اپنا ای کامرس اسٹور شروع کریں۔ EasyPaisa، JazzCash، Bank Transfer اور COD کے ساتھ — ایک بار ادائیگی، ہمیشہ کی ملکیت۔',
+      'پاکستان میں اپنا ای کامرس بزنس شروع کریں۔ شاپائف اور وِکس کا بہترین متبادل۔ EasyPaisa، JazzCash، Bank Transfer اور COD کے ساتھ — ایک بار ادائیگی، ہمیشہ کی ملکیت۔',
     url: 'https://www.makemystore.online/pk/online-store-pakistan',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -59,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'اپنا آن لائن اسٹور بنائیں | بغیر ماہانہ فیس کے | MakeMyStore',
+    title: 'پاکستان میں اپنا آن لائن اسٹور بنائیں | بغیر ماہانہ فیس کے | MakeMyStore',
     description:
-      'EasyPaisa، JazzCash اور COD کے ساتھ اپنا پاکستانی ای کامرس اسٹور بنائیں۔',
+      'پاکستان میں اپنا ای کامرس بزنس شروع کریں۔ شاپائف اور وِکس کا بہترین متبادل۔ EasyPaisa اور JazzCash سپورٹ کے ساتھ۔',
     images: ['https://www.makemystore.online/og-image.png'],
   },
   alternates: {
