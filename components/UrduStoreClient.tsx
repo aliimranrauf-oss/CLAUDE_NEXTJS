@@ -140,7 +140,6 @@ export default function UrduStoreClient() {
       }, 45)
       return () => clearTimeout(t)
     } else {
-      // Pause then move to next
       const t = setTimeout(() => {
         setTyped('')
         setCharIdx(0)
@@ -159,10 +158,11 @@ export default function UrduStoreClient() {
     <div className="urdu-page" dir="rtl" lang="ur">
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
-        {/* Background orbs */}
-        <div aria-hidden className="orb orb-1" />
-        <div aria-hidden className="orb orb-2" />
+      <section className="hero-section relative flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
+        {/* Subtle background shapes */}
+        <div aria-hidden className="shape shape-1" />
+        <div aria-hidden className="shape shape-2" />
+        <div aria-hidden className="shape shape-3" />
 
         {/* Logo */}
         <div className="animate-float mb-8">
@@ -170,15 +170,11 @@ export default function UrduStoreClient() {
           <img
             src="/logo.png"
             alt="MakeMyStore - Custom Ecommerce Solutions"
-            width={140}
-            height={140}
+            width={130}
+            height={130}
             fetchPriority="high"
             decoding="async"
-            className="mx-auto rounded-2xl object-contain"
-            style={{
-              mixBlendMode: 'lighten',
-              filter: 'drop-shadow(0 0 20px rgba(122,92,255,0.4))',
-            }}
+            className="mx-auto rounded-2xl object-contain logo-shadow"
           />
         </div>
 
@@ -188,7 +184,7 @@ export default function UrduStoreClient() {
         </div>
 
         {/* Headline */}
-        <h1 className="urdu-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.4] max-w-3xl mx-auto text-white">
+        <h1 className="urdu-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5] max-w-3xl mx-auto hero-title">
           ماہانہ فیس کو خیرباد کہیں —{' '}
           <span className="text-gradient block mt-2">
             اپنا اسٹور خود مالک بنیں
@@ -196,7 +192,7 @@ export default function UrduStoreClient() {
         </h1>
 
         {/* Sub */}
-        <p className="urdu-body mt-6 text-gray-400 text-base sm:text-lg max-w-xl mx-auto leading-[1.9]">
+        <p className="urdu-body mt-6 text-slate-500 text-base sm:text-lg max-w-xl mx-auto leading-[1.9]">
           مقامی ادائیگیوں کی سہولت (EasyPaisa, JazzCash, Bank Transfer) کے ذریعے براہ راست ادائیگی —
           ایک بار ادائیگی، ہمیشہ کی ملکیت۔
         </p>
@@ -227,9 +223,9 @@ export default function UrduStoreClient() {
         </div>
 
         {/* Free tier note */}
-        <p className="mt-8 text-xs sm:text-sm text-white/35 max-w-md mx-auto urdu-body leading-relaxed">
+        <p className="mt-8 text-xs sm:text-sm text-slate-400 max-w-md mx-auto urdu-body leading-relaxed">
           💡 زیادہ تر کلائنٹس Vercel اور Supabase کے{' '}
-          <strong className="text-white/55">مفت پلان</strong> پر چلتے ہیں —
+          <strong className="text-slate-600">مفت پلان</strong> پر چلتے ہیں —
           یعنی ہر مہینے ₨0 خرچ!
         </p>
       </section>
@@ -256,7 +252,7 @@ export default function UrduStoreClient() {
             ))}
           </div>
 
-          <p className="urdu-body mt-8 text-sm text-white/40 max-w-lg mx-auto leading-[2]">
+          <p className="urdu-body mt-8 text-sm text-slate-400 max-w-lg mx-auto leading-[2]">
             گاہک آپ کو براہ راست پیسے بھیجیں گے — کوئی درمیانی گیٹ وے نہیں، کوئی اضافی فیس نہیں۔
           </p>
         </div>
@@ -280,10 +276,10 @@ export default function UrduStoreClient() {
               { icon: '📦', title: 'اسٹاک مینجمنٹ', desc: 'پروڈکٹ اپ ڈیٹ آسانی سے' },
               { icon: '📊', title: 'سیلز رپورٹ', desc: 'روزانہ کی رپورٹ' },
             ].map((item) => (
-              <div key={item.title} className="courier-card">
-                <span className="courier-emoji">{item.icon}</span>
-                <span className="courier-name">{item.title}</span>
-                <span className="courier-cities">{item.desc}</span>
+              <div key={item.title} className="feature-card">
+                <span className="feature-emoji">{item.icon}</span>
+                <span className="feature-title">{item.title}</span>
+                <span className="feature-desc">{item.desc}</span>
               </div>
             ))}
           </div>
@@ -345,16 +341,13 @@ export default function UrduStoreClient() {
 
           {/* Pricing Button */}
           <div className="mt-12 flex flex-col items-center gap-4">
-            <p className="urdu-body text-sm text-white/40">
+            <p className="urdu-body text-sm text-slate-400">
               قیمتیں دیکھنے کے لیے نیچے کلک کریں
             </p>
-            <Link
-              href="/pricing"
-              className="pricing-btn"
-            >
+            <Link href="/pricing" className="pricing-btn">
               💰 قیمتیں دیکھنے کے لیے یہاں کلک کریں
             </Link>
-            <p className="urdu-body text-xs text-white/30 mt-2">
+            <p className="urdu-body text-xs text-slate-400 mt-2">
               یا سیدھا WhatsApp کریں — ہم آپ کے بجٹ کے مطابق پلان بتائیں گے
             </p>
           </div>
@@ -418,11 +411,11 @@ export default function UrduStoreClient() {
       {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
       <section className="section-wrapper final-cta-section">
         <div className="section-inner text-center">
-          <h2 className="urdu-heading text-3xl sm:text-4xl font-bold text-white leading-[1.5]">
+          <h2 className="urdu-heading text-3xl sm:text-4xl font-bold leading-[1.5] final-cta-title">
             آج ہی شروع کریں —{' '}
             <span className="text-gradient">آپ کا اسٹور آپ کا انتظار کر رہا ہے</span>
           </h2>
-          <p className="urdu-body mt-5 text-gray-400 text-base max-w-lg mx-auto leading-[1.9]">
+          <p className="urdu-body mt-5 text-slate-500 text-base max-w-lg mx-auto leading-[1.9]">
             مفت مشاورت کے لیے ابھی WhatsApp کریں۔ کوئی چھپی فیس نہیں، کوئی ماہانہ چارج نہیں۔
           </p>
           <a
@@ -450,47 +443,77 @@ export default function UrduStoreClient() {
 
       {/* ── STYLES ────────────────────────────────────────────────────────── */}
       <style jsx>{`
-        /* ── Fonts & Base ─────────────────────────────────────────── */
+        /* ── Google Fonts import ──────────────────────────────────── */
+
+        /* ── Base & Fonts ─────────────────────────────────────────── */
         .urdu-page {
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          background: #ffffff;
+          color: #1e293b;
         }
         .urdu-heading {
           font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
           line-height: 1.7;
+          color: #0f172a;
         }
         .urdu-body {
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           line-height: 2.2;
           font-size: 16px;
-          color: rgba(255,255,255,0.75);
+          color: #475569;
         }
 
-        /* ── Orbs ─────────────────────────────────────────────────── */
-        .orb {
+        /* ── Hero section ─────────────────────────────────────────── */
+        .hero-section {
+          background: linear-gradient(160deg, #f8faff 0%, #ffffff 50%, #f0f7ff 100%);
+          border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Subtle decorative shapes */
+        .shape {
           position: absolute;
           border-radius: 50%;
-          filter: blur(80px);
           pointer-events: none;
         }
-        .orb-1 {
+        .shape-1 {
+          width: 500px; height: 500px;
+          top: -80px; right: -100px;
+          background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+        }
+        .shape-2 {
           width: 400px; height: 400px;
-          top: 10%; right: 5%;
-          background: rgba(0, 212, 255, 0.05);
+          bottom: 0; left: -80px;
+          background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%);
         }
-        .orb-2 {
-          width: 350px; height: 350px;
-          top: 30%; left: 5%;
-          background: rgba(122, 92, 255, 0.05);
+        .shape-3 {
+          width: 200px; height: 200px;
+          top: 40%; left: 40%;
+          background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%);
         }
+
+        .logo-shadow {
+          filter: drop-shadow(0 8px 24px rgba(59,130,246,0.15));
+        }
+
+        /* ── Gradient text ────────────────────────────────────────── */
+        .text-gradient {
+          background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .hero-title { color: #0f172a; }
+        .final-cta-title { color: #0f172a; }
 
         /* ── Hero badge ───────────────────────────────────────────── */
         .hero-badge {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: rgba(0, 212, 255, 0.08);
-          border: 1px solid rgba(0, 212, 255, 0.2);
-          color: #00d4ff;
+          background: #eff6ff;
+          border: 1px solid #bfdbfe;
+          color: #1d4ed8;
           padding: 8px 20px;
           border-radius: 999px;
           font-size: 13px;
@@ -500,20 +523,25 @@ export default function UrduStoreClient() {
 
         /* ── Typewriter ───────────────────────────────────────────── */
         .typewriter-line {
-          color: #00d4ff;
+          color: #2563eb;
           font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
           letter-spacing: 0.02em;
         }
 
-        /* ── Badges ───────────────────────────────────────────────── */
+        /* ── Trust badges ─────────────────────────────────────────── */
         .badge-item {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          color: rgba(255,255,255,0.8);
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          color: #334155;
           padding: 8px 16px;
           border-radius: 10px;
           font-size: 13px;
-          font-family: serif;
+          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+          transition: all 0.2s;
+        }
+        .badge-item:hover {
+          border-color: #bfdbfe;
+          background: #eff6ff;
         }
 
         /* ── CTAs ─────────────────────────────────────────────────── */
@@ -529,19 +557,19 @@ export default function UrduStoreClient() {
           border-radius: 14px;
           transition: all 0.2s;
           font-family: var(--font-syne), 'Syne', sans-serif;
-          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+          box-shadow: 0 4px 20px rgba(37,211,102,0.25);
           text-decoration: none;
         }
         .cta-whatsapp:hover {
           transform: scale(1.04);
-          box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45);
+          box-shadow: 0 6px 28px rgba(37,211,102,0.4);
         }
         .cta-secondary {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          border: 1px solid rgba(0,212,255,0.3);
-          color: #00d4ff;
+          border: 1.5px solid #bfdbfe;
+          color: #2563eb;
           font-weight: 600;
           font-size: 14px;
           padding: 13px 28px;
@@ -549,20 +577,22 @@ export default function UrduStoreClient() {
           transition: all 0.2s;
           font-family: var(--font-syne), 'Syne', sans-serif;
           text-decoration: none;
+          background: #eff6ff;
         }
         .cta-secondary:hover {
-          background: rgba(0,212,255,0.07);
-          border-color: rgba(0,212,255,0.5);
+          background: #dbeafe;
+          border-color: #93c5fd;
         }
 
         /* ── Sections ─────────────────────────────────────────────── */
         .section-wrapper {
           padding: 72px 16px;
+          background: #ffffff;
         }
         .alt-bg {
-          background: rgba(17, 24, 39, 0.4);
-          border-top: 1px solid rgba(255,255,255,0.04);
-          border-bottom: 1px solid rgba(255,255,255,0.04);
+          background: #f8fafc;
+          border-top: 1px solid #e2e8f0;
+          border-bottom: 1px solid #e2e8f0;
         }
         .section-inner {
           max-width: 1100px;
@@ -575,9 +605,9 @@ export default function UrduStoreClient() {
           font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
           letter-spacing: 0.15em;
           text-transform: uppercase;
-          color: #00d4ff;
-          border: 1px solid rgba(0,212,255,0.2);
-          background: rgba(0,212,255,0.06);
+          color: #2563eb;
+          border: 1px solid #bfdbfe;
+          background: #eff6ff;
           padding: 5px 16px;
           border-radius: 999px;
           margin-bottom: 20px;
@@ -586,7 +616,7 @@ export default function UrduStoreClient() {
           font-family: 'Noto Nastaliq Urdu', serif;
           font-size: clamp(22px, 4vw, 36px);
           font-weight: 700;
-          color: white;
+          color: #0f172a;
           line-height: 1.5;
           max-width: 700px;
           margin: 0 auto;
@@ -594,7 +624,7 @@ export default function UrduStoreClient() {
         .section-sub {
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           font-size: 17px;
-          color: rgba(255,255,255,0.7);
+          color: #64748b;
           max-width: 560px;
           margin: 14px auto 0;
           line-height: 2.2;
@@ -602,8 +632,8 @@ export default function UrduStoreClient() {
 
         /* ── Payment cards ────────────────────────────────────────── */
         .payment-card {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
           border-radius: 16px;
           padding: 24px 16px;
           display: flex;
@@ -611,20 +641,21 @@ export default function UrduStoreClient() {
           align-items: center;
           gap: 8px;
           transition: all 0.25s;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         .payment-card:hover {
-          border-color: rgba(0,212,255,0.2);
-          background: rgba(0,212,255,0.04);
+          border-color: #bfdbfe;
+          box-shadow: 0 4px 16px rgba(37,99,235,0.08);
           transform: translateY(-4px);
         }
         .payment-emoji { font-size: 32px; }
         .payment-name { font-weight: 700; font-size: 14px; font-family: sans-serif; }
-        .payment-desc { font-size: 13px; color: rgba(255,255,255,0.65); font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
+        .payment-desc { font-size: 13px; color: #64748b; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
 
-        /* ── Courier cards ────────────────────────────────────────── */
-        .courier-card {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+        /* ── Feature cards (order management) ────────────────────── */
+        .feature-card {
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
           border-radius: 16px;
           padding: 22px 14px;
           display: flex;
@@ -632,80 +663,67 @@ export default function UrduStoreClient() {
           align-items: center;
           gap: 8px;
           transition: all 0.25s;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
-        .courier-card:hover {
-          border-color: rgba(122,92,255,0.25);
-          background: rgba(122,92,255,0.05);
+        .feature-card:hover {
+          border-color: #c4b5fd;
+          box-shadow: 0 4px 16px rgba(124,58,237,0.08);
           transform: translateY(-4px);
         }
-        .courier-emoji { font-size: 28px; }
-        .courier-name { font-weight: 700; font-size: 13px; font-family: sans-serif; color: white; }
-        .courier-cities { font-size: 13px; color: rgba(255,255,255,0.65); font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
-
-        .courier-features {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 12px;
-        }
-        .cf-item {
-          background: rgba(122,92,255,0.08);
-          border: 1px solid rgba(122,92,255,0.2);
-          color: rgba(255,255,255,0.85);
-          padding: 10px 20px;
-          border-radius: 10px;
-          font-size: 14px;
-          font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-        }
+        .feature-emoji { font-size: 28px; }
+        .feature-title { font-weight: 700; font-size: 13px; font-family: 'Gulzar','Noto Nastaliq Urdu',serif; color: #0f172a; }
+        .feature-desc { font-size: 13px; color: #64748b; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
 
         /* ── Comparison Table ─────────────────────────────────────── */
         .table-wrapper {
           overflow-x: auto;
           border-radius: 16px;
-          border: 1px solid rgba(255,255,255,0.07);
+          border: 1.5px solid #e2e8f0;
+          box-shadow: 0 1px 8px rgba(0,0,0,0.04);
         }
         .comparison-table {
           width: 100%;
           border-collapse: collapse;
           font-size: 14px;
+          background: #ffffff;
         }
         .comparison-table thead tr {
-          background: rgba(255,255,255,0.04);
+          background: #f1f5f9;
         }
         .comparison-table th {
           padding: 16px 20px;
           text-align: center;
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-          color: rgba(255,255,255,0.8);
-          font-weight: 600;
+          color: #334155;
+          font-weight: 700;
           font-size: 15px;
-          border-bottom: 1px solid rgba(255,255,255,0.07);
+          border-bottom: 1.5px solid #e2e8f0;
         }
         .comparison-table th:first-child { text-align: right; }
-        .mms-col { color: #00d4ff !important; }
+        .mms-col { color: #2563eb !important; }
         .comparison-table td {
           padding: 14px 20px;
           text-align: center;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
+          border-bottom: 1px solid #f1f5f9;
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
-          color: rgba(255,255,255,0.8);
+          color: #475569;
           font-size: 14px;
         }
-        .row-even td { background: rgba(255,255,255,0.01); }
+        .row-even td { background: #f8fafc; }
         .feature-cell {
           text-align: right !important;
-          color: white !important;
+          color: #0f172a !important;
           font-weight: 600;
         }
-        .competitor-cell { color: rgba(255,100,100,0.85) !important; }
-        .mms-cell { color: #4ade80 !important; font-weight: 600; }
+        .competitor-cell { color: #ef4444 !important; }
+        .mms-cell { color: #16a34a !important; font-weight: 600; }
 
         /* ── Pricing Button ───────────────────────────────────────── */
         .pricing-btn {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%);
+          background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
           color: white;
           font-weight: 700;
           font-size: 17px;
@@ -714,11 +732,11 @@ export default function UrduStoreClient() {
           text-decoration: none;
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
           transition: all 0.2s;
-          box-shadow: 0 4px 24px rgba(0,212,255,0.25);
+          box-shadow: 0 4px 20px rgba(37,99,235,0.2);
         }
         .pricing-btn:hover {
           transform: scale(1.04);
-          box-shadow: 0 6px 32px rgba(0,212,255,0.4);
+          box-shadow: 0 6px 28px rgba(37,99,235,0.35);
         }
 
         /* ── Steps ────────────────────────────────────────────────── */
@@ -728,23 +746,25 @@ export default function UrduStoreClient() {
           gap: 20px;
         }
         .step-card {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
           border-radius: 16px;
           padding: 28px 20px;
           text-align: center;
           transition: all 0.25s;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         .step-card:hover {
-          border-color: rgba(0,212,255,0.2);
+          border-color: #bfdbfe;
+          box-shadow: 0 4px 16px rgba(37,99,235,0.08);
           transform: translateY(-4px);
         }
         .step-num {
           width: 52px; height: 52px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #00d4ff22, #7a5cff22);
-          border: 1px solid rgba(0,212,255,0.25);
-          color: #00d4ff;
+          background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+          border: 1.5px solid #bfdbfe;
+          color: #2563eb;
           font-size: 22px;
           font-weight: 700;
           display: flex;
@@ -753,16 +773,21 @@ export default function UrduStoreClient() {
           margin: 0 auto 16px;
           font-family: serif;
         }
-        .step-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 8px; }
-        .step-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 2.1; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
+        .step-title { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        .step-desc { font-size: 14px; color: #64748b; line-height: 2.1; font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif; }
 
         /* ── FAQ ──────────────────────────────────────────────────── */
         .faq-list { display: flex; flex-direction: column; gap: 12px; }
         .faq-item {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
           border-radius: 14px;
           overflow: hidden;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+          transition: border-color 0.2s;
+        }
+        .faq-item:hover {
+          border-color: #bfdbfe;
         }
         .faq-question {
           width: 100%;
@@ -775,7 +800,7 @@ export default function UrduStoreClient() {
           background: none;
           border: none;
           cursor: pointer;
-          color: white;
+          color: #0f172a;
           font-size: 16px;
           font-weight: 600;
           font-family: 'Noto Nastaliq Urdu', serif;
@@ -783,7 +808,7 @@ export default function UrduStoreClient() {
         }
         .faq-icon {
           flex-shrink: 0;
-          color: #00d4ff;
+          color: #2563eb;
           font-size: 12px;
           transition: transform 0.2s;
         }
@@ -791,18 +816,26 @@ export default function UrduStoreClient() {
         .faq-answer {
           padding: 0 22px 18px;
           font-size: 15px;
-          color: rgba(255,255,255,0.75);
+          color: #475569;
           text-align: right;
           line-height: 2.2;
-          border-top: 1px solid rgba(255,255,255,0.05);
+          border-top: 1px solid #f1f5f9;
           padding-top: 14px;
           font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
         }
 
-        /* ── Final CTA ────────────────────────────────────────────── */
+        /* ── Final CTA section ────────────────────────────────────── */
         .final-cta-section {
-          background: radial-gradient(ellipse at 50% 50%, rgba(0,212,255,0.05) 0%, transparent 70%);
+          background: linear-gradient(160deg, #f0f7ff 0%, #f5f3ff 100%);
+          border-top: 1px solid #e2e8f0;
         }
+
+        /* ── Float animation ──────────────────────────────────────── */
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
 
         /* ── Mobile tweaks ────────────────────────────────────────── */
         @media (max-width: 640px) {
