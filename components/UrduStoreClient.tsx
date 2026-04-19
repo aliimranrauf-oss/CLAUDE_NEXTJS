@@ -573,6 +573,59 @@ export default function UrduStoreClient() {
         </div>
       </section>
 
+      {/* ── SCHEMA MARKUP (Google Ranking Boost) ─────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "پاکستان میں آن لائن اسٹور بنانے کی سروس",
+            "description": "بغیر ماہانہ فیس کے مکمل ای کامرس ویب سائٹ — EasyPaisa, JazzCash, COD کے ساتھ ایک بار ادائیگی",
+            "provider": {
+              "@type": "Organization",
+              "name": "MakeMyStore.online",
+              "url": "https://www.makemystore.online/pk",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "PK"
+              }
+            },
+            "areaServed": "Pakistan",
+            "serviceType": "Ecommerce Website Development",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Ecommerce Store Packages",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": { "@type": "Service", "name": "Starter Package" }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": { "@type": "Service", "name": "Growth Package" }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": { "@type": "Service", "name": "Professional Package" }
+                }
+              ]
+            },
+            "faqPage": {
+              "@type": "FAQPage",
+              "mainEntity": FAQS.map((faq) => ({
+                "@type": "Question",
+                "name": faq.q,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": faq.a
+                }
+              }))
+            }
+          })
+        }}
+      />
+
       {/* ── STYLES ────────────────────────────────────────────────────────── */}
       <style jsx>{`
         /* ── Google Fonts ─────────────────────────────────────────── */
@@ -818,9 +871,6 @@ export default function UrduStoreClient() {
 
           /* Pricing cards stack to single column */
           .pricing-grid      { grid-template-columns: 1fr !important; }
-
-          /* Table horizontal scroll hint */
-          .table-scroll-hint { display: block; }
 
           /* CTAs full-width on mobile */
           .cta-whatsapp,
