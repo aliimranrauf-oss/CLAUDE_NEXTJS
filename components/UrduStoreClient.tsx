@@ -379,6 +379,132 @@ export default function UrduStoreClient() {
         </div>
       </section>
 
+      {/* ── PRICING ───────────────────────────────────────────────────────── */}
+      <section id="pricing" className="section-wrapper">
+        <div className="section-inner">
+          <div className="section-label">Pricing</div>
+          <h2 className="section-heading" style={{ fontFamily: 'Syne, sans-serif', lineHeight: '1.3' }}>
+            Transparent Pricing —{' '}
+            <span className="text-gradient">One-Time Payment Only</span>
+          </h2>
+          <p className="mt-3 text-gray-400 text-sm" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+            No surprises, no subscriptions, no commissions
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-14">
+            {[
+              {
+                name: 'Starter',
+                price: '$99',
+                pkr: '≈ ₨27,500',
+                desc: 'Up to 50 products · Custom design · Basic SEO',
+                features: [
+                  '✔ Custom store design',
+                  '✔ Easy admin dashboard',
+                  '✔ Free hosting (Vercel)',
+                  '✔ EasyPaisa & JazzCash',
+                  '✔ WhatsApp order alerts',
+                ],
+                cta: 'Get Started',
+                highlight: false,
+                badge: null,
+              },
+              {
+                name: 'Growth',
+                price: '$199',
+                pkr: '≈ ₨55,500',
+                desc: 'Unlimited products · Advanced SEO · Blog',
+                features: [
+                  '✔ Everything in Starter',
+                  '✔ Unlimited products',
+                  '✔ Advanced SEO setup',
+                  '✔ Blog + content pages',
+                  '✔ Sales analytics dashboard',
+                ],
+                cta: 'Order Now',
+                highlight: true,
+                badge: 'Most Popular',
+              },
+              {
+                name: 'Professional',
+                price: '$499',
+                pkr: '≈ ₨139,000',
+                desc: 'Full store · Advanced integrations · Priority support',
+                features: [
+                  '✔ Everything in Growth',
+                  '✔ API integrations',
+                  '✔ Courier integration (TCS / Leopard)',
+                  '✔ Advanced analytics',
+                  '✔ Priority WhatsApp support',
+                ],
+                cta: 'Get Started',
+                highlight: false,
+                badge: null,
+              },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                className={`glass-card rounded-2xl p-8 relative transition-all ${
+                  plan.highlight
+                    ? 'border-2 border-[#00d4ff]'
+                    : 'hover:border-[#00d4ff]/30'
+                }`}
+              >
+                {plan.badge && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00d4ff] text-black text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap" style={{ fontFamily: 'Syne, sans-serif' }}>
+                    {plan.badge}
+                  </div>
+                )}
+                <h3 className="text-xl font-bold mb-1 text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                  {plan.name}
+                </h3>
+                <p className={`text-4xl font-bold mt-4 mb-1 ${plan.highlight ? 'text-[#00d4ff]' : 'text-white'}`} style={{ fontFamily: 'Syne, sans-serif' }}>
+                  {plan.price}
+                </p>
+                <p className="text-gray-500 text-xs mb-1" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                  {plan.pkr}
+                </p>
+                <p className="text-gray-400 text-sm mb-6 mt-3" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                  {plan.desc}
+                </p>
+                <ul className="text-gray-400 text-sm space-y-2 mb-8 text-left" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                  {plan.features.map((f) => (
+                    <li key={f} className={plan.highlight ? 'text-gray-300' : ''}>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                {plan.highlight ? (
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary block text-center text-sm py-3 rounded-xl"
+                    style={{ fontFamily: 'Syne, sans-serif' }}
+                  >
+                    {plan.cta}
+                  </a>
+                ) : (
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center text-sm py-3 rounded-xl border border-white/20 text-white/80 hover:text-white hover:border-[#00d4ff]/50 transition-all font-semibold"
+                    style={{ fontFamily: 'Syne, sans-serif' }}
+                  >
+                    {plan.cta}
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-gray-500 text-xs" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+            💡 Pay via EasyPaisa, JazzCash, or Bank Transfer · All prices are one-time, no recurring fees
+          </p>
+        </div>
+      </section>
+
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="section-wrapper alt-bg">
         <div className="section-inner max-w-2xl">
