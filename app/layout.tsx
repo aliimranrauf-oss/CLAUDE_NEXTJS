@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* ── Google Analytics GA4 — afterInteractive for perf ──────────── */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-GG4NQ13Z67"
+          src="https://www.googletagmanager.com/gtag/js?id=G-9GHRBEWJ1J"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-GG4NQ13Z67', { send_page_view: false });
+            gtag('config', 'G-9GHRBEWJ1J', { send_page_view: false });
           `}
         </Script>
 
