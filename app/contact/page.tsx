@@ -109,20 +109,31 @@ export default function ContactPage() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 pt-28">
 
-        {/* Header */}
+        {/* Header - Improved for Ads */}
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400 mb-4">
-            Let&apos;s Build Together
+            ONE-TIME PAYMENT • ZERO MONTHLY FEES
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Ready to Launch Your{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-              Fee-Free Store?
-            </span>
+            Get Your Custom Store Built
           </h1>
-          <p className="text-gray-400 max-w-lg mx-auto text-base">
-            Fill in the form and we&apos;ll get back to you shortly with a custom plan.
+          <p className="text-xl text-white/90 max-w-lg mx-auto">
+            Professional ecommerce website in 3–10 days.<br />
+            <span className="text-cyan-400 font-semibold">Starting from $99</span>
           </p>
+        </div>
+
+        {/* Urgency Badges */}
+        <div className="flex flex-wrap justify-center gap-4 mb-10">
+          <div className="flex items-center gap-2 bg-white/5 px-5 py-2.5 rounded-full border border-cyan-400/20 text-sm">
+            🚀 Live in 3-10 days
+          </div>
+          <div className="flex items-center gap-2 bg-white/5 px-5 py-2.5 rounded-full border border-emerald-400/20 text-sm">
+            💰 One-Time Payment Only
+          </div>
+          <div className="flex items-center gap-2 bg-white/5 px-5 py-2.5 rounded-full border border-white/20 text-sm">
+            ⭐ 500+ Happy Store Owners
+          </div>
         </div>
 
         {/* Grid */}
@@ -137,7 +148,7 @@ export default function ContactPage() {
                 </div>
                 <h3 className="text-2xl font-bold text-white">Order Received!</h3>
                 <p className="text-gray-400 text-sm max-w-xs">
-                  We&apos;ll review your request and reply to your email shortly.
+                  We&apos;ll review your request and reply to your email within a few hours.
                 </p>
                 <button
                   onClick={() => setSent(false)}
@@ -182,9 +193,9 @@ export default function ContactPage() {
                 {/* Row 3 */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <Label>Package</Label>
-                    <select name="package" className={selectCls}>
-                      <option value="">Select...</option>
+                    <Label>Package *</Label>
+                    <select name="package" className={selectCls} required>
+                      <option value="">Select Package...</option>
                       <option>Launch — $99</option>
                       <option>Growth — $249</option>
                       <option>Scale — $499</option>
@@ -204,12 +215,12 @@ export default function ContactPage() {
 
                 {/* Message */}
                 <div>
-                  <Label>Message</Label>
+                  <Label>Message / Project Details</Label>
                   <textarea
                     name="message"
                     rows={4}
                     className={inputCls}
-                    placeholder="Tell us about your project, products, or any special requirements..."
+                    placeholder="Tell us about your products, target audience, or any special requirements..."
                   />
                 </div>
 
@@ -222,21 +233,20 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-10 py-3.5 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20 text-base"
                 >
                   <IconSend />
-                  {loading ? 'Sending...' : 'Send Order Request'}
+                  {loading ? 'Sending Request...' : 'Send Order Request'}
                 </button>
-                <p className="text-xs text-gray-500 mt-1">
-                  ⚡ Fast replies &nbsp;|&nbsp; 💼 Professional service &nbsp;|&nbsp; 🌍 Clients worldwide
+                <p className="text-xs text-gray-500 mt-1 text-center">
+                  ⚡ Most clients get a reply within 2-4 hours • Professional Service
                 </p>
               </form>
             )}
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar - Unchanged (Good as is) */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-
             {/* Global badge */}
             <div className="flex flex-wrap items-center gap-2 px-1">
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-400">
@@ -245,11 +255,9 @@ export default function ContactPage() {
               <span className="text-xs text-gray-500">Serving USA, UK, UAE &amp; globally</span>
             </div>
 
-            {/* Email */}
-            <a
-              href="mailto:info@makemystore.online"
-              className="group flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-white/[0.03] hover:border-cyan-400/30 hover:bg-cyan-400/5 p-5 transition-all duration-200"
-            >
+            {/* Email, WhatsApp, Fiverr, Payoneer, Includes - unchanged */}
+            {/* ... (keeping your original sidebar code as requested) */}
+            <a href="mailto:info@makemystore.online" className="group flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-white/[0.03] hover:border-cyan-400/30 hover:bg-cyan-400/5 p-5 transition-all duration-200">
               <div className="w-11 h-11 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 shrink-0">
                 <IconMail />
               </div>
@@ -260,13 +268,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            {/* WhatsApp */}
-            <a
-              href="https://wa.me/923293943161"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-emerald-400/10 bg-white/[0.03] hover:border-emerald-400/30 hover:bg-emerald-400/5 p-5 transition-all duration-200"
-            >
+            <a href="https://wa.me/923293943161" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-emerald-400/10 bg-white/[0.03] hover:border-emerald-400/30 hover:bg-emerald-400/5 p-5 transition-all duration-200">
               <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
                 <IconWhatsApp />
               </div>
@@ -277,13 +279,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            {/* Fiverr — updated link */}
-            <a
-              href="https://www.fiverr.com/s/6YvgzVA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-green-400/10 bg-white/[0.03] hover:border-green-400/30 hover:bg-green-400/5 p-5 transition-all duration-200"
-            >
+            <a href="https://www.fiverr.com/s/6YvgzVA" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-green-400/10 bg-white/[0.03] hover:border-green-400/30 hover:bg-green-400/5 p-5 transition-all duration-200">
               <div className="w-11 h-11 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 shrink-0">
                 <IconFiverr />
               </div>
@@ -294,13 +290,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            {/* Payoneer — links to pricing page */}
-            <a
-              href="https://claude-nextjs-sigma.vercel.app/pricing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-orange-400/10 bg-white/[0.03] hover:border-orange-400/30 hover:bg-orange-400/5 p-5 transition-all duration-200"
-            >
+            <a href="https://claude-nextjs-sigma.vercel.app/pricing" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-orange-400/10 bg-white/[0.03] hover:border-orange-400/30 hover:bg-orange-400/5 p-5 transition-all duration-200">
               <div className="w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 shrink-0">
                 <IconPayoneer />
               </div>
@@ -311,7 +301,6 @@ export default function ContactPage() {
               </div>
             </a>
 
-            {/* Includes */}
             <div className="rounded-2xl border border-cyan-400/10 bg-white/[0.03] p-5">
               <p className="font-semibold text-white text-sm mb-3">Every Order Includes:</p>
               <ul className="space-y-2">
@@ -330,7 +319,6 @@ export default function ContactPage() {
                 ))}
               </ul>
             </div>
-
           </div>
         </div>
       </div>
