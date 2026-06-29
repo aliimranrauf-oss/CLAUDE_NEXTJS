@@ -21,7 +21,7 @@ function IconWhatsApp() {
 function IconFiverr() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-1.40c.04-.55.24-.85.73-.85.45 0 .71.29.71.85zM21.474 13c-.97 0-1.65.69-1.65 1.73 0 1.09.67 1.73 1.77 1.73.49 0 .97-.13 1.3-.35l-.28-.63c-.26.15-.56.24-.9.24-.57 0-.87-.26-.91-.77h2.19c.01-.08.02-.2.02-.29 0-1.04-.6-1.66-1.54-1.66zm-2.53 3.39c-.17.08-.35.12-.54.12-.37 0-.57-.21-.57-.61v-1.44h1.09v-.73h-1.09v-.91h-.88v.91h-.63v.73h.63v1.5c0 .78.42 1.19 1.17 1.19.3 0 .6-.07.82-.19zm-3.08-3.32h-.88v3.38h.88zm-3.23 2.82c-.46 0-.75-.37-.75-.9s.29-.9.75-.9c.27 0 .51.11.69.3l.56-.59c-.28-.3-.69-.47-1.13-.47-.97 0-1.63.67-1.63 1.66 0 .99.66 1.66 1.63 1.66.44 0 .85-.17 1.13-.47l-.56-.59c-.18.19-.42.3-.69.3zm-2.7-2.82h-.88v3.38h.88zm-1.96 0h-.95l-.76 2.28-.76-2.28h-.97l1.22 3.38h1.01zm-4.09 1.58c0-.5.38-.81.93-.81.28 0 .54.06.77.18v-.74a2.1 2.1 0 0 0-.9-.19c-.97 0-1.66.59-1.66 1.56s.69 1.56 1.66 1.56c.33 0 .64-.07.9-.19v-.73c-.23.12-.49.18-.77.18-.55 0-.93-.31-.93-.82zm-1.96-1.58H.5v3.38h.88v-1.24h.53c.76 0 1.26-.44 1.26-1.07 0-.63-.5-1.07-1.26-1.07zm-.09 1.44H1.38v-.74h.53c.25 0 .4.14.4.37 0 .23-.15.37-.4.37z"/>
+      <path d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-1.4c.04-.55.24-.85.73-.85.45 0 .71.29.71.85zM21.474 13c-.97 0-1.65.69-1.65 1.73 0 1.09.67 1.73 1.77 1.73.49 0 .97-.13 1.3-.35l-.28-.63c-.26.15-.56.24-.9.24-.57 0-.87-.26-.91-.77h2.19c.01-.08.02-.2.02-.29 0-1.04-.6-1.66-1.54-1.66zm-2.53 3.39c-.17.08-.35.12-.54.12-.37 0-.57-.21-.57-.61v-1.44h1.09v-.73h-1.09v-.91h-.88v.91h-.63v.73h.63v1.5c0 .78.42 1.19 1.17 1.19.3 0 .6-.07.82-.19zm-3.08-3.32h-.88v3.38h.88zm-3.23 2.82c-.46 0-.75-.37-.75-.9s.29-.9.75-.9c.27 0 .51.11.69.3l.56-.59c-.28-.3-.69-.47-1.13-.47-.97 0-1.63.67-1.63 1.66 0 .99.66 1.66 1.63 1.66.44 0 .85-.17 1.13-.47l-.56-.59c-.18.19-.42.3-.69.3zm-2.7-2.82h-.88v3.38h.88zm-1.96 0h-.95l-.76 2.28-.76-2.28h-.97l1.22 3.38h1.01zm-4.09 1.58c0-.5.38-.81.93-.81.28 0 .54.06.77.18v-.74a2.1 2.1 0 0 0-.9-.19c-.97 0-1.66.59-1.66 1.56s.69 1.56 1.66 1.56c.33 0 .64-.07.9-.19v-.73c-.23.12-.49.18-.77.18-.55 0-.93-.31-.93-.82zm-1.96-1.58H.5v3.38h.88v-1.24h.53c.76 0 1.26-.44 1.26-1.07 0-.63-.5-1.07-1.26-1.07zm-.09 1.44H1.38v-.74h.53c.25 0 .4.14.4.37 0 .23-.15.37-.4.37z"/>
     </svg>
   )
 }
@@ -109,7 +109,7 @@ export default function ContactPage() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 pt-28">
 
-        {/* Header - Improved for Ads */}
+        {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400 mb-4">
             ONE-TIME PAYMENT • ZERO MONTHLY FEES
@@ -245,9 +245,8 @@ export default function ContactPage() {
             )}
           </div>
 
-          {/* Sidebar - Unchanged (Good as is) */}
+          {/* Sidebar */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            {/* Global badge */}
             <div className="flex flex-wrap items-center gap-2 px-1">
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-400">
                 🌍 Available worldwide
@@ -255,9 +254,10 @@ export default function ContactPage() {
               <span className="text-xs text-gray-500">Serving USA, UK, UAE &amp; globally</span>
             </div>
 
-            {/* Email, WhatsApp, Fiverr, Payoneer, Includes - unchanged */}
-            {/* ... (keeping your original sidebar code as requested) */}
-            <a href="mailto:info@makemystore.online" className="group flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-white/[0.03] hover:border-cyan-400/30 hover:bg-cyan-400/5 p-5 transition-all duration-200">
+            <a
+              href="mailto:info@makemystore.online"
+              className="group flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-white/[0.03] hover:border-cyan-400/30 hover:bg-cyan-400/5 p-5 transition-all duration-200"
+            >
               <div className="w-11 h-11 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 shrink-0">
                 <IconMail />
               </div>
@@ -268,7 +268,12 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <a href="https://wa.me/923293943161" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-emerald-400/10 bg-white/[0.03] hover:border-emerald-400/30 hover:bg-emerald-400/5 p-5 transition-all duration-200">
+            <a
+              href="https://wa.me/923293943161"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 rounded-2xl border border-emerald-400/10 bg-white/[0.03] hover:border-emerald-400/30 hover:bg-emerald-400/5 p-5 transition-all duration-200"
+            >
               <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
                 <IconWhatsApp />
               </div>
@@ -279,7 +284,12 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <a href="https://www.fiverr.com/s/6YvgzVA" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-green-400/10 bg-white/[0.03] hover:border-green-400/30 hover:bg-green-400/5 p-5 transition-all duration-200">
+            <a
+              href="https://www.fiverr.com/s/6YvgzVA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 rounded-2xl border border-green-400/10 bg-white/[0.03] hover:border-green-400/30 hover:bg-green-400/5 p-5 transition-all duration-200"
+            >
               <div className="w-11 h-11 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 shrink-0">
                 <IconFiverr />
               </div>
@@ -290,7 +300,12 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <a href="https://claude-nextjs-sigma.vercel.app/pricing" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-orange-400/10 bg-white/[0.03] hover:border-orange-400/30 hover:bg-orange-400/5 p-5 transition-all duration-200">
+            <a
+              href="https://www.makemystore.online/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 rounded-2xl border border-orange-400/10 bg-white/[0.03] hover:border-orange-400/30 hover:bg-orange-400/5 p-5 transition-all duration-200"
+            >
               <div className="w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 shrink-0">
                 <IconPayoneer />
               </div>
