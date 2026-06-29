@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, memo } from 'react'
+import { useEffect, useState, useCallback, useRef, memo } from 'react'
 import { Check, Sparkles, ExternalLink, Zap, Shield, Clock, Info } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
@@ -374,6 +374,26 @@ export default function PricingPage() {
     return () => { cancelled = true }
   }, [])
 
+  // ── Anchor-scroll fix ────────────────────────────────────────────────────
+  // If someone lands directly on /pricing#plans (e.g. from the Contact page's
+  // "Pay via Payoneer" link), the browser tries to scroll to the anchor
+  // BEFORE the plans have loaded from Supabase. Once the cards mount, the
+  // page height changes and the native scroll position drifts off-target.
+  // This re-scrolls to the #plans section once loading is finished.
+  const scrolledRef = useRef(false)
+  useEffect(() => {
+    if (loading || scrolledRef.current) return
+    if (typeof window === 'undefined') return
+    if (window.location.hash !== '#plans') return
+
+    scrolledRef.current = true
+    // Wait a tick for the cards to actually paint before measuring position.
+    requestAnimationFrame(() => {
+      const el = document.getElementById('plans')
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }, [loading])
+
   return (
     <>
       {plans.length > 0 && (
@@ -445,7 +465,7 @@ export default function PricingPage() {
         </section>
 
         {/* PLAN CARDS — using fully memoized component */}
-        <section id="plans" aria-label="Pricing plans" className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+        <section id="plans" aria-label="Pricing plans" className="scroll-mt-24 max-w-5xl mx-auto px-4 sm:px-6 pb-20">
           {loading ? (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
               {[1,2,3].map(i => <SkeletonCard key={i} />)}
