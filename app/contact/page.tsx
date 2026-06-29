@@ -301,7 +301,7 @@ export default function ContactPage() {
             </a>
 
             <a
-              href="https://www.makemystore.online/pricing"
+              href="https://www.makemystore.online/pricing#plans"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4 rounded-2xl border border-orange-400/10 bg-white/[0.03] hover:border-orange-400/30 hover:bg-orange-400/5 p-5 transition-all duration-200"
