@@ -26,6 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Service Pages (0.8)
     {
+      url: 'https://www.makemystore.online/how-it-works',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: 'https://www.makemystore.online/tools',
       lastModified,
       changeFrequency: 'monthly',
