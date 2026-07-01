@@ -1,66 +1,10 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import dynamic from 'next/dynamic'
+import { useEffect, useRef, useState } from 'react'
+import DataFlowDiagram from './DataFlowDiagram'
 import { JOURNEY_NODES } from './nodesData'
 
-const InfrastructureScene = dynamic(() => import('./InfrastructureScene'), {
-  ssr: false,
-  loading: () => <ScenePlaceholder />,
-})
-
-function ScenePlaceholder() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-3 text-white/30">
-        <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-[#00d4ff] animate-spin" />
-        <p className="text-xs tracking-[0.2em] uppercase" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-          Booting infrastructure…
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function StaticFallback() {
-  return (
-    <div
-      className="absolute inset-0"
-      style={{
-        background:
-          'radial-gradient(circle at 30% 30%, rgba(0,212,255,0.10), transparent 55%), radial-gradient(circle at 70% 60%, rgba(122,92,255,0.10), transparent 55%)',
-      }}
-    >
-      <div className="absolute inset-0 flex items-center justify-center px-6">
-        <div className="flex flex-wrap justify-center gap-3 max-w-2xl">
-          {JOURNEY_NODES.map((n) => (
-            <div
-              key={n.id}
-              className="glass px-4 py-2 rounded-full text-xs text-white/60"
-              style={{ fontFamily: 'DM Sans, sans-serif' }}
-            >
-              <span style={{ color: n.color }}>0{n.index + 1}</span> · {n.short}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function useWebGLSupport() {
-  const [supported, setSupported] = useState<boolean | null>(null)
-  useEffect(() => {
-    try {
-      const canvas = document.createElement('canvas')
-      const gl = canvas.getContext('webgl2') || canvas.getContext('webgl')
-      setSupported(!!gl)
-    } catch {
-      setSupported(false)
-    }
-  }, [])
-  return supported
-}
+const HOLD_MS = 2200
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false)
@@ -76,21 +20,33 @@ function usePrefersReducedMotion() {
 
 export default function HowItWorksHero() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const webglSupported = useWebGLSupport()
   const reducedMotion = usePrefersReducedMotion()
   const activeNode = JOURNEY_NODES[activeIndex]
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const handleActiveChange = useCallback((index: number) => {
-    setActiveIndex(index)
-  }, [])
+  useEffect(() => {
+    if (reducedMotion) return
+    timerRef.current = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % JOURNEY_NODES.length)
+    }, HOLD_MS)
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [reducedMotion])
 
   return (
-    <section className="relative w-full h-[100svh] min-h-[560px] overflow-hidden bg-[#05070d]">
-      {webglSupported === false ? (
-        <StaticFallback />
-      ) : (
-        <InfrastructureScene onActiveIndexChange={handleActiveChange} reducedMotion={reducedMotion} />
-      )}
+    <section className="relative w-full h-[100svh] min-h-[600px] overflow-hidden bg-[#05070d]">
+      {/* Ambient glow backdrop — replaces the old 3D canvas background */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(circle at 25% 20%, rgba(0,212,255,0.12), transparent 55%), radial-gradient(circle at 75% 78%, rgba(122,92,255,0.12), transparent 55%)',
+        }}
+      />
+
+      {/* Live animated data-flow diagram */}
+      <DataFlowDiagram activeIndex={activeIndex} reducedMotion={reducedMotion} />
 
       {/* Top-left HUD readout */}
       <div className="absolute top-24 left-4 sm:left-8 pointer-events-none">
@@ -106,8 +62,8 @@ export default function HowItWorksHero() {
         </div>
       </div>
 
-      {/* Center headline, sits above the canvas */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+      {/* Center headline */}
+      <div className="absolute inset-x-0 top-[18%] flex flex-col items-center text-center px-4 pointer-events-none">
         <h1
           className="text-3xl sm:text-5xl font-bold text-white max-w-3xl leading-[1.15]"
           style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
