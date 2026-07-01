@@ -132,7 +132,7 @@ export default function ContactPage() {
             💰 One-Time Payment Only
           </div>
           <div className="flex items-center gap-2 bg-white/5 px-5 py-2.5 rounded-full border border-white/20 text-sm">
-            ⭐ 500+ Happy Store Owners
+            ⭐ 5000+ Happy Store Owners
           </div>
         </div>
 
@@ -239,7 +239,7 @@ export default function ContactPage() {
                   {loading ? 'Submitting...' : 'Submit Details'}
                 </button>
                 <p className="text-xs text-gray-500 mt-1 text-center">
-                  ⚡ Most clients get a reply within 2-4 hours • Professional Service
+                  ⚡ Most clients get a reply within minutes • Professional Service
                 </p>
               </form>
             )}
