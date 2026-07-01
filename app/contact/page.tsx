@@ -146,9 +146,9 @@ export default function ContactPage() {
                 <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-3xl">
                   ✓
                 </div>
-                <h3 className="text-2xl font-bold text-white">Order Received!</h3>
+                <h3 className="text-2xl font-bold text-white">Thank You!</h3>
                 <p className="text-gray-400 text-sm max-w-xs">
-                  We&apos;ll review your request and reply to your email within a few hours.
+                  We&apos;ve received your submission and will reply to your email shortly.
                 </p>
                 <button
                   onClick={() => setSent(false)}
@@ -236,7 +236,7 @@ export default function ContactPage() {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-10 py-3.5 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20 text-base"
                 >
                   <IconSend />
-                  {loading ? 'Sending Request...' : 'Send Order Request'}
+                  {loading ? 'Submitting...' : 'Submit Details'}
                 </button>
                 <p className="text-xs text-gray-500 mt-1 text-center">
                   ⚡ Most clients get a reply within 2-4 hours • Professional Service
