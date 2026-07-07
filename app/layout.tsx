@@ -97,12 +97,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         {children}
 
-        {/* ── Google Analytics GA4 — afterInteractive for perf ──────────── */}
+        {/*
+          ── Google Analytics GA4 — lazyOnload strategy ────────────────────
+          PERF FIX: was on afterInteractive, which runs right as the page
+          becomes interactive and competes with hydration for main-thread
+          time — a direct contributor to mobile TBT (same issue the
+          Facebook Pixel had below, already fixed the same way).
+          lazyOnload defers it until the browser is idle, so it never
+          blocks LCP, FCP, or TBT. GA still fires — just ~2-3s later.
+        */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-9GHRBEWJ1J"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
