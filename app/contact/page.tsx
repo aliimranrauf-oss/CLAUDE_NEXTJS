@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 
@@ -63,7 +63,7 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default function ContactPage() {
+function ContactPageInner() {
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -353,5 +353,13 @@ export default function ContactPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageInner />
+    </Suspense>
   )
 }
