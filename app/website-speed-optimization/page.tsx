@@ -94,10 +94,10 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Which platforms do you work with?',
+      name: 'What kind of websites and apps do you work with?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Any platform \u2014 website builders like Wix and Squarespace, WordPress, Shopify, and fully custom-built sites on Next.js, React, or plain HTML/CSS. The diagnostic process is the same everywhere: identify what is actually slowing the page down using real audit data, then fix it.',
+        text: 'React, Vite, and Next.js applications, including Tailwind/Shadcn UI, Supabase-backed apps, and Framer Motion-heavy interfaces \u2014 custom landing pages, SaaS dashboards, and ecommerce stores. If it\u2019s a modern frontend built with React or Vite, this applies.',
       },
     },
     {
@@ -131,43 +131,50 @@ const faqJsonLd = {
 // Static content
 // ─────────────────────────────────────────────────────────────────────────
 const included = [
-  'Full GTmetrix + Google PageSpeed Insights audit (mobile & desktop)',
-  'Video and image compression \u2014 resized without visible quality loss',
-  'Unnecessary script, app, and third-party embed cleanup',
-  'Font and asset audit to remove render-blocking bloat',
-  'Core Web Vitals review (LCP, CLS, TBT)',
-  'Before/after report with real screenshots and numbers',
+  'Convert all images to WebP with proper width/height attributes',
+  'Lazy loading & code splitting (React.lazy, Suspense)',
+  'Fix render-blocking resources and unused JS/CSS',
+  'Smart caching headers (especially on Vercel/Netlify)',
+  'Reduce JavaScript execution time and main-thread work',
+  'Preload critical assets and optimize font loading',
+]
+
+const youGet = [
+  'Full performance audit report',
+  'Clean, optimized code committed directly to your repo',
+  'Before & after screenshots with real Lighthouse scores',
+  '100% Google-friendly \u2014 Core Web Vitals passed',
 ]
 
 const platforms = [
-  'Wix',
-  'WordPress',
-  'Shopify',
-  'Squarespace',
-  'Next.js / React',
-  'Custom-built websites',
+  'React',
+  'Vite',
+  'Next.js',
+  'Tailwind / Shadcn',
+  'Supabase',
+  'Framer Motion',
+]
+
+const useCases = [
+  'Custom landing pages',
+  'SaaS dashboards',
+  'Ecommerce stores',
+  'Any modern frontend built with React or Vite',
 ]
 
 const process = [
   {
     title: 'Audit',
-    desc: 'I run GTmetrix and PageSpeed Insights on your site and identify exactly what is slowing it down \u2014 no guessing, no generic checklist.',
+    desc: 'I run Lighthouse and PageSpeed Insights on your site and identify exactly what is slowing it down \u2014 no guessing, no generic checklist.',
   },
   {
     title: 'Fix \u2014 one change at a time',
-    desc: 'Each fix is made individually, tested, and published before moving to the next \u2014 so nothing breaks along the way, regardless of platform.',
+    desc: 'Each fix (images, lazy loading, render-blocking resources, JS execution time, caching, fonts) is made individually, tested, and committed before moving to the next \u2014 so nothing breaks along the way.',
   },
   {
     title: 'Verify & report',
-    desc: 'You receive a clear before/after report with real scores, so you know exactly what changed and why.',
+    desc: 'You receive a full before/after report with real Lighthouse and PageSpeed scores, so you know exactly what changed and why.',
   },
-]
-
-const stats = [
-  { label: 'Homepage page size', before: '~10 MB', after: '~3.4 MB' },
-  { label: 'Background video size', before: '7.3 MB', after: '794 KB' },
-  { label: 'PageSpeed Score (Desktop)', before: '63', after: '99' },
-  { label: 'PageSpeed Score (Mobile)', before: '62', after: '90' },
 ]
 
 const FIVERR_GIG_URL = 'https://www.fiverr.com/s/ljqAq5g'
@@ -205,19 +212,30 @@ export default function WebsiteSpeedOptimizationPage() {
               </h1>
 
               <p className="text-lg text-white/70 max-w-xl mx-auto lg:mx-0 mb-6">
-                I diagnose and fix the real cause of slow websites &mdash; oversized media,
-                script bloat, unoptimized assets &mdash; and turn low PageSpeed and GTmetrix
-                scores into fast, healthy ones. Works on any platform. Every change is
-                careful, tested, and reversible.
+                Tired of slow loading times killing your sales and Google ranking? I fix
+                Core Web Vitals (LCP, CLS, INP, FCP) and get you a 90&ndash;100 Lighthouse
+                score on both mobile and desktop &mdash; with every change tested and
+                committed carefully, not randomly.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-10">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-4">
                 {platforms.map((p) => (
                   <span
                     key={p}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 text-white/60"
+                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] text-[#00d4ff]/80"
                   >
                     {p}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-10">
+                {useCases.map((u) => (
+                  <span
+                    key={u}
+                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 text-white/60"
+                  >
+                    {u}
                   </span>
                 ))}
               </div>
@@ -265,31 +283,24 @@ export default function WebsiteSpeedOptimizationPage() {
           </div>
         </section>
 
-        {/* ── CASE STUDY / STATS ──────────────────────────────────────── */}
+        {/* ── WHAT YOU GET ─────────────────────────────────────────────── */}
         <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
-              Real Results, Real Numbers
+              What You Get
             </h2>
             <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
-              From a recent website speed optimization project (client details kept
-              confidential, results verified via GTmetrix &amp; Google PageSpeed Insights):
+              A clear, verifiable outcome &mdash; not just a promise.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {stats.map((s) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {youGet.map((item) => (
                 <div
-                  key={s.label}
-                  className="glass rounded-xl p-5 border border-white/10 text-center"
+                  key={item}
+                  className="glass rounded-xl p-5 border border-white/10 flex items-start gap-3"
                 >
-                  <div className="text-xs uppercase tracking-wide text-white/50 mb-3">
-                    {s.label}
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-lg">
-                    <span className="text-white/40 line-through">{s.before}</span>
-                    <ArrowRight size={14} className="text-[#00d4ff]" />
-                    <span className="font-bold text-[#00d4ff]">{s.after}</span>
-                  </div>
+                  <CheckCircle2 size={20} className="text-[#00d4ff] shrink-0 mt-0.5" />
+                  <span className="text-white/80 text-sm">{item}</span>
                 </div>
               ))}
             </div>
