@@ -9,7 +9,7 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Free Tools', href: '/tools' },
-  { label: 'Speed Optimization', href: '/website-speed-optimization' },
+  { label: 'Site Speed', href: '/website-speed-optimization' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
@@ -74,12 +74,12 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden xl:flex items-center gap-0.5">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border border-transparent ${
+              className={`whitespace-nowrap text-sm font-semibold px-2.5 py-2 rounded-lg transition-all duration-200 border border-transparent ${
                 pathname === l.href
                   ? 'text-[#00d4ff] border-[#00d4ff]/20 bg-[#00d4ff]/[0.06]'
                   : 'text-white/75 hover:text-white hover:border-[#00d4ff]/20 hover:bg-[#00d4ff]/[0.06]'
@@ -92,7 +92,7 @@ export default function Navbar() {
 
           <Link
             href="/ar/badil-salla-zid"
-            className={`text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 border ${
+            className={`whitespace-nowrap text-sm font-semibold px-2.5 py-2 rounded-lg transition-all duration-200 border ${
               pathname === '/ar/badil-salla-zid'
                 ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10'
                 : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'
@@ -104,7 +104,7 @@ export default function Navbar() {
           {/* Order Now → /contact */}
           <Link
             href={CONTACT_URL}
-            className="btn-primary ml-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00d4ff]"
+            className="btn-primary whitespace-nowrap ml-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00d4ff]"
           >
             Order Now
           </Link>
@@ -113,7 +113,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 text-white rounded-lg hover:bg-white/10 transition-colors"
+          className="xl:hidden p-2 text-white rounded-lg hover:bg-white/10 transition-colors"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -126,7 +126,7 @@ export default function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          className="lg:hidden glass border-t border-white/5"
+          className="xl:hidden glass border-t border-white/5"
         >
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
             {navLinks.map((l) => (
