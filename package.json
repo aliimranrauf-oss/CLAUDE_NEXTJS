@@ -26,5 +26,12 @@
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "^15.0.0"
-  }
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead",
+    "not IE 11",
+    "not op_mini all"
+  ]
 }
