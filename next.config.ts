@@ -92,7 +92,7 @@ const nextConfig: NextConfig = {
     are bundled, reducing the unused JS flagged by Lighthouse (181KB).
   */
   experimental: {
-    optimizePackageImports: ['lucide-react', '@supabase/supabase-js'],
+    optimizePackageImports: ['lucide-react', '@supabase/supabase-js', 'framer-motion'],
   },
 }
 
