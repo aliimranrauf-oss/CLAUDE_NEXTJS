@@ -13,17 +13,22 @@ function preloadImage(src: string) {
   img.src = src
 }
 
-export default function Templates() {
-  const [templates, setTemplates] = useState<Template[]>([])
+export default function Templates({ initialTemplates }: { initialTemplates?: Template[] } = {}) {
+  const [templates, setTemplates] = useState<Template[]>(initialTemplates ?? [])
   const [current, setCurrent] = useState(0)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!(initialTemplates && initialTemplates.length > 0))
   const [error, setError] = useState<string | null>(null)
   const [imgLoaded, setImgLoaded] = useState(false)
   const [fading, setFading] = useState(false)
   const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // ── Fetch templates ──────────────────────────────────────────────────────
+  // ── Fetch templates client-side ─────────────────────────────────────────
+  // PERF FIX: only runs if the server didn't already provide data (fallback
+  // path). When page.tsx successfully passes initialTemplates, this whole
+  // effect is skipped — no spinner, no shimmer, no network wait on load.
   useEffect(() => {
+    if (initialTemplates && initialTemplates.length > 0) return
+
     async function fetchTemplates() {
       setLoading(true)
       setError(null)
