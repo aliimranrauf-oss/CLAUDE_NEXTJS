@@ -151,8 +151,8 @@ export default async function BlogPostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <main className="min-h-screen pt-20 pb-20 px-4 bg-[#0b0f1a]">
+        {/* Header block stays on the dark site background, matches brand */}
         <div className="max-w-3xl mx-auto">
-
           {/* ── Breadcrumb ── */}
           <nav className="flex items-center gap-2 text-[11px] text-gray-500 mb-8" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-[#00d4ff] transition-colors">Home</Link>
@@ -183,15 +183,21 @@ export default async function BlogPostPage({
 
           {/* ── Title ── */}
           <h1
-            className="text-3xl md:text-4xl font-bold text-white mb-8 leading-tight"
+            className="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight"
             style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
           >
             {post.title}
           </h1>
 
+          {post.excerpt && (
+            <p className="text-gray-400 text-base md:text-lg mb-8 leading-relaxed" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+              {post.excerpt}
+            </p>
+          )}
+
           {/* ── Hero image — next/image with priority for LCP ── */}
           {post.image_url && (
-            <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden mb-10">
+            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden mb-0 md:mb-2">
               <Image
                 src={post.image_url}
                 alt={post.title}
@@ -202,22 +208,37 @@ export default async function BlogPostPage({
               />
             </div>
           )}
+        </div>
 
-          {/* ── Content ── */}
-          <div
-            className="prose prose-invert prose-sm md:prose-base max-w-none
-              prose-headings:font-bold prose-headings:text-white prose-headings:font-[Syne,sans-serif]
-              prose-p:text-gray-300 prose-p:leading-relaxed
-              prose-a:text-[#00d4ff] prose-a:no-underline hover:prose-a:underline
-              prose-strong:text-white
-              prose-li:text-gray-300
-              prose-img:rounded-xl prose-img:w-full"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+        {/* ── Reading card ──
+            Long-form dark-on-dark text is genuinely harder to read than a
+            light "paper" surface for the article body — this is why
+            Medium, Google's own blogs, and most publications put the
+            actual reading area on a light background even inside a dark
+            or branded chrome. Nav/hero stay dark for brand identity;
+            the article body switches to a light card for readability. */}
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-2xl md:rounded-3xl px-6 py-10 md:px-14 md:py-14 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
+            <div
+              className="prose prose-base md:prose-lg max-w-none
+                prose-headings:font-bold prose-headings:text-gray-900 prose-headings:font-[Syne,sans-serif]
+                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pt-2
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:text-gray-700 prose-p:leading-[1.85] prose-p:mb-5
+                prose-a:text-[#0077b6] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-gray-900 prose-strong:font-semibold
+                prose-ul:my-5 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:my-1.5
+                prose-ol:my-5
+                prose-blockquote:border-l-4 prose-blockquote:border-[#00d4ff] prose-blockquote:text-gray-600 prose-blockquote:italic
+                prose-code:text-[#0077b6] prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+                prose-img:rounded-xl prose-img:w-full"
+              style={{ fontFamily: 'Georgia, "DM Sans", serif' }}
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
 
           {/* ── Back link ── */}
-          <div className="mt-14 pt-8 border-t border-white/10">
+          <div className="mt-10 pt-8 border-t border-white/10">
             <Link
               href="/blog"
               className="text-[#00d4ff] text-sm font-bold inline-flex items-center gap-2 hover:gap-3 transition-all"
