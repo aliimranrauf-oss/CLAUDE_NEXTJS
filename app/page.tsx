@@ -5,8 +5,19 @@ import Templates from '@/components/Templates'
 import ComparisonTable from '@/components/ComparisonTable'
 import ReviewsSection from '@/components/ReviewsSection'
 import Footer from '@/components/Footer'
+import { supabase } from '@/lib/supabaseClient'
 
-export default function Home() {
+export default async function Home() {
+  // ── PERF FIX: fetch templates on the server, before the page is sent ──────
+  // Previously Templates.tsx fetched this itself, client-side, after the page
+  // loaded — showing a spinner then a shimmer while waiting on Supabase +
+  // image download. On slow connections this stretched out Speed Index badly.
+  // Fetching here means the first template is already in the HTML the
+  // browser receives — no client-side wait, no spinner, no shimmer on load.
+  const { data: templatesData } = await supabase
+    .from('templates')
+    .select('*')
+    .order('created_at', { ascending: true })
   return (
     <>
       <Navbar />
@@ -25,7 +36,7 @@ export default function Home() {
         <VideoSection />
 
         {/* 3. Templates — moved up for early product visibility */}
-        <Templates />
+        <Templates initialTemplates={templatesData ?? []} />
 
         {/* 4. Comparison table — trust-building after templates */}
         <ComparisonTable />
