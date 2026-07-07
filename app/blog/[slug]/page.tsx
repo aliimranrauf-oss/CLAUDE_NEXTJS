@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* White Content Card */}
         <div className="bg-white rounded-3xl p-8 md:p-16 shadow-2xl">
           <div 
-            className="prose prose-lg max-w-none prose-headings:font-bold prose-p:text-gray-700 prose-li:text-gray-700"
+            className="prose prose-lg max-w-none text-gray-700 [&_h1]:text-gray-900 [&_h2]:text-gray-900 [&_h3]:text-gray-900 [&_h4]:text-gray-900 [&_strong]:text-gray-900 [&_b]:text-gray-900 [&_a]:text-[#00d4ff]"
             style={{ fontFamily: 'Georgia, serif', lineHeight: 1.8 }}
             dangerouslySetInnerHTML={{ __html: post.content || '<p>No content available.</p>' }}
           />
