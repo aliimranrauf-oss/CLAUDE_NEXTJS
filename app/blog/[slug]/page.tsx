@@ -68,7 +68,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* White Content Card */}
         <div className="bg-white rounded-3xl p-8 md:p-16 shadow-2xl">
           <div 
-            className="prose prose-lg max-w-none text-gray-700 [&_h1]:text-gray-900 [&_h2]:text-gray-900 [&_h3]:text-gray-900 [&_h4]:text-gray-900 [&_strong]:text-gray-900 [&_b]:text-gray-900 [&_a]:text-[#00d4ff]"
+            className="prose prose-lg max-w-none text-gray-700 [&_h1]:text-gray-900 [&_h2]:text-gray-900 [&_h3]:text-gray-900 [&_h4]:text-gray-900 [&_strong]:text-gray-900 [&_b]:text-gray-900 [&_a]:text-[#00d4ff]
+            [&_.cta-btn]:inline-block [&_.cta-btn]:no-underline [&_.cta-btn]:bg-gradient-to-r [&_.cta-btn]:from-[#00d4ff] [&_.cta-btn]:to-[#7a5cff] [&_.cta-btn]:text-white [&_.cta-btn]:font-bold [&_.cta-btn]:px-6 [&_.cta-btn]:py-3 [&_.cta-btn]:rounded-full [&_.cta-btn]:my-2 [&_.cta-btn]:mr-3 [&_.cta-btn]:shadow-lg [&_.cta-btn]:hover:opacity-90 [&_.cta-btn]:transition-opacity
+            [&_.tldr-box]:bg-[#00d4ff]/5 [&_.tldr-box]:border [&_.tldr-box]:border-[#00d4ff]/20 [&_.tldr-box]:rounded-2xl [&_.tldr-box]:p-6 [&_.tldr-box]:my-8 [&_.tldr-box_p]:m-0 [&_.tldr-box_ul]:m-0
+            [&_.callout-box]:bg-gray-50 [&_.callout-box]:border-l-4 [&_.callout-box]:border-[#7a5cff] [&_.callout-box]:rounded-r-xl [&_.callout-box]:p-6 [&_.callout-box]:my-8 [&_.callout-box]:italic [&_.callout-box]:text-gray-800 [&_.callout-box]:text-lg [&_.callout-box_p]:m-0
+            [&_.post-img]:rounded-2xl [&_.post-img]:shadow-md [&_.post-img]:my-8 [&_.post-img]:w-full [&_.post-img]:h-auto
+            [&_figcaption]:text-center [&_figcaption]:text-sm [&_figcaption]:text-gray-500 [&_figcaption]:mt-[-1.5rem] [&_figcaption]:mb-8 [&_figcaption]:italic [&_figcaption]:not-italic
+            [&_table]:w-full [&_table]:border-collapse [&_table]:my-8 [&_th]:bg-gray-100 [&_th]:text-gray-900 [&_th]:font-bold [&_th]:p-3 [&_th]:text-left [&_th]:border [&_th]:border-gray-200 [&_td]:p-3 [&_td]:border [&_td]:border-gray-200"
             style={{ fontFamily: 'Georgia, serif', lineHeight: 1.8 }}
             dangerouslySetInnerHTML={{ __html: post.content || '<p>No content available.</p>' }}
           />
