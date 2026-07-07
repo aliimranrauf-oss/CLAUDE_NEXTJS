@@ -1,28 +1,36 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────
 // SEO METADATA
-// Target keywords: wix website speed optimization, gtmetrix score improvement,
-// pagespeed insights fix, wix site slow, improve wix lighthouse score
+// Platform-agnostic: targets speed/performance/GTmetrix/Lighthouse searches
 // ─────────────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: 'Wix Website Speed Optimization – Improve GTmetrix & PageSpeed Score | MakeMyStore',
+  metadataBase: new URL('https://www.makemystore.online'),
+  title: 'Website Speed Optimization Service | Improve GTmetrix, PageSpeed & Lighthouse Score',
   description:
-    'Professional Wix website speed optimization. Fix slow load times, compress oversized images and videos, and raise your Google PageSpeed & GTmetrix score — without breaking your site. Real results, real case study.',
+    'Get your website loading fast. Professional speed optimization for Wix, WordPress, Shopify, Next.js, and custom sites — fix a low GTmetrix grade, boost your Google PageSpeed Insights score, and pass Core Web Vitals, without breaking anything.',
   keywords: [
-    'wix website speed optimization',
+    'website speed optimization',
     'improve gtmetrix score',
-    'fix slow wix website',
-    'google pagespeed insights fix',
-    'wix lighthouse score improvement',
-    'wix site speed expert',
-    'reduce page load time wix',
-    'wix performance optimization service',
+    'improve lighthouse score',
+    'improve pagespeed insights score',
+    'fix low gtmetrix grade',
+    'core web vitals optimization service',
+    'website performance audit',
+    'reduce website load time',
+    'speed up my website',
+    'website too slow fix',
+    'wordpress speed optimization service',
+    'shopify site speed optimization',
+    'next.js performance optimization',
+    'wix website speed optimization',
   ],
+  category: 'Web Development Services',
   authors: [{ name: 'MakeMyStore.online' }],
   robots: {
     index: true,
@@ -30,27 +38,27 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
   },
   openGraph: {
-    title: 'Wix Website Speed Optimization – Improve GTmetrix & PageSpeed Score',
+    title: 'Website Speed Optimization Service | Improve GTmetrix, PageSpeed & Lighthouse Score',
     description:
-      'Fix a slow Wix website the right way. Video/image compression, script cleanup, and Core Web Vitals improvements — done carefully, without breaking your site.',
+      'Fix a slow website the right way, on any platform. Media compression, script cleanup, and Core Web Vitals improvements — done carefully, without breaking your site.',
     url: 'https://www.makemystore.online/website-speed-optimization',
     siteName: 'MakeMyStore.online',
     type: 'website',
     images: [
       {
-        url: 'https://www.makemystore.online/og-image.png',
+        url: 'https://www.makemystore.online/speed-hero.webp',
         width: 1200,
-        height: 630,
-        alt: 'Wix Website Speed Optimization Service',
+        height: 900,
+        alt: 'Website speed optimization — performance gauge showing improved page speed score',
       },
     ],
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Wix Website Speed Optimization – Improve GTmetrix & PageSpeed Score',
-    description: 'Fix a slow Wix website the right way — without breaking anything.',
-    images: ['https://www.makemystore.online/og-image.png'],
+    title: 'Website Speed Optimization Service | Improve GTmetrix & PageSpeed Score',
+    description: 'Fix a slow website the right way, on any platform — without breaking anything.',
+    images: ['https://www.makemystore.online/speed-hero.webp'],
   },
   alternates: {
     canonical: 'https://www.makemystore.online/website-speed-optimization',
@@ -58,12 +66,12 @@ export const metadata: Metadata = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// JSON-LD structured data (Service schema) — helps Google show rich results
+// JSON-LD structured data
 // ─────────────────────────────────────────────────────────────────────────
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Wix Website Speed Optimization',
+  name: 'Website Speed Optimization',
   serviceType: 'Website Performance Optimization',
   provider: {
     '@type': 'Organization',
@@ -72,7 +80,7 @@ const jsonLd = {
   },
   areaServed: 'Worldwide',
   description:
-    'Professional website speed optimization for Wix websites. Video and image compression, script and app cleanup, Core Web Vitals improvement, and GTmetrix/PageSpeed score improvement.',
+    'Professional website speed optimization for any platform. Media compression, script and asset cleanup, and Core Web Vitals improvement to raise PageSpeed and GTmetrix scores.',
   offers: {
     '@type': 'Offer',
     priceCurrency: 'USD',
@@ -86,10 +94,10 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Can you really improve my Wix website speed? Wix is a closed platform.',
+      name: 'Which platforms do you work with?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. While Wix doesn\u2019t allow custom backend code, most slow Wix sites are slow because of oversized videos, uncompressed images, unused apps, and font bloat — all of which are fixable without touching code. I identify the exact bottleneck using GTmetrix and Google PageSpeed Insights before making any change.',
+        text: 'Any platform \u2014 website builders like Wix and Squarespace, WordPress, Shopify, and fully custom-built sites on Next.js, React, or plain HTML/CSS. The diagnostic process is the same everywhere: identify what is actually slowing the page down using real audit data, then fix it.',
       },
     },
     {
@@ -97,7 +105,7 @@ const faqJsonLd = {
       name: 'Will optimizing my site break anything?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. Every change is tested individually and published one at a time, with a rollback plan in place before any edit is made. Nothing is changed at random — each fix is verified to not affect layout, forms, or existing functionality before moving to the next task.',
+        text: 'No. Every change is tested individually and published one at a time, with a rollback plan confirmed before any edit is made. Nothing is changed at random \u2014 each fix is verified to not affect layout, forms, or existing functionality before moving to the next task.',
       },
     },
     {
@@ -105,15 +113,15 @@ const faqJsonLd = {
       name: 'What score improvement can I expect?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Results vary by site, but a 90+ Google PageSpeed Insights score on both desktop and mobile is a realistic, common outcome. GTmetrix\u2019s Performance grade is partly limited by Wix\u2019s own core platform code and cannot be pushed arbitrarily high on any Wix site \u2014 this is explained clearly before work begins, not after.',
+        text: 'Results depend on the current state of the site and the platform it\u2019s built on, but a 90+ Google PageSpeed Insights score on both desktop and mobile is a realistic, common outcome for most sites once the real bottlenecks are addressed. Every platform has its own constraints, and those are explained clearly up front, not after the work is done.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Do you work with platforms other than Wix?',
+      name: 'What usually makes a website slow?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Wix is a specialty, but the same diagnostic process (image/video compression, script auditing, Core Web Vitals improvement) applies to most website builders and custom sites.',
+        text: 'Most commonly: oversized or uncompressed images and videos, unnecessary third-party scripts and apps, unoptimized fonts, and render-blocking resources. A proper audit with GTmetrix and PageSpeed Insights identifies the exact cause on your specific site rather than guessing.',
       },
     },
   ],
@@ -124,21 +132,30 @@ const faqJsonLd = {
 // ─────────────────────────────────────────────────────────────────────────
 const included = [
   'Full GTmetrix + Google PageSpeed Insights audit (mobile & desktop)',
-  'Video compression (background/hero videos resized without visible quality loss)',
-  'Image compression & correct sizing across key pages and blog posts',
-  'Unused app / script audit and safe removal',
+  'Video and image compression \u2014 resized without visible quality loss',
+  'Unnecessary script, app, and third-party embed cleanup',
+  'Font and asset audit to remove render-blocking bloat',
   'Core Web Vitals review (LCP, CLS, TBT)',
   'Before/after report with real screenshots and numbers',
+]
+
+const platforms = [
+  'Wix',
+  'WordPress',
+  'Shopify',
+  'Squarespace',
+  'Next.js / React',
+  'Custom-built websites',
 ]
 
 const process = [
   {
     title: 'Audit',
-    desc: 'I run GTmetrix and PageSpeed Insights on your site and identify exactly what is slowing it down \u2014 no guessing.',
+    desc: 'I run GTmetrix and PageSpeed Insights on your site and identify exactly what is slowing it down \u2014 no guessing, no generic checklist.',
   },
   {
-    title: 'Fix — one change at a time',
-    desc: 'Each fix (video, image, script) is made individually, tested, and published before moving to the next \u2014 so nothing breaks along the way.',
+    title: 'Fix \u2014 one change at a time',
+    desc: 'Each fix is made individually, tested, and published before moving to the next \u2014 so nothing breaks along the way, regardless of platform.',
   },
   {
     title: 'Verify & report',
@@ -149,8 +166,8 @@ const process = [
 const stats = [
   { label: 'Homepage page size', before: '~10 MB', after: '~3.4 MB' },
   { label: 'Background video size', before: '7.3 MB', after: '794 KB' },
-  { label: 'Google PageSpeed (Desktop)', before: '63', after: '99' },
-  { label: 'Google PageSpeed (Mobile)', before: '62', after: '90' },
+  { label: 'PageSpeed Score (Desktop)', before: '63', after: '99' },
+  { label: 'PageSpeed Score (Mobile)', before: '62', after: '90' },
 ]
 
 const FIVERR_GIG_URL = 'https://www.fiverr.com/s/ljqAq5g'
@@ -173,37 +190,77 @@ export default function WebsiteSpeedOptimizationPage() {
       <main id="main-content" className="bg-[#0b0f1a] text-white">
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="pt-32 pb-20 px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.06] text-sm text-[#00d4ff] font-semibold mb-6">
-              <Gauge size={16} />
-              Website Speed &amp; Core Web Vitals Specialist
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Text column */}
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.06] text-sm text-[#00d4ff] font-semibold mb-6">
+                <Gauge size={16} />
+                Website Speed &amp; Core Web Vitals Specialist
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Is your <span className="text-gradient">website slow</span>?
+                <br />
+                Let&apos;s fix that &mdash; without breaking it.
+              </h1>
+
+              <p className="text-lg text-white/70 max-w-xl mx-auto lg:mx-0 mb-6">
+                I diagnose and fix the real cause of slow websites &mdash; oversized media,
+                script bloat, unoptimized assets &mdash; and turn low PageSpeed and GTmetrix
+                scores into fast, healthy ones. Works on any platform. Every change is
+                careful, tested, and reversible.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-10">
+                {platforms.map((p) => (
+                  <span
+                    key={p}
+                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 text-white/60"
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
+                  Get a Free Speed Audit
+                  <ArrowRight size={18} />
+                </Link>
+                <a
+                  href={FIVERR_GIG_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold px-8 py-3 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all"
+                >
+                  Order on Fiverr
+                </a>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Is your <span className="text-gradient">Wix website</span> slow?
-              <br />
-              Let&apos;s fix that &mdash; without breaking it.
-            </h1>
-
-            <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
-              I diagnose and fix the real cause of slow Wix websites &mdash; oversized videos,
-              uncompressed images, script bloat &mdash; and turn low GTmetrix and PageSpeed
-              scores into fast, healthy ones. Every change is careful, tested, and reversible.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
-                Get a Free Speed Audit
-                <ArrowRight size={18} />
-              </Link>
-              <a
-                href={FIVERR_GIG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold px-8 py-3 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all"
-              >
-                Order on Fiverr
-              </a>
+            {/* Hero image column
+                ── LCP / CLS SAFETY NOTES ────────────────────────────────────
+                - `priority` preloads this image and marks it high fetch priority,
+                  since it's almost certainly the Largest Contentful Paint element.
+                - Explicit width/height (and the wrapping aspect-ratio div) reserve
+                  the exact space before the image loads, so CLS stays at ~0.
+                - next/image automatically serves AVIF/WebP to supporting browsers
+                  and generates responsive srcset sizes — no manual compression step
+                  needed beyond starting with a reasonably sized source file
+                  (see instructions for recommended source specs).
+                - `sizes` tells the browser the real rendered width at each
+                  breakpoint so it never downloads a larger version than needed.
+            */}
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
+              <Image
+                src="/speed-hero.webp"
+                alt="Website speed optimization dashboard showing a performance gauge and improved page load score"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 1024px) 90vw, 45vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </section>
@@ -215,7 +272,7 @@ export default function WebsiteSpeedOptimizationPage() {
               Real Results, Real Numbers
             </h2>
             <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
-              From a recent Wix website speed optimization project (client details kept
+              From a recent website speed optimization project (client details kept
               confidential, results verified via GTmetrix &amp; Google PageSpeed Insights):
             </p>
 
@@ -284,10 +341,10 @@ export default function WebsiteSpeedOptimizationPage() {
               Careful, Not Random
             </h2>
             <p className="text-white/70 text-sm sm:text-base">
-              Speed optimization on a live website is sensitive work. A rollback plan is
-              confirmed before any edit, changes are made one at a time, and each fix is
-              tested before moving to the next &mdash; so your site stays fully functional
-              throughout the process.
+              Speed optimization on a live website is sensitive work, regardless of
+              platform. A rollback plan is confirmed before any edit, changes are made
+              one at a time, and each fix is tested before moving to the next &mdash; so
+              your site stays fully functional throughout the process.
             </p>
           </div>
         </section>
@@ -319,7 +376,7 @@ export default function WebsiteSpeedOptimizationPage() {
               Ready for a faster website?
             </h2>
             <p className="text-white/70 mb-8">
-              Get a free initial speed check &mdash; no obligation.
+              Get a free initial speed check &mdash; no obligation, any platform.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
