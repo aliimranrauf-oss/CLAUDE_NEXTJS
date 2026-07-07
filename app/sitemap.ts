@@ -23,6 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    {
+      // ── NEW: Website Speed Optimization service page ──────────────────
+      url: 'https://www.makemystore.online/website-speed-optimization',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
 
     // Service Pages (0.8)
     {
