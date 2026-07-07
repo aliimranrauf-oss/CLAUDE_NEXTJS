@@ -195,6 +195,15 @@ export default function Templates({ initialTemplates }: { initialTemplates?: Tem
                         opacity: fading || !imgLoaded ? 0 : 1,
                         transition: 'opacity 0.22s ease',
                       }}
+                      ref={(el) => {
+                        // PERF FIX: when the server pre-fetches template data,
+                        // this image can already finish loading (from cache or
+                        // a fast connection) before React attaches onLoad below
+                        // — meaning onLoad never fires and the image stays
+                        // hidden forever. This checks img.complete the instant
+                        // it mounts and marks it loaded immediately if so.
+                        if (el?.complete && el.naturalWidth > 0) setImgLoaded(true)
+                      }}
                       onLoad={() => setImgLoaded(true)}
                       onError={(e) => {
                         ;(e.currentTarget as HTMLImageElement).style.display = 'none'
