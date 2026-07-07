@@ -51,6 +51,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </h1>
         </div>
 
+        {/* Featured Image */}
+        {post.image_url && (
+          <div className="relative w-full h-64 md:h-96 rounded-3xl overflow-hidden mb-10 bg-[#0d1220]">
+            <Image
+              src={post.image_url}
+              alt={post.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
+
         {/* White Content Card */}
         <div className="bg-white rounded-3xl p-8 md:p-16 shadow-2xl">
           <div 
