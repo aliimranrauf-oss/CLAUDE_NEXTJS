@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 
 // ── Icons ────────────────────────────────────────
@@ -66,6 +67,9 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const searchParams = useSearchParams()
+  const isSpeedAudit = searchParams.get('service') === 'speed-audit'
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -159,6 +163,11 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                {isSpeedAudit && (
+                  <p className="text-sm text-cyan-300 bg-cyan-400/10 border border-cyan-400/20 rounded-lg px-4 py-2.5">
+                    ⚡ Requesting a <span className="font-semibold">Free Speed Audit</span> — we&apos;ve pre-selected it below. Feel free to change it if you meant something else.
+                  </p>
+                )}
                 {/* Row 1 */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
@@ -194,11 +203,17 @@ export default function ContactPage() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <Label>Package *</Label>
-                    <select name="package" className={selectCls} required>
+                    <select
+                      name="package"
+                      className={selectCls}
+                      required
+                      defaultValue={isSpeedAudit ? 'Website Speed Optimization — Free Audit' : ''}
+                    >
                       <option value="">Select Package...</option>
                       <option>Launch — $99</option>
                       <option>Growth — $249</option>
                       <option>Scale — $499</option>
+                      <option>Website Speed Optimization — Free Audit</option>
                       <option>Not sure yet</option>
                     </select>
                   </div>
