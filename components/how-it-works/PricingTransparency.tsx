@@ -25,9 +25,10 @@ export default function PricingTransparency() {
 
         <div className="glass card-glow rounded-2xl p-7 sm:p-8 mb-6">
           <p className="text-sm text-gray-300 leading-relaxed mb-4" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-            Our website development fee is a <strong className="text-white">one-time payment</strong>. There
-            are no monthly charges from us for hosting your website on our recommended stack. For most business
-            websites, the following services can be used on their free plans:
+            Our website development fee is a <strong className="text-white">one-time payment</strong>. If you
+            already have hosting (e.g., Hostinger, GoDaddy) or a backend you use, we deploy there &mdash; no need
+            to set up anything new. If you don&rsquo;t have hosting yet, we set you up on our recommended stack
+            below, and for most business websites the following services can be used on their free plans:
           </p>
           <ul className="flex flex-wrap gap-2 mb-4">
             {FREE_TIER_SERVICES.map((s) => (
@@ -42,7 +43,8 @@ export default function PricingTransparency() {
           </ul>
           <p className="text-sm text-gray-400 leading-relaxed" style={{ fontFamily: 'DM Sans, sans-serif' }}>
             These free plans are generally sufficient for new websites, portfolios, blogs, and many small to
-            medium business websites.
+            medium business websites. Either way &mdash; your hosting or ours &mdash; the accounts are always
+            registered under your ownership, not ours.
           </p>
         </div>
 
@@ -54,7 +56,9 @@ export default function PricingTransparency() {
             As your website grows, you may eventually exceed the free usage limits offered by third-party
             platforms &mdash; a significant increase in visitors, large databases, heavy file storage, high
             bandwidth usage, or advanced enterprise features. In these cases, services such as Vercel or
-            Supabase may require upgrading to a paid plan based on their own pricing and policies, not ours.
+            Supabase may require upgrading to a paid plan based on their own pricing and policies, not ours. If
+            you&rsquo;re on your own existing hosting instead, your provider&rsquo;s normal plan limits and
+            pricing apply.
           </p>
           <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: 'DM Sans, sans-serif' }}>
             The good news: that usually means your website has grown enough that investing in better
@@ -68,9 +72,10 @@ export default function PricingTransparency() {
           </h3>
           <p className="text-sm text-gray-500 leading-relaxed mb-3" style={{ fontFamily: 'DM Sans, sans-serif' }}>
             We believe in complete transparency. Our one-time development fee covers the design, development,
-            testing, deployment, and handover of your website. However, we cannot control or guarantee the
-            pricing, free tiers, policies, availability, or future decisions of third-party service providers
-            such as GitHub, Vercel, Supabase, Google, Cloudflare, Stripe, or domain registrars.
+            testing, deployment, and handover of your website &mdash; to your own hosting if you have it, or to
+            a free-tier stack we set up if you don&rsquo;t. However, we cannot control or guarantee the pricing,
+            free tiers, policies, availability, or future decisions of third-party service providers such as
+            GitHub, Vercel, Supabase, Google, Cloudflare, Stripe, your hosting provider, or domain registrars.
           </p>
           <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'DM Sans, sans-serif' }}>
             Any future costs, renewals, subscriptions, or upgrades charged by these providers are separate from
@@ -90,7 +95,7 @@ export default function PricingTransparency() {
               boxShadow: '0 4px 15px rgba(0,212,255,0.3)',
             }}
           >
-            Start Your Free Consultation →
+            Start Your Free Consultation &rarr;
           </a>
         </div>
       </div>
