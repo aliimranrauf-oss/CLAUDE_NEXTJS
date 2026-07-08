@@ -25,15 +25,15 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
+  title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
   description:
-    'Own your ecommerce store — one-time setup fee, zero platform fees, self-hosted on YOUR Vercel & Supabase accounts. MakeMyStore builds fully custom online stores from $99 with Stripe & PayPal integration.',
+    'Own your ecommerce store — one-time build fee, deployed to any hosting you choose (your own Hostinger/GoDaddy plan or a free-tier host). MakeMyStore builds fully custom online stores from $250 with Stripe & PayPal integration.',
   keywords: [
     'custom ecommerce website',
     'shopify alternative',
-    'zero platform fees',
+    'one-time build fee ecommerce',
     'one-time setup ecommerce',
-    'self-hosted ecommerce',
+    'deploy to any hosting',
     'ecommerce website builder',
     'online store development',
     'no subscription ecommerce',
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
   },
   openGraph: {
-    title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
+    title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
     description:
-      'Own your ecommerce store — one-time setup, zero platform fees. Deployed to YOUR Vercel & Supabase accounts.',
+      'Own your ecommerce store — one-time build fee, deployed to any hosting you choose.',
     url: 'https://www.makemystore.online',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -56,15 +56,15 @@ export const metadata: Metadata = {
         url: 'https://www.makemystore.online/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'MakeMyStore - Custom Ecommerce, Zero Platform Fees',
+        alt: 'MakeMyStore - Custom Ecommerce, One-Time Build Fee',
       },
     ],
     locale: 'en_US',                    // ← Added for better social sharing
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Custom Ecommerce Website – Zero Platform Fees | MakeMyStore.online',
-    description: 'Own your ecommerce store — one-time setup, zero platform fees.',
+    title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
+    description: 'Own your ecommerce store — one-time build fee, deployed to any hosting you choose.',
     images: ['https://www.makemystore.online/og-image.png'],   // ← Added (very important for X/Twitter)
   },
   alternates: {
