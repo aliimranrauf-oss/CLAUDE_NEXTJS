@@ -34,7 +34,7 @@ const PLAN_FEATURES: Record<string, string[]> = {
     'Stripe or PayPal integration',
     'Mobile-optimized design',
     'Basic SEO setup',
-    'Vercel + Supabase deployment',
+    'Deployed to your hosting (or free-tier Vercel + Supabase)',
     'Google Analytics setup',
     'Full Source Code Ownership',
   ],
@@ -145,7 +145,7 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
 
         <div className="flex items-center gap-1.5 mb-2">
           <span className="text-[11px] text-white/35" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-            Full ownership · No monthly fees
+            Full ownership · No monthly fee from us
           </span>
           <div className="group relative shrink-0">
             <Info size={10} className="text-white/20 cursor-help hover:text-[#00d4ff] transition-colors" />
@@ -154,7 +154,7 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
               className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 bg-[#161c2e] border border-white/12 rounded-xl px-3 py-2.5 text-[11px] text-white/60 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity z-30 shadow-2xl"
               style={{ fontFamily: 'DM Sans, sans-serif' }}
             >
-              Deployed to your personal Vercel &amp; Supabase accounts. You only pay for your domain (~$10/yr).
+              Deployed to whatever hosting you already have (Hostinger, GoDaddy, etc.) — or a free-tier host like Vercel + Supabase if you don&apos;t have one yet. Hosting/domain costs depend on your provider, not us.
               <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#161c2e]" />
             </div>
           </div>
@@ -321,7 +321,7 @@ const COMPARISON_ROWS: [string, string, string][] = [
   ['Custom design',     '✓ Pixel-perfect',           '✗ Theme limited'],
   ['Transaction fees',  '✓ None',                    '✗ 0.5–2%'],
   ['Source code',       '✓ Yes',                     '✗ No'],
-  ['Hosting & DB',      'Your Account (Free Tiers)', 'Proprietary/Paid'],
+  ['Hosting & DB',      'Any host you choose',       'Proprietary/Paid'],
 ]
 
 const FAQS = [
@@ -332,7 +332,7 @@ const FAQS = [
   { q: 'Can I upgrade later?',
     a: 'Absolutely. Pay the difference and we rebuild/extend your existing store.' },
   { q: 'Is hosting included?',
-    a: 'We handle the entire setup for you! We deploy the store to your personal Vercel and Supabase accounts so you have 100% control and ownership. These platforms have generous Free Tiers that cover most businesses at $0/mo. You only manage your domain name (~$10/year) directly with your provider.' },
+    a: 'Our fee covers the build, not hosting. We deploy your finished store wherever you want — your existing hosting (Hostinger, GoDaddy, etc.), your own Supabase/backend account, or, if you don\'t have hosting yet, a free-tier setup on Vercel + Supabase that covers most small stores at $0/mo. Whatever host you use, you own the code and the account.' },
   { q: 'Can you migrate my Shopify or Wix store?',
     a: 'Yes! We offer seamless migration from Shopify and Wix. Your products, content, and SEO are preserved. You stop paying monthly platform fees and gain full ownership.' },
   { q: 'What if I need something custom?',
@@ -415,7 +415,7 @@ export default function PricingPage() {
           <div className="relative max-w-3xl mx-auto px-5 sm:px-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/25 bg-[#00d4ff]/[0.08] text-[#00d4ff] text-xs font-semibold mb-7 tracking-widest uppercase" style={{ fontFamily: 'DM Sans, sans-serif' }}>
               <Sparkles size={11} aria-hidden />
-              One-time payment · No subscriptions ever
+              One-time build fee · No subscription to us
             </div>
 
             <h1
@@ -425,7 +425,7 @@ export default function PricingPage() {
               Build Your Ecommerce Store
               <br />
               <span className="text-[#40e0ff]" style={{ WebkitTextFillColor: '#40e0ff' }}>
-                One-Time Cost, No Monthly Fees
+                One-Time Fee, Any Hosting
               </span>
             </h1>
 
@@ -434,7 +434,7 @@ export default function PricingPage() {
               style={{ fontFamily: 'DM Sans, sans-serif' }}
             >
               Stop paying Shopify monthly rent. Own your Next.js store outright —
-              full source code, $0 platform fees, 100/100 Google PageSpeed.
+              full source code, no recurring fee to us, deployed on the hosting you already have (or a free-tier host we set up for you).
             </p>
 
             <p className="text-[#00d4ff]/65 text-sm mb-8 font-medium" style={{ fontFamily: 'DM Sans, sans-serif' }}>
