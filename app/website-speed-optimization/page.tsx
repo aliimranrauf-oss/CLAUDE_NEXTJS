@@ -427,28 +427,38 @@ export default function WebsiteSpeedOptimizationPage() {
                     ))}
                   </ul>
 
-                  <a
-                    href={FIVERR_GIG_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={CONTACT_URL}
                     className={
                       plan.highlighted
                         ? 'btn-primary text-sm px-6 py-2.5 text-center inline-block'
                         : 'text-sm font-semibold px-6 py-2.5 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all text-center'
                     }
                   >
-                    Order on Fiverr
-                  </a>
+                    Order Now
+                  </Link>
                 </div>
               ))}
             </div>
 
             {/* Discount banner */}
-            <div className="mt-10 max-w-xl mx-auto text-center glass rounded-xl p-5 border border-[#00d4ff]/20">
-              <p className="text-sm sm:text-base text-white/85">
-                🎉 Get <span className="font-bold text-[#00d4ff]">50% OFF</span> any package
-                &mdash; available exclusively when you order through Fiverr.
+            <div className="mt-10 max-w-xl mx-auto text-center glass rounded-2xl p-8 border border-[#00d4ff]/30">
+              <p className="text-xl sm:text-2xl font-bold text-white mb-2">
+                🎉 Get <span className="text-[#00d4ff]">50% OFF</span> Any Package
               </p>
+              <p className="text-sm sm:text-base text-white/70 mb-6">
+                Available exclusively when you order through Fiverr &mdash; a safe, secure
+                payment method with full buyer protection.
+              </p>
+              <a
+                href={FIVERR_GIG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2"
+              >
+                Order on Fiverr
+                <ArrowRight size={18} />
+              </a>
             </div>
           </div>
         </section>
