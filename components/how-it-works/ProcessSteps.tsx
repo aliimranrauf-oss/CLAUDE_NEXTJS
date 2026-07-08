@@ -10,7 +10,7 @@ const STEP_CONTENT: Record<string, StepContent> = {
   consultation: {
     paragraphs: [
       'Every project begins with understanding your business. We\u2019ll discuss your business goals, the type of website you need (business, e-commerce, portfolio, SaaS, blog, and more), required features, design preferences, timeline, and budget.',
-      'Not sure what you need? No problem \u2014 we\u2019ll recommend the best solution based on your business.',
+      'We\u2019ll also ask whether you already have hosting or a backend you want to keep using \u2014 if so, we build for that. If not, we\u2019ll recommend the best free-tier stack for your business.',
     ],
   },
   payment: {
@@ -28,26 +28,29 @@ const STEP_CONTENT: Record<string, StepContent> = {
   },
   gmail: {
     paragraphs: [
-      'We strongly recommend creating a new Gmail account dedicated to your business instead of using your personal email. This Gmail becomes the master key for your entire online business.',
+      'We strongly recommend creating a new Gmail account dedicated to your business instead of using your personal email. This Gmail becomes the master key for your entire online business \u2014 if you\u2019re going with our recommended free-tier stack.',
+      'Already have hosting or a backend account (Hostinger, GoDaddy, an existing Supabase project, etc.)? We\u2019ll use your existing logins instead of creating new ones, and skip whichever of the accounts below you don\u2019t need.',
     ],
     list: [
       'GitHub', 'Vercel', 'Supabase', 'Google Analytics', 'Google Search Console',
       'Google Tag Manager', 'Google Business Profile (if needed)', 'Google Maps APIs (if needed)',
       'Resend', 'Cloudflare (if needed)', 'Stripe (if required)',
     ],
-    note: 'Everything belongs to you, not us.',
+    note: 'Everything belongs to you, not us \u2014 whether it\u2019s a new account we create or one you already had.',
   },
   setup: {
-    paragraphs: ['Using your Gmail account, we\u2019ll configure all required services.'],
+    paragraphs: [
+      'If you\u2019re using our recommended free-tier stack, we\u2019ll configure the following using your Gmail account. If you already have hosting, we configure your project on your existing host and backend instead \u2014 the list below adjusts to match.',
+    ],
     list: [
-      'GitHub Repository', 'Vercel Hosting', 'Supabase Database', 'PostgreSQL',
+      'GitHub Repository', 'Hosting (Vercel or your existing host)', 'Database (Supabase or your existing backend)', 'PostgreSQL',
       'Authentication', 'Analytics', 'Search Console', 'XML Sitemap',
       'Robots.txt', 'SSL Certificate', 'Domain Configuration', 'Email Services', 'API Integrations',
     ],
-    note: 'Every account is registered under your ownership.',
+    note: 'Every account is registered under your ownership \u2014 new or existing.',
   },
   development: {
-    paragraphs: ['We build your website using modern technologies: Next.js, React, Tailwind CSS, TypeScript, Supabase, PostgreSQL, APIs, and AI integrations where required.'],
+    paragraphs: ['We build your website using modern technologies: Next.js, React, Tailwind CSS, TypeScript, Supabase (or your existing backend), PostgreSQL, APIs, and AI integrations where required.'],
     note: 'Your source code is maintained in your private GitHub repository.',
   },
   testing: {
@@ -58,7 +61,7 @@ const STEP_CONTENT: Record<string, StepContent> = {
     ],
   },
   launch: {
-    paragraphs: ['After approval, we\u2019ll deploy your website.'],
+    paragraphs: ['After approval, we\u2019ll deploy your website to whichever hosting we set up together \u2014 your existing plan or our recommended free-tier stack.'],
     list: [
       'Live deployment', 'Domain connection', 'SSL certificate', 'Google Analytics',
       'Search Console', 'XML sitemap', 'Performance optimization',
@@ -68,10 +71,10 @@ const STEP_CONTENT: Record<string, StepContent> = {
   handover: {
     paragraphs: ['Once the project is completed, you receive full ownership of everything.'],
     list: [
-      'Gmail account', 'GitHub repository', 'Vercel project', 'Supabase project',
+      'Gmail account (if created for the project)', 'GitHub repository', 'Hosting project (Vercel or your existing host)', 'Backend/database project (Supabase or your existing backend)',
       'Database', 'Source code', 'Google Analytics', 'Search Console', 'Domain access', 'Documentation (if applicable)',
     ],
-    note: 'For security, we recommend changing your Gmail password immediately after handover and enabling Two-Factor Authentication (2FA). From that point on, you have complete control over your website and accounts.',
+    note: 'For security, we recommend changing your account passwords immediately after handover and enabling Two-Factor Authentication (2FA) wherever available. From that point on, you have complete control over your website and accounts.',
   },
 }
 
