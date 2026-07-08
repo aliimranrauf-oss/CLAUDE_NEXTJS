@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Own Your Store — Stop Paying Shopify Monthly Bills',
     description:
-      'Seamless migration from Shopify/Wix to your own Next.js store. Full source code ownership. Zero platform fees. One-time payment starting at $99.',
+      'Seamless migration from Shopify/Wix to your own Next.js store. Full source code ownership. Zero platform fees. One-time payment starting at $250.',
     url: 'https://www.makemystore.online/pricing',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Stop Paying Shopify Monthly Fees — Own Your Store Once',
     description:
-      'Professional Shopify & Wix migration to Next.js. 100% code ownership, $0/mo platform fees, 100/100 PageSpeed. Starting at $99.',
+      'Professional Shopify & Wix migration to Next.js. 100% code ownership, $0/mo platform fees, 100/100 PageSpeed. Starting at $250.',
     images: ['https://www.makemystore.online/og-pricing.png'], // same OG image
     creator: '@makemystoreapp', // update with your Twitter handle if you have one
   },
