@@ -259,7 +259,24 @@ export default function WebsiteSpeedOptimizationPage() {
 
       <main id="main-content" className="bg-[#0b0f1a] text-white">
         {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="pt-32 pb-20 px-4 sm:px-6">
+        <section className="relative pt-32 pb-20 px-4 sm:px-6">
+          {/* ── FLOATING 50% OFF BADGE ─────────────────────────────────────
+              Pure CSS (Tailwind's built-in animate-ping/pulse — GPU-composited,
+              no JS, no client component, no layout shift). Absolutely positioned
+              inside this hero section only, so it never affects scores or CLS. */}
+          <Link
+            href="#pricing"
+            aria-label="See 50% off packages"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 group"
+          >
+            <span className="relative inline-flex items-center justify-center">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#00d4ff]/50 animate-ping" />
+              <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#00d4ff] text-[#0b0f1a] font-bold text-xs sm:text-sm px-4 py-2 shadow-lg shadow-[#00d4ff]/30 group-hover:scale-105 transition-transform">
+                <Zap size={14} />
+                50% OFF
+              </span>
+            </span>
+          </Link>
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Text column */}
             <div className="text-center lg:text-left">
@@ -388,11 +405,7 @@ export default function WebsiteSpeedOptimizationPage() {
         </section>
 
         {/* ── PRICING ──────────────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
-              Packages &amp; Pricing
-            </h2>
+        <section id="pricing" className="py-16 px-4 sm:px-6 border-t border-white/5 scroll-mt-20">
             <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
               Choose the package that fits your site &mdash; on any platform.
             </p>
