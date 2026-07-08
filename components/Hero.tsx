@@ -1,13 +1,12 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 
-const TYPING_TEXT = '✦ Built by Real Experts — One-Time Build Fee, Any Hosting You Choose'
+const TYPING_TEXT = '✦ Built by Real Experts, Powered by AI — Fully Custom & SEO Optimized'
 
-const TECH_STACK_TEXT = 'Supabase • GitHub • Vercel • Hostinger • GoDaddy • Next.js • Tailwind CSS'
+const TECH_STACK_TEXT = 'Supabase • GitHub • Vercel • Google Analytics • Next.js • Tailwind CSS'
 const TICKER_ITEMS = [TECH_STACK_TEXT, TECH_STACK_TEXT, TECH_STACK_TEXT]
 
 const CONTACT_URL = 'https://www.makemystore.online/contact'
-const PRICING_URL = 'https://www.makemystore.online/pricing'
 
 export default function Hero() {
   const [typed, setTyped] = useState('')
@@ -57,22 +56,22 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── Headline: honest positioning — we charge a one-time BUILD fee, hosting is the client's choice ── */}
+      {/* ── CHANGE 1: Updated headline ────────────────────────────────────── */}
       <h1
         className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
         style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
       >
         Build Your Ecommerce Website
         <br />
-        <span className="text-[#40e0ff] block mt-1">One-Time Build Fee. Host It Anywhere.</span>
+        <span className="text-[#40e0ff] block mt-1">One-Time Build Fee — Deploy Anywhere</span>
       </h1>
 
+      {/* ── UPDATED: honest positioning — build fee, deploy anywhere ──────── */}
       <p
         className="mt-5 text-gray-500 text-sm sm:text-base max-w-lg mx-auto"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
-        Custom-coded store with Stripe &amp; PayPal, full source code on GitHub, Supabase backend —
-        deployed to Vercel, Hostinger, GoDaddy, or hosting you already own.
+        Custom online store with Stripe &amp; PayPal, SEO optimized, deployed to any hosting you choose
       </p>
 
       {/* Benefit badges */}
@@ -84,7 +83,7 @@ export default function Hero() {
         <span className="text-white/20 mx-1">|</span>
         <span>💳 Stripe &amp; PayPal Ready</span>
         <span className="text-white/20 mx-1">|</span>
-        <span>🌐 Works with any host — no lock-in</span>
+        <span>🔓 Full source code, no lock-in</span>
       </div>
 
       {/* Typing line */}
@@ -110,30 +109,12 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Pricing snapshot — real packages, honest framing */}
-      <a
-        href={PRICING_URL}
-        className="mt-5 inline-flex flex-wrap justify-center gap-x-3 gap-y-1 text-[12px] sm:text-[13px] text-white/50 hover:text-white/80 transition-colors"
-        style={{ fontFamily: 'DM Sans, sans-serif' }}
-      >
-        <span>Starter <strong className="text-white/70">$250</strong></span>
-        <span className="text-white/20">·</span>
-        <span>Business <strong className="text-white/70">$500</strong></span>
-        <span className="text-white/20">·</span>
-        <span>Pro <strong className="text-white/70">$1000</strong></span>
-        <span className="text-white/20">·</span>
-        <span className="underline underline-offset-2">See what's included →</span>
-      </a>
-
-      {/* ── Cost note: what we charge for vs. what the client pays hosting providers directly ── */}
+      {/* ── UPDATED: honest cost note — we charge once for the build, hosting is separate & flexible ── */}
       <p
         className="mt-6 text-[12px] sm:text-[13px] text-white/40 max-w-md mx-auto"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
-        💡 Our fee covers the build — not hosting. You host wherever you like (Vercel, Hostinger,
-        GoDaddy, or your current plan). Most hosting and Supabase backends offer{' '}
-        <strong className="text-white/60">free tiers</strong> for smaller stores, so many clients pay
-        little to nothing to run their site — but hosting costs are between you and your provider, not us.
+        💡 We charge <strong className="text-white/60">once</strong> for the build. Deploy on your existing hosting (Hostinger, GoDaddy, etc.) or a free tier like Vercel + Supabase — your choice, your account.
       </p>
 
       {/* ── TECH STACK TEXT TICKER ─────────────────────────────────────────── */}
@@ -168,15 +149,17 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Hidden SEO block — honest description, no absolute "$0/mo forever" claims ── */}
+      {/* ── CHANGE 3: Hidden SEO block — updated description ─────────────── */}
       <div className="sr-only">
-        <h2>Custom Ecommerce Development — One-Time Build Fee, Any Hosting</h2>
+        <h2>Professional Shopify Alternative</h2>
         <p>
-          MakeMyStore builds custom-coded ecommerce websites for a one-time build fee. Unlike
-          subscription platforms, you get full source code ownership on GitHub and a Supabase backend,
-          deployed to the hosting provider of your choice — Vercel, Hostinger, GoDaddy, or an existing
-          hosting plan you already have. We charge for the build and setup; hosting and backend costs
-          are billed separately by your provider, and many offer free tiers to start.
+          MakeMyStore offers custom-coded ecommerce websites with a one-time build fee.
+          Unlike subscription platforms, we provide full source code ownership, high-speed
+          performance, and advanced SEO features for growing businesses. Your store deploys
+          to GitHub for version control, connects to a Supabase database (or your existing
+          backend), and launches on any hosting you choose — your current Hostinger or
+          GoDaddy plan, or a free-tier host like Vercel — so you&apos;re never locked into our
+          platform or forced into a recurring fee from us.
         </p>
       </div>
 
