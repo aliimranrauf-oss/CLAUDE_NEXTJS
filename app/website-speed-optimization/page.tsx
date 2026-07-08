@@ -265,7 +265,7 @@ export default function WebsiteSpeedOptimizationPage() {
               no JS, no client component, no layout shift). Absolutely positioned
               inside this hero section only, so it never affects scores or CLS. */}
           <Link
-            href="#pricing"
+            href="#discount"
             aria-label="See 50% off packages"
             className="absolute top-24 right-4 sm:top-28 sm:right-6 z-20 group"
           >
@@ -459,7 +459,7 @@ export default function WebsiteSpeedOptimizationPage() {
             </div>
 
             {/* Discount banner */}
-            <div className="mt-10 max-w-xl mx-auto text-center glass rounded-2xl p-8 border border-[#00d4ff]/30">
+            <div id="discount" className="mt-10 max-w-xl mx-auto text-center glass rounded-2xl p-8 border border-[#00d4ff]/30 scroll-mt-20">
               <p className="text-xl sm:text-2xl font-bold text-white mb-2">
                 🎉 Get <span className="text-[#00d4ff]">50% OFF</span> Any Package
               </p>
