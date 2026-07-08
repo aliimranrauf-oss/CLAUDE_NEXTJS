@@ -4,23 +4,32 @@ const platforms = ['Shopify', 'Wix', 'WordPress', 'MakeMyStore ✦']
 
 const rows = [
   {
-    // CHANGE: "Monthly subscription fee" → "Platform Fee", "None ✓" → "$0/mo ✓"
-    feature: 'Platform Fee',
-    values: ['From $39/mo', 'From $17/mo', 'From $10/mo', '$0/mo ✓'],
+    // Honest framing: our fee is one-time for the BUILD. Hosting is separate and
+    // paid to whichever provider the client picks (often free-tier to start).
+    feature: 'Platform / Build Cost',
+    values: [
+      'From $39/mo, forever',
+      'From $17/mo, forever',
+      'From $10/mo, forever',
+      '$250–$1000 one-time build ✓',
+    ],
+  },
+  {
+    feature: 'Hosting cost',
+    values: [
+      'Bundled into subscription',
+      'Bundled into subscription',
+      'Extra, recurring',
+      'Your choice — Vercel, Hostinger, GoDaddy, or existing plan (often free tier)',
+    ],
   },
   {
     feature: 'Sales commission',
     values: ['Up to 2%', '0%', '0%', '0% ✓'],
   },
   {
-    // UNCHANGED — stays as "✅ Full ownership"
     feature: 'Source code ownership',
-    values: ['❌', '❌', '⚠️ Partial', '✅ Full ownership'],
-  },
-  {
-    // CHANGE: "Free hosting" → "Hosting & DB", "✅ Vercel free" → "✅ Your Own Account (Free Tiers)"
-    feature: 'Hosting & DB',
-    values: ['❌ Extra cost', '❌ Extra cost', '❌ Extra cost', '✅ Your Own Account (Free Tiers)'],
+    values: ['❌', '❌', '⚠️ Partial', '✅ Full ownership, yours on GitHub'],
   },
   {
     feature: '100% custom design',
@@ -32,7 +41,7 @@ const rows = [
   },
   {
     feature: 'Full SEO optimization',
-    values: ['Basic', 'Basic', '⚠️ Plugin needed', '✅ Advanced'],
+    values: ['Basic', 'Basic', '⚠️ Plugin needed', '✅ Advanced, incl. analytics & sitemap setup'],
   },
   {
     feature: 'Post-delivery support',
@@ -40,7 +49,7 @@ const rows = [
   },
   {
     feature: 'Platform lock-in',
-    values: ['🔒 Locked in', '🔒 Locked in', '⚠️ Partially', '✅ No lock-in'],
+    values: ['🔒 Locked in', '🔒 Locked in', '⚠️ Partially', '✅ No lock-in — host anywhere'],
   },
 ]
 
@@ -69,7 +78,7 @@ export default function ComparisonTable() {
             <span className="text-[#40e0ff]">the Rest</span>
           </h2>
           <p className="mt-4 text-gray-400 max-w-xl mx-auto">
-            Stop paying monthly. Own your store completely and keep every dollar you earn.
+            Pay once to own your store outright — instead of renting it every month, forever.
           </p>
         </div>
 
@@ -133,13 +142,14 @@ export default function ComparisonTable() {
           </table>
         </div>
 
-        {/* CHANGE 3: Added ownership/control sentence */}
+        {/* Honest ownership/control note — no absolute "$0/mo" or "we host it" claims */}
         <p className="mt-6 text-center text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
-          We deploy your store directly to your personal Vercel and Supabase accounts, giving you{' '}
-          <strong className="text-gray-300">100% control</strong> and eliminating the risk of platform price hikes.
+          We charge one-time for the build: your code on GitHub, a Supabase backend, and full setup
+          (analytics, sitemap, SEO). You deploy it to <strong className="text-gray-300">whichever hosting you choose</strong>{' '}
+          — Vercel, Hostinger, GoDaddy, or a plan you already have — so hosting costs and limits are
+          always in your control, not tied to us.
         </p>
 
-        {/* CHANGE 5: WhatsApp pre-filled CTA — replaces old #pricing anchor */}
         <div className="mt-8 text-center">
           <a
             href={CONTACT_URL}
