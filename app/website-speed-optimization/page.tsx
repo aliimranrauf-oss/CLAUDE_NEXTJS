@@ -81,11 +81,29 @@ const jsonLd = {
   areaServed: 'Worldwide',
   description:
     'Professional website speed optimization for any platform. Media compression, script and asset cleanup, and Core Web Vitals improvement to raise PageSpeed and GTmetrix scores.',
-  offers: {
-    '@type': 'Offer',
-    priceCurrency: 'USD',
-    availability: 'https://schema.org/InStock',
-  },
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'Basic',
+      price: '60',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Standard',
+      price: '110',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Premium',
+      price: '200',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+  ],
 }
 
 const faqJsonLd = {
@@ -97,7 +115,7 @@ const faqJsonLd = {
       name: 'What kind of websites and apps do you work with?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'React, Vite, and Next.js applications, including Tailwind/Shadcn UI, Supabase-backed apps, and Framer Motion-heavy interfaces \u2014 custom landing pages, SaaS dashboards, and ecommerce stores. If it\u2019s a modern frontend built with React or Vite, this applies.',
+        text: 'Any website on any platform \u2014 WordPress, WooCommerce, Shopify, Wix, Squarespace, Webflow, as well as custom-built React, Next.js, and Vite applications. Landing pages, SaaS dashboards, blogs, and ecommerce stores are all covered.',
       },
     },
     {
@@ -147,19 +165,21 @@ const youGet = [
 ]
 
 const platforms = [
-  'React',
-  'Vite',
-  'Next.js',
-  'Tailwind / Shadcn',
-  'Supabase',
-  'Framer Motion',
+  'WordPress',
+  'Shopify',
+  'Wix',
+  'Squarespace',
+  'Webflow',
+  'React / Next.js / Vite',
+  'Any Custom-Built Site',
 ]
 
 const useCases = [
+  'WordPress & WooCommerce sites',
+  'Shopify & Wix stores',
   'Custom landing pages',
   'SaaS dashboards',
-  'Ecommerce stores',
-  'Any modern frontend built with React or Vite',
+  'Any website on any platform',
 ]
 
 const process = [
@@ -174,6 +194,49 @@ const process = [
   {
     title: 'Verify & report',
     desc: 'You receive a full before/after report with real Lighthouse and PageSpeed scores, so you know exactly what changed and why.',
+  },
+]
+
+const pricingPlans = [
+  {
+    name: 'Basic',
+    price: '$60',
+    tagline: 'Full optimization + report',
+    delivery: '2-day delivery',
+    features: [
+      'Speed optimization',
+      'Browser caching',
+      'Image resizing & compression',
+      'Minification (CSS/JS/HTML)',
+      'Database optimization',
+    ],
+    highlighted: false,
+  },
+  {
+    name: 'Standard',
+    price: '$110',
+    tagline: 'Everything + lazy loading & caching setup',
+    delivery: '2-day delivery',
+    features: [
+      'Everything in Basic',
+      'Lazy loading setup',
+      'Advanced caching configuration',
+      'Priority support during delivery',
+    ],
+    highlighted: true,
+  },
+  {
+    name: 'Premium',
+    price: '$200',
+    tagline: 'Ongoing monthly maintenance + monthly reports',
+    delivery: '2-day delivery, then ongoing monthly',
+    features: [
+      'Everything in Standard',
+      'Ongoing monthly maintenance',
+      'Monthly performance reports',
+      'Priority support',
+    ],
+    highlighted: false,
   },
 ]
 
@@ -320,6 +383,72 @@ export default function WebsiteSpeedOptimizationPage() {
                   <span className="text-white/80 text-sm">{item}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRICING ──────────────────────────────────────────────────── */}
+        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
+              Packages &amp; Pricing
+            </h2>
+            <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
+              Choose the package that fits your site &mdash; on any platform.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {pricingPlans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className={`relative rounded-2xl p-6 flex flex-col border ${
+                    plan.highlighted
+                      ? 'border-[#00d4ff]/40 bg-[#00d4ff]/[0.06]'
+                      : 'glass border-white/10'
+                  }`}
+                >
+                  {plan.highlighted && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3 py-1 rounded-full bg-[#00d4ff] text-[#0b0f1a]">
+                      Most Popular
+                    </span>
+                  )}
+
+                  <h3 className="text-lg font-bold mb-1">{plan.name}</h3>
+                  <div className="text-3xl font-bold mb-2">{plan.price}</div>
+                  <p className="text-white/60 text-sm mb-1">{plan.tagline}</p>
+                  <p className="text-white/40 text-xs mb-6">{plan.delivery}</p>
+
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-white/80">
+                        <CheckCircle2 size={16} className="text-[#00d4ff] shrink-0 mt-0.5" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    href={FIVERR_GIG_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={
+                      plan.highlighted
+                        ? 'btn-primary text-sm px-6 py-2.5 text-center inline-block'
+                        : 'text-sm font-semibold px-6 py-2.5 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all text-center'
+                    }
+                  >
+                    Order on Fiverr
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            {/* Discount banner */}
+            <div className="mt-10 max-w-xl mx-auto text-center glass rounded-xl p-5 border border-[#00d4ff]/20">
+              <p className="text-sm sm:text-base text-white/85">
+                🎉 Get <span className="font-bold text-[#00d4ff]">50% OFF</span> any package
+                &mdash; available exclusively when you order through Fiverr.
+              </p>
             </div>
           </div>
         </section>
