@@ -406,6 +406,10 @@ export default function WebsiteSpeedOptimizationPage() {
 
         {/* ── PRICING ──────────────────────────────────────────────────── */}
         <section id="pricing" className="py-16 px-4 sm:px-6 border-t border-white/5 scroll-mt-20">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
+              Packages &amp; Pricing
+            </h2>
             <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
               Choose the package that fits your site &mdash; on any platform.
             </p>
