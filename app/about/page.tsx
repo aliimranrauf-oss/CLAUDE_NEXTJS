@@ -7,21 +7,21 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'About MakeMyStore — Custom Next.js Ecommerce, You Own Everything',
   description:
-    'MakeMyStore builds custom Next.js ecommerce stores with full source-code ownership. You keep your Vercel & Supabase accounts. Zero platform fees. One-time setup. Migrate from Shopify or Wix in days.',
+    'MakeMyStore builds custom Next.js ecommerce stores with full source-code ownership. Deploy to any hosting you choose. One-time build fee. Migrate from Shopify or Wix in days.',
   keywords: [
     'custom ecommerce store Pakistan',
     'Next.js ecommerce development',
     'Shopify migration',
     'Wix migration',
     'full ownership ecommerce',
-    'self-hosted store Vercel Supabase',
-    'no monthly fees ecommerce',
+    'own your ecommerce hosting',
+    'one-time build fee ecommerce',
     'MakeMyStore',
   ],
   openGraph: {
     title: 'MakeMyStore — Own Your Store, Own Your Future',
     description:
-      'Custom-coded Next.js ecommerce. One-time setup. Full code ownership. No platform fees ever. Hosted on your own Vercel & Supabase.',
+      'Custom-coded Next.js ecommerce. One-time build fee. Full code ownership. No subscription to us. Deployed to any hosting you choose.',
     url: 'https://makemystore.dev/about',
     siteName: 'MakeMyStore',
     type: 'website',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'MakeMyStore — Own Your Store, Own Your Future',
     description:
-      'Custom Next.js ecommerce. One-time setup. Full code ownership. No platform fees. Hosted on your Vercel & Supabase.',
+      'Custom Next.js ecommerce. One-time build fee. Full code ownership. Deployed to any hosting you choose.',
   },
   alternates: {
     canonical: 'https://makemystore.dev/about',
@@ -44,18 +44,18 @@ export const metadata: Metadata = {
 }
 
 const WHATSAPP_MSG = encodeURIComponent(
-  "Hi Imran, I read the About page. I'm interested in the Ownership model and want to migrate my store/build a new one. Can you explain the Vercel/Supabase setup?"
+  "Hi Imran, I read the About page. I'm interested in the Ownership model and want to migrate my store/build a new one. Can you explain the hosting setup?"
 )
 const WHATSAPP_URL = `https://wa.me/923001234567?text=${WHATSAPP_MSG}` // ← replace number
 
 export default function AboutPage() {
   const comparisonData = [
     {
-      feature: 'Monthly subscription fee',
+      feature: 'Platform fee (to build store)',
       shopify: 'From $39/mo',
       wix: 'From $17/mo',
       wordpress: 'From $10/mo',
-      us: '$0 Platform Fee ✓',
+      us: 'One-time only ✓',
       usColor: 'text-emerald-400',
     },
     {
@@ -79,7 +79,7 @@ export default function AboutPage() {
       shopify: '❌ Extra cost',
       wix: '❌ Extra cost',
       wordpress: '❌ Extra cost',
-      us: '✅ Your Account (Free Tiers)',
+      us: '✅ Any host you choose',
       usColor: 'text-emerald-400',
     },
     {
@@ -133,7 +133,7 @@ export default function AboutPage() {
     {
       icon: ShieldCheck,
       title: 'Full Ownership & Control',
-      desc: 'We deliver 100% of the source code to your private GitHub. We set up your store on your personal Vercel and Supabase accounts. You own the infrastructure; you are never at the mercy of a platform\'s price hikes.',
+      desc: 'We deliver 100% of the source code to your private GitHub. We deploy your store to whatever hosting you choose — your existing plan or a free-tier host we set up for you. You own the infrastructure; you are never at the mercy of a platform\'s price hikes.',
     },
     {
       icon: Zap,
@@ -151,25 +151,25 @@ export default function AboutPage() {
     {
       icon: Database,
       label: 'Database',
-      name: 'Supabase (Your Account)',
-      detail: 'Free tier covers up to 50,000 monthly active users. Your data, your keys, your control.',
+      name: 'Supabase (or your existing backend)',
+      detail: 'We use Supabase by default — free tier covers up to 50,000 monthly active users — or connect to whatever backend you already run. Your data, your keys, your control.',
       badge: 'Free Tier',
       badgeColor: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
     },
     {
       icon: Globe,
       label: 'Frontend Hosting',
-      name: 'Vercel (Your Account)',
-      detail: 'Global Edge Network with 99.99% uptime. We deploy under your Vercel account — not ours.',
-      badge: 'Global Edge',
+      name: 'Any Host You Choose',
+      detail: 'Deploy to your existing hosting (Hostinger, GoDaddy, etc.) or a free-tier host like Vercel with a global edge network — we set it up under your account, not ours.',
+      badge: 'Your Choice',
       badgeColor: 'bg-[#00d4ff]/10 text-[#00d4ff] border-[#00d4ff]/20',
     },
     {
       icon: Wrench,
-      label: 'Maintenance Cost',
-      name: 'Domain Renewal Only',
-      detail: 'No hidden monthly maintenance fees. The only recurring cost you pay is your domain (~$10–15/yr).',
-      badge: '~$10/yr',
+      label: 'Ongoing Costs',
+      name: 'Depends On Your Host',
+      detail: 'If you use a free-tier host, your only recurring cost is usually your domain (~$10–15/yr). If you use paid hosting you already have, that provider bills you directly — never us.',
+      badge: 'Varies',
       badgeColor: 'bg-violet-500/15 text-violet-400 border-violet-500/30',
     },
   ]
@@ -209,8 +209,8 @@ export default function AboutPage() {
                 className="max-w-2xl text-base sm:text-lg text-gray-300 mb-10"
                 style={{ fontFamily: 'DM Sans, sans-serif' }}
               >
-                Custom-coded from scratch with Next.js, Vercel &amp; Supabase.<br />
-                <strong className="text-white">One-time Setup. Full Code Ownership. Zero Platform Fees.</strong>
+                Custom-coded from scratch with Next.js, deployed to any hosting you choose.<br />
+                <strong className="text-white">One-Time Build Fee. Full Code Ownership. No Subscription To Us.</strong>
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center">
@@ -433,7 +433,7 @@ export default function AboutPage() {
                 style={{ fontFamily: 'DM Sans, sans-serif' }}
               >
                 <span className="text-[#00d4ff] font-semibold">Bottom line:</span> Once we hand over your
-                store, you log into <strong>your</strong> Supabase and <strong>your</strong> Vercel directly. We
+                store, you log into <strong>your own</strong> hosting and backend accounts directly. We
                 have zero access. You are never dependent on us to keep your store online.
               </p>
             </div>
@@ -472,8 +472,8 @@ export default function AboutPage() {
                     >
                       <span className="text-[#00d4ff] font-semibold">From Rental → Ownership.</span>{' '}
                       When we migrate you from Shopify or Wix, we don&apos;t just move products. We move you from
-                      a <em>Rental</em> model to an <em>Ownership</em> model. Your database (Supabase) and frontend
-                      (Vercel) belong to you from day one — not us, not a platform.
+                      a <em>Rental</em> model to an <em>Ownership</em> model. Your database and frontend hosting
+                      belong to you from day one — not us, not a platform.
                     </p>
                   </div>
 
