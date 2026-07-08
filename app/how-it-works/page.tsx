@@ -8,7 +8,7 @@ import PricingTransparency from '@/components/how-it-works/PricingTransparency'
 export const metadata: Metadata = {
   title: 'How It Works – Custom Ecommerce Development Process | MakeMyStore.online',
   description:
-    'See exactly how we build your custom ecommerce store, from free consultation to full ownership handover \u2014 one-time fee, zero platform lock-in, deployed to your own Vercel & Supabase accounts.',
+    'See exactly how we build your custom ecommerce store, from free consultation to full ownership handover \u2014 one-time build fee, no subscription to us, deployed to any hosting you choose.',
   alternates: {
     canonical: 'https://www.makemystore.online/how-it-works',
   },
