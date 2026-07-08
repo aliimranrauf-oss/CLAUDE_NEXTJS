@@ -107,13 +107,14 @@ export default function PrivacyPolicy() {
             </p>
 
             <h3 className="text-lg font-semibold text-[#00d4ff] mb-2 mt-4" style={{ fontFamily: 'Syne, sans-serif' }}>
-              2.3 Database & Infrastructure (Supabase)
+              2.3 Database &amp; Infrastructure
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              For client projects we build, we use <strong className="text-white">Supabase</strong> as the backend
-              database platform. Any data stored in a client's Supabase project is owned and controlled entirely by that
-              client. MakeMyStore.online does not have ongoing access to client databases after project handover, and we
-              do not store, process, or retain any end-customer data from stores we build for clients.
+              For client projects, we typically use <strong className="text-white">Supabase</strong> as the backend
+              database platform by default, or connect to a backend the client already uses. Any data stored in a
+              client's own database is owned and controlled entirely by that client. MakeMyStore.online does not have
+              ongoing access to client databases after project handover, and we do not store, process, or retain any
+              end-customer data from stores we build for clients.
             </p>
           </section>
 
@@ -214,11 +215,12 @@ export default function PrivacyPolicy() {
               5.2 Hosting &amp; Infrastructure
             </h3>
             <p className="text-gray-300 leading-relaxed mb-2">
-              Client stores are deployed to <strong className="text-white">Vercel</strong> and backed by{' '}
-              <strong className="text-white">Supabase</strong>. These deployments are made to the client's own accounts.
-              Clients are solely responsible for securing their own API keys, environment variables, database credentials,
-              and access tokens. MakeMyStore.online shall not be liable for any security breach arising from a client's
-              mismanagement of their credentials.
+              Client stores are deployed to hosting and backend accounts chosen by the client — typically the
+              client's own existing hosting provider (e.g., Hostinger, GoDaddy) or a free-tier account we set up
+              (e.g., <strong className="text-white">Vercel</strong> and/or <strong className="text-white">Supabase</strong>).
+              These deployments are made to the client's own accounts. Clients are solely responsible for securing
+              their own API keys, environment variables, database credentials, and access tokens. MakeMyStore.online
+              shall not be liable for any security breach arising from a client's mismanagement of their credentials.
             </p>
 
             <h3 className="text-lg font-semibold text-[#00d4ff] mb-2 mt-4" style={{ fontFamily: 'Syne, sans-serif' }}>
