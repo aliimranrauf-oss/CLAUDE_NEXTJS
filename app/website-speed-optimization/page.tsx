@@ -267,7 +267,7 @@ export default function WebsiteSpeedOptimizationPage() {
           <Link
             href="#pricing"
             aria-label="See 50% off packages"
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 group"
+            className="absolute top-24 right-4 sm:top-28 sm:right-6 z-20 group"
           >
             <span className="relative inline-flex items-center justify-center">
               <span className="absolute inline-flex h-full w-full rounded-full bg-[#00d4ff]/50 animate-ping" />
