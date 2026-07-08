@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Contact Us – Order Your Custom Store | MakeMyStore.online',
   description:
-    'Get in touch with MakeMyStore.online to order your custom ecommerce website. One-time payment from $99, no monthly fees. Reply within hours.',
+    'Get in touch with MakeMyStore.online to order your custom ecommerce website. One-time build fee from $250, no subscription to us. Reply within hours.',
   keywords: [
     'contact makemystore',
     'order ecommerce website',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Us – Order Your Custom Store | MakeMyStore.online',
     description:
-      'Order your custom ecommerce website — no subscriptions, no platform lock-in. Built with Next.js, Vercel & Supabase.',
+      'Order your custom ecommerce website — no subscriptions to us, no platform lock-in. Built with Next.js, deployed to any hosting you choose.',
     url: 'https://www.makemystore.online/contact',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Contact Us – Order Your Custom Store | MakeMyStore.online',
-    description: 'Order your custom ecommerce website — no monthly fees, one-time payment.',
+    description: 'Order your custom ecommerce website — no subscription to us, one-time build fee.',
   },
   alternates: { canonical: 'https://www.makemystore.online/contact' },
 }
