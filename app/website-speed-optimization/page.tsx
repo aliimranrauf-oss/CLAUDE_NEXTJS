@@ -433,7 +433,7 @@ export default function WebsiteSpeedOptimizationPage() {
                   <h3 className="text-lg font-bold mb-1">{plan.name}</h3>
                   <div className="text-3xl font-bold mb-2">{plan.price}</div>
                   <p className="text-white/60 text-sm mb-1">{plan.tagline}</p>
-                  <p className="text-white/40 text-xs mb-6">{plan.delivery}</p>
+                  <p className="text-white/55 text-xs mb-6">{plan.delivery}</p>
 
                   <ul className="space-y-3 mb-8 flex-1">
                     {plan.features.map((f) => (
