@@ -41,6 +41,35 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   if (!post) notFound()
 
+  // Build the extra in-post images (2nd and 3rd) purely from Supabase data.
+  // Editors just drop {{IMAGE_2}} / {{IMAGE_3}} anywhere inside `content`
+  // in Supabase, and fill image_url_2 / image_url_3 — no code changes ever needed.
+  let renderedContent = post.content || '<p>No content available.</p>'
+
+  const buildFigure = (url: string, alt: string) => `
+    <figure>
+      <img class="post-img" src="${url}" alt="${alt}" />
+    </figure>
+  `
+
+  if (post.image_url_2) {
+    renderedContent = renderedContent.replaceAll(
+      '{{IMAGE_2}}',
+      buildFigure(post.image_url_2, post.title)
+    )
+  } else {
+    renderedContent = renderedContent.replaceAll('{{IMAGE_2}}', '')
+  }
+
+  if (post.image_url_3) {
+    renderedContent = renderedContent.replaceAll(
+      '{{IMAGE_3}}',
+      buildFigure(post.image_url_3, post.title)
+    )
+  } else {
+    renderedContent = renderedContent.replaceAll('{{IMAGE_3}}', '')
+  }
+
   return (
     <main className="min-h-screen pt-20 pb-20 px-4 bg-[#0b0f1a]">
       <div className="max-w-3xl mx-auto">
@@ -76,7 +105,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             [&_figcaption]:text-center [&_figcaption]:text-sm [&_figcaption]:text-gray-500 [&_figcaption]:mt-[-1.5rem] [&_figcaption]:mb-8 [&_figcaption]:italic [&_figcaption]:not-italic
             [&_table]:w-full [&_table]:border-collapse [&_table]:my-8 [&_th]:bg-gray-100 [&_th]:text-gray-900 [&_th]:font-bold [&_th]:p-3 [&_th]:text-left [&_th]:border [&_th]:border-gray-200 [&_td]:p-3 [&_td]:border [&_td]:border-gray-200"
             style={{ fontFamily: 'Georgia, serif', lineHeight: 1.8 }}
-            dangerouslySetInnerHTML={{ __html: post.content || '<p>No content available.</p>' }}
+            dangerouslySetInnerHTML={{ __html: renderedContent }}
           />
         </div>
 
