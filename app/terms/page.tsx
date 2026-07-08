@@ -91,8 +91,10 @@ export default function TermsAndConditions() {
               managed service unless separately agreed upon in writing.
             </p>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Upon completion and full payment, the Client receives a fully functional ecommerce store deployed to their
-              own Vercel and Supabase accounts. The Client is thereafter solely responsible for all ongoing hosting,
+              Upon completion and full payment, the Client receives a fully functional ecommerce store deployed to
+              the hosting and backend the Client chooses — whether that is the Client's own existing hosting
+              account (e.g., Hostinger, GoDaddy) or a free-tier account (e.g., Vercel and/or Supabase) that we help
+              set up on the Client's behalf. The Client is thereafter solely responsible for all ongoing hosting,
               maintenance, third-party subscription costs, and business operations.
             </p>
 
@@ -101,8 +103,8 @@ export default function TermsAndConditions() {
             </h3>
             <ul className="list-disc list-inside text-gray-300 space-y-1 ml-2 text-sm">
               <li>Custom Next.js frontend and backend as scoped in the agreed project brief</li>
-              <li>Supabase database setup and schema design</li>
-              <li>Deployment to the Client's Vercel account</li>
+              <li>Database setup and schema design (Supabase by default, or the Client's existing backend)</li>
+              <li>Deployment to the Client's chosen hosting account</li>
               <li>Payment gateway integration (Stripe and/or PayPal as agreed)</li>
               <li>Transfer of the complete source code via a private GitHub repository</li>
               <li>Seven (7) calendar days of post-delivery bug-fix support (see Section 7)</li>
@@ -112,7 +114,7 @@ export default function TermsAndConditions() {
               2.2 What Is Not Included
             </h3>
             <ul className="list-disc list-inside text-gray-300 space-y-1 ml-2 text-sm">
-              <li>Ongoing hosting fees (Vercel, Supabase — billed directly by those providers to the Client)</li>
+              <li>Ongoing hosting/backend fees (billed directly by the Client's chosen provider to the Client)</li>
               <li>Payment gateway transaction fees (charged by Stripe/PayPal to the Client)</li>
               <li>Domain name registration or renewal</li>
               <li>Ongoing SEO management or digital marketing</li>
@@ -261,10 +263,10 @@ export default function TermsAndConditions() {
               6.4 Third-Party Services
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              We are not affiliated with, endorsed by, or responsible for Vercel, Supabase, Stripe, PayPal, Payoneer,
-              or any other third-party platform. Any disruption, price change, policy change, or outage on these
-              platforms is beyond our control and does not constitute grounds for a refund or claim against
-              MakeMyStore.online.
+              We are not affiliated with, endorsed by, or responsible for Vercel, Supabase, Hostinger, GoDaddy, Stripe,
+              PayPal, Payoneer, or any other third-party platform the Client uses for hosting, backend, or payments.
+              Any disruption, price change, policy change, or outage on these platforms is beyond our control and does
+              not constitute grounds for a refund or claim against MakeMyStore.online.
             </p>
           </section>
 
@@ -303,7 +305,7 @@ export default function TermsAndConditions() {
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-1.5 ml-2 text-sm">
               <li>Provide accurate, complete, and timely project requirements and content</li>
-              <li>Create and maintain their own Vercel and Supabase accounts</li>
+              <li>Create and maintain their own hosting and backend accounts (e.g., Vercel, Supabase, Hostinger, GoDaddy, or another provider of their choice)</li>
               <li>Secure and keep confidential all API keys, environment variables, and database credentials</li>
               <li>Comply with all applicable laws in operating their ecommerce business, including consumer protection, tax, and data privacy laws relevant to their jurisdiction</li>
               <li>Ensure that products or services sold through the Platform do not violate any laws or third-party rights</li>
