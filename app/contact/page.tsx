@@ -116,14 +116,14 @@ function ContactPageInner() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400 mb-4">
-            ONE-TIME PAYMENT • ZERO MONTHLY FEES
+            ONE-TIME BUILD FEE • NO SUBSCRIPTION TO US
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             Get Your Custom Store Built
           </h1>
           <p className="text-xl text-white/90 max-w-lg mx-auto">
             Professional ecommerce website in 3–10 days.<br />
-            <span className="text-cyan-400 font-semibold">Starting from $99</span>
+            <span className="text-cyan-400 font-semibold">Starting from $250</span>
           </p>
         </div>
 
@@ -210,9 +210,9 @@ function ContactPageInner() {
                       defaultValue={isSpeedAudit ? 'Website Speed Optimization — Free Audit' : ''}
                     >
                       <option value="">Select Package...</option>
-                      <option>Launch — $99</option>
-                      <option>Growth — $249</option>
-                      <option>Scale — $499</option>
+                      <option>Launch — $250</option>
+                      <option>Growth — $500</option>
+                      <option>Scale — $1000</option>
                       <option>Website Speed Optimization — Free Audit</option>
                       <option>Not sure yet</option>
                     </select>
@@ -337,7 +337,7 @@ function ContactPageInner() {
                 {[
                   'Full source code ownership',
                   'Free domain setup guidance',
-                  'Vercel + Supabase deployment',
+                  'Deployed to any hosting you choose',
                   'Google Analytics setup',
                   'Basic SEO configuration',
                   '7-day post-delivery support',
