@@ -123,7 +123,7 @@ function ContactPageInner() {
           </h1>
           <p className="text-xl text-white/90 max-w-lg mx-auto">
             Professional ecommerce website in 3–10 days.<br />
-            <span className="text-cyan-400 font-semibold">Starting from $250</span>
+            <span className="text-cyan-400 font-semibold">Starting from $99</span>
           </p>
         </div>
 
@@ -210,9 +210,9 @@ function ContactPageInner() {
                       defaultValue={isSpeedAudit ? 'Website Speed Optimization — Free Audit' : ''}
                     >
                       <option value="">Select Package...</option>
-                      <option>Launch — $250</option>
-                      <option>Growth — $500</option>
-                      <option>Scale — $1000</option>
+                      <option>Launch — $99</option>
+                      <option>Growth — $249</option>
+                      <option>Scale — $499</option>
                       <option>Website Speed Optimization — Free Audit</option>
                       <option>Not sure yet</option>
                     </select>
