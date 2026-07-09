@@ -20,6 +20,7 @@ export default function Templates({ initialTemplates }: { initialTemplates?: Tem
   const [error, setError] = useState<string | null>(null)
   const [imgLoaded, setImgLoaded] = useState(false)
   const [fading, setFading] = useState(false)
+  const [descExpanded, setDescExpanded] = useState(false)
   const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // ── Fetch templates client-side ─────────────────────────────────────────
@@ -93,6 +94,9 @@ export default function Templates({ initialTemplates }: { initialTemplates?: Tem
   )
 
   useEffect(() => () => { if (fadeTimer.current) clearTimeout(fadeTimer.current) }, [])
+
+  // Collapse the description back to 3 lines whenever the slide changes
+  useEffect(() => { setDescExpanded(false) }, [current])
 
   const t = templates[current]
 
@@ -238,11 +242,26 @@ export default function Templates({ initialTemplates }: { initialTemplates?: Tem
                   </div>
 
                   <p
-                    className="text-sm text-white/50 leading-relaxed mb-6"
+                    className={`text-sm text-white/50 leading-relaxed mb-2 sm:mb-6 ${
+                      descExpanded ? 'line-clamp-none' : 'line-clamp-3'
+                    } sm:line-clamp-none`}
                     style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif' }}
                   >
                     {t.description ?? ''}
                   </p>
+
+                  {/* Mobile-only "Read more" toggle so the CTA buttons stay reachable
+                      without a long scroll. Pure CSS (line-clamp) + a class toggle —
+                      no layout shift on desktop, no extra network/JS cost. */}
+                  {t.description && (
+                    <button
+                      type="button"
+                      onClick={() => setDescExpanded((v) => !v)}
+                      className="sm:hidden block text-xs font-bold text-[#00d4ff] mb-4 -mt-1"
+                    >
+                      {descExpanded ? 'Show less ↑' : 'Read more ↓'}
+                    </button>
+                  )}
 
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Link
