@@ -22,7 +22,7 @@ const hud = [
 
 export default function SpaceHero() {
   return (
-    <section className={`${spaceMono.variable} relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28`}>
+    <section className={`${spaceMono.variable} relative overflow-hidden pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-28`}>
       {/* Ambient background gradient, matches the rest of the site's dark theme */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
@@ -43,11 +43,18 @@ export default function SpaceHero() {
             BUILT FOR SPACE &amp; AEROSPACE TEAMS
           </div>
 
-          <h1 className="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight">
+          <h1 className="mt-6 font-display text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight">
             Web systems for teams
             <br />
             <span className="text-gradient">building beyond the atmosphere</span>
           </h1>
+
+          {/* Compact globe, mobile only — so it's visible on load without
+              scrolling. The full-size version in the right column below
+              covers lg+ screens instead. */}
+          <div className="my-7 max-w-[220px] sm:max-w-[260px] mx-auto lg:hidden">
+            <OrbitalGlobe />
+          </div>
 
           <p className="mt-6 max-w-xl text-lg text-white/70 leading-relaxed">
             Sites, dashboards, and portals for space startups, satellite operators, and
@@ -82,8 +89,8 @@ export default function SpaceHero() {
           </dl>
         </div>
 
-        {/* Right: signature orbital globe */}
-        <div className="relative">
+        {/* Right: signature orbital globe — desktop/tablet only */}
+        <div className="relative hidden lg:block">
           <OrbitalGlobe />
         </div>
       </div>
