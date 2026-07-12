@@ -10,6 +10,7 @@ const navLinks = [
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Free Tools', href: '/tools' },
   { label: 'Site Speed', href: '/website-speed-optimization' },
+  { label: 'Space & Aerospace', href: '/space' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
@@ -90,17 +91,6 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <Link
-            href="/ar/badil-salla-zid"
-            className={`whitespace-nowrap text-sm font-semibold px-2.5 py-2 rounded-lg transition-all duration-200 border ${
-              pathname === '/ar/badil-salla-zid'
-                ? 'text-[#00d4ff] border-[#00d4ff]/40 bg-[#00d4ff]/10'
-                : 'text-white/75 border-white/10 hover:text-white hover:border-[#00d4ff]/30 hover:bg-[#00d4ff]/[0.06]'
-            }`}
-          >
-            بديل سلة وزد 🇸🇦
-          </Link>
-
           {/* Order Now → /contact */}
           <Link
             href={CONTACT_URL}
@@ -139,14 +129,6 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
-
-            <Link
-              href="/ar/badil-salla-zid"
-              onClick={closeMenu}
-              className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
-            >
-              بديل سلة وزد 🇸🇦
-            </Link>
 
             {/* Order Now → /contact */}
             <Link
