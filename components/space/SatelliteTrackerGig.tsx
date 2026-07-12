@@ -1,7 +1,7 @@
 // components/space/SatelliteTrackerGig.tsx
 import { Check, ArrowRight } from 'lucide-react'
 
-const GIG_URL = 'https://www.fiverr.com/s/BR5rRL5'
+const GIG_URL = 'https://www.fiverr.com/s/gDAqyQL'
 
 const tiers = [
   {
