@@ -7,6 +7,7 @@ import SpaceServices from '@/components/space/SpaceServices'
 import TechStackStrip from '@/components/space/TechStackStrip'
 import WhyUs from '@/components/space/WhyUs'
 import PortfolioGrid from '@/components/space/PortfolioGrid'
+import SatelliteTrackerGig from '@/components/space/SatelliteTrackerGig'
 import SpaceCTA from '@/components/space/SpaceCTA'
 
 export const metadata: Metadata = {
@@ -62,6 +63,7 @@ export default function SpacePage() {
         <TechStackStrip />
         <WhyUs />
         <PortfolioGrid />
+        <SatelliteTrackerGig />
         <SpaceCTA />
       </main>
       <Footer />
