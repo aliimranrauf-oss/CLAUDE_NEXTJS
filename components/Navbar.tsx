@@ -116,7 +116,7 @@ export default function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          className="xl:hidden glass border-t border-white/5"
+          className="xl:hidden max-h-[calc(100vh-4rem)] overflow-y-auto bg-[#0b0f1a]/98 backdrop-blur-xl border-t border-white/10"
         >
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
             {navLinks.map((l) => (
