@@ -1,5 +1,6 @@
 // components/space/PortfolioGrid.tsx
-import { Radar, ExternalLink, Satellite } from 'lucide-react'
+import Link from 'next/link'
+import { Radar, ExternalLink, Satellite, ShoppingCart } from 'lucide-react'
 
 const featured = {
   label: 'Orbit Watch',
@@ -49,6 +50,14 @@ export default function PortfolioGrid() {
             </span>
             <p className="text-sm text-white/60 leading-relaxed max-w-md">{featured.description}</p>
           </a>
+
+          <Link
+            href="#order-tracker"
+            className="sm:col-span-2 -mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold text-cyan hover:text-white transition-colors"
+          >
+            <ShoppingCart size={14} />
+            Want one like this built for you? See pricing ↓
+          </Link>
 
           {/* Placeholder for what's next */}
           <div
