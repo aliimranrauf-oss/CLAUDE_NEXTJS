@@ -12,18 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: 'https://www.makemystore.online/ar/badil-salla-zid',
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-      alternates: {
-        languages: {
-          en: 'https://www.makemystore.online/',
-          ar: 'https://www.makemystore.online/ar/badil-salla-zid',
-        },
-      },
-    },
-    {
       // ── NEW: Website Speed Optimization service page ──────────────────
       url: 'https://www.makemystore.online/website-speed-optimization',
       lastModified,
@@ -34,6 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Service Pages (0.8)
     {
       url: 'https://www.makemystore.online/how-it-works',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://www.makemystore.online/space',
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
