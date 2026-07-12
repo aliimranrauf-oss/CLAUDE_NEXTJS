@@ -69,10 +69,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://www.makemystore.online/',
-    languages: {                                            // ← Added Arabic support
-      'en-US': 'https://www.makemystore.online/',
-      'ar': 'https://www.makemystore.online/ar/badil-salla-zid',
-    },
   },
 }
 
