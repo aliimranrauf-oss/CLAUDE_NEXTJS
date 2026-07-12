@@ -1,11 +1,20 @@
 // components/space/PortfolioGrid.tsx
-import { Satellite, Radar, Rocket } from 'lucide-react'
+import Link from 'next/link'
+import { Radar, ExternalLink, Satellite, ShoppingCart } from 'lucide-react'
 
-const placeholders = [
-  { icon: Satellite, label: 'Satellite Ops Dashboard', tag: 'Case study coming soon' },
-  { icon: Radar, label: 'Ground Station Portal', tag: 'Case study coming soon' },
-  { icon: Rocket, label: 'Launch Provider Website', tag: 'Case study coming soon' },
-]
+const featured = {
+  label: 'Orbit Watch',
+  description:
+    'Live ISS & satellite tracker — real-time 3D orbital map built from public TLE data, with visible-pass predictions for any location. Free, no signup.',
+  href: 'https://orbit-watch-zeta.vercel.app/',
+  tag: 'Live project',
+}
+
+const placeholder = {
+  icon: Radar,
+  label: 'Ground Station Portal',
+  tag: 'Case study coming soon',
+}
 
 export default function PortfolioGrid() {
   return (
@@ -16,28 +25,52 @@ export default function PortfolioGrid() {
           The kind of work this looks like
         </h2>
         <p className="mt-4 max-w-xl text-white/65 leading-relaxed">
-          We're building out this section with real space &amp; aerospace projects as they ship.
-          Here's the shape of what's coming.
+          One live project below, more real space &amp; aerospace work coming as it ships.
         </p>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
-          {placeholders.map((p) => {
-            const Icon = p.icon
-            return (
-              <div
-                key={p.label}
-                className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/5 flex flex-col items-center justify-center gap-3 text-center px-4"
-                style={{
-                  background:
-                    'radial-gradient(circle at 30% 20%, rgba(0,212,255,0.10), transparent 60%), radial-gradient(circle at 80% 80%, rgba(122,92,255,0.10), transparent 55%), #0e1424',
-                }}
-              >
-                <Icon className="text-white/25" size={34} />
-                <span className="font-display font-bold text-white/70">{p.label}</span>
-                <span className="text-xs text-white/35">{p.tag}</span>
-              </div>
-            )
-          })}
+          {/* Featured real project */}
+          <a
+            href={featured.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative sm:col-span-2 aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-2xl border border-cyan/20 flex flex-col items-start justify-end gap-2 p-6 transition-colors hover:border-cyan/40"
+            style={{
+              background:
+                'radial-gradient(circle at 20% 15%, rgba(0,212,255,0.16), transparent 55%), radial-gradient(circle at 85% 85%, rgba(122,92,255,0.14), transparent 55%), #0e1424',
+            }}
+          >
+            <Satellite className="absolute right-6 top-6 text-white/10 group-hover:text-cyan/20 transition-colors" size={64} />
+            <span className="rounded-full border border-cyan/30 bg-cyan/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-cyan">
+              {featured.tag}
+            </span>
+            <span className="font-display text-xl font-bold text-white flex items-center gap-2">
+              {featured.label}
+              <ExternalLink size={16} className="text-white/50 group-hover:text-cyan transition-colors" />
+            </span>
+            <p className="text-sm text-white/60 leading-relaxed max-w-md">{featured.description}</p>
+          </a>
+
+          <Link
+            href="#order-tracker"
+            className="sm:col-span-2 -mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold text-cyan hover:text-white transition-colors"
+          >
+            <ShoppingCart size={14} />
+            Want one like this built for you? See pricing ↓
+          </Link>
+
+          {/* Placeholder for what's next */}
+          <div
+            className="relative aspect-[4/3] sm:aspect-auto overflow-hidden rounded-2xl border border-white/5 flex flex-col items-center justify-center gap-3 text-center px-4"
+            style={{
+              background:
+                'radial-gradient(circle at 30% 20%, rgba(0,212,255,0.10), transparent 60%), radial-gradient(circle at 80% 80%, rgba(122,92,255,0.10), transparent 55%), #0e1424',
+            }}
+          >
+            <placeholder.icon className="text-white/25" size={34} />
+            <span className="font-display font-bold text-white/70">{placeholder.label}</span>
+            <span className="text-xs text-white/35">{placeholder.tag}</span>
+          </div>
         </div>
       </div>
     </section>
