@@ -1,13 +1,19 @@
 // components/space/PortfolioGrid.tsx
 import Link from 'next/link'
-import { Radar, ExternalLink, Satellite, ShoppingCart } from 'lucide-react'
+import Image from 'next/image'
+import { Radar, ExternalLink, ShoppingCart } from 'lucide-react'
 
 const featured = {
-  label: 'Orbit Watch',
+  label: 'OrbitMap',
   description:
     'Live ISS & satellite tracker — real-time 3D orbital map built from public TLE data, with visible-pass predictions for any location. Free, no signup.',
-  href: 'https://orbit-watch-zeta.vercel.app/',
+  href: 'https://www.orbitmap.space',
   tag: 'Live project',
+  // This is ONLY the thumbnail photo shown on the "OrbitMap" project card
+  // below, in this PortfolioGrid component. It has nothing to do with
+  // SpaceHero.tsx (your page's main hero section) — that file is untouched.
+  // Place the uploaded image at public/space/orbitmap-card.jpg in your project
+  image: '/space/orbitmap-card.jpg',
 }
 
 const placeholder = {
@@ -28,40 +34,62 @@ export default function PortfolioGrid() {
           One live project below, more real space &amp; aerospace work coming as it ships.
         </p>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-3">
+        {/*
+          Explicit grid placement (instead of relying on auto-flow) so the
+          layout is identical in structure on mobile and desktop:
+          - Featured card: row 1, cols 1-2
+          - CTA link:      row 2, cols 1-2
+          - Placeholder:   rows 1-2, col 3 (matches combined height)
+        */}
+        <div className="mt-12 grid gap-5 sm:grid-cols-3 sm:grid-rows-2">
           {/* Featured real project */}
           <a
             href={featured.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative sm:col-span-2 aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-2xl border border-cyan/20 flex flex-col items-start justify-end gap-2 p-6 transition-colors hover:border-cyan/40"
-            style={{
-              background:
-                'radial-gradient(circle at 20% 15%, rgba(0,212,255,0.16), transparent 55%), radial-gradient(circle at 85% 85%, rgba(122,92,255,0.14), transparent 55%), #0e1424',
-            }}
+            className="group relative sm:col-start-1 sm:col-span-2 sm:row-start-1 aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-2xl border border-cyan/20 flex flex-col items-start justify-end gap-2 p-6 transition-colors hover:border-cyan/40"
           >
-            <Satellite className="absolute right-6 top-6 text-white/10 group-hover:text-cyan/20 transition-colors" size={64} />
-            <span className="rounded-full border border-cyan/30 bg-cyan/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-cyan">
+            <Image
+              src={featured.image}
+              alt="OrbitMap — live ISS and satellite tracker with real-time 3D orbital map"
+              fill
+              sizes="(min-width: 640px) 66vw, 100vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              priority={false}
+            />
+            {/* Overlay for text legibility over the photo */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to top, rgba(6,8,16,0.92) 0%, rgba(6,8,16,0.55) 45%, rgba(6,8,16,0.15) 100%)',
+              }}
+            />
+
+            <span className="relative rounded-full border border-cyan/30 bg-cyan/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-cyan backdrop-blur-sm">
               {featured.tag}
             </span>
-            <span className="font-display text-xl font-bold text-white flex items-center gap-2">
+            <span className="relative font-display text-xl font-bold text-white flex items-center gap-2">
               {featured.label}
               <ExternalLink size={16} className="text-white/50 group-hover:text-cyan transition-colors" />
             </span>
-            <p className="text-sm text-white/60 leading-relaxed max-w-md">{featured.description}</p>
+            <p className="relative text-sm text-white/70 leading-relaxed max-w-md">
+              {featured.description}
+            </p>
           </a>
 
+          {/* CTA link — explicitly placed under the featured card, not auto-flowed */}
           <Link
             href="#order-tracker"
-            className="sm:col-span-2 -mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold text-cyan hover:text-white transition-colors"
+            className="sm:col-start-1 sm:col-span-2 sm:row-start-2 inline-flex w-fit items-center gap-2 text-xs font-semibold text-cyan hover:text-white transition-colors"
           >
             <ShoppingCart size={14} />
             Want one like this built for you? See pricing ↓
           </Link>
 
-          {/* Placeholder for what's next */}
+          {/* Placeholder for what's next — spans both rows on the right */}
           <div
-            className="relative aspect-[4/3] sm:aspect-auto overflow-hidden rounded-2xl border border-white/5 flex flex-col items-center justify-center gap-3 text-center px-4"
+            className="relative sm:col-start-3 sm:row-start-1 sm:row-span-2 aspect-[4/3] sm:aspect-auto overflow-hidden rounded-2xl border border-white/5 flex flex-col items-center justify-center gap-3 text-center px-4"
             style={{
               background:
                 'radial-gradient(circle at 30% 20%, rgba(0,212,255,0.10), transparent 60%), radial-gradient(circle at 80% 80%, rgba(122,92,255,0.10), transparent 55%), #0e1424',
