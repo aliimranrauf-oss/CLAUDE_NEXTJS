@@ -44,12 +44,12 @@ export default function PortfolioGrid() {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               priority={false}
             />
-            {/* Overlay for text legibility over the photo */}
+            {/* Subtle overlay — only darkens the bottom strip behind the text, rest of the photo stays bright */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(to top, rgba(6,8,16,0.92) 0%, rgba(6,8,16,0.55) 45%, rgba(6,8,16,0.15) 100%)',
+                  'linear-gradient(to top, rgba(6,8,16,0.85) 0%, rgba(6,8,16,0.35) 25%, rgba(6,8,16,0) 50%)',
               }}
             />
 
