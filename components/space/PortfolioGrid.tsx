@@ -35,19 +35,18 @@ export default function PortfolioGrid() {
         </p>
 
         {/*
-          Explicit grid placement (instead of relying on auto-flow) so the
-          layout is identical in structure on mobile and desktop:
-          - Featured card: row 1, cols 1-2
-          - CTA link:      row 2, cols 1-2
-          - Placeholder:   rows 1-2, col 3 (matches combined height)
+          Featured card and placeholder card sit side-by-side in a single
+          grid row (placeholder stretches to match the featured card's
+          height automatically). The CTA link is placed BELOW the grid,
+          not inside it, so it can never affect row sizing.
         */}
-        <div className="mt-12 grid gap-5 sm:grid-cols-3 sm:grid-rows-2">
+        <div className="mt-12 grid gap-5 sm:grid-cols-3">
           {/* Featured real project */}
           <a
             href={featured.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative sm:col-start-1 sm:col-span-2 sm:row-start-1 aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-2xl border border-cyan/20 flex flex-col items-start justify-end gap-2 p-6 transition-colors hover:border-cyan/40"
+            className="group relative sm:col-span-2 aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-2xl border border-cyan/20 flex flex-col items-start justify-end gap-2 p-6 transition-colors hover:border-cyan/40"
           >
             <Image
               src={featured.image}
@@ -78,18 +77,9 @@ export default function PortfolioGrid() {
             </p>
           </a>
 
-          {/* CTA link — explicitly placed under the featured card, not auto-flowed */}
-          <Link
-            href="#order-tracker"
-            className="sm:col-start-1 sm:col-span-2 sm:row-start-2 inline-flex w-fit items-center gap-2 text-xs font-semibold text-cyan hover:text-white transition-colors"
-          >
-            <ShoppingCart size={14} />
-            Want one like this built for you? See pricing ↓
-          </Link>
-
-          {/* Placeholder for what's next — spans both rows on the right */}
+          {/* Placeholder for what's next */}
           <div
-            className="relative sm:col-start-3 sm:row-start-1 sm:row-span-2 aspect-[4/3] sm:aspect-auto overflow-hidden rounded-2xl border border-white/5 flex flex-col items-center justify-center gap-3 text-center px-4"
+            className="relative aspect-[4/3] sm:aspect-auto overflow-hidden rounded-2xl border border-white/5 flex flex-col items-center justify-center gap-3 text-center px-4"
             style={{
               background:
                 'radial-gradient(circle at 30% 20%, rgba(0,212,255,0.10), transparent 60%), radial-gradient(circle at 80% 80%, rgba(122,92,255,0.10), transparent 55%), #0e1424',
@@ -100,6 +90,15 @@ export default function PortfolioGrid() {
             <span className="text-xs text-white/35">{placeholder.tag}</span>
           </div>
         </div>
+
+        {/* CTA link — sits below the grid, full width, not tied to grid row sizing */}
+        <Link
+          href="#order-tracker"
+          className="mt-6 inline-flex w-fit items-center gap-2 text-xs font-semibold text-cyan hover:text-white transition-colors"
+        >
+          <ShoppingCart size={14} />
+          Want one like this built for you? See pricing ↓
+        </Link>
       </div>
     </section>
   )
