@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState, useCallback, useRef, memo } from 'react'
-import { Check, Sparkles, ExternalLink, Zap, Shield, Clock, Info } from 'lucide-react'
+import Link from 'next/link'
+import { Check, Sparkles, ExternalLink, Zap, Shield, Clock, Info, ShoppingCart, Gauge, Rocket, ArrowRight } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -339,12 +340,82 @@ const FAQS = [
     a: 'Hit the "Chat with us" button on any card to reach us on WhatsApp. We quote custom work separately.' },
 ]
 
+// ─── Other-services pricing (static — no fetch, zero extra network cost) ──────
+// Previously /pricing only ever showed the Ecommerce plans pulled from
+// Supabase; Speed Optimization and Space & Aerospace had no pricing visible
+// here at all, even though both have their own dedicated pages with pricing.
+// Rather than duplicating the full Payoneer/Fiverr/WhatsApp order-flow wiring
+// those pages already have (which would mean two sources of truth to keep in
+// sync), these are lightweight summary cards mirroring the real numbers from
+// each service's own page, with a "full details" link through to it.
+type ServiceTab = 'ecommerce' | 'speed' | 'space'
+
+const SERVICE_TABS: { id: ServiceTab; label: string; icon: typeof ShoppingCart }[] = [
+  { id: 'ecommerce', label: 'Ecommerce Store', icon: ShoppingCart },
+  { id: 'speed',     label: 'Website Speed',   icon: Gauge },
+  { id: 'space',     label: 'Space & Aerospace', icon: Rocket },
+]
+
+// Mirrors app/website-speed-optimization/page.tsx `pricingPlans`
+const SPEED_PLANS = [
+  { name: 'Basic', price: '$60', tagline: 'Full optimization + report', highlighted: false },
+  { name: 'Standard', price: '$110', tagline: 'Everything + lazy loading & caching setup', highlighted: true },
+  { name: 'Premium', price: '$200', tagline: 'Ongoing monthly maintenance + monthly reports', highlighted: false },
+] as const
+const SPEED_DETAILS_HREF = '/website-speed-optimization#pricing'
+
+// Mirrors components/space/SatelliteTrackerGig.tsx `tiers` — the only
+// fixed-price starter packages the Space service currently has. Larger
+// custom aerospace/satellite builds are scoped and quoted individually,
+// which is called out explicitly rather than inventing a flat number.
+const SPACE_PLANS = [
+  { name: 'ISS Live Tracker', price: '$150', tagline: 'Real-time 3D tracker, 1 page', highlighted: false },
+  { name: 'Full Satellite Network', price: '$320', tagline: '14,000+ satellites, advanced filters', highlighted: true },
+  { name: 'Complete Platform + Source', price: '$700', tagline: 'Accounts, notifications, full source', highlighted: false },
+] as const
+const SPACE_DETAILS_HREF = '/space#order-tracker'
+
+const MiniPlanCard = memo(({ plan, detailsHref }: {
+  plan: { name: string; price: string; tagline: string; highlighted: boolean }
+  detailsHref: string
+}) => (
+  <Link
+    href={detailsHref}
+    className={`group relative rounded-2xl p-6 flex flex-col border transition-all duration-300 ${
+      plan.highlighted
+        ? 'border-[#00d4ff]/35 bg-[#00d4ff]/[0.035]'
+        : 'border-white/10 bg-white/[0.025] hover:border-white/18'
+    }`}
+  >
+    {plan.highlighted && (
+      <span
+        className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1 px-3 py-1 rounded-full bg-[#00d4ff] text-[#0b0f1a] text-[11px] font-bold tracking-wider whitespace-nowrap"
+        style={{ fontFamily: 'Syne, sans-serif' }}
+      >
+        <Sparkles size={10} aria-hidden /> Most Popular
+      </span>
+    )}
+    <h3 className="text-[17px] font-bold text-white mb-1" style={{ fontFamily: 'Syne, sans-serif' }}>{plan.name}</h3>
+    <div className="text-[32px] font-bold text-white mb-2" style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}>
+      {plan.price}
+    </div>
+    <p className="text-[13px] text-white/50 mb-6 flex-1" style={{ fontFamily: 'DM Sans, sans-serif' }}>{plan.tagline}</p>
+    <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#00d4ff] group-hover:gap-2.5 transition-all">
+      Full details &amp; order <ArrowRight size={14} />
+    </span>
+  </Link>
+))
+MiniPlanCard.displayName = 'MiniPlanCard'
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function PricingPage() {
   const [plans, setPlans]     = useState<MergedPlan[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError]     = useState<string | null>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  // Which service's pricing is showing — defaults to Ecommerce so existing
+  // behavior (Supabase-driven plans, JSON-LD, anchor scroll) is unchanged.
+  const [activeService, setActiveService] = useState<ServiceTab>('ecommerce')
 
   const toggleFaq = useCallback((i: number) => {
     setOpenFaq(p => p === i ? null : i)
@@ -464,26 +535,94 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* PLAN CARDS — using fully memoized component */}
+        {/* SERVICE TABS — lets visitors see pricing for all 3 services instead
+            of only Ecommerce. Switching tabs is a local state change (no
+            network request) so it's instant on any connection. */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-8">
+          <div
+            role="tablist"
+            aria-label="Choose a service"
+            className="flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl border border-white/8 bg-white/[0.02] w-fit mx-auto"
+          >
+            {SERVICE_TABS.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                role="tab"
+                aria-selected={activeService === id}
+                onClick={() => setActiveService(id)}
+                className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl text-[13px] font-semibold transition-all duration-200 ${
+                  activeService === id
+                    ? 'bg-[#00d4ff] text-[#0b0f1a]'
+                    : 'text-white/55 hover:text-white hover:bg-white/[0.05]'
+                }`}
+                style={{ fontFamily: 'Syne, sans-serif' }}
+              >
+                <Icon size={14} aria-hidden />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* PLAN CARDS — Ecommerce uses the fully memoized Supabase-driven
+            component (unchanged). Speed & Space use lightweight static
+            summary cards that link through to their own dedicated pages. */}
         <section id="plans" aria-label="Pricing plans" className="scroll-mt-24 max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-          {loading ? (
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {[1,2,3].map(i => <SkeletonCard key={i} />)}
-            </div>
-          ) : error ? (
-            <p className="text-center py-20 text-red-400" role="alert">{error}</p>
-          ) : (
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {plans.map((plan) => {
-                const pop = plan.is_popular
-                return <PlanCard key={plan.id} plan={plan} pop={pop} />
-              })}
-            </div>
+          {activeService === 'ecommerce' && (
+            <>
+              {loading ? (
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+                  {[1,2,3].map(i => <SkeletonCard key={i} />)}
+                </div>
+              ) : error ? (
+                <p className="text-center py-20 text-red-400" role="alert">{error}</p>
+              ) : (
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+                  {plans.map((plan) => {
+                    const pop = plan.is_popular
+                    return <PlanCard key={plan.id} plan={plan} pop={pop} />
+                  })}
+                </div>
+              )}
+
+              <p className="text-center text-[11px] text-white/25 mt-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                Not sure? View demo stores or request a preview before ordering.
+              </p>
+            </>
           )}
 
-          <p className="text-center text-[11px] text-white/25 mt-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-            Not sure? View demo stores or request a preview before ordering.
-          </p>
+          {activeService === 'speed' && (
+            <>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+                {SPEED_PLANS.map((plan) => (
+                  <MiniPlanCard key={plan.name} plan={plan} detailsHref={SPEED_DETAILS_HREF} />
+                ))}
+              </div>
+              <p className="text-center text-[11px] text-white/25 mt-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                Free speed audit before you commit —{' '}
+                <Link href="/website-speed-optimization" className="text-[#00d4ff] hover:underline">
+                  see the full breakdown
+                </Link>.
+              </p>
+            </>
+          )}
+
+          {activeService === 'space' && (
+            <>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+                {SPACE_PLANS.map((plan) => (
+                  <MiniPlanCard key={plan.name} plan={plan} detailsHref={SPACE_DETAILS_HREF} />
+                ))}
+              </div>
+              <p className="text-center text-[11px] text-white/25 mt-8" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                Packages above are starter pricing for a satellite tracker build. Larger custom
+                aerospace/satellite projects are scoped individually —{' '}
+                <Link href="/space" className="text-[#00d4ff] hover:underline">
+                  view the Space &amp; Aerospace service
+                </Link>.
+              </p>
+            </>
+          )}
         </section>
 
         {/* COMPARISON TABLE — unchanged */}
