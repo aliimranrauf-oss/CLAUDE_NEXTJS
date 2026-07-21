@@ -1,94 +1,25 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123'
-
+// ── Admin shell ──────────────────────────────────────────────────────────
+// Auth is now enforced server-side by middleware.ts (see project root),
+// which checks an httpOnly signed session cookie BEFORE this component,
+// or any admin JS, ever reaches the browser. This file no longer contains
+// any password — it only renders the dashboard chrome and a logout button.
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const [authed, setAuthed] = useState(false)
-  const [pw, setPw] = useState('')
-  const [error, setError] = useState(false)
-  const [checking, setChecking] = useState(true)
+  const pathname = usePathname()
+  const router = useRouter()
+  const isLoginPage = pathname === '/admin/login'
 
-  useEffect(() => {
-    const saved = sessionStorage.getItem('mms_admin')
-    if (saved === ADMIN_PASSWORD) setAuthed(true)
-    setChecking(false)
-  }, [])
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (pw === ADMIN_PASSWORD) {
-      sessionStorage.setItem('mms_admin', pw)
-      setAuthed(true)
-      setError(false)
-    } else {
-      setError(true)
-    }
+  const handleLogout = async () => {
+    await fetch('/api/admin-auth', { method: 'DELETE' })
+    router.replace('/admin/login')
+    router.refresh()
   }
 
-  if (checking) return null
-
-  if (!authed) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#0b0f1a' }}>
-        <div style={{
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(0,212,255,0.15)',
-          borderRadius: 16,
-          padding: '2.5rem',
-          width: '100%',
-          maxWidth: 380,
-        }}>
-          <div className="text-center mb-8">
-            <div style={{
-              width: 48, height: 48,
-              background: 'linear-gradient(135deg,#00d4ff,#7a5cff)',
-              borderRadius: 12,
-              margin: '0 auto 1rem',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h1 style={{ color: 'white', fontFamily: 'Syne,sans-serif', fontWeight: 700, fontSize: 22 }}>Admin Access</h1>
-            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginTop: 4 }}>MakeMyStore.online</p>
-          </div>
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={pw}
-              onChange={e => { setPw(e.target.value); setError(false) }}
-              autoFocus
-              style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: error ? '1px solid #ff4d6d' : '1px solid rgba(0,212,255,0.2)',
-                borderRadius: 10,
-                padding: '12px 16px',
-                color: 'white',
-                fontSize: 14,
-                outline: 'none',
-                width: '100%',
-              }}
-            />
-            {error && <p style={{ color: '#ff4d6d', fontSize: 12, margin: 0 }}>Wrong password. Try again.</p>}
-            <button type="submit" style={{
-              background: 'linear-gradient(135deg,#00d4ff,#7a5cff)',
-              border: 'none',
-              borderRadius: 10,
-              padding: '12px',
-              color: 'white',
-              fontWeight: 700,
-              fontSize: 14,
-              cursor: 'pointer',
-              width: '100%',
-            }}>
-              Enter Dashboard
-            </button>
-          </form>
-        </div>
-      </div>
-    )
+  if (isLoginPage) {
+    return <div style={{ minHeight: '100vh', background: '#0b0f1a' }}>{children}</div>
   }
 
   return (
@@ -117,7 +48,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </span>
         </div>
         <button
-          onClick={() => { sessionStorage.removeItem('mms_admin'); setAuthed(false) }}
+          onClick={handleLogout}
           style={{
             background: 'rgba(255,255,255,0.05)',
             border: '1px solid rgba(255,255,255,0.1)',
