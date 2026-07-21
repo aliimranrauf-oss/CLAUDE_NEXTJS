@@ -51,6 +51,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
 
+    {
+      url: 'https://www.makemystore.online/pk',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://www.makemystore.online/ar/badil-salla-zid',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+
     // Core Pages (0.5)
     {
       url: 'https://www.makemystore.online/about',
