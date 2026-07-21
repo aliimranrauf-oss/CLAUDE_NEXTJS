@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { supabase } from '@/lib/supabaseClient'
 
 // ── Icons ────────────────────────────────────────
 function IconMail() {
@@ -80,8 +79,10 @@ function ContactPageInner() {
     const data = new FormData(form)
 
     try {
-      const { error: sbError } = await supabase.from('orders').insert([
-        {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: data.get('name'),
           email: data.get('email'),
           domain: data.get('domain') || null,
@@ -89,10 +90,14 @@ function ContactPageInner() {
           package: data.get('package') || null,
           payment: data.get('payment') || null,
           message: data.get('message') || null,
-        },
-      ])
+          website: data.get('website') || '', // honeypot — real users never fill this
+        }),
+      })
 
-      if (sbError) throw sbError
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        throw new Error(body.error || 'Something went wrong. Please try again.')
+      }
 
       setSent(true)
       form.reset()
@@ -163,6 +168,17 @@ function ContactPageInner() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot — hidden from real users via CSS, bots that
+                    auto-fill every field will trip it. Server checks this
+                    in app/api/orders/route.ts. */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                  aria-hidden="true"
+                />
                 {isSpeedAudit && (
                   <p className="text-sm text-cyan-300 bg-cyan-400/10 border border-cyan-400/20 rounded-lg px-4 py-2.5">
                     ⚡ Requesting a <span className="font-semibold">Free Speed Audit</span> — we&apos;ve pre-selected it below. Feel free to change it if you meant something else.
