@@ -96,8 +96,8 @@ async function sendOrderEmails(order: {
     <p>Hi ${escapeHtml(order.name)},</p>
     <p>Thanks for your order with MakeMyStore.online! We've received your details and
     our team will reach out shortly to confirm the next steps.</p>
-    <p>If you have questions in the meantime, just reply to this email or message us on
-    WhatsApp: <a href="https://wa.me/923293943161">+92 329 3943161</a>.</p>
+    <p>If you have questions in the meantime, just reply to this email and we'll get
+    back to you.</p>
     <p>— MakeMyStore.online</p>
   `
 
