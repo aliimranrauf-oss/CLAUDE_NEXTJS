@@ -4,6 +4,8 @@ import { Linkedin, ExternalLink, Mail } from 'lucide-react'
 const quickLinks = [
   { label: 'Templates', href: '#templates' },
   { label: 'Pricing',   href: '#pricing' },
+  { label: 'Website Speed Audit', href: '/website-speed-optimization' },
+  { label: 'Space & Aerospace', href: '/space' },
   { label: 'Contact',   href: '/contact' },
   { label: 'Blog',      href: '/blog' },
   { label: 'Privacy Policy', href: '/privacy' },
