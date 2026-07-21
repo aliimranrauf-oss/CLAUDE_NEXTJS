@@ -42,6 +42,24 @@ export default async function Home() {
         description:
           'Custom ecommerce website development with a one-time build fee, deployed to any hosting of your choice.',
       },
+      {
+        '@type': 'Service',
+        serviceType: 'Website speed optimization',
+        provider: { '@type': 'Organization', name: 'MakeMyStore.online' },
+        areaServed: 'Worldwide',
+        url: 'https://www.makemystore.online/website-speed-optimization',
+        description:
+          'Website speed audits and performance fixes to improve Core Web Vitals, PageSpeed scores, and conversion rates.',
+      },
+      {
+        '@type': 'Service',
+        serviceType: 'Space and aerospace web development',
+        provider: { '@type': 'Organization', name: 'MakeMyStore.online' },
+        areaServed: 'Worldwide',
+        url: 'https://www.makemystore.online/space',
+        description:
+          'Websites, dashboards, and internal tools for space startups, satellite operators, and aerospace suppliers.',
+      },
     ],
   }
 
