@@ -18,8 +18,41 @@ export default async function Home() {
     .from('templates')
     .select('*')
     .order('created_at', { ascending: true })
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        name: 'MakeMyStore.online',
+        url: 'https://www.makemystore.online',
+        logo: 'https://www.makemystore.online/logo.png',
+        sameAs: ['https://wa.me/923293943161'],
+      },
+      {
+        '@type': 'WebSite',
+        name: 'MakeMyStore.online',
+        url: 'https://www.makemystore.online',
+      },
+      {
+        '@type': 'Service',
+        serviceType: 'Ecommerce website development',
+        provider: { '@type': 'Organization', name: 'MakeMyStore.online' },
+        areaServed: 'Worldwide',
+        description:
+          'Custom ecommerce website development with a one-time build fee, deployed to any hosting of your choice.',
+      },
+    ],
+  }
+
   return (
     <>
+      {/* Structured data — helps Google show a richer result (org info,
+          sitelinks) for the homepage. Subpages like /pricing and /tools
+          already had their own JSON-LD; the homepage didn't. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       {/*
