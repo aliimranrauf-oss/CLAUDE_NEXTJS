@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import ServicesOverview from '@/components/ServicesOverview'
 import VideoSection from '@/components/VideoSection'
 import Templates from '@/components/Templates'
 import ComparisonTable from '@/components/ComparisonTable'
@@ -64,6 +65,11 @@ export default async function Home() {
       <main id="main-content">
         {/* 1. Hero — headline, badges, CTA */}
         <Hero />
+
+        {/* 1.5. Services overview — surfaces all 3 services (Ecommerce, Speed
+            Audit, Space & Aerospace) so visitors don't have to dig into the
+            nav menu to discover Speed Optimization / Space & Aerospace */}
+        <ServicesOverview />
 
         {/* 2. Video — "What is MakeMyStore?" directly below hero */}
         <VideoSection />
