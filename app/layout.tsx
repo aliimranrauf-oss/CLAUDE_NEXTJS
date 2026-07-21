@@ -25,9 +25,10 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.makemystore.online'),
   title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
   description:
-    'Own your ecommerce store — one-time build fee, deployed to any hosting you choose (your own Hostinger/GoDaddy plan or a free-tier host). MakeMyStore builds fully custom online stores from $250 with Stripe & PayPal integration.',
+    'Own your ecommerce store — one-time build fee, deployed to any hosting you choose. Fully custom stores from $250 with Stripe & PayPal, no subscription.',
   keywords: [
     'custom ecommerce website',
     'shopify alternative',
