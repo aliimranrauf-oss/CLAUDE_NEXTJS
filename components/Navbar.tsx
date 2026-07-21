@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { Fragment, useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
@@ -18,6 +18,11 @@ const navLinks = [
 ]
 
 const CONTACT_URL = '/contact'
+
+// Used only to visually group "Site Speed" + "Space & Aerospace" under a
+// "Services" label in the mobile menu — navLinks itself (order/items) is
+// untouched so desktop nav and behavior stay exactly as-is.
+const SERVICE_HREFS = ['/website-speed-optimization', '/space']
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -120,14 +125,32 @@ export default function Navbar() {
         >
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
             {navLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={closeMenu}
-                className="text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all"
-              >
-                {l.label}
-              </Link>
+              <Fragment key={l.href}>
+                {/* "Services" divider — inserted right before Site Speed so
+                    it and Space & Aerospace read as a grouped set instead of
+                    getting lost among the other flat items. */}
+                {l.href === '/website-speed-optimization' && (
+                  <div className="flex items-center gap-2 px-4 pt-3 pb-1" aria-hidden="true">
+                    <span className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.1)' }} />
+                    <span className="text-xs font-semibold text-[#00d4ff]/80 uppercase tracking-widest">
+                      Services
+                    </span>
+                    <span className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.1)' }} />
+                  </div>
+                )}
+                <Link
+                  href={l.href}
+                  onClick={closeMenu}
+                  className={`text-sm font-semibold px-4 py-3 rounded-lg text-white/80 hover:text-[#00d4ff] hover:bg-[#00d4ff]/[0.07] transition-all ${
+                    SERVICE_HREFS.includes(l.href)
+                      ? 'ml-3 border-l-2'
+                      : ''
+                  }`}
+                  style={SERVICE_HREFS.includes(l.href) ? { borderColor: 'rgba(0,212,255,0.25)' } : undefined}
+                >
+                  {l.label}
+                </Link>
+              </Fragment>
             ))}
 
             {/* Order Now → /contact */}
