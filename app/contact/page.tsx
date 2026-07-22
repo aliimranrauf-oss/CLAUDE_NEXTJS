@@ -3,6 +3,22 @@
 import { useState, type FormEvent, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+// ── Meta Pixel helper ────────────────────────────
+// The base pixel script is loaded in app/layout.tsx (lazyOnload). This just
+// safely calls it if it's ready — if the pixel script hasn't finished
+// loading yet (rare, since it's lazy), we skip rather than throw.
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void
+  }
+}
+
+function trackLead(contentName: string) {
+  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    window.fbq('track', 'Lead', { content_name: contentName })
+  }
+}
+
 // ── Icons ────────────────────────────────────────
 function IconMail() {
   return (
@@ -99,6 +115,11 @@ function ContactPageInner() {
         throw new Error(body.error || 'Something went wrong. Please try again.')
       }
 
+      // Fire Meta Pixel Lead event now that the order is confirmed saved.
+      // Distinguish speed-audit leads from general build leads so Ads
+      // Manager can eventually report on them separately if needed.
+      trackLead(isSpeedAudit ? 'Speed Audit Contact Form' : 'General Contact Form')
+
       setSent(true)
       form.reset()
     } catch (err: any) {
@@ -159,6 +180,23 @@ function ContactPageInner() {
                 <p className="text-gray-400 text-sm max-w-xs">
                   We&apos;ve received your submission and will reply to your email shortly.
                 </p>
+
+                {/* Fiverr push — placed right in the confirmation so people
+                    who just submitted the form see it immediately, instead
+                    of only finding it in the sidebar. This is the actual
+                    payment/order step since Fiverr handles escrow. */}
+                <a
+                  href="https://www.fiverr.com/s/6YvgzVA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/20 text-sm"
+                >
+                  Place Your Order on Fiverr →
+                </a>
+                <p className="text-xs text-gray-500 max-w-xs">
+                  Secure escrow payment · Buyer protection · Fastest way to confirm your order
+                </p>
+
                 <button
                   onClick={() => setSent(false)}
                   className="mt-2 text-sm text-cyan-400 hover:underline"
