@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import PixelViewContent from '@/components/PixelViewContent'
 import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -247,6 +248,7 @@ export default function WebsiteSpeedOptimizationPage() {
   return (
     <>
       <Navbar />
+      <PixelViewContent name="Speed Audit Landing Page" />
 
       <script
         type="application/ld+json"
