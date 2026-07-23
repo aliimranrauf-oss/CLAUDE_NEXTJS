@@ -5,6 +5,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
+// Google's real Lighthouse scan (especially mobile, which throttles CPU/
+// network to simulate a real phone) can take well over 30s. 60 is the max
+// duration Vercel allows even on the Hobby plan, so this gives it the most
+// room possible without needing a plan upgrade.
+export const maxDuration = 60
 
 const GOOGLE_PSI_ENDPOINT = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
 
@@ -63,7 +68,9 @@ export async function GET(req: NextRequest) {
 
   try {
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 30_000)
+    // Leaves a ~5s buffer under the 60s function limit for our own response
+    // handling (JSON parsing, etc.) after Google replies.
+    const timeout = setTimeout(() => controller.abort(), 55_000)
 
     const res = await fetch(apiUrl.toString(), { signal: controller.signal })
     clearTimeout(timeout)
@@ -123,7 +130,9 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(result)
   } catch (err: any) {
-    const message = err?.name === 'AbortError' ? 'The scan timed out. Please try again.' : 'Something went wrong reaching Google PageSpeed Insights.'
+    const message = err?.name === 'AbortError'
+      ? `The scan took too long and timed out (this happens sometimes on very large or slow sites${strategy === 'mobile' ? ' — mobile scans take longer than desktop' : ''}). Please try again${strategy === 'mobile' ? ', or try the desktop scan instead' : ''}.`
+      : 'Something went wrong reaching Google PageSpeed Insights.'
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
