@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PixelViewContent from '@/components/PixelViewContent'
+import PageSpeedInsightsTool from './PageSpeedInsightsTool'
 import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -260,8 +261,16 @@ export default function WebsiteSpeedOptimizationPage() {
       />
 
       <main id="main-content" className="bg-[#0b0f1a] text-white">
+        {/* ── FREE PAGESPEED INSIGHTS TOOL (lead magnet) ──────────────────
+            First thing visible after the navbar. Real Google PageSpeed
+            Insights data via /api/pagespeed, funnels straight into the
+            paid speed-optimization offer below via <ToolCTA />. */}
+        <div className="pt-24">
+          <PageSpeedInsightsTool />
+        </div>
+
         {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-20 px-4 sm:px-6">
+        <section className="relative pt-8 pb-20 px-4 sm:px-6">
           {/* ── FLOATING 50% OFF BADGE ─────────────────────────────────────
               Pure CSS (Tailwind's built-in animate-ping/pulse — GPU-composited,
               no JS, no client component, no layout shift). Absolutely positioned
