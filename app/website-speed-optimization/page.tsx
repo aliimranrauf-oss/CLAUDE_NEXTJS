@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PixelViewContent from '@/components/PixelViewContent'
 import PageSpeedInsightsTool from './PageSpeedInsightsTool'
-import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight } from 'lucide-react'
+import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight, Image as ImageIcon, Layers, Server, Cpu, FileSearch, Sparkles } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────
 // SEO METADATA
@@ -150,15 +150,6 @@ const faqJsonLd = {
 // ─────────────────────────────────────────────────────────────────────────
 // Static content
 // ─────────────────────────────────────────────────────────────────────────
-const included = [
-  'Convert all images to WebP with proper width/height attributes',
-  'Lazy loading & code splitting (React.lazy, Suspense)',
-  'Fix render-blocking resources and unused JS/CSS',
-  'Smart caching headers (especially on Vercel/Netlify)',
-  'Reduce JavaScript execution time and main-thread work',
-  'Preload critical assets and optimize font loading',
-]
-
 const youGet = [
   'Full performance audit report',
   'Clean, optimized code committed directly to your repo',
@@ -184,6 +175,26 @@ const useCases = [
   'Any website on any platform',
 ]
 
+const featureHighlights = [
+  { icon: ImageIcon, title: 'Image Optimization', desc: 'All images converted to WebP with proper width/height so nothing shifts on load.' },
+  { icon: Layers, title: 'Lazy Loading & Code Splitting', desc: 'Only what\u2019s visible loads first \u2014 the rest loads as the visitor scrolls.' },
+  { icon: Zap, title: 'Render-Blocking Fixes', desc: 'Unused JS/CSS removed so the page can paint without waiting on it.' },
+  { icon: Server, title: 'Smart Caching Headers', desc: 'Proper cache rules configured, especially for Vercel/Netlify hosting.' },
+  { icon: Cpu, title: 'Less JavaScript Work', desc: 'Reduced execution time and main-thread work for a snappier feel.' },
+  { icon: FileSearch, title: 'Preload & Font Optimization', desc: 'Critical assets and fonts preloaded so text and content appear faster.' },
+]
+
+const toolsUsed = [
+  { name: 'Google Lighthouse', desc: 'The audit engine behind every score' },
+  { name: 'PageSpeed Insights', desc: 'Real lab + real-user field data' },
+  { name: 'GTmetrix', desc: 'Cross-checks results on a second engine' },
+]
+
+// Illustrative example only \u2014 not a specific client's real data.
+// Consistent with the FAQ claim that 90+ is a realistic common outcome,
+// and with the "custom built" numbers already used in the free tools page.
+const impactExample = { before: 52, after: 94 }
+
 const process = [
   {
     title: 'Audit',
@@ -191,10 +202,14 @@ const process = [
   },
   {
     title: 'Fix \u2014 one change at a time',
-    desc: 'Each fix (images, lazy loading, render-blocking resources, JS execution time, caching, fonts) is made individually, tested, and committed before moving to the next \u2014 so nothing breaks along the way.',
+    desc: 'Each fix (images, lazy loading, render-blocking resources, JS execution time, caching, fonts) is made individually and committed before moving to the next \u2014 so nothing breaks along the way.',
   },
   {
-    title: 'Verify & report',
+    title: 'Test',
+    desc: 'Every single change is verified against the live site before the next one starts, confirming layout, forms, and functionality all still work exactly as before.',
+  },
+  {
+    title: 'Deliver',
     desc: 'You receive a full before/after report with real Lighthouse and PageSpeed scores, so you know exactly what changed and why.',
   },
 ]
@@ -297,36 +312,23 @@ export default function WebsiteSpeedOptimizationPage() {
                 Let&apos;s fix that &mdash; without breaking it.
               </h1>
 
-              <p className="text-lg text-white/70 max-w-xl mx-auto lg:mx-0 mb-6">
+              <p className="text-lg text-white/70 max-w-xl mx-auto lg:mx-0 mb-5">
                 Tired of slow loading times killing your sales and Google ranking? I fix
                 Core Web Vitals (LCP, CLS, INP, FCP) and get you a 90&ndash;100 Lighthouse
                 score on both mobile and desktop &mdash; with every change tested and
                 committed carefully, not randomly.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-4">
-                {platforms.map((p) => (
-                  <span
-                    key={p}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] text-[#00d4ff]/80"
-                  >
-                    {p}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 mb-7 text-sm text-white/75">
+                {['90+ Lighthouse Score', 'Core Web Vitals Fixed', 'Better Rankings & Sales'].map((t) => (
+                  <span key={t} className="inline-flex items-center gap-1.5">
+                    <CheckCircle2 size={15} className="text-[#00ffaa]" />
+                    {t}
                   </span>
                 ))}
               </div>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-10">
-                {useCases.map((u) => (
-                  <span
-                    key={u}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 text-white/60"
-                  >
-                    {u}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-7">
                 <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
                   Get a Free Speed Audit
                   <ArrowRight size={18} />
@@ -339,6 +341,17 @@ export default function WebsiteSpeedOptimizationPage() {
                 >
                   Order on Fiverr
                 </a>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5">
+                {[...platforms, ...useCases].map((p) => (
+                  <span
+                    key={p}
+                    className="text-[11px] font-medium px-2.5 py-1 rounded-full border border-white/10 text-white/45"
+                  >
+                    {p}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -355,16 +368,35 @@ export default function WebsiteSpeedOptimizationPage() {
                 - `sizes` tells the browser the real rendered width at each
                   breakpoint so it never downloads a larger version than needed.
             */}
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
-              <Image
-                src="/speed-hero.webp"
-                alt="Website speed optimization dashboard showing a performance gauge and improved page load score"
-                fill
-                priority
-                fetchPriority="high"
-                sizes="(max-width: 1024px) 90vw, 45vw"
-                className="object-cover"
-              />
+            <div className="rounded-2xl p-4 sm:p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div className="flex items-center gap-2 mb-3 px-1">
+                <Gauge size={15} className="text-[#00d4ff]" />
+                <span className="text-xs font-semibold text-white/70">Example Result After Optimization</span>
+              </div>
+              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-white/10">
+                <Image
+                  src="/speed-hero.webp"
+                  alt="Website speed optimization dashboard showing a performance gauge and improved page load score"
+                  fill
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 1024px) 90vw, 45vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="grid grid-cols-4 gap-2 mt-3">
+                {[
+                  { label: 'LCP', value: '1.4s' },
+                  { label: 'INP', value: '25ms' },
+                  { label: 'CLS', value: '0.03' },
+                  { label: 'Score', value: '94' },
+                ].map((m) => (
+                  <div key={m.label} className="rounded-lg py-2 text-center" style={{ background: 'rgba(0,255,170,0.06)', border: '1px solid rgba(0,255,170,0.15)' }}>
+                    <div className="text-sm font-extrabold text-[#00ffaa]">{m.value}</div>
+                    <div className="text-[10px] text-white/50">{m.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
             </div>
           </div>
@@ -396,17 +428,26 @@ export default function WebsiteSpeedOptimizationPage() {
 
         {/* ── WHAT'S INCLUDED ──────────────────────────────────────────── */}
         <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
               What&apos;s Included
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {included.map((item) => (
-                <div key={item} className="flex items-start gap-3">
-                  <CheckCircle2 size={20} className="text-[#00d4ff] shrink-0 mt-0.5" />
-                  <span className="text-white/80 text-sm">{item}</span>
-                </div>
-              ))}
+            <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
+              Every fix that actually moves the needle on your score.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
+              {featureHighlights.map((f) => {
+                const Icon = f.icon
+                return (
+                  <div key={f.title} className="glass rounded-2xl p-5 border border-white/10 text-center sm:text-left">
+                    <div className="w-11 h-11 mx-auto sm:mx-0 rounded-xl flex items-center justify-center mb-3.5" style={{ background: 'rgba(0,212,255,0.12)' }}>
+                      <Icon size={20} className="text-[#00d4ff]" />
+                    </div>
+                    <h3 className="font-semibold text-sm mb-1.5">{f.title}</h3>
+                    <p className="text-white/55 text-xs leading-relaxed">{f.desc}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -490,19 +531,74 @@ export default function WebsiteSpeedOptimizationPage() {
         {/* ── PROCESS ──────────────────────────────────────────────────── */}
         <section className="py-16 px-4 sm:px-6 border-t border-white/5">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12">
-              How It Works
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
+              Our Proven Process
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <p className="text-white/60 text-center max-w-xl mx-auto mb-14">
+              A simple 4-step process, the same way every time.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-4 relative">
+              <div className="hidden sm:block absolute top-6 left-[12.5%] right-[12.5%] h-px border-t border-dashed border-[#00d4ff]/25" />
               {process.map((step, i) => (
-                <div key={step.title} className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.08] flex items-center justify-center font-bold text-[#00d4ff]">
+                <div key={step.title} className="text-center relative">
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-full border border-[#00d4ff]/30 bg-[#0b0f1a] flex items-center justify-center font-bold text-[#00d4ff] relative z-10">
                     {i + 1}
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-                  <p className="text-white/60 text-sm">{step.desc}</p>
+                  <h3 className="font-semibold text-base mb-2">{step.title}</h3>
+                  <p className="text-white/55 text-xs sm:text-sm leading-relaxed">{step.desc}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── TOOLS WE USE / SEE THE IMPACT ────────────────────────────── */}
+        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="glass rounded-2xl p-6 sm:p-7 border border-white/10">
+              <h3 className="font-bold text-lg mb-1">Tools I Use</h3>
+              <p className="text-white/55 text-xs mb-6">Industry-standard tools for accurate, verifiable results.</p>
+              <div className="space-y-4">
+                {toolsUsed.map((t) => (
+                  <div key={t.name} className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(0,212,255,0.1)' }}>
+                      <Sparkles size={16} className="text-[#00d4ff]" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-white/90">{t.name}</div>
+                      <div className="text-xs text-white/50">{t.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="glass rounded-2xl p-6 sm:p-7 border border-white/10">
+              <h3 className="font-bold text-lg mb-1">See the Impact</h3>
+              <p className="text-white/55 text-xs mb-6">A typical example of what proper optimization changes.</p>
+              <div className="flex items-center justify-center gap-4 sm:gap-6">
+                <div className="text-center">
+                  <div className="text-[11px] text-white/50 mb-1.5">Before</div>
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#ff6b6b]/40 flex items-center justify-center text-xl sm:text-2xl font-extrabold text-[#ff6b6b]">
+                    {impactExample.before}
+                  </div>
+                </div>
+                <ArrowRight size={22} className="text-white/30 shrink-0" />
+                <div className="text-center">
+                  <div className="text-[11px] text-white/50 mb-1.5">After</div>
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#00ffaa]/50 flex items-center justify-center text-xl sm:text-2xl font-extrabold text-[#00ffaa]">
+                    {impactExample.after}
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2 mt-6 text-xs text-white/70">
+                {['Faster Load Time', 'Better User Experience', 'Higher Search Rankings', 'More Conversions & Sales'].map((s) => (
+                  <span key={s} className="flex items-center gap-1.5">
+                    <CheckCircle2 size={13} className="text-[#00ffaa] shrink-0" />
+                    {s}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -544,28 +640,31 @@ export default function WebsiteSpeedOptimizationPage() {
         </section>
 
         {/* ── FINAL CTA ────────────────────────────────────────────────── */}
-        <section className="py-20 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              Ready for a faster website?
-            </h2>
-            <p className="text-white/70 mb-8">
-              Get a free initial speed check &mdash; no obligation, any platform.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
-                Get a Free Speed Audit
-                <ArrowRight size={18} />
-              </Link>
-              <a
-                href={FIVERR_GIG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold px-8 py-3 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all"
-              >
-                Order on Fiverr
-              </a>
+        <section
+          className="py-12 px-4 sm:px-6"
+          style={{ background: 'linear-gradient(90deg, #00d4ff, #7a5cff)' }}
+        >
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+                <Zap size={22} className="text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                  Ready for a faster website?
+                </h2>
+                <p className="text-white/85 text-sm">
+                  Get a free initial speed check &mdash; no obligation, any platform.
+                </p>
+              </div>
             </div>
+            <Link
+              href={CONTACT_URL}
+              className="shrink-0 bg-white text-[#0b0f1a] font-bold text-sm px-7 py-3 rounded-xl inline-flex items-center gap-2 hover:scale-105 transition-transform"
+            >
+              Get Started Now
+              <ArrowRight size={17} />
+            </Link>
           </div>
         </section>
       </main>
