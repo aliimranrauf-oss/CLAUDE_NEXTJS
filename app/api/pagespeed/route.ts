@@ -113,7 +113,7 @@ export async function GET(req: NextRequest) {
       opportunities: Object.values(audits)
         .filter((a: any) => a?.details?.type === 'opportunity' && a.score !== null && a.score < 0.9)
         .sort((a: any, b: any) => (b.numericValue || 0) - (a.numericValue || 0))
-        .slice(0, 5)
+        .slice(0, 8)
         .map((a: any) => ({
           id: a.id,
           title: a.title,
