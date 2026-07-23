@@ -10,9 +10,10 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import jsPDF from 'jspdf'
 import {
   Loader2, AlertTriangle, CheckCircle2, Gauge, Copy, Check, Users, FlaskConical,
-  ArrowLeft, X, Printer,
+  ArrowLeft, X, Download,
 } from 'lucide-react'
 import ToolCTA from '@/app/tools/tools/ToolCTA'
 import { trackToolUsage } from '@/app/tools/tools/useToolTracking'
@@ -166,7 +167,204 @@ export default function ReportView() {
     }
   }
 
-  const downloadPdf = () => window.print()
+  const downloadPdf = () => {
+    if (!result) return
+
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' })
+    const pageWidth = 210
+    const pageHeight = 297
+    const margin = 18
+    const contentWidth = pageWidth - margin * 2
+    let y = 20
+
+    const BRAND = '#0072a8' // darker, print-safe version of the site's #00d4ff accent
+    const TEXT = '#1a1a1a'
+    const MUTED = '#6b6b6b'
+    const BORDER = '#dddddd'
+
+    const scoreColorPdf = (score: number | null) => {
+      if (score == null) return MUTED
+      if (score >= 90) return '#0a8f5c'
+      if (score >= 50) return '#b8860b'
+      return '#c0392b'
+    }
+
+    const addFooter = () => {
+      const pageCount = doc.getNumberOfPages()
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i)
+        doc.setFontSize(8)
+        doc.setTextColor(MUTED)
+        doc.text('makemystore.online/website-speed-optimization', margin, pageHeight - 10)
+        doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' })
+      }
+    }
+
+    const ensureSpace = (needed: number) => {
+      if (y + needed > pageHeight - 20) {
+        doc.addPage()
+        y = 20
+      }
+    }
+
+    const sectionLabel = (text: string, color = BRAND) => {
+      ensureSpace(10)
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(11)
+      doc.setTextColor(color)
+      doc.text(text, margin, y)
+      y += 6
+      doc.setDrawColor(BORDER)
+      doc.line(margin, y, pageWidth - margin, y)
+      y += 6
+    }
+
+    // ── Header ──────────────────────────────────────────────
+    doc.setFont('helvetica', 'bold')
+    doc.setFontSize(18)
+    doc.setTextColor(TEXT)
+    doc.text('PageSpeed Insights Report', margin, y)
+    y += 8
+
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(10)
+    doc.setTextColor(MUTED)
+    doc.text(`${result.url}  ·  ${strategy}  ·  ${new Date().toLocaleDateString()}`, margin, y)
+    y += 10
+
+    // ── Category scores ─────────────────────────────────────
+    sectionLabel('Overall Scores')
+    const scoreItems: { label: string; score: number | null }[] = [
+      { label: 'Performance', score: result.scores.performance },
+      { label: 'Accessibility', score: result.scores.accessibility },
+      { label: 'Best Practices', score: result.scores.bestPractices },
+      { label: 'SEO', score: result.scores.seo },
+    ]
+    const boxW = (contentWidth - 3 * 4) / 4
+    const boxH = 22
+    scoreItems.forEach((item, i) => {
+      const x = margin + i * (boxW + 4)
+      doc.setDrawColor(BORDER)
+      doc.setFillColor('#f7f7f7')
+      doc.roundedRect(x, y, boxW, boxH, 2, 2, 'FD')
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(16)
+      doc.setTextColor(scoreColorPdf(item.score))
+      doc.text(String(item.score ?? '–'), x + boxW / 2, y + 12, { align: 'center' })
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(8)
+      doc.setTextColor(MUTED)
+      doc.text(item.label, x + boxW / 2, y + 18, { align: 'center' })
+    })
+    y += boxH + 10
+
+    // ── Field data ───────────────────────────────────────────
+    sectionLabel('In the Field — Real Visitors (28-day Chrome average)', '#6b4fbf')
+    if (result.field) {
+      const fieldItems = [
+        { label: 'LCP', v: result.field.lcp, unit: 'ms', metric: 'lcp' as const },
+        { label: 'INP', v: result.field.inp, unit: 'ms', metric: 'inp' as const },
+        { label: 'CLS', v: result.field.cls, unit: '', metric: 'cls' as const },
+        { label: 'FCP', v: result.field.fcp, unit: 'ms', metric: 'fcp' as const },
+      ]
+      const fBoxW = (contentWidth - 3 * 4) / 4
+      fieldItems.forEach((f, i) => {
+        const x = margin + i * (fBoxW + 4)
+        const pass = fieldPass(f.metric, f.v)
+        const display = f.v != null ? `${f.metric === 'cls' ? f.v.toFixed(2) : Math.round(f.v)}${f.unit}` : 'No data'
+        doc.setFont('helvetica', 'normal')
+        doc.setFontSize(8)
+        doc.setTextColor(MUTED)
+        doc.text(f.label, x, y)
+        doc.setFont('helvetica', 'bold')
+        doc.setFontSize(11)
+        doc.setTextColor(pass == null ? MUTED : pass ? '#0a8f5c' : '#c0392b')
+        doc.text(display, x, y + 6)
+      })
+      y += 16
+    } else {
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(9)
+      doc.setTextColor(MUTED)
+      const lines = doc.splitTextToSize(
+        "Google doesn't have enough real-visitor traffic recorded for this URL yet (needs meaningful Chrome traffic over 28 days). The lab results below are a precise, controlled measurement instead.",
+        contentWidth
+      )
+      doc.text(lines, margin, y)
+      y += lines.length * 5 + 4
+    }
+    y += 6
+
+    // ── Lab data ─────────────────────────────────────────────
+    sectionLabel('Lab Data — Simulated Single Load')
+    const labItems = [
+      { label: 'Largest Contentful Paint (LCP)', m: result.lab.lcp },
+      { label: 'Cumulative Layout Shift (CLS)', m: result.lab.cls },
+      { label: 'Total Blocking Time (TBT)', m: result.lab.tbt },
+      { label: 'First Contentful Paint (FCP)', m: result.lab.fcp },
+      { label: 'Speed Index', m: result.lab.speedIndex },
+      { label: 'Server Response Time (TTFB)', m: result.lab.ttfb },
+    ]
+    const colW = contentWidth / 2
+    labItems.forEach((row, i) => {
+      const col = i % 2
+      const rowIdx = Math.floor(i / 2)
+      if (col === 0) ensureSpace(14)
+      const x = margin + col * colW
+      const rowY = y + rowIdx * 14
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(8)
+      doc.setTextColor(MUTED)
+      doc.text(row.label, x, rowY)
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(11)
+      doc.setTextColor(scoreColorPdf(row.m?.score != null ? row.m.score * 100 : null))
+      doc.text(row.m?.displayValue ?? '–', x, rowY + 6)
+    })
+    y += Math.ceil(labItems.length / 2) * 14 + 6
+
+    // ── Opportunities ────────────────────────────────────────
+    if (result.opportunities.length > 0) {
+      sectionLabel('Top Opportunities to Fix')
+      doc.setFontSize(9)
+      result.opportunities.forEach((o) => {
+        const text = `•  ${o.title}${o.displayValue ? `  (${o.displayValue})` : ''}`
+        const lines = doc.splitTextToSize(text, contentWidth)
+        ensureSpace(lines.length * 5 + 2)
+        doc.setFont('helvetica', 'normal')
+        doc.setTextColor(TEXT)
+        doc.text(lines, margin, y)
+        y += lines.length * 5 + 2
+      })
+      y += 4
+    }
+
+    // ── Closing note ─────────────────────────────────────────
+    if (perf != null && perf >= 90) {
+      ensureSpace(14)
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(10)
+      doc.setTextColor('#0a8f5c')
+      doc.text('Great score! We can help you maintain and monitor it.', margin, y)
+      y += 10
+    } else if (isSlow) {
+      ensureSpace(16)
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(9)
+      doc.setTextColor(TEXT)
+      const lines = doc.splitTextToSize(
+        'A performance score under 70 is usually costing you conversions and Google ranking. I fix exactly this — every Core Web Vital, tested one change at a time.',
+        contentWidth
+      )
+      doc.text(lines, margin, y)
+      y += lines.length * 5 + 4
+    }
+
+    addFooter()
+
+    const safeName = result.url.replace(/^https?:\/\//, '').replace(/[^a-z0-9.-]+/gi, '-').toLowerCase()
+    doc.save(`pagespeed-report-${safeName}-${strategy}.pdf`)
+  }
 
   const closeTab = () => {
     // Only works if this tab was opened by script (which it was, via
@@ -249,7 +447,7 @@ export default function ReportView() {
                   className="flex items-center gap-1.5 text-[12px] font-semibold px-3 py-2 rounded-lg transition-colors"
                   style={{ background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.3)', color: '#00d4ff' }}
                 >
-                  <Printer size={13} />
+                  <Download size={13} />
                   Download PDF
                 </button>
               </div>
