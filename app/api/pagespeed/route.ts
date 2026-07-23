@@ -6,10 +6,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
 // Google's real Lighthouse scan (especially mobile, which throttles CPU/
-// network to simulate a real phone) can take well over 30s. 60 is the max
-// duration Vercel allows even on the Hobby plan, so this gives it the most
-// room possible without needing a plan upgrade.
-export const maxDuration = 60
+// network to simulate a real phone) can take well over 60s on slow or
+// heavy sites. 60s is the ceiling for a standard Vercel function even on
+// Pro — this value requires Fluid Compute enabled in the Vercel dashboard
+// (Project Settings → Functions → Fluid Compute), which raises the ceiling
+// to 300s even on the Hobby plan.
+export const maxDuration = 120
 
 const GOOGLE_PSI_ENDPOINT = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
 
@@ -68,9 +70,9 @@ export async function GET(req: NextRequest) {
 
   try {
     const controller = new AbortController()
-    // Leaves a ~5s buffer under the 60s function limit for our own response
+    // Leaves a buffer under the 120s function limit for our own response
     // handling (JSON parsing, etc.) after Google replies.
-    const timeout = setTimeout(() => controller.abort(), 55_000)
+    const timeout = setTimeout(() => controller.abort(), 110_000)
 
     const res = await fetch(apiUrl.toString(), { signal: controller.signal })
     clearTimeout(timeout)
