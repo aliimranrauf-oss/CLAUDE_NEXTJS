@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" style={{ backgroundColor: '#0b0f1a' }}>
       <head>
         {/* ── Preconnect for GA & FB (reduces connection latency) ───────── */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -91,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body
         className={`${syne.variable} ${dmSans.variable} bg-[#0b0f1a] text-white antialiased`}
+        style={{ backgroundColor: '#0b0f1a' }}
       >
         {children}
 
