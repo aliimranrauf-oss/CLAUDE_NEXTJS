@@ -12,7 +12,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import jsPDF from 'jspdf'
 import {
-  Loader2, AlertTriangle, CheckCircle2, Gauge, Copy, Check, Users, FlaskConical,
+  AlertTriangle, CheckCircle2, Gauge, Copy, Check, Users, FlaskConical,
   ArrowLeft, X, Download,
 } from 'lucide-react'
 import ToolCTA from '@/app/tools/tools/ToolCTA'
@@ -101,6 +101,7 @@ export default function ReportView() {
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<PSIResult | null>(null)
   const [copied, setCopied] = useState(false)
+  const [progress, setProgress] = useState(1)
 
   useEffect(() => {
     if (!url) {
@@ -112,6 +113,18 @@ export default function ReportView() {
     let cancelled = false
     setLoading(true)
     setError(null)
+    setProgress(1)
+
+    // Simulated progress — Google's API doesn't report real progress, so this
+    // climbs quickly at first and eases off, holding just under 100% until
+    // the actual response lands (then jumps straight to 100%).
+    const progressTimer = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 92) return p
+        const step = p < 40 ? 6 + Math.random() * 6 : p < 75 ? 2 + Math.random() * 3 : 0.4 + Math.random() * 0.8
+        return Math.min(92, p + step)
+      })
+    }, 300)
 
     fetch(`/api/pagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}`)
       .then(async (res) => {
@@ -128,11 +141,18 @@ export default function ReportView() {
         if (!cancelled) setError('Something went wrong reaching Google PageSpeed Insights. Please try again.')
       })
       .finally(() => {
-        if (!cancelled) setLoading(false)
+        clearInterval(progressTimer)
+        if (cancelled) return
+        setProgress(100)
+        // Brief pause so the bar visibly reaches 100% before switching to results.
+        setTimeout(() => {
+          if (!cancelled) setLoading(false)
+        }, 350)
       })
 
     return () => {
       cancelled = true
+      clearInterval(progressTimer)
     }
   }, [url, strategy])
 
@@ -411,9 +431,29 @@ export default function ReportView() {
 
           {/* Loading */}
           {loading && (
-            <div className="flex flex-col items-center justify-center gap-3 py-16 text-white/60 text-sm">
-              <Loader2 size={22} className="animate-spin text-[#00d4ff]" />
-              Running Lighthouse + PageSpeed Insights&hellip; this can take up to 30 seconds.
+            <div className="py-12">
+              <div className="text-center mb-4">
+                <span className="text-xs font-bold tracking-[0.2em] text-white/50">CHECKING YOUR SITE</span>
+              </div>
+              <div
+                className="w-full h-3.5 rounded-full overflow-hidden"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
+              >
+                <div
+                  className="h-full rounded-full transition-[width] duration-300 ease-out"
+                  style={{
+                    width: `${progress}%`,
+                    background: 'linear-gradient(90deg, #00d4ff, #00ffaa)',
+                    boxShadow: '0 0 10px rgba(0,255,170,0.5)',
+                  }}
+                />
+              </div>
+              <div className="text-center mt-3 text-lg font-extrabold" style={{ color: '#00ffaa' }}>
+                {Math.round(progress)}%
+              </div>
+              <p className="text-center text-white/40 text-xs mt-3">
+                Running Lighthouse + PageSpeed Insights&hellip; this can take up to 30 seconds.
+              </p>
             </div>
           )}
 
