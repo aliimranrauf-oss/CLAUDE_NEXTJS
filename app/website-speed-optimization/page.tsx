@@ -261,39 +261,34 @@ export default function WebsiteSpeedOptimizationPage() {
       />
 
       <main id="main-content" className="bg-[#0b0f1a] text-white">
-        {/* ── FREE PAGESPEED INSIGHTS TOOL (lead magnet) ──────────────────
-            First thing visible after the navbar. Real Google PageSpeed
-            Insights data via /api/pagespeed, funnels straight into the
-            paid speed-optimization offer below via <ToolCTA />. */}
-        <div className="pt-24">
-          <PageSpeedInsightsTool />
-        </div>
+        {/* ── HERO (includes the free PageSpeed tool as its lead element) ── */}
+        <section className="relative pt-28 pb-20 px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            {/* ── FREE PAGESPEED INSIGHTS TOOL (lead magnet) ────────────────
+                First thing visible inside the hero — same section, same
+                rhythm as the rest of the page, not a bolted-on block.
+                Real Google PageSpeed Insights data via /api/pagespeed,
+                funnels straight into the paid offer below via <ToolCTA />. */}
+            <div className="flex justify-center mb-14 sm:mb-16">
+              <PageSpeedInsightsTool />
+            </div>
 
-        {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="relative pt-8 pb-20 px-4 sm:px-6">
-          {/* ── FLOATING 50% OFF BADGE ─────────────────────────────────────
-              Pure CSS (Tailwind's built-in animate-ping/pulse — GPU-composited,
-              no JS, no client component, no layout shift). Absolutely positioned
-              inside this hero section only, so it never affects scores or CLS. */}
-          <Link
-            href="#discount"
-            aria-label="See 50% off packages"
-            className="absolute top-24 right-4 sm:top-28 sm:right-6 z-20 group"
-          >
-            <span className="relative inline-flex items-center justify-center">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-[#00d4ff]/50 animate-ping" />
-              <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#00d4ff] text-[#0b0f1a] font-bold text-xs sm:text-sm px-4 py-2 shadow-lg shadow-[#00d4ff]/30 group-hover:scale-105 transition-transform">
-                <Zap size={14} />
-                50% OFF
-              </span>
-            </span>
-          </Link>
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Text column */}
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.06] text-sm text-[#00d4ff] font-semibold mb-6">
-                <Gauge size={16} />
-                Website Speed &amp; Core Web Vitals Specialist
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.06] text-sm text-[#00d4ff] font-semibold">
+                  <Gauge size={16} />
+                  Website Speed &amp; Core Web Vitals Specialist
+                </div>
+                <Link
+                  href="#discount"
+                  aria-label="See 50% off packages"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#00d4ff] text-[#0b0f1a] font-bold text-xs sm:text-sm px-4 py-1.5 shadow-lg shadow-[#00d4ff]/30 hover:scale-105 transition-transform"
+                >
+                  <Zap size={14} />
+                  50% OFF
+                </Link>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -370,6 +365,7 @@ export default function WebsiteSpeedOptimizationPage() {
                 sizes="(max-width: 1024px) 90vw, 45vw"
                 className="object-cover"
               />
+            </div>
             </div>
           </div>
         </section>
