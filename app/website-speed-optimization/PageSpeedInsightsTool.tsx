@@ -158,7 +158,8 @@ export default function PageSpeedInsightsTool() {
   const isSlow = perf != null && perf < 70
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className={`w-full mx-auto transition-all ${result ? 'max-w-2xl' : 'max-w-4xl'}`}>
+      <div className={`grid gap-6 items-start ${result ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-[1.3fr_1fr]'}`}>
       <div
         className="rounded-2xl p-5 sm:p-7"
         style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
@@ -351,6 +352,32 @@ export default function PageSpeedInsightsTool() {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+
+      {!result && !loading && (
+        <div
+          className="hidden lg:block rounded-2xl p-6"
+          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
+        >
+          <h3 className="font-bold text-sm mb-4 text-white/90">What You&apos;ll See</h3>
+          <div className="space-y-3.5">
+            {[
+              'Performance, Accessibility, Best Practices & SEO scores',
+              'Core Web Vitals: LCP, CLS, TBT, FCP & Speed Index',
+              'Real visitor field data from Chrome (28-day average)',
+              'Top opportunities to fix, ranked by impact',
+            ].map((t) => (
+              <div key={t} className="flex items-start gap-2.5">
+                <CheckCircle2 size={15} className="text-[#00d4ff] shrink-0 mt-0.5" />
+                <span className="text-white/65 text-xs leading-relaxed">{t}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] text-white/35 mt-5 pt-4 border-t border-white/10">
+            Powered by Google Lighthouse &amp; PageSpeed Insights. No sign-up, no email required.
+          </p>
+        </div>
+      )}
       </div>
     </div>
   )
