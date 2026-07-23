@@ -452,7 +452,7 @@ export default function ReportView() {
                 {Math.round(progress)}%
               </div>
               <p className="text-center text-white/40 text-xs mt-3">
-                Running Lighthouse + PageSpeed Insights&hellip; this can take up to 30 seconds.
+                Running Lighthouse + PageSpeed Insights&hellip; this can take up to a minute or two, especially for mobile.
               </p>
             </div>
           )}
