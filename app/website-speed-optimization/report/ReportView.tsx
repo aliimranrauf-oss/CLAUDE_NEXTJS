@@ -8,12 +8,12 @@
 // before heading back to or closing the tab.
 
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import jsPDF from 'jspdf'
 import {
   AlertTriangle, CheckCircle2, Gauge, Copy, Check, Users, FlaskConical,
-  ArrowLeft, X, Download,
+  ArrowLeft, X, Download, Smartphone, Monitor,
 } from 'lucide-react'
 import ToolCTA from '@/app/tools/tools/ToolCTA'
 import { trackToolUsage } from '@/app/tools/tools/useToolTracking'
@@ -94,8 +94,14 @@ function ScoreRing({ label, score }: { label: string; score: number | null }) {
 
 export default function ReportView() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const url = (searchParams.get('url') || '').trim()
-  const strategy: 'mobile' | 'desktop' = searchParams.get('strategy') === 'desktop' ? 'desktop' : 'mobile'
+
+  // Strategy is now switchable on this page (not just fixed by the query
+  // param that opened the tab), so it lives in state, seeded from the URL.
+  const [strategy, setStrategy] = useState<'mobile' | 'desktop'>(
+    searchParams.get('strategy') === 'desktop' ? 'desktop' : 'mobile'
+  )
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -155,6 +161,16 @@ export default function ReportView() {
       clearInterval(progressTimer)
     }
   }, [url, strategy])
+
+  const switchStrategy = (next: 'mobile' | 'desktop') => {
+    if (next === strategy || loading) return
+    setStrategy(next)
+    // Keep the URL's ?strategy= in sync so refresh/share/back-button all
+    // reflect whichever device is currently showing.
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('strategy', next)
+    router.replace(`?${params.toString()}`, { scroll: false })
+  }
 
   const copyReport = async () => {
     if (!result) return
@@ -421,13 +437,45 @@ export default function ReportView() {
               PageSpeed Insights Report
             </h1>
           </div>
-          <p className="text-[#999] text-sm mb-6 truncate">
+          <p className="text-[#999] text-sm mb-4 truncate">
             {url ? (
-              <>Results for <span className="text-[#ccc]">{url}</span> &middot; {strategy}</>
+              <>Results for <span className="text-[#ccc]">{url}</span></>
             ) : (
               'No URL provided'
             )}
           </p>
+
+          {/* Device switcher — re-runs the check for the other strategy without leaving this page */}
+          {url && (
+            <div
+              className="inline-flex items-center gap-0.5 p-1 rounded-lg mb-6 print:hidden"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+            >
+              {(
+                [
+                  { key: 'mobile' as const, label: 'Mobile', Icon: Smartphone },
+                  { key: 'desktop' as const, label: 'Desktop', Icon: Monitor },
+                ]
+              ).map(({ key, label, Icon }) => {
+                const active = strategy === key
+                return (
+                  <button
+                    key={key}
+                    onClick={() => switchStrategy(key)}
+                    disabled={loading}
+                    className="flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-md transition-colors disabled:cursor-not-allowed"
+                    style={{
+                      background: active ? 'rgba(0,212,255,0.15)' : 'transparent',
+                      color: active ? '#00d4ff' : loading ? '#555' : '#999',
+                    }}
+                  >
+                    <Icon size={13} />
+                    {label}
+                  </button>
+                )
+              })}
+            </div>
+          )}
 
           {/* Loading */}
           {loading && (
