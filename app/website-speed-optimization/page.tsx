@@ -279,19 +279,62 @@ export default function WebsiteSpeedOptimizationPage() {
         {/* ── HERO (includes the free PageSpeed tool as its lead element) ── */}
         <section className="relative pt-28 pb-20 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
-            {/* ── FREE PAGESPEED INSIGHTS TOOL (lead magnet) ────────────────
-                First thing visible inside the hero — same section, same
-                rhythm as the rest of the page, not a bolted-on block.
+            {/* ── ROW 1: TOOL (left) + EXAMPLE RESULT IMAGE (right) ─────────
+                First thing visible inside the hero, in one glance — the free
+                PageSpeed tool paired with visual proof of the outcome.
                 Real Google PageSpeed Insights data via /api/pagespeed,
                 funnels straight into the paid offer below via <ToolCTA />. */}
-            <div className="flex justify-center mb-14 sm:mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 items-start mb-14 sm:mb-16">
               <PageSpeedInsightsTool />
+
+              {/* Hero image column
+                  ── LCP / CLS SAFETY NOTES ────────────────────────────────
+                  - `priority` preloads this image and marks it high fetch priority,
+                    since it's almost certainly the Largest Contentful Paint element.
+                  - Explicit width/height (and the wrapping aspect-ratio div) reserve
+                    the exact space before the image loads, so CLS stays at ~0.
+                  - next/image automatically serves AVIF/WebP to supporting browsers
+                    and generates responsive srcset sizes — no manual compression step
+                    needed beyond starting with a reasonably sized source file
+                    (see instructions for recommended source specs).
+                  - `sizes` tells the browser the real rendered width at each
+                    breakpoint so it never downloads a larger version than needed.
+              */}
+              <div className="rounded-2xl p-4 sm:p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div className="flex items-center gap-2 mb-3 px-1">
+                  <Gauge size={15} className="text-[#00d4ff]" />
+                  <span className="text-xs font-semibold text-white/70">Example Result After Optimization</span>
+                </div>
+                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-white/10">
+                  <Image
+                    src="/speed-hero.webp"
+                    alt="Website speed optimization dashboard showing a performance gauge and improved page load score"
+                    fill
+                    priority
+                    fetchPriority="high"
+                    sizes="(max-width: 1024px) 90vw, 45vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="grid grid-cols-4 gap-2 mt-3">
+                  {[
+                    { label: 'LCP', value: '1.4s' },
+                    { label: 'INP', value: '25ms' },
+                    { label: 'CLS', value: '0.03' },
+                    { label: 'Score', value: '94' },
+                  ].map((m) => (
+                    <div key={m.label} className="rounded-lg py-2 text-center" style={{ background: 'rgba(0,255,170,0.06)', border: '1px solid rgba(0,255,170,0.15)' }}>
+                      <div className="text-sm font-extrabold text-[#00ffaa]">{m.value}</div>
+                      <div className="text-[10px] text-white/50">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Text column */}
-            <div className="text-center lg:text-left">
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6">
+            {/* ── ROW 2: headline, pitch, CTAs — everything else, below the fold ── */}
+            <div className="text-center max-w-3xl mx-auto">
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.06] text-sm text-[#00d4ff] font-semibold">
                   <Gauge size={16} />
                   Website Speed &amp; Core Web Vitals Specialist
@@ -312,14 +355,14 @@ export default function WebsiteSpeedOptimizationPage() {
                 Let&apos;s fix that &mdash; without breaking it.
               </h1>
 
-              <p className="text-lg text-white/70 max-w-xl mx-auto lg:mx-0 mb-5">
+              <p className="text-lg text-white/70 max-w-xl mx-auto mb-5">
                 Tired of slow loading times killing your sales and Google ranking? I fix
                 Core Web Vitals (LCP, CLS, INP, FCP) and get you a 90&ndash;100 Lighthouse
                 score on both mobile and desktop &mdash; with every change tested and
                 committed carefully, not randomly.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 mb-7 text-sm text-white/75">
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-7 text-sm text-white/75">
                 {['90+ Lighthouse Score', 'Core Web Vitals Fixed', 'Better Rankings & Sales'].map((t) => (
                   <span key={t} className="inline-flex items-center gap-1.5">
                     <CheckCircle2 size={15} className="text-[#00ffaa]" />
@@ -328,7 +371,7 @@ export default function WebsiteSpeedOptimizationPage() {
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-7">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-7">
                 <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
                   Get a Free Speed Audit
                   <ArrowRight size={18} />
@@ -343,7 +386,7 @@ export default function WebsiteSpeedOptimizationPage() {
                 </a>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5">
+              <div className="flex flex-wrap items-center justify-center gap-1.5">
                 {[...platforms, ...useCases].map((p) => (
                   <span
                     key={p}
@@ -353,51 +396,6 @@ export default function WebsiteSpeedOptimizationPage() {
                   </span>
                 ))}
               </div>
-            </div>
-
-            {/* Hero image column
-                ── LCP / CLS SAFETY NOTES ────────────────────────────────────
-                - `priority` preloads this image and marks it high fetch priority,
-                  since it's almost certainly the Largest Contentful Paint element.
-                - Explicit width/height (and the wrapping aspect-ratio div) reserve
-                  the exact space before the image loads, so CLS stays at ~0.
-                - next/image automatically serves AVIF/WebP to supporting browsers
-                  and generates responsive srcset sizes — no manual compression step
-                  needed beyond starting with a reasonably sized source file
-                  (see instructions for recommended source specs).
-                - `sizes` tells the browser the real rendered width at each
-                  breakpoint so it never downloads a larger version than needed.
-            */}
-            <div className="rounded-2xl p-4 sm:p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div className="flex items-center gap-2 mb-3 px-1">
-                <Gauge size={15} className="text-[#00d4ff]" />
-                <span className="text-xs font-semibold text-white/70">Example Result After Optimization</span>
-              </div>
-              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-white/10">
-                <Image
-                  src="/speed-hero.webp"
-                  alt="Website speed optimization dashboard showing a performance gauge and improved page load score"
-                  fill
-                  priority
-                  fetchPriority="high"
-                  sizes="(max-width: 1024px) 90vw, 45vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-4 gap-2 mt-3">
-                {[
-                  { label: 'LCP', value: '1.4s' },
-                  { label: 'INP', value: '25ms' },
-                  { label: 'CLS', value: '0.03' },
-                  { label: 'Score', value: '94' },
-                ].map((m) => (
-                  <div key={m.label} className="rounded-lg py-2 text-center" style={{ background: 'rgba(0,255,170,0.06)', border: '1px solid rgba(0,255,170,0.15)' }}>
-                    <div className="text-sm font-extrabold text-[#00ffaa]">{m.value}</div>
-                    <div className="text-[10px] text-white/50">{m.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
             </div>
           </div>
         </section>
