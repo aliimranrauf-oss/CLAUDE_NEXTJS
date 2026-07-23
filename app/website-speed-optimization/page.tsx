@@ -1,673 +1,126 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import Image from 'next/image'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import PixelViewContent from '@/components/PixelViewContent'
-import PageSpeedInsightsTool from './PageSpeedInsightsTool'
-import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight, Image as ImageIcon, Layers, Server, Cpu, FileSearch, Sparkles } from 'lucide-react'
+'use client'
 
-// ─────────────────────────────────────────────────────────────────────────
-// SEO METADATA
-// Platform-agnostic: targets speed/performance/GTmetrix/Lighthouse searches
-// ─────────────────────────────────────────────────────────────────────────
-export const metadata: Metadata = {
-  metadataBase: new URL('https://www.makemystore.online'),
-  title: 'Website Speed Optimization Service | Improve GTmetrix, PageSpeed & Lighthouse Score',
-  description:
-    'Get your website loading fast. Professional speed optimization for Wix, WordPress, Shopify, Next.js, and custom sites — fix a low GTmetrix grade, boost your Google PageSpeed Insights score, and pass Core Web Vitals, without breaking anything.',
-  keywords: [
-    'website speed optimization',
-    'improve gtmetrix score',
-    'improve lighthouse score',
-    'improve pagespeed insights score',
-    'fix low gtmetrix grade',
-    'core web vitals optimization service',
-    'website performance audit',
-    'reduce website load time',
-    'speed up my website',
-    'website too slow fix',
-    'wordpress speed optimization service',
-    'shopify site speed optimization',
-    'next.js performance optimization',
-    'wix website speed optimization',
-  ],
-  category: 'Web Development Services',
-  authors: [{ name: 'MakeMyStore.online' }],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
-  },
-  openGraph: {
-    title: 'Website Speed Optimization Service | Improve GTmetrix, PageSpeed & Lighthouse Score',
-    description:
-      'Fix a slow website the right way, on any platform. Media compression, script cleanup, and Core Web Vitals improvements — done carefully, without breaking your site.',
-    url: 'https://www.makemystore.online/website-speed-optimization',
-    siteName: 'MakeMyStore.online',
-    type: 'website',
-    images: [
-      {
-        url: 'https://www.makemystore.online/speed-hero.webp',
-        width: 1200,
-        height: 900,
-        alt: 'Website speed optimization — performance gauge showing improved page speed score',
-      },
-    ],
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Website Speed Optimization Service | Improve GTmetrix & PageSpeed Score',
-    description: 'Fix a slow website the right way, on any platform — without breaking anything.',
-    images: ['https://www.makemystore.online/speed-hero.webp'],
-  },
-  alternates: {
-    canonical: 'https://www.makemystore.online/website-speed-optimization',
-  },
-}
+// app/website-speed-optimization/PageSpeedInsightsTool.tsx
+// Real Google PageSpeed Insights lead-magnet tool. Lives in the hero section
+// of the Speed Optimization page — visitor pastes a URL, clicks Check My
+// Speed, and the full REAL Lighthouse + CrUX field-data report opens in a
+// new tab (app/website-speed-optimization/report), where they can copy it
+// or save it as a PDF. This card itself just captures the URL/strategy and
+// opens that tab — it doesn't run the check or hold results itself.
 
-// ─────────────────────────────────────────────────────────────────────────
-// JSON-LD structured data
-// ─────────────────────────────────────────────────────────────────────────
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Website Speed Optimization',
-  serviceType: 'Website Performance Optimization',
-  provider: {
-    '@type': 'Organization',
-    name: 'MakeMyStore.online',
-    url: 'https://www.makemystore.online',
-  },
-  areaServed: 'Worldwide',
-  description:
-    'Professional website speed optimization for any platform. Media compression, script and asset cleanup, and Core Web Vitals improvement to raise PageSpeed and GTmetrix scores.',
-  offers: [
-    {
-      '@type': 'Offer',
-      name: 'Basic',
-      price: '60',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
-    {
-      '@type': 'Offer',
-      name: 'Standard',
-      price: '110',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
-    {
-      '@type': 'Offer',
-      name: 'Premium',
-      price: '200',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
-  ],
-}
+import { useState } from 'react'
+import { Search, Gauge, Smartphone, Monitor, CheckCircle2, AlertTriangle } from 'lucide-react'
 
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What kind of websites and apps do you work with?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Any website on any platform \u2014 WordPress, WooCommerce, Shopify, Wix, Squarespace, Webflow, as well as custom-built React, Next.js, and Vite applications. Landing pages, SaaS dashboards, blogs, and ecommerce stores are all covered.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Will optimizing my site break anything?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'No. Every change is tested individually and published one at a time, with a rollback plan confirmed before any edit is made. Nothing is changed at random \u2014 each fix is verified to not affect layout, forms, or existing functionality before moving to the next task.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What score improvement can I expect?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Results depend on the current state of the site and the platform it\u2019s built on, but a 90+ Google PageSpeed Insights score on both desktop and mobile is a realistic, common outcome for most sites once the real bottlenecks are addressed. Every platform has its own constraints, and those are explained clearly up front, not after the work is done.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What usually makes a website slow?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Most commonly: oversized or uncompressed images and videos, unnecessary third-party scripts and apps, unoptimized fonts, and render-blocking resources. A proper audit with GTmetrix and PageSpeed Insights identifies the exact cause on your specific site rather than guessing.',
-      },
-    },
-  ],
-}
+export default function PageSpeedInsightsTool() {
+  const [url, setUrl] = useState('')
+  const [strategy, setStrategy] = useState<'mobile' | 'desktop'>('mobile')
+  const [inputError, setInputError] = useState<string | null>(null)
 
-// ─────────────────────────────────────────────────────────────────────────
-// Static content
-// ─────────────────────────────────────────────────────────────────────────
-const youGet = [
-  'Full performance audit report',
-  'Clean, optimized code committed directly to your repo',
-  'Before & after screenshots with real Lighthouse scores',
-  '100% Google-friendly \u2014 Core Web Vitals passed',
-]
+  const run = () => {
+    const trimmed = url.trim()
+    if (!trimmed) {
+      setInputError('Enter a URL first — e.g. yourstore.com')
+      return
+    }
+    setInputError(null)
 
-const platforms = [
-  'WordPress',
-  'Shopify',
-  'Wix',
-  'Squarespace',
-  'Webflow',
-  'React / Next.js / Vite',
-  'Any Custom-Built Site',
-]
+    // window.open must fire synchronously inside the click handler (no
+    // await before it) so browsers treat it as a direct user action and
+    // don't block it as a popup.
+    const reportUrl = `/website-speed-optimization/report?url=${encodeURIComponent(trimmed)}&strategy=${strategy}`
+    window.open(reportUrl, '_blank', 'noopener,noreferrer')
+  }
 
-const useCases = [
-  'WordPress & WooCommerce sites',
-  'Shopify & Wix stores',
-  'Custom landing pages',
-  'SaaS dashboards',
-  'Any website on any platform',
-]
-
-const featureHighlights = [
-  { icon: ImageIcon, title: 'Image Optimization', desc: 'All images converted to WebP with proper width/height so nothing shifts on load.' },
-  { icon: Layers, title: 'Lazy Loading & Code Splitting', desc: 'Only what\u2019s visible loads first \u2014 the rest loads as the visitor scrolls.' },
-  { icon: Zap, title: 'Render-Blocking Fixes', desc: 'Unused JS/CSS removed so the page can paint without waiting on it.' },
-  { icon: Server, title: 'Smart Caching Headers', desc: 'Proper cache rules configured, especially for Vercel/Netlify hosting.' },
-  { icon: Cpu, title: 'Less JavaScript Work', desc: 'Reduced execution time and main-thread work for a snappier feel.' },
-  { icon: FileSearch, title: 'Preload & Font Optimization', desc: 'Critical assets and fonts preloaded so text and content appear faster.' },
-]
-
-const toolsUsed = [
-  { name: 'Google Lighthouse', desc: 'The audit engine behind every score' },
-  { name: 'PageSpeed Insights', desc: 'Real lab + real-user field data' },
-  { name: 'GTmetrix', desc: 'Cross-checks results on a second engine' },
-]
-
-// Illustrative example only \u2014 not a specific client's real data.
-// Consistent with the FAQ claim that 90+ is a realistic common outcome,
-// and with the "custom built" numbers already used in the free tools page.
-const impactExample = { before: 52, after: 94 }
-
-const process = [
-  {
-    title: 'Audit',
-    desc: 'I run Lighthouse and PageSpeed Insights on your site and identify exactly what is slowing it down \u2014 no guessing, no generic checklist.',
-  },
-  {
-    title: 'Fix \u2014 one change at a time',
-    desc: 'Each fix (images, lazy loading, render-blocking resources, JS execution time, caching, fonts) is made individually and committed before moving to the next \u2014 so nothing breaks along the way.',
-  },
-  {
-    title: 'Test',
-    desc: 'Every single change is verified against the live site before the next one starts, confirming layout, forms, and functionality all still work exactly as before.',
-  },
-  {
-    title: 'Deliver',
-    desc: 'You receive a full before/after report with real Lighthouse and PageSpeed scores, so you know exactly what changed and why.',
-  },
-]
-
-const pricingPlans = [
-  {
-    name: 'Basic',
-    price: '$60',
-    tagline: 'Full optimization + report',
-    delivery: '2-day delivery',
-    features: [
-      'Speed optimization',
-      'Browser caching',
-      'Image resizing & compression',
-      'Minification (CSS/JS/HTML)',
-      'Database optimization',
-    ],
-    highlighted: false,
-  },
-  {
-    name: 'Standard',
-    price: '$110',
-    tagline: 'Everything + lazy loading & caching setup',
-    delivery: '2-day delivery',
-    features: [
-      'Everything in Basic',
-      'Lazy loading setup',
-      'Advanced caching configuration',
-      'Priority support during delivery',
-    ],
-    highlighted: true,
-  },
-  {
-    name: 'Premium',
-    price: '$200',
-    tagline: 'Ongoing monthly maintenance + monthly reports',
-    delivery: '2-day delivery, then ongoing monthly',
-    features: [
-      'Everything in Standard',
-      'Ongoing monthly maintenance',
-      'Monthly performance reports',
-      'Priority support',
-    ],
-    highlighted: false,
-  },
-]
-
-const FIVERR_GIG_URL = 'https://www.fiverr.com/s/ljqAq5g'
-const CONTACT_URL = '/contact?service=speed-audit'
-
-export default function WebsiteSpeedOptimizationPage() {
   return (
-    <>
-      <Navbar />
-      <PixelViewContent name="Speed Audit Landing Page" />
+    <div className="w-full mx-auto max-w-xl lg:max-w-none">
+      <div
+        className="rounded-2xl p-5 sm:p-7"
+        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+      >
+        <div className="flex items-center gap-2 mb-2">
+          <Gauge size={18} color="#00d4ff" />
+          <h2 className="text-lg sm:text-xl font-extrabold" style={{ fontFamily: 'Syne, sans-serif' }}>
+            Free Google PageSpeed Insights Check
+          </h2>
+        </div>
+        <p className="text-[#999] text-sm mb-5">
+          Paste your URL for a real, live report — the exact same Lighthouse + Chrome UX data Google itself uses to judge your site. Opens in a new tab, no sign-up required.
+        </p>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-
-      <main id="main-content" className="bg-[#0b0f1a] text-white">
-        {/* ── HERO (includes the free PageSpeed tool as its lead element) ── */}
-        <section className="relative pt-28 pb-20 px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto">
-            {/* ── ROW 1: TOOL (left) + EXAMPLE RESULT IMAGE (right) ─────────
-                First thing visible inside the hero, in one glance — the free
-                PageSpeed tool paired with visual proof of the outcome.
-                Real Google PageSpeed Insights data via /api/pagespeed,
-                funnels straight into the paid offer below via <ToolCTA />. */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 items-start mb-14 sm:mb-16">
-              <PageSpeedInsightsTool />
-
-              {/* Hero image column
-                  ── LCP / CLS SAFETY NOTES ────────────────────────────────
-                  - `priority` preloads this image and marks it high fetch priority,
-                    since it's almost certainly the Largest Contentful Paint element.
-                  - Explicit width/height (and the wrapping aspect-ratio div) reserve
-                    the exact space before the image loads, so CLS stays at ~0.
-                  - next/image automatically serves AVIF/WebP to supporting browsers
-                    and generates responsive srcset sizes — no manual compression step
-                    needed beyond starting with a reasonably sized source file
-                    (see instructions for recommended source specs).
-                  - `sizes` tells the browser the real rendered width at each
-                    breakpoint so it never downloads a larger version than needed.
-              */}
-              <div className="rounded-2xl p-4 sm:p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <div className="flex items-center gap-2 mb-3 px-1">
-                  <Gauge size={15} className="text-[#00d4ff]" />
-                  <span className="text-xs font-semibold text-white/70">Example Result After Optimization</span>
-                </div>
-                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-white/10">
-                  <Image
-                    src="/speed-hero.webp"
-                    alt="Website speed optimization dashboard showing a performance gauge and improved page load score"
-                    fill
-                    priority
-                    fetchPriority="high"
-                    sizes="(max-width: 1024px) 90vw, 45vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="grid grid-cols-4 gap-2 mt-3">
-                  {[
-                    { label: 'LCP', value: '1.4s' },
-                    { label: 'INP', value: '25ms' },
-                    { label: 'CLS', value: '0.03' },
-                    { label: 'Score', value: '94' },
-                  ].map((m) => (
-                    <div key={m.label} className="rounded-lg py-2 text-center" style={{ background: 'rgba(0,255,170,0.06)', border: '1px solid rgba(0,255,170,0.15)' }}>
-                      <div className="text-sm font-extrabold text-[#00ffaa]">{m.value}</div>
-                      <div className="text-[10px] text-white/50">{m.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* ── ROW 2: headline, pitch, CTAs — everything else, below the fold ── */}
-            <div className="text-center max-w-3xl mx-auto">
-              <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d4ff]/30 bg-[#00d4ff]/[0.06] text-sm text-[#00d4ff] font-semibold">
-                  <Gauge size={16} />
-                  Website Speed &amp; Core Web Vitals Specialist
-                </div>
-                <Link
-                  href="#discount"
-                  aria-label="See 50% off packages"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#00d4ff] text-[#0b0f1a] font-bold text-xs sm:text-sm px-4 py-1.5 shadow-lg shadow-[#00d4ff]/30 hover:scale-105 transition-transform"
-                >
-                  <Zap size={14} />
-                  50% OFF
-                </Link>
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Is your <span className="text-gradient">website slow</span>?
-                <br />
-                Let&apos;s fix that &mdash; without breaking it.
-              </h1>
-
-              <p className="text-lg text-white/70 max-w-xl mx-auto mb-5">
-                Tired of slow loading times killing your sales and Google ranking? I fix
-                Core Web Vitals (LCP, CLS, INP, FCP) and get you a 90&ndash;100 Lighthouse
-                score on both mobile and desktop &mdash; with every change tested and
-                committed carefully, not randomly.
-              </p>
-
-              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-7 text-sm text-white/75">
-                {['90+ Lighthouse Score', 'Core Web Vitals Fixed', 'Better Rankings & Sales'].map((t) => (
-                  <span key={t} className="inline-flex items-center gap-1.5">
-                    <CheckCircle2 size={15} className="text-[#00ffaa]" />
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-7">
-                <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
-                  Get a Free Speed Audit
-                  <ArrowRight size={18} />
-                </Link>
-                <a
-                  href={FIVERR_GIG_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold px-8 py-3 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all"
-                >
-                  Order on Fiverr
-                </a>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-1.5">
-                {[...platforms, ...useCases].map((p) => (
-                  <span
-                    key={p}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-full border border-white/10 text-white/45"
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </div>
+        {/* Search bar */}
+        <div className="flex flex-col sm:flex-row gap-2 mb-3">
+          <div className="relative flex-1">
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#666]" />
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => {
+                setUrl(e.target.value)
+                if (inputError) setInputError(null)
+              }}
+              onKeyDown={(e) => e.key === 'Enter' && run()}
+              placeholder="yourstore.com"
+              className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder:text-[#555] focus:outline-none"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+            />
           </div>
-        </section>
+          <button
+            onClick={run}
+            className="btn-primary flex items-center justify-center gap-2 px-6 py-3 shrink-0"
+          >
+            <Gauge size={15} />
+            Check My Speed
+          </button>
+        </div>
 
-        {/* ── WHAT YOU GET ─────────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
-              What You Get
-            </h2>
-            <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
-              A clear, verifiable outcome &mdash; not just a promise.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {youGet.map((item) => (
-                <div
-                  key={item}
-                  className="glass rounded-xl p-5 border border-white/10 flex items-start gap-3"
-                >
-                  <CheckCircle2 size={20} className="text-[#00d4ff] shrink-0 mt-0.5" />
-                  <span className="text-white/80 text-sm">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHAT'S INCLUDED ──────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
-              What&apos;s Included
-            </h2>
-            <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
-              Every fix that actually moves the needle on your score.
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
-              {featureHighlights.map((f) => {
-                const Icon = f.icon
-                return (
-                  <div key={f.title} className="glass rounded-2xl p-5 border border-white/10 text-center sm:text-left">
-                    <div className="w-11 h-11 mx-auto sm:mx-0 rounded-xl flex items-center justify-center mb-3.5" style={{ background: 'rgba(0,212,255,0.12)' }}>
-                      <Icon size={20} className="text-[#00d4ff]" />
-                    </div>
-                    <h3 className="font-semibold text-sm mb-1.5">{f.title}</h3>
-                    <p className="text-white/55 text-xs leading-relaxed">{f.desc}</p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* ── PRICING ──────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-16 px-4 sm:px-6 border-t border-white/5 scroll-mt-20">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
-              Packages &amp; Pricing
-            </h2>
-            <p className="text-white/60 text-center max-w-xl mx-auto mb-12">
-              Choose the package that fits your site &mdash; on any platform.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {pricingPlans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`relative rounded-2xl p-6 flex flex-col border ${
-                    plan.highlighted
-                      ? 'border-[#00d4ff]/40 bg-[#00d4ff]/[0.06]'
-                      : 'glass border-white/10'
-                  }`}
-                >
-                  {plan.highlighted && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3 py-1 rounded-full bg-[#00d4ff] text-[#0b0f1a]">
-                      Most Popular
-                    </span>
-                  )}
-
-                  <h3 className="text-lg font-bold mb-1">{plan.name}</h3>
-                  <div className="text-3xl font-bold mb-2">{plan.price}</div>
-                  <p className="text-white/60 text-sm mb-1">{plan.tagline}</p>
-                  <p className="text-white/55 text-xs mb-6">{plan.delivery}</p>
-
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-white/80">
-                        <CheckCircle2 size={16} className="text-[#00d4ff] shrink-0 mt-0.5" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href={CONTACT_URL}
-                    className={
-                      plan.highlighted
-                        ? 'btn-primary text-sm px-6 py-2.5 text-center inline-block'
-                        : 'text-sm font-semibold px-6 py-2.5 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/[0.06] transition-all text-center'
-                    }
-                  >
-                    Order Now
-                  </Link>
-                </div>
-              ))}
-            </div>
-
-            {/* Discount banner */}
-            <div id="discount" className="mt-10 max-w-xl mx-auto text-center glass rounded-2xl p-8 border border-[#00d4ff]/30 scroll-mt-20">
-              <p className="text-xl sm:text-2xl font-bold text-white mb-2">
-                🎉 Get <span className="text-[#00d4ff]">50% OFF</span> Any Package
-              </p>
-              <p className="text-sm sm:text-base text-white/70 mb-6">
-                Available exclusively when you order through Fiverr &mdash; a safe, secure
-                payment method with full buyer protection.
-              </p>
-              <a
-                href={FIVERR_GIG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2"
-              >
-                Order on Fiverr
-                <ArrowRight size={18} />
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ── PROCESS ──────────────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">
-              Our Proven Process
-            </h2>
-            <p className="text-white/60 text-center max-w-xl mx-auto mb-14">
-              A simple 4-step process, the same way every time.
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-4 relative">
-              <div className="hidden sm:block absolute top-6 left-[12.5%] right-[12.5%] h-px border-t border-dashed border-[#00d4ff]/25" />
-              {process.map((step, i) => (
-                <div key={step.title} className="text-center relative">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-full border border-[#00d4ff]/30 bg-[#0b0f1a] flex items-center justify-center font-bold text-[#00d4ff] relative z-10">
-                    {i + 1}
-                  </div>
-                  <h3 className="font-semibold text-base mb-2">{step.title}</h3>
-                  <p className="text-white/55 text-xs sm:text-sm leading-relaxed">{step.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── TOOLS WE USE / SEE THE IMPACT ────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="glass rounded-2xl p-6 sm:p-7 border border-white/10">
-              <h3 className="font-bold text-lg mb-1">Tools I Use</h3>
-              <p className="text-white/55 text-xs mb-6">Industry-standard tools for accurate, verifiable results.</p>
-              <div className="space-y-4">
-                {toolsUsed.map((t) => (
-                  <div key={t.name} className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(0,212,255,0.1)' }}>
-                      <Sparkles size={16} className="text-[#00d4ff]" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-white/90">{t.name}</div>
-                      <div className="text-xs text-white/50">{t.desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass rounded-2xl p-6 sm:p-7 border border-white/10">
-              <h3 className="font-bold text-lg mb-1">See the Impact</h3>
-              <p className="text-white/55 text-xs mb-6">A typical example of what proper optimization changes.</p>
-              <div className="flex items-center justify-center gap-4 sm:gap-6">
-                <div className="text-center">
-                  <div className="text-[11px] text-white/50 mb-1.5">Before</div>
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#ff6b6b]/40 flex items-center justify-center text-xl sm:text-2xl font-extrabold text-[#ff6b6b]">
-                    {impactExample.before}
-                  </div>
-                </div>
-                <ArrowRight size={22} className="text-white/30 shrink-0" />
-                <div className="text-center">
-                  <div className="text-[11px] text-white/50 mb-1.5">After</div>
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#00ffaa]/50 flex items-center justify-center text-xl sm:text-2xl font-extrabold text-[#00ffaa]">
-                    {impactExample.after}
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-2 mt-6 text-xs text-white/70">
-                {['Faster Load Time', 'Better User Experience', 'Higher Search Rankings', 'More Conversions & Sales'].map((s) => (
-                  <span key={s} className="flex items-center gap-1.5">
-                    <CheckCircle2 size={13} className="text-[#00ffaa] shrink-0" />
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY IT'S SAFE ────────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-3xl mx-auto glass rounded-2xl p-8 border border-white/10 text-center">
-            <ShieldCheck size={32} className="text-[#00d4ff] mx-auto mb-4" />
-            <h2 className="text-xl sm:text-2xl font-bold mb-3">
-              Careful, Not Random
-            </h2>
-            <p className="text-white/70 text-sm sm:text-base">
-              Speed optimization on a live website is sensitive work, regardless of
-              platform. A rollback plan is confirmed before any edit, changes are made
-              one at a time, and each fix is tested before moving to the next &mdash; so
-              your site stays fully functional throughout the process.
-            </p>
-          </div>
-        </section>
-
-        {/* ── FAQ ──────────────────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 border-t border-white/5">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-6">
-              {faqJsonLd.mainEntity.map((q) => (
-                <div key={q.name} className="border-b border-white/10 pb-6">
-                  <h3 className="font-semibold text-white mb-2 flex items-start gap-2">
-                    <Zap size={18} className="text-[#00d4ff] shrink-0 mt-0.5" />
-                    {q.name}
-                  </h3>
-                  <p className="text-white/65 text-sm pl-6">{q.acceptedAnswer.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── FINAL CTA ────────────────────────────────────────────────── */}
-        <section
-          className="py-12 px-4 sm:px-6"
-          style={{ background: 'linear-gradient(90deg, #00d4ff, #7a5cff)' }}
-        >
-          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                <Zap size={22} className="text-white" />
-              </div>
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                  Ready for a faster website?
-                </h2>
-                <p className="text-white/85 text-sm">
-                  Get a free initial speed check &mdash; no obligation, any platform.
-                </p>
-              </div>
-            </div>
-            <Link
-              href={CONTACT_URL}
-              className="shrink-0 bg-white text-[#0b0f1a] font-bold text-sm px-7 py-3 rounded-xl inline-flex items-center gap-2 hover:scale-105 transition-transform"
+        {/* Strategy toggle */}
+        <div className="flex gap-2 mb-1">
+          {(['mobile', 'desktop'] as const).map((s) => (
+            <button
+              key={s}
+              onClick={() => setStrategy(s)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+              style={{
+                border: '1px solid',
+                borderColor: strategy === s ? '#00d4ff' : 'rgba(255,255,255,0.1)',
+                background: strategy === s ? 'rgba(0,212,255,0.1)' : 'rgba(255,255,255,0.04)',
+                color: strategy === s ? '#00d4ff' : '#888',
+              }}
             >
-              Get Started Now
-              <ArrowRight size={17} />
-            </Link>
-          </div>
-        </section>
-      </main>
+              {s === 'mobile' ? <Smartphone size={12} /> : <Monitor size={12} />}
+              {s === 'mobile' ? 'Mobile' : 'Desktop'}
+            </button>
+          ))}
+        </div>
 
-      <Footer />
-    </>
+        {/* Input error */}
+        {inputError && (
+          <div className="mt-4 flex items-start gap-2 rounded-xl p-3.5 text-sm" style={{ background: 'rgba(255,107,107,0.08)', border: '1px solid rgba(255,107,107,0.25)', color: '#ff9b9b' }}>
+            <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+            {inputError}
+          </div>
+        )}
+
+        {/* What you'll see — compact inline strip */}
+        <div className="mt-5 pt-4 border-t border-white/10">
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {[
+              'Performance, Accessibility, Best Practices & SEO scores',
+              'Core Web Vitals: LCP, CLS, TBT, FCP & Speed Index',
+              'Real visitor field data from Chrome (28-day average)',
+              'Top opportunities to fix, ranked by impact',
+            ].map((t) => (
+              <div key={t} className="flex items-start gap-1.5">
+                <CheckCircle2 size={13} className="text-[#00d4ff] shrink-0 mt-0.5" />
+                <span className="text-white/60 text-[11px] leading-relaxed">{t}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] text-white/35 mt-3">
+            Powered by Google Lighthouse &amp; PageSpeed Insights. Opens in a new tab &mdash; no sign-up, no email required.
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }
