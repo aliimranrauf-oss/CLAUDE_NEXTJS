@@ -35,9 +35,8 @@
 */
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@supabase/supabase-js'
 
-interface Review {
+export interface Review {
   id: number
   name: string
   rating: number
@@ -48,10 +47,20 @@ interface Review {
   Country: string
 }
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+/*
+  ── PERF FIX (unused JavaScript — 196 KiB opportunity) ───────────────────────
+  This component used to import the full @supabase/supabase-js client at the
+  top of the file and call it on every mount. Because that import was static,
+  Next.js bundled the entire Supabase client into this page's JS — even
+  though the homepage now fetches reviews on the SERVER (see app/page.tsx)
+  and passes them down as `initialReviews`, meaning the client-side Supabase
+  call almost never actually runs.
+
+  Fix: `createClient` is now imported dynamically, INSIDE the fallback branch
+  of the effect below, so it's only downloaded/parsed if `initialReviews` is
+  missing or empty. On a normal page load (server data present), the browser
+  never fetches @supabase/supabase-js for this component at all.
+*/
 
 const PLACEHOLDER_REVIEWS: Review[] = [
   { id: 1, name: 'Sarah M.', rating: 5, message: 'Absolutely love my new store! Launched in under a week and sales are already coming in. No more Shopify fees eating into my profits.', date: new Date().toISOString(), avatar_url: null, order_number: 'MMS-1042', Country: 'United States' },
@@ -359,16 +368,29 @@ function ReviewsModal({ reviews, onClose }: { reviews: Review[]; onClose: () => 
   )
 }
 
-export default function ReviewsSection() {
-  const [reviews, setReviews] = useState<Review[]>([])
-  const [loading, setLoading] = useState(true)
+export default function ReviewsSection({ initialReviews }: { initialReviews?: Review[] } = {}) {
+  const [reviews, setReviews] = useState<Review[]>(initialReviews ?? [])
+  const [loading, setLoading] = useState(!(initialReviews && initialReviews.length > 0))
   const [paused, setPaused] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
+    // ── Server already provided reviews (normal case) ──────────────────────
+    // Skip the client fetch entirely — no network round-trip, and critically,
+    // @supabase/supabase-js is never imported/downloaded by the browser.
+    if (initialReviews && initialReviews.length > 0) return
+
     let cancelled = false
     ;(async () => {
       try {
+        // Dynamic import: only pulled into the browser bundle on this
+        // fallback path (server fetch failed/timed out/returned nothing).
+        const { createClient } = await import('@supabase/supabase-js')
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        )
+
         const { data, error } = await supabase
           .from('reviews')
           .select('*')
@@ -396,7 +418,7 @@ export default function ReviewsSection() {
       }
     })()
     return () => { cancelled = true }
-  }, [])
+  }, [initialReviews])
 
   const mid = Math.ceil(reviews.length / 2)
   const rowA = reviews.slice(0, mid)
