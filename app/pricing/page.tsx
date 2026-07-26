@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, useRef, memo } from 'react'
+import { useEffect, useState, useCallback, useRef, useMemo, memo } from 'react'
 import Link from 'next/link'
 import { Check, Sparkles, ExternalLink, Zap, Shield, Clock, Info, ShoppingCart, Gauge, Rocket, ArrowRight } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
@@ -25,44 +25,221 @@ interface PaymentLink {
 interface MergedPlan extends PricingPlan {
   payoneerLink: string | null
   features: string[]
+  /** Final displayed price after the Website Type adjustment. Null = "Contact for Quote" (Custom Website). */
+  displayPrice: number | null
+  /** The raw, unmodified base price for this package (Launch/Growth/Scale), before any Website Type adjustment. */
+  basePrice: number
 }
 
-// ─── Feature lists ────────────────────────────────────────────────────────────
-const PLAN_FEATURES: Record<string, string[]> = {
-  Launch: [
-    '1 product store',
-    'Cart + checkout',
-    'Stripe or PayPal integration',
-    'Mobile-optimized design',
-    'Basic SEO setup',
-    'Deployed to your hosting (or free-tier Vercel + Supabase)',
-    'Google Analytics setup',
-    'Full Source Code Ownership',
-  ],
-  Growth: [
-    'Unlimited products & categories',
-    'Admin dashboard',
-    'Product reviews & ratings',
-    'Advanced SEO + sitemap',
-    'Google Search Console setup',
-    'Cloudflare protection',
-    'Email notifications',
-    'Analytics + tracking',
-    'Full Source Code Ownership',
-  ],
-  Scale: [
-    'Everything in Growth',
-    'Custom integrations & APIs',
-    'Advanced analytics dashboard',
-    'Performance optimization',
-    'Custom UI/UX system',
-    'Priority support (30 days)',
-    'Scalable architecture',
-    'Full Source Code Ownership',
-  ],
+// ─── Website Type selector ─────────────────────────────────────────────────────
+// Same 3 packages (Launch/Growth/Scale) & same base prices — only the price
+// adjustment and feature set change based on the type of website selected.
+type WebsiteType = 'ecommerce' | 'portfolio' | 'business' | 'saas' | 'blog' | 'custom'
+
+const WEBSITE_TYPES: { id: WebsiteType; label: string; adjustment: number | null }[] = [
+  { id: 'portfolio', label: 'Portfolio / Personal',      adjustment: 0 },
+  { id: 'business',  label: 'Business / Corporate',      adjustment: 0 },
+  { id: 'blog',      label: 'Blog / Content Website',    adjustment: 0 },
+  { id: 'ecommerce', label: 'Ecommerce Store',           adjustment: 200 },
+  { id: 'saas',      label: 'SaaS / Startup Landing',    adjustment: 300 },
+  { id: 'custom',    label: 'Custom Website',            adjustment: null },
+]
+const getWebsiteType = (id: WebsiteType) => WEBSITE_TYPES.find(t => t.id === id)!
+
+// ─── Feature lists — vary by Website Type, same tier structure for all ────────
+// Common features present in every package, every website type (per spec).
+const COMMON_FEATURES = [
+  'Mobile-optimized design',
+  'SEO setup',
+  'Google Analytics',
+  'Deployment to client hosting (or free-tier Vercel + Supabase)',
+  'Full Source Code Ownership',
+  'No monthly fee from us',
+]
+
+const FEATURES_BY_TYPE: Record<WebsiteType, Record<string, string[]>> = {
+  // Unchanged from the original Ecommerce feature set — do not alter.
+  ecommerce: {
+    Launch: [
+      '1 product store',
+      'Cart + checkout',
+      'Stripe or PayPal integration',
+      'Mobile-optimized design',
+      'Basic SEO setup',
+      'Deployed to your hosting (or free-tier Vercel + Supabase)',
+      'Google Analytics setup',
+      'Full Source Code Ownership',
+    ],
+    Growth: [
+      'Unlimited products & categories',
+      'Admin dashboard',
+      'Product reviews & ratings',
+      'Advanced SEO + sitemap',
+      'Google Search Console setup',
+      'Cloudflare protection',
+      'Email notifications',
+      'Analytics + tracking',
+      'Full Source Code Ownership',
+    ],
+    Scale: [
+      'Everything in Growth',
+      'Custom integrations & APIs',
+      'Advanced analytics dashboard',
+      'Performance optimization',
+      'Custom UI/UX system',
+      'Priority support (30 days)',
+      'Scalable architecture',
+      'Full Source Code Ownership',
+    ],
+  },
+  portfolio: {
+    Launch: [
+      'Up to 5 pages',
+      'About + project gallery',
+      'Contact form',
+      'Mobile-optimized design',
+      'Basic SEO setup',
+      'Deployed to your hosting (or free-tier Vercel + Supabase)',
+      'Google Analytics setup',
+      'Full Source Code Ownership',
+    ],
+    Growth: [
+      'Unlimited pages & projects',
+      'Blog / case-study section',
+      'Testimonials section',
+      'Advanced SEO + sitemap',
+      'Google Search Console setup',
+      'Cloudflare protection',
+      'Contact form + email notifications',
+      'Analytics + tracking',
+      'Full Source Code Ownership',
+    ],
+    Scale: [
+      'Everything in Growth',
+      'Custom animations & interactions',
+      'Advanced portfolio filtering',
+      'Performance optimization',
+      'Custom UI/UX system',
+      'Priority support (30 days)',
+      'Scalable architecture',
+      'Full Source Code Ownership',
+    ],
+  },
+  business: {
+    Launch: [
+      'Up to 5 pages (Home, About, Services, Contact)',
+      'Team / staff section',
+      'Contact form',
+      'Mobile-optimized design',
+      'Basic SEO setup',
+      'Deployed to your hosting (or free-tier Vercel + Supabase)',
+      'Google Analytics setup',
+      'Full Source Code Ownership',
+    ],
+    Growth: [
+      'Unlimited pages',
+      'Service / product showcase',
+      'Client testimonials & case studies',
+      'Advanced SEO + sitemap',
+      'Google Search Console setup',
+      'Cloudflare protection',
+      'Email notifications',
+      'Analytics + tracking',
+      'Full Source Code Ownership',
+    ],
+    Scale: [
+      'Everything in Growth',
+      'Custom integrations & APIs',
+      'Advanced analytics dashboard',
+      'Performance optimization',
+      'Custom UI/UX system',
+      'Priority support (30 days)',
+      'Scalable architecture',
+      'Full Source Code Ownership',
+    ],
+  },
+  saas: {
+    Launch: [
+      'High-converting landing page',
+      'Feature / benefits sections',
+      'Email capture / waitlist form',
+      'Mobile-optimized design',
+      'Basic SEO setup',
+      'Deployed to your hosting (or free-tier Vercel + Supabase)',
+      'Google Analytics setup',
+      'Full Source Code Ownership',
+    ],
+    Growth: [
+      'Multi-page site (pricing, features, docs)',
+      'Pricing table component',
+      'Signup / login flow (auth-ready)',
+      'Advanced SEO + sitemap',
+      'Google Search Console setup',
+      'Cloudflare protection',
+      'Email notifications',
+      'Analytics + tracking',
+      'Full Source Code Ownership',
+    ],
+    Scale: [
+      'Everything in Growth',
+      'Custom integrations & APIs',
+      'Advanced analytics dashboard',
+      'Performance optimization',
+      'Custom UI/UX system',
+      'Priority support (30 days)',
+      'Scalable architecture',
+      'Full Source Code Ownership',
+    ],
+  },
+  blog: {
+    Launch: [
+      'Up to 5 pages + blog',
+      'Category & tag system',
+      'Contact form',
+      'Mobile-optimized design',
+      'Basic SEO setup',
+      'Deployed to your hosting (or free-tier Vercel + Supabase)',
+      'Google Analytics setup',
+      'Full Source Code Ownership',
+    ],
+    Growth: [
+      'Unlimited posts & categories',
+      'Author bios & comments-ready',
+      'Newsletter signup',
+      'Advanced SEO + sitemap',
+      'Google Search Console setup',
+      'Cloudflare protection',
+      'Email notifications',
+      'Analytics + tracking',
+      'Full Source Code Ownership',
+    ],
+    Scale: [
+      'Everything in Growth',
+      'Custom integrations & APIs',
+      'Advanced analytics dashboard',
+      'Performance optimization',
+      'Custom UI/UX system',
+      'Priority support (30 days)',
+      'Scalable architecture',
+      'Full Source Code Ownership',
+    ],
+  },
+  custom: {
+    Launch: ['Scope tailored to your exact requirements', ...COMMON_FEATURES],
+    Growth: ['Scope tailored to your exact requirements', ...COMMON_FEATURES],
+    Scale:  ['Scope tailored to your exact requirements', ...COMMON_FEATURES],
+  },
 }
+
 const BOLD_FEATURES = new Set(['Full Source Code Ownership'])
-const getFeatures = (name: string) => PLAN_FEATURES[name] ?? []
+const getFeatures = (type: WebsiteType, planName: string) => FEATURES_BY_TYPE[type]?.[planName] ?? []
+
+// Compute the final price shown on a card for a given base plan + website type.
+const getAdjustedPrice = (basePrice: number, type: WebsiteType): number | null => {
+  const t = getWebsiteType(type)
+  if (t.adjustment === null) return null // Custom Website → "Contact for Quote"
+  return basePrice + t.adjustment
+}
 
 // ─── WhatsApp ─────────────────────────────────────────────────────────────────
 const WA_NUMBER = '923293943161'
@@ -72,12 +249,15 @@ const getWaLink = (plan: string) =>
   )}`
 
 // ─── JSON-LD ──────────────────────────────────────────────────────────────────
+// Uses each package's base price (Launch/Growth/Scale) as the canonical listed
+// price — Website Type adjustments are a session-only display change, not part
+// of the canonical structured-data listing.
 function buildJsonLd(plans: MergedPlan[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'MakeMyStore Pricing Plans',
-    description: 'One-time payment ecommerce plans — Shopify alternative, no monthly fees.',
+    description: 'One-time payment website plans — Shopify alternative, no monthly fees.',
     url: 'https://www.makemystore.online/pricing',
     itemListElement: plans.map((p, i) => ({
       '@type': 'ListItem',
@@ -85,7 +265,7 @@ function buildJsonLd(plans: MergedPlan[]) {
       item: {
         '@type': 'Offer',
         name: p.name,
-        price: p.price,
+        price: p.basePrice,
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         seller: { '@type': 'Organization', name: 'MakeMyStore.online' },
@@ -130,18 +310,29 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
         )}
 
         <div className="flex items-baseline gap-1 mb-1">
-          <span
-            className="text-[36px] sm:text-[42px] font-bold text-white leading-none"
-            style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
-          >
-            ${plan.price.toLocaleString()}
-          </span>
-          <span
-            className="text-white/30 text-sm ml-1"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
-          >
-            one-time
-          </span>
+          {plan.displayPrice === null ? (
+            <span
+              className="text-[28px] sm:text-[32px] font-bold text-white leading-none"
+              style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+            >
+              Contact for Quote
+            </span>
+          ) : (
+            <>
+              <span
+                className="text-[36px] sm:text-[42px] font-bold text-white leading-none"
+                style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}
+              >
+                ${plan.displayPrice.toLocaleString()}
+              </span>
+              <span
+                className="text-white/30 text-sm ml-1"
+                style={{ fontFamily: 'DM Sans, sans-serif' }}
+              >
+                one-time
+              </span>
+            </>
+          )}
         </div>
 
         <div className="flex items-center gap-1.5 mb-2">
@@ -186,6 +377,22 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
         </ul>
 
         <div className="mt-auto space-y-2.5">
+          {plan.displayPrice === null ? (
+            <a
+              href={getWaLink(plan.name)}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-[13px] font-bold transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
+              style={{
+                fontFamily: 'Syne, sans-serif',
+                background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
+                color: '#0b0f1a',
+              }}
+            >
+              <WaIcon />
+              Get Custom Quote →
+            </a>
+          ) : (
+          <>
           <p className="text-[10px] text-white/25 text-center uppercase tracking-widest" style={{ fontFamily: 'DM Sans, sans-serif' }}>
             Choose Payment Method
           </p>
@@ -240,16 +447,20 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
             </div>
             <ExternalLink size={11} className="text-green-500/30 group-hover:text-green-400 transition-colors" aria-hidden />
           </a>
+          </>
+          )}
 
-          <a
-            href={getWaLink(plan.name)}
-            target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-dashed border-white/12 hover:border-[#25D366]/35 text-[12px] text-white/30 hover:text-[#25D366] transition-all duration-200"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
-          >
-            <WaIcon />
-            Need custom features? <span className="font-bold ml-0.5">Chat →</span>
-          </a>
+          {plan.displayPrice !== null && (
+            <a
+              href={getWaLink(plan.name)}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-dashed border-white/12 hover:border-[#25D366]/35 text-[12px] text-white/30 hover:text-[#25D366] transition-all duration-200"
+              style={{ fontFamily: 'DM Sans, sans-serif' }}
+            >
+              <WaIcon />
+              Need custom features? <span className="font-bold ml-0.5">Chat →</span>
+            </a>
+          )}
         </div>
       </div>
     </article>
@@ -408,14 +619,21 @@ const MiniPlanCard = memo(({ plan, detailsHref }: {
 MiniPlanCard.displayName = 'MiniPlanCard'
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
+type RawPlan = PricingPlan & { payoneerLink: string | null }
+
 export default function PricingPage() {
-  const [plans, setPlans]     = useState<MergedPlan[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError]     = useState<string | null>(null)
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  // Raw base plans (Launch/Growth/Scale) straight from Supabase — base prices
+  // are untouched by the Website Type selector, exactly as before.
+  const [rawPlans, setRawPlans] = useState<RawPlan[]>([])
+  const [loading, setLoading]   = useState(true)
+  const [error, setError]       = useState<string | null>(null)
+  const [openFaq, setOpenFaq]   = useState<number | null>(null)
   // Which service's pricing is showing — defaults to Ecommerce so existing
   // behavior (Supabase-driven plans, JSON-LD, anchor scroll) is unchanged.
   const [activeService, setActiveService] = useState<ServiceTab>('ecommerce')
+  // Website Type selector — defaults to "Ecommerce Store" to match this
+  // page's original ecommerce-only behavior and copy.
+  const [websiteType, setWebsiteType] = useState<WebsiteType>('ecommerce')
 
   const toggleFaq = useCallback((i: number) => {
     setOpenFaq(p => p === i ? null : i)
@@ -434,7 +652,7 @@ export default function PricingPage() {
         if (cancelled) return
         const map: Record<string, string> = {}
         ;(ld as PaymentLink[]).forEach(l => { map[l.plan_name] = l.payoneer_link })
-        setPlans((pd as PricingPlan[]).map(p => ({ ...p, payoneerLink: map[p.name] ?? null, features: getFeatures(p.name) })))
+        setRawPlans((pd as PricingPlan[]).map(p => ({ ...p, payoneerLink: map[p.name] ?? null })))
       } catch (e) {
         if (!cancelled) setError('Failed to load pricing. Please refresh.')
         console.error(e)
@@ -444,6 +662,16 @@ export default function PricingPage() {
     })()
     return () => { cancelled = true }
   }, [])
+
+  // Merge the raw base plans with the currently selected Website Type —
+  // recomputed instantly (no network request) whenever the type changes,
+  // so switching types updates price + features with zero reload/flicker.
+  const plans = useMemo<MergedPlan[]>(() => rawPlans.map(p => ({
+    ...p,
+    basePrice: p.price,
+    displayPrice: getAdjustedPrice(p.price, websiteType),
+    features: getFeatures(websiteType, p.name),
+  })), [rawPlans, websiteType])
 
   // ── Anchor-scroll fix ────────────────────────────────────────────────────
   // If someone lands directly on /pricing#plans (e.g. from the Contact page's
@@ -570,6 +798,42 @@ export default function PricingPage() {
         <section id="plans" aria-label="Pricing plans" className="scroll-mt-24 max-w-5xl mx-auto px-4 sm:px-6 pb-20">
           {activeService === 'ecommerce' && (
             <>
+              {/* WEBSITE TYPE SELECTOR — same 3 packages & base prices, only the
+                  price adjustment and feature set change per type. Purely a
+                  local state change, so switching is instant with no reload. */}
+              <div className="mb-8">
+                <p className="text-center text-[11px] text-white/30 uppercase tracking-widest mb-3" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                  What type of website do you need?
+                </p>
+                <div
+                  role="tablist"
+                  aria-label="Choose a website type"
+                  className="flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl border border-white/8 bg-white/[0.02] w-fit mx-auto max-w-full"
+                >
+                  {WEBSITE_TYPES.map(({ id, label }) => (
+                    <button
+                      key={id}
+                      role="tab"
+                      aria-selected={websiteType === id}
+                      onClick={() => setWebsiteType(id)}
+                      className={`px-3.5 sm:px-4 py-2 rounded-xl text-[12px] sm:text-[13px] font-semibold transition-all duration-200 whitespace-nowrap ${
+                        websiteType === id
+                          ? 'bg-[#00d4ff] text-[#0b0f1a]'
+                          : 'text-white/55 hover:text-white hover:bg-white/[0.05]'
+                      }`}
+                      style={{ fontFamily: 'Syne, sans-serif' }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                {websiteType === 'custom' && (
+                  <p className="text-center text-[12px] text-white/35 mt-4" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                    Custom builds are scoped individually — chat with us for an exact quote.
+                  </p>
+                )}
+              </div>
+
               {loading ? (
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
                   {[1,2,3].map(i => <SkeletonCard key={i} />)}
