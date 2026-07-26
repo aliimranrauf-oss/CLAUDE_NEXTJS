@@ -39,7 +39,7 @@ export default function PageSpeedInsightsTool() {
       >
         <div className="flex items-center gap-2 mb-2">
           <Gauge size={18} color="#00d4ff" />
-          <h2 className="text-lg sm:text-xl font-extrabold" style={{ fontFamily: 'Syne, sans-serif' }}>
+          <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-white">
             Free Google PageSpeed Insights Check
           </h2>
         </div>
