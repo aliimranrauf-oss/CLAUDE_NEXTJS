@@ -28,9 +28,9 @@ export default function ToolCTA({ toolName: _toolName }: ToolCTAProps) {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-        {/* Option 1 */}
+        {/* Option 1 — pricing page, scrolled to the plan cards (#plans) */}
         <a
-          href="https://www.makemystore.online/contact"
+          href="https://www.makemystore.online/pricing#plans"
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-white transition-transform hover:scale-105"
@@ -45,9 +45,9 @@ export default function ToolCTA({ toolName: _toolName }: ToolCTAProps) {
           <ArrowRight size={13} />
         </a>
 
-        {/* Option 2 */}
+        {/* Option 2 — Site Speed page, scrolled to its Basic/Standard/Premium pricing (#pricing) */}
         <a
-          href="https://www.fiverr.com/s/DBYND3P"
+          href="https://www.makemystore.online/website-speed-optimization#pricing"
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105"
@@ -63,9 +63,9 @@ export default function ToolCTA({ toolName: _toolName }: ToolCTAProps) {
           <ArrowRight size={13} />
         </a>
 
-        {/* Option 3 */}
+        {/* Option 3 — homepage, scrolled to the "What We Build" services section (#services) */}
         <a
-          href="https://www.makemystore.online"
+          href="https://www.makemystore.online/#services"
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105"
