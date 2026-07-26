@@ -9,14 +9,15 @@ export const runtime = 'nodejs'
 // sites — and there's no reliable way to predict which ones (large
 // ecommerce stores, sites with lots of third-party scripts, or ones on
 // slow hosting can all push either mobile or desktop scans well past a
-// minute; it's not consistently one strategy over the other). Rather than
-// guess a "safe" ceiling and cut real scans off early, this uses the
-// highest duration Vercel allows: 800s (~13 min) on Fluid Compute, which
-// must be enabled in the Vercel dashboard under Project Settings →
-// Functions → Fluid Compute (available on every plan, including Hobby).
-// Without Fluid Compute enabled, Vercel silently caps this at 60s/300s
-// depending on plan, regardless of the number set here.
-export const maxDuration = 800
+// minute; it's not consistently one strategy over the other).
+//
+// 300s is the actual ceiling here: with Fluid Compute enabled (Project
+// Settings → Functions → Fluid Compute), Vercel allows up to 300s on the
+// Hobby plan and 800s on Pro/Enterprise. This project is on Hobby, so 300s
+// is the real usable maximum — setting it higher gets accepted at build
+// time but silently rejected at deploy time. If this project is ever
+// upgraded to Pro, this can be raised to 800.
+export const maxDuration = 300
 
 const GOOGLE_PSI_ENDPOINT = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
 
@@ -75,13 +76,9 @@ export async function GET(req: NextRequest) {
 
   try {
     const controller = new AbortController()
-    // Leaves a ~20s buffer under the 800s function limit above for our own
-    // response handling (JSON parsing, etc.) after Google replies. This is
-    // intentionally generous rather than a tight guess — large/slow sites
-    // legitimately need more time, on either mobile or desktop, and cutting
-    // the scan off early just to fit a smaller number isn't worth the
-    // false "something went wrong" it causes for real, working scans.
-    const timeout = setTimeout(() => controller.abort(), 780_000)
+    // Leaves a ~20s buffer under the 300s function limit above for our own
+    // response handling (JSON parsing, etc.) after Google replies.
+    const timeout = setTimeout(() => controller.abort(), 280_000)
 
     const res = await fetch(apiUrl.toString(), { signal: controller.signal })
     clearTimeout(timeout)
