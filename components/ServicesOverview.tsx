@@ -31,7 +31,7 @@ const services = [
 
 export default function ServicesOverview() {
   return (
-    <section id="services" className="py-24 px-4">
+    <section id="services" className="py-24 px-4 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
