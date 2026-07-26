@@ -94,6 +94,16 @@ function ContactPageInner() {
     const form = e.target as HTMLFormElement
     const data = new FormData(form)
 
+    // The /api/orders route + `orders` table don't have a dedicated
+    // websiteType column, so we fold the selection into the message field
+    // (rather than silently dropping it) — this avoids a DB migration while
+    // still making sure the owner sees which type of site was requested.
+    const websiteType = String(data.get('websiteType') || '').trim()
+    const rawMessage = String(data.get('message') || '').trim()
+    const message = websiteType
+      ? `Website Type: ${websiteType}${rawMessage ? `\n\n${rawMessage}` : ''}`
+      : rawMessage || null
+
     try {
       const res = await fetch('/api/orders', {
         method: 'POST',
@@ -105,7 +115,7 @@ function ContactPageInner() {
           platform: data.get('platform') || null,
           package: data.get('package') || null,
           payment: data.get('payment') || null,
-          message: data.get('message') || null,
+          message,
           website: data.get('website') || '', // honeypot — real users never fill this
         }),
       })
@@ -256,6 +266,18 @@ function ContactPageInner() {
                 {/* Row 3 */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
+                    <Label>Website Type</Label>
+                    <select name="websiteType" className={selectCls} defaultValue="">
+                      <option value="">Select...</option>
+                      <option>Ecommerce Store</option>
+                      <option>Portfolio / Personal</option>
+                      <option>Business / Corporate</option>
+                      <option>SaaS / Startup Landing</option>
+                      <option>Blog / Content Website</option>
+                      <option>Custom Website</option>
+                    </select>
+                  </div>
+                  <div>
                     <Label>Package *</Label>
                     <select
                       name="package"
@@ -264,13 +286,17 @@ function ContactPageInner() {
                       defaultValue={isSpeedAudit ? 'Website Speed Optimization — Free Audit' : ''}
                     >
                       <option value="">Select Package...</option>
-                      <option>Launch — $99</option>
-                      <option>Growth — $249</option>
-                      <option>Scale — $499</option>
+                      <option>Launch — from $399</option>
+                      <option>Growth — from $799</option>
+                      <option>Scale — from $1,499</option>
                       <option>Website Speed Optimization — Free Audit</option>
                       <option>Not sure yet</option>
                     </select>
                   </div>
+                </div>
+
+                {/* Row 4 */}
+                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <Label>Payment Method</Label>
                     <select name="payment" className={selectCls}>
