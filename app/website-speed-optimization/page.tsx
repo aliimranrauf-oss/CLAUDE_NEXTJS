@@ -267,6 +267,7 @@ const pricingPlans = [
     name: 'Basic',
     price: '$299',
     tagline: 'Full optimization + report',
+    bestFor: 'Best for small sites needing a quick, focused fix',
     delivery: '3\u20135 day delivery',
     features: [
       'Speed optimization',
@@ -281,6 +282,7 @@ const pricingPlans = [
     name: 'Standard',
     price: '$699',
     tagline: 'Everything + lazy loading & caching setup',
+    bestFor: 'Best for most sites aiming for a 90+ score',
     delivery: '5\u20137 day delivery',
     features: [
       'Everything in Basic',
@@ -294,6 +296,7 @@ const pricingPlans = [
     name: 'Premium',
     price: '$1,299',
     tagline: 'Complex & e-commerce sites + 30-day monitoring',
+    bestFor: 'Best for large, complex, or e-commerce sites',
     delivery: '7\u201310 day delivery + 30 days monitoring',
     features: [
       'Everything in Standard',
@@ -490,7 +493,7 @@ export default function WebsiteSpeedOptimizationPage() {
               {featureHighlights.map((f) => {
                 const Icon = f.icon
                 return (
-                  <div key={f.title} className="glass rounded-2xl p-5 border border-white/10 text-center sm:text-left">
+                  <div key={f.title} className="glass rounded-2xl p-5 border border-white/10 text-center sm:text-left h-full flex flex-col">
                     <div className="w-11 h-11 mx-auto sm:mx-0 rounded-xl flex items-center justify-center mb-3.5" style={{ background: 'rgba(0,212,255,0.12)' }}>
                       <Icon size={20} className="text-[#00d4ff]" />
                     </div>
@@ -530,6 +533,7 @@ export default function WebsiteSpeedOptimizationPage() {
                   )}
 
                   <h3 className="text-lg font-bold mb-1">{plan.name}</h3>
+                  <p className="text-[11px] font-medium text-[#00d4ff]/80 mb-3">{plan.bestFor}</p>
                   <div className="text-3xl font-bold mb-2">{plan.price}</div>
                   <p className="text-white/60 text-sm mb-1">{plan.tagline}</p>
                   <p className="text-white/55 text-xs mb-6">{plan.delivery}</p>
@@ -588,7 +592,24 @@ export default function WebsiteSpeedOptimizationPage() {
             <p className="text-white/60 text-center max-w-xl mx-auto mb-14">
               A simple 4-step process, the same way every time.
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-4 relative">
+            {/* Mobile: vertical timeline so the sequence stays readable on small screens */}
+            <div className="sm:hidden relative">
+              {process.map((step, i) => (
+                <div key={step.title} className="relative pl-14 pb-10 last:pb-0">
+                  {i < process.length - 1 && (
+                    <div className="absolute left-6 top-12 bottom-0 w-px border-l border-dashed border-[#00d4ff]/25" />
+                  )}
+                  <div className="absolute left-0 top-0 w-12 h-12 rounded-full border border-[#00d4ff]/30 bg-[#0b0f1a] flex items-center justify-center font-bold text-[#00d4ff] z-10">
+                    {i + 1}
+                  </div>
+                  <h3 className="font-semibold text-base mb-2">{step.title}</h3>
+                  <p className="text-white/55 text-xs leading-relaxed">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop/tablet: original horizontal 4-column layout, unchanged */}
+            <div className="hidden sm:grid sm:grid-cols-4 gap-y-10 gap-x-4 relative">
               <div className="hidden sm:block absolute top-6 left-[12.5%] right-[12.5%] h-px border-t border-dashed border-[#00d4ff]/25" />
               {process.map((step, i) => (
                 <div key={step.title} className="text-center relative">
