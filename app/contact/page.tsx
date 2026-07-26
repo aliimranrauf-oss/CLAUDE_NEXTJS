@@ -159,7 +159,7 @@ function ContactPageInner() {
           </h1>
           <p className="text-xl text-white/90 max-w-lg mx-auto">
             Professional ecommerce website in 3–10 days.<br />
-            <span className="text-cyan-400 font-semibold">Starting from $99</span>
+            <span className="text-cyan-400 font-semibold">Starting from $399</span>
           </p>
         </div>
 
