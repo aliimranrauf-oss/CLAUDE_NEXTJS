@@ -4,7 +4,7 @@ import ServicesOverview from '@/components/ServicesOverview'
 import VideoSection from '@/components/VideoSection'
 import Templates from '@/components/Templates'
 import ComparisonTable from '@/components/ComparisonTable'
-import ReviewsSection from '@/components/ReviewsSection'
+import ReviewsSection, { type Review } from '@/components/ReviewsSection'
 import Footer from '@/components/Footer'
 import { supabase, type Template } from '@/lib/supabaseClient'
 
@@ -51,6 +51,19 @@ export default async function Home() {
     5000
   )
   const templatesData: Template[] = templatesResult?.data ?? []
+
+  // ── PERF FIX (unused JavaScript — 196 KiB opportunity) ────────────────────
+  // Reviews were previously fetched client-side by ReviewsSection, which
+  // pulled the full @supabase/supabase-js library into the browser bundle on
+  // every load. Fetching here — same cached/ISR + timeout pattern as
+  // templates above — means the browser gets reviews already baked into the
+  // HTML, and ReviewsSection no longer needs to download that library at all
+  // (see components/ReviewsSection.tsx for the matching client-side fix).
+  const reviewsResult = await withTimeout(
+    supabase.from('reviews').select('*').order('date', { ascending: false }).limit(16),
+    5000
+  )
+  const reviewsData: Review[] = reviewsResult?.data ?? []
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -131,7 +144,7 @@ export default async function Home() {
         <ComparisonTable />
 
         {/* 5. Reviews — social proof from 500+ real store owners */}
-        <ReviewsSection />
+        <ReviewsSection initialReviews={reviewsData} />
       </main>
 
       {/* 6. Footer */}
