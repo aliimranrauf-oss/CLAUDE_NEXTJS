@@ -13,10 +13,23 @@ import { CheckCircle2, Gauge, Zap, ShieldCheck, ArrowRight, Image as ImageIcon, 
 // ─────────────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.makemystore.online'),
-  title: 'Website Speed Optimization Service | Improve GTmetrix, PageSpeed & Lighthouse Score',
+  title: 'Free Website Speed Test & Lighthouse Checker | PageSpeed, GTmetrix & Core Web Vitals Tool',
   description:
-    'Get your website loading fast. Professional speed optimization for Wix, WordPress, Shopify, Next.js, and custom sites — fix a low GTmetrix grade, boost your Google PageSpeed Insights score, and pass Core Web Vitals, without breaking anything.',
+    'Free website speed test powered by real Google Lighthouse and PageSpeed Insights data — check your Core Web Vitals (LCP, CLS, INP, FCP), get a GTmetrix-style score, and download or copy your PDF report instantly, no sign-up required. Plus professional speed optimization for Wix, WordPress, Shopify, Next.js, and custom sites.',
   keywords: [
+    'free website speed test',
+    'free lighthouse speed test',
+    'free pagespeed insights checker',
+    'google pagespeed insights checker',
+    'core web vitals checker',
+    'core web vitals test free',
+    'gtmetrix checker free',
+    'gtmetrix alternative',
+    'website speed test online',
+    'lighthouse score checker',
+    'lighthouse report pdf',
+    'download speed test report pdf',
+    'check my website speed',
     'website speed optimization',
     'improve gtmetrix score',
     'improve lighthouse score',
@@ -40,9 +53,9 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
   },
   openGraph: {
-    title: 'Website Speed Optimization Service | Improve GTmetrix, PageSpeed & Lighthouse Score',
+    title: 'Free Website Speed Test & Lighthouse Checker | PageSpeed, GTmetrix & Core Web Vitals Tool',
     description:
-      'Fix a slow website the right way, on any platform. Media compression, script cleanup, and Core Web Vitals improvements — done carefully, without breaking your site.',
+      'Run a free Lighthouse + PageSpeed Insights speed test, see your Core Web Vitals and GTmetrix-style score, and download or copy a PDF report instantly. Then get expert help fixing what\u2019s slow, on any platform, without breaking anything.',
     url: 'https://www.makemystore.online/website-speed-optimization',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -58,8 +71,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Website Speed Optimization Service | Improve GTmetrix & PageSpeed Score',
-    description: 'Fix a slow website the right way, on any platform — without breaking anything.',
+    title: 'Free Website Speed Test & Lighthouse Checker | PageSpeed & GTmetrix Tool',
+    description: 'Free Lighthouse + PageSpeed speed test with Core Web Vitals and a downloadable PDF report — no sign-up required.',
     images: ['https://www.makemystore.online/speed-hero.webp'],
   },
   alternates: {
@@ -108,6 +121,33 @@ const jsonLd = {
   ],
 }
 
+const toolJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Free Website Speed Test & Lighthouse Checker',
+  alternateName: ['Free PageSpeed Insights Checker', 'Free GTmetrix-Style Speed Checker'],
+  url: 'https://www.makemystore.online/website-speed-optimization',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Any (web-based)',
+  description:
+    'A free online tool that runs a real Google Lighthouse and PageSpeed Insights check on any website, showing Performance, Accessibility, Best Practices, and SEO scores plus Core Web Vitals (LCP, CLS, INP, FCP, Speed Index) and real-visitor Chrome UX field data. The full report can be downloaded as a PDF or copied, with no sign-up or email required.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'Real Google Lighthouse Performance, Accessibility, Best Practices & SEO scores',
+    'Core Web Vitals: LCP, CLS, INP/TBT, FCP & Speed Index',
+    'Real visitor field data from Chrome UX Report (28-day average)',
+    'Top opportunities to fix, ranked by impact',
+    'Downloadable PDF report',
+    'Copyable report text',
+    'Mobile and desktop testing',
+    'No sign-up or email required',
+  ],
+}
+
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -142,6 +182,14 @@ const faqJsonLd = {
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'Most commonly: oversized or uncompressed images and videos, unnecessary third-party scripts and apps, unoptimized fonts, and render-blocking resources. A proper audit with GTmetrix and PageSpeed Insights identifies the exact cause on your specific site rather than guessing.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is the speed test tool on this page really free?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. It runs a real Google Lighthouse and PageSpeed Insights check \u2014 the same data Google itself uses \u2014 with no sign-up, no email, and no cost. The report can be downloaded as a PDF or copied directly from the results page.',
       },
     },
   ],
@@ -272,6 +320,10 @@ export default function WebsiteSpeedOptimizationPage() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
@@ -373,7 +425,7 @@ export default function WebsiteSpeedOptimizationPage() {
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-7">
                 <Link href={CONTACT_URL} className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
-                  Get a Free Speed Audit
+                  Ask a Question
                   <ArrowRight size={18} />
                 </Link>
                 <a
