@@ -72,14 +72,6 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-3 text-sm">
               <a
-                href="#pricing"
-                className="inline-flex items-center gap-2 text-gray-300 hover:text-[#00d4ff] transition-colors"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#00d4ff] shrink-0" />
-                Payoneer
-                <span className="text-xs text-gray-500 ml-auto">→ See plans</span>
-              </a>
-              <a
                 href="https://www.fiverr.com/s/kLB1m0k"
                 target="_blank"
                 rel="noopener noreferrer"
