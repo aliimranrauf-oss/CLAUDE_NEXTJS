@@ -18,12 +18,7 @@ interface PricingPlan {
   is_active: boolean
   created_at: string
 }
-interface PaymentLink {
-  plan_name: string
-  payoneer_link: string
-}
 interface MergedPlan extends PricingPlan {
-  payoneerLink: string | null
   features: string[]
   /** Final displayed price after the Website Type adjustment. Null = "Contact for Quote" (Custom Website). */
   displayPrice: number | null
@@ -241,12 +236,12 @@ const getAdjustedPrice = (basePrice: number, type: WebsiteType): number | null =
   return basePrice + t.adjustment
 }
 
-// ─── WhatsApp ─────────────────────────────────────────────────────────────────
-const WA_NUMBER = '923293943161'
-const getWaLink = (plan: string) =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-    `Hi Imran, I'm interested in the ${plan} package. Can you help me set up my store ownership?`
-  )}`
+// ─── Order links — Website Building service ────────────────────────────────
+// Single Fiverr gig used for all website-building orders (Portfolio, Business,
+// Blog, Ecommerce, SaaS, Custom). Contact button routes to the on-site
+// contact form instead of WhatsApp.
+const FIVERR_GIG_LINK = 'https://www.fiverr.com/s/2KXW9P4'
+const CONTACT_HREF = '/contact'
 
 // ─── JSON-LD ──────────────────────────────────────────────────────────────────
 // Uses each package's base price (Launch/Growth/Scale) as the canonical listed
@@ -377,56 +372,8 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
         </ul>
 
         <div className="mt-auto space-y-2.5">
-          {plan.displayPrice === null ? (
-            <a
-              href={getWaLink(plan.name)}
-              target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-[13px] font-bold transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
-              style={{
-                fontFamily: 'Syne, sans-serif',
-                background: 'linear-gradient(135deg, #00d4ff 0%, #7a5cff 100%)',
-                color: '#0b0f1a',
-              }}
-            >
-              <WaIcon />
-              Get Custom Quote →
-            </a>
-          ) : (
-          <>
-          <p className="text-[10px] text-white/25 text-center uppercase tracking-widest" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-            Choose Payment Method
-          </p>
-
-          {plan.payoneerLink && (
-            <a
-              href={plan.payoneerLink}
-              target="_blank" rel="noopener noreferrer"
-              className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:border-[#00d4ff]/25 hover:bg-[#00d4ff]/[0.04] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="w-6 h-6 rounded-full bg-[#FF4800]/15 flex items-center justify-center shrink-0">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <circle cx="12" cy="12" r="10" fill="#FF4800" opacity="0.9" />
-                    <path d="M8 12h8M12 8v8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Payoneer</p>
-                  <p className="text-[10px] text-white/35 mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Direct secure transfer</p>
-                </div>
-              </div>
-              <ExternalLink size={11} className="text-white/20 group-hover:text-[#00d4ff] transition-colors" aria-hidden />
-            </a>
-          )}
-
-          <div className="flex items-center gap-2">
-            <div className="flex-1 h-px bg-white/8" />
-            <span className="text-[10px] text-white/20" style={{ fontFamily: 'DM Sans, sans-serif' }}>or</span>
-            <div className="flex-1 h-px bg-white/8" />
-          </div>
-
           <a
-            href="https://www.fiverr.com/s/ZmjDE2Q"
+            href={FIVERR_GIG_LINK}
             target="_blank" rel="noopener noreferrer"
             className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-green-500/20 bg-green-500/[0.03] hover:border-green-400/40 hover:bg-green-500/[0.06] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
           >
@@ -439,7 +386,7 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
               </span>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Fiverr</p>
+                  <p className="text-[13px] font-bold text-white leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>Order on Fiverr</p>
                   <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-green-500/15 text-green-400">Buyer Protected</span>
                 </div>
                 <p className="text-[10px] text-white/35 mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Held until delivered</p>
@@ -447,20 +394,14 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
             </div>
             <ExternalLink size={11} className="text-green-500/30 group-hover:text-green-400 transition-colors" aria-hidden />
           </a>
-          </>
-          )}
 
-          {plan.displayPrice !== null && (
-            <a
-              href={getWaLink(plan.name)}
-              target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-dashed border-white/12 hover:border-[#25D366]/35 text-[12px] text-white/30 hover:text-[#25D366] transition-all duration-200"
-              style={{ fontFamily: 'DM Sans, sans-serif' }}
-            >
-              <WaIcon />
-              Need custom features? <span className="font-bold ml-0.5">Chat →</span>
-            </a>
-          )}
+          <Link
+            href={CONTACT_HREF}
+            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:border-[#00d4ff]/25 hover:bg-[#00d4ff]/[0.04] text-[13px] font-bold text-white/70 hover:text-white transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
+            style={{ fontFamily: 'Syne, sans-serif' }}
+          >
+            Contact Us
+          </Link>
         </div>
       </div>
     </article>
@@ -511,14 +452,6 @@ const SkeletonCard = memo(() => (
 ))
 SkeletonCard.displayName = 'SkeletonCard'
 
-// ─── WhatsApp icon ────────────────────────────────────────────────────────────
-const WaIcon = memo(() => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-  </svg>
-))
-WaIcon.displayName = 'WaIcon'
-
 // ─── Static data ──────────────────────────────────────────────────────────────
 const TRUST_ITEMS = [
   { icon: Shield, label: 'Buyer Protection', sub: 'via Fiverr escrow' },
@@ -540,7 +473,7 @@ const FAQS = [
   { q: 'Do I really own the code?',
     a: 'Yes — 100%. You receive the full Next.js source code, deploy it anywhere, and owe us nothing more.' },
   { q: 'What payment methods do you accept?',
-    a: 'Payoneer (direct transfer) and Fiverr (buyer-protected escrow). Both are listed on each plan card.' },
+    a: 'All orders for website building go through Fiverr (buyer-protected escrow) — just hit "Order on Fiverr" on any plan.' },
   { q: 'Can I upgrade later?',
     a: 'Absolutely. Pay the difference and we rebuild/extend your existing store.' },
   { q: 'Is hosting included?',
@@ -548,14 +481,14 @@ const FAQS = [
   { q: 'Can you migrate my Shopify or Wix store?',
     a: 'Yes! We offer seamless migration from Shopify and Wix. Your products, content, and SEO are preserved. You stop paying monthly platform fees and gain full ownership.' },
   { q: 'What if I need something custom?',
-    a: 'Hit the "Chat with us" button on any card to reach us on WhatsApp. We quote custom work separately.' },
+    a: 'Hit the "Contact Us" button on any card to reach us through our contact form. We quote custom work separately.' },
 ]
 
 // ─── Other-services pricing (static — no fetch, zero extra network cost) ──────
 // Previously /pricing only ever showed the Ecommerce plans pulled from
 // Supabase; Speed Optimization and Space & Aerospace had no pricing visible
 // here at all, even though both have their own dedicated pages with pricing.
-// Rather than duplicating the full Payoneer/Fiverr/WhatsApp order-flow wiring
+// Rather than duplicating the full Fiverr/Contact order-flow wiring
 // those pages already have (which would mean two sources of truth to keep in
 // sync), these are lightweight summary cards mirroring the real numbers from
 // each service's own page, with a "full details" link through to it.
@@ -619,7 +552,7 @@ const MiniPlanCard = memo(({ plan, detailsHref }: {
 MiniPlanCard.displayName = 'MiniPlanCard'
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-type RawPlan = PricingPlan & { payoneerLink: string | null }
+type RawPlan = PricingPlan
 
 export default function PricingPage() {
   // Raw base plans (Launch/Growth/Scale) straight from Supabase — base prices
@@ -643,16 +576,14 @@ export default function PricingPage() {
     let cancelled = false
     ;(async () => {
       try {
-        const [{ data: pd, error: pe }, { data: ld, error: le }] = await Promise.all([
-          supabase.from('pricing_plans').select('*').eq('is_active', true).order('price', { ascending: true }),
-          supabase.from('payment_links').select('plan_name, payoneer_link'),
-        ])
+        const { data: pd, error: pe } = await supabase
+          .from('pricing_plans')
+          .select('*')
+          .eq('is_active', true)
+          .order('price', { ascending: true })
         if (pe) throw pe
-        if (le) throw le
         if (cancelled) return
-        const map: Record<string, string> = {}
-        ;(ld as PaymentLink[]).forEach(l => { map[l.plan_name] = l.payoneer_link })
-        setRawPlans((pd as PricingPlan[]).map(p => ({ ...p, payoneerLink: map[p.name] ?? null })))
+        setRawPlans(pd as PricingPlan[])
       } catch (e) {
         if (!cancelled) setError('Failed to load pricing. Please refresh.')
         console.error(e)
@@ -674,8 +605,8 @@ export default function PricingPage() {
   })), [rawPlans, websiteType])
 
   // ── Anchor-scroll fix ────────────────────────────────────────────────────
-  // If someone lands directly on /pricing#plans (e.g. from the Contact page's
-  // "Pay via Payoneer" link), the browser tries to scroll to the anchor
+  // If someone lands directly on /pricing#plans (e.g. from a "View Plans"
+  // link elsewhere on the site), the browser tries to scroll to the anchor
   // BEFORE the plans have loaded from Supabase. Once the cards mount, the
   // page height changes and the native scroll position drifts off-target.
   // This re-scrolls to the #plans section once loading is finished.
@@ -952,10 +883,9 @@ export default function PricingPage() {
 
         <section className="pb-24 px-4">
           <div className="max-w-md mx-auto text-center">
-            <p className="text-white/35 text-sm mb-5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Still have questions? Chat directly on WhatsApp.</p>
-            <a
-              href={getWaLink('Custom')}
-              target="_blank" rel="noopener noreferrer"
+            <p className="text-white/35 text-sm mb-5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Still have questions? Get in touch before ordering.</p>
+            <Link
+              href={CONTACT_HREF}
               className="inline-flex items-center gap-2 text-sm font-bold px-8 py-3.5 rounded-xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00d4ff]"
               style={{
                 fontFamily: 'Syne, sans-serif',
@@ -965,9 +895,8 @@ export default function PricingPage() {
                 textDecoration: 'none',
               }}
             >
-              <WaIcon />
-              Talk to us before ordering →
-            </a>
+              Contact Us →
+            </Link>
           </div>
         </section>
 
