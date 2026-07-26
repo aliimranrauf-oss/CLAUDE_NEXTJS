@@ -6,7 +6,38 @@ import Templates from '@/components/Templates'
 import ComparisonTable from '@/components/ComparisonTable'
 import ReviewsSection from '@/components/ReviewsSection'
 import Footer from '@/components/Footer'
-import { supabase } from '@/lib/supabaseClient'
+import { supabase, type Template } from '@/lib/supabaseClient'
+
+// ── PERF/RELIABILITY FIX ─────────────────────────────────────────────────
+// This page previously ran a live, uncached Supabase query on EVERY single
+// request (including automated tools like Google's PageSpeed/Lighthouse)
+// before it could send any HTML back. If Supabase ever answered slowly —
+// a cold start, a brief network blip — the whole page hung waiting on it,
+// which is exactly the kind of stall that makes Lighthouse's audit give up
+// with a generic "Something went wrong" error. It also meant real visitors
+// occasionally got a slow homepage for the same reason.
+//
+// Two independent fixes:
+// 1. `revalidate = 60` turns this into a cached (ISR) page — Next.js
+//    serves a cached copy instantly and only re-runs this function in the
+//    background at most once a minute, so almost every request (including
+//    Lighthouse's) gets an instant response instead of waiting on a live
+//    DB round-trip. Template changes in the admin panel still show up
+//    within 60 seconds — no manual redeploy needed.
+// 2. A 5s timeout around the Supabase call means that even on the rare
+//    request that does hit Supabase live, a slow/stalled response can no
+//    longer hang the page forever — it just falls back to an empty
+//    templates array (Templates.tsx already handles that gracefully with
+//    its own "No templates found" state) and the rest of the page still
+//    renders normally.
+export const revalidate = 60
+
+function withTimeout<T>(promise: PromiseLike<T>, ms: number): Promise<T | null> {
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), ms)),
+  ])
+}
 
 export default async function Home() {
   // ── PERF FIX: fetch templates on the server, before the page is sent ──────
@@ -15,10 +46,11 @@ export default async function Home() {
   // image download. On slow connections this stretched out Speed Index badly.
   // Fetching here means the first template is already in the HTML the
   // browser receives — no client-side wait, no spinner, no shimmer on load.
-  const { data: templatesData } = await supabase
-    .from('templates')
-    .select('*')
-    .order('created_at', { ascending: true })
+  const templatesResult = await withTimeout(
+    supabase.from('templates').select('*').order('created_at', { ascending: true }),
+    5000
+  )
+  const templatesData: Template[] = templatesResult?.data ?? []
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -93,7 +125,7 @@ export default async function Home() {
         <VideoSection />
 
         {/* 3. Templates — moved up for early product visibility */}
-        <Templates initialTemplates={templatesData ?? []} />
+        <Templates initialTemplates={templatesData} />
 
         {/* 4. Comparison table — trust-building after templates */}
         <ComparisonTable />
