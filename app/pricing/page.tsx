@@ -358,9 +358,9 @@ const SERVICE_TABS: { id: ServiceTab; label: string; icon: typeof ShoppingCart }
 
 // Mirrors app/website-speed-optimization/page.tsx `pricingPlans`
 const SPEED_PLANS = [
-  { name: 'Basic', price: '$60', tagline: 'Full optimization + report', highlighted: false },
-  { name: 'Standard', price: '$110', tagline: 'Everything + lazy loading & caching setup', highlighted: true },
-  { name: 'Premium', price: '$200', tagline: 'Ongoing monthly maintenance + monthly reports', highlighted: false },
+  { name: 'Basic', price: '$299', tagline: 'Full optimization + report', highlighted: false },
+  { name: 'Standard', price: '$699', tagline: 'Everything + lazy loading & caching setup', highlighted: true },
+  { name: 'Premium', price: '$1,299', tagline: 'Complex & e-commerce sites + 30-day monitoring', highlighted: false },
 ] as const
 const SPEED_DETAILS_HREF = '/website-speed-optimization#pricing'
 
