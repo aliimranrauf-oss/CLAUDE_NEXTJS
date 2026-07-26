@@ -44,6 +44,42 @@ function auditValue(audits: Record<string, any>, id: string) {
   }
 }
 
+// Google's PageSpeed API often fails with vague, unhelpful text —
+// "Lighthouse returned error: Something went wrong." tells a visitor
+// nothing about what actually happened or what to do next. This maps the
+// known failure signatures (both from the outer API error and from
+// lighthouseResult.runtimeError, which Google can return even on an
+// HTTP 200) to a plain-language explanation and a concrete next step.
+function explainPsiFailure(rawMessage: string | undefined, runtimeErrorCode: string | undefined): string {
+  const text = `${rawMessage || ''} ${runtimeErrorCode || ''}`.toUpperCase()
+
+  if (text.includes('DNS_FAILURE') || text.includes('NAME_NOT_RESOLVED')) {
+    return "This domain couldn't be found (DNS lookup failed). Double-check the URL is spelled correctly and the domain is actually live."
+  }
+  if (text.includes('FAILED_DOCUMENT_REQUEST') || text.includes('ERRORED_DOCUMENT_REQUEST')) {
+    return "The page didn't load at all — the server may be down, blocking automated requests, or returning an error page. Try opening the URL in a normal browser tab to confirm it loads."
+  }
+  if (text.includes('INSECURE_DOCUMENT_REQUEST')) {
+    return "This page isn't served over HTTPS, which Google's checker requires. Make sure the site has a valid SSL certificate and redirects HTTP to HTTPS."
+  }
+  if (text.includes('NO_FCP')) {
+    return 'The page never displayed any visible content during the scan — likely a JavaScript error or a blank/broken page. Try loading the URL in a normal browser tab and check the console for errors.'
+  }
+  if (text.includes('PAGE_HUNG')) {
+    return 'The page froze and stopped responding during the scan — often caused by a script stuck in a loop or a slow third-party resource. Check the browser console on that page for errors.'
+  }
+  if (text.includes('PROTOCOL_TIMEOUT') || text.includes('TIMEOUT')) {
+    return 'The page took too long to finish loading. This is usually caused by a slow server response (e.g. a slow database call) or a very heavy page. Try again — if it keeps happening, check your server response time.'
+  }
+  if (text.includes('QUOTA') || text.includes('RATE LIMIT') || text.includes('RESOURCE_EXHAUSTED')) {
+    return "Google's PageSpeed API is temporarily rate-limited for this key. Wait a minute and try again."
+  }
+  // Fallback for Google's genuinely generic "Something went wrong" and
+  // anything else unrecognized — still gives the visitor something
+  // actionable instead of a dead-end.
+  return "Google couldn't complete this scan — this is usually caused by the page taking too long to respond, or something on the page blocking automated browsers. Please try again in a moment; if it keeps failing, check the site loads normally in a regular browser tab."
+}
+
 export async function GET(req: NextRequest) {
   const apiKey = process.env.GOOGLE_PAGESPEED_API_KEY
 
@@ -86,13 +122,22 @@ export async function GET(req: NextRequest) {
     const data = await res.json()
 
     if (!res.ok) {
-      const message =
-        data?.error?.message ||
-        'Google PageSpeed Insights could not analyze this URL. Double check it is public and reachable.'
-      return NextResponse.json({ error: message }, { status: res.status })
+      const friendly = explainPsiFailure(data?.error?.message, undefined)
+      return NextResponse.json({ error: friendly }, { status: res.status })
     }
 
     const lr = data.lighthouseResult
+
+    // Google can return HTTP 200 while the actual Lighthouse audit inside
+    // it failed (e.g. the target page hung, never painted, or errored) —
+    // in that case categories/audits are empty or missing. Previously this
+    // fell through silently and produced a "successful" response full of
+    // null scores. Catch it explicitly and return a real, helpful error.
+    if (lr?.runtimeError) {
+      const friendly = explainPsiFailure(lr.runtimeError.message, lr.runtimeError.code)
+      return NextResponse.json({ error: friendly }, { status: 502 })
+    }
+
     const categories = lr?.categories || {}
     const audits = lr?.audits || {}
     const crux = data.loadingExperience?.metrics || null
