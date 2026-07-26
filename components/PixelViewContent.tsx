@@ -16,9 +16,11 @@ export default function PixelViewContent({ name }: { name: string }) {
       }
     }
 
-    // The pixel script loads with Next's lazyOnload strategy, so it may
-    // not be ready on the very first render. Try immediately, then retry
-    // a couple of times in case the script is still loading.
+    // The pixel script now loads via DeferredAnalytics — only after the
+    // visitor's first interaction, or an 8s timeout fallback (see
+    // app/layout.tsx). So fbq may not exist for a little while after
+    // mount. Try immediately, then keep polling well past that 8s
+    // fallback so this ViewContent event never gets missed on a race.
     if (typeof window !== 'undefined' && typeof (window as any).fbq === 'function') {
       fire()
       return
@@ -29,7 +31,7 @@ export default function PixelViewContent({ name }: { name: string }) {
         clearInterval(interval)
       }
     }, 500)
-    const timeout = setTimeout(() => clearInterval(interval), 8000)
+    const timeout = setTimeout(() => clearInterval(interval), 15000)
 
     return () => {
       clearInterval(interval)
