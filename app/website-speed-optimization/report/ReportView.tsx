@@ -122,13 +122,22 @@ export default function ReportView() {
     setProgress(1)
 
     // Simulated progress — Google's API doesn't report real progress, so this
-    // climbs quickly at first and eases off, holding just under 100% until
-    // the actual response lands (then jumps straight to 100%).
+    // climbs quickly at first and eases off the further it gets. It used to
+    // hard-stop at 92% and sit there for the rest of a long scan, which made
+    // people think the tool had frozen and refresh/leave mid-check. Instead
+    // it now keeps creeping upward in tiny increments all the way to 99%, no
+    // matter how long Google's API takes — so there's always visible motion
+    // — and only jumps to 100% once the real response actually lands.
     const progressTimer = setInterval(() => {
       setProgress((p) => {
-        if (p >= 92) return p
-        const step = p < 40 ? 6 + Math.random() * 6 : p < 75 ? 2 + Math.random() * 3 : 0.4 + Math.random() * 0.8
-        return Math.min(92, p + step)
+        if (p >= 99) return p
+        const step =
+          p < 40 ? 6 + Math.random() * 6 :
+          p < 75 ? 2 + Math.random() * 3 :
+          p < 92 ? 0.4 + Math.random() * 0.8 :
+          p < 97 ? 0.12 + Math.random() * 0.18 :
+          0.02 + Math.random() * 0.05
+        return Math.min(99, p + step)
       })
     }, 300)
 
@@ -497,10 +506,12 @@ export default function ReportView() {
                 />
               </div>
               <div className="text-center mt-3 text-lg font-extrabold" style={{ color: '#00ffaa' }}>
-                {Math.round(progress)}%
+                {progress >= 92 ? progress.toFixed(1) : Math.round(progress)}%
               </div>
               <p className="text-center text-white/40 text-xs mt-3">
-                Running Lighthouse + PageSpeed Insights&hellip; this can take up to a minute or two, especially for mobile.
+                {progress >= 92
+                  ? "Almost there — Google is finishing up the full audit. This step can take a little longer on larger or slower sites, but it's still running."
+                  : 'Running Lighthouse + PageSpeed Insights\u2026 this can take up to a minute or two, especially for larger sites.'}
               </p>
             </div>
           )}
