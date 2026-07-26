@@ -100,21 +100,21 @@ const jsonLd = {
     {
       '@type': 'Offer',
       name: 'Basic',
-      price: '60',
+      price: '299',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
     {
       '@type': 'Offer',
       name: 'Standard',
-      price: '110',
+      price: '699',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
     {
       '@type': 'Offer',
       name: 'Premium',
-      price: '200',
+      price: '1299',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
@@ -265,9 +265,9 @@ const process = [
 const pricingPlans = [
   {
     name: 'Basic',
-    price: '$60',
+    price: '$299',
     tagline: 'Full optimization + report',
-    delivery: '2-day delivery',
+    delivery: '3\u20135 day delivery',
     features: [
       'Speed optimization',
       'Browser caching',
@@ -279,9 +279,9 @@ const pricingPlans = [
   },
   {
     name: 'Standard',
-    price: '$110',
+    price: '$699',
     tagline: 'Everything + lazy loading & caching setup',
-    delivery: '2-day delivery',
+    delivery: '5\u20137 day delivery',
     features: [
       'Everything in Basic',
       'Lazy loading setup',
@@ -292,13 +292,14 @@ const pricingPlans = [
   },
   {
     name: 'Premium',
-    price: '$200',
-    tagline: 'Ongoing monthly maintenance + monthly reports',
-    delivery: '2-day delivery, then ongoing monthly',
+    price: '$1,299',
+    tagline: 'Complex & e-commerce sites + 30-day monitoring',
+    delivery: '7\u201310 day delivery + 30 days monitoring',
     features: [
       'Everything in Standard',
-      'Ongoing monthly maintenance',
-      'Monthly performance reports',
+      'Built for complex & e-commerce sites',
+      '30-day performance monitoring',
+      'Monthly performance report during monitoring',
       'Priority support',
     ],
     highlighted: false,
