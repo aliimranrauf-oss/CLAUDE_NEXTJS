@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ShoppingCart, Zap, Rocket, ArrowRight } from 'lucide-react'
+import { Globe, Zap, Rocket, ArrowRight } from 'lucide-react'
 
 // ── Server component (no interactivity needed — hover is pure CSS) ────────
 // Surfaces all 3 services on the homepage. Previously Site Speed and
@@ -7,9 +7,9 @@ import { ShoppingCart, Zap, Rocket, ArrowRight } from 'lucide-react'
 
 const services = [
   {
-    icon: ShoppingCart,
-    title: 'Custom Ecommerce Store',
-    description: 'Full custom online store, one-time build fee, no subscription.',
+    icon: Globe,
+    title: 'Custom Website Development',
+    description: 'Portfolio, business, blog, ecommerce, SaaS, or fully custom — one-time build fee, no subscription.',
     href: '/contact',
     cta: 'Get Started',
   },
