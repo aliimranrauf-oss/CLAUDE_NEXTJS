@@ -5,13 +5,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
-// Google's real Lighthouse scan (especially mobile, which throttles CPU/
-// network to simulate a real phone) can take well over 60s on slow or
-// heavy sites. 60s is the ceiling for a standard Vercel function even on
-// Pro — this value requires Fluid Compute enabled in the Vercel dashboard
-// (Project Settings → Functions → Fluid Compute), which raises the ceiling
-// to 300s even on the Hobby plan.
-export const maxDuration = 120
+// Google's real Lighthouse scan can take well over 60s on slow or heavy
+// sites — and there's no reliable way to predict which ones (large
+// ecommerce stores, sites with lots of third-party scripts, or ones on
+// slow hosting can all push either mobile or desktop scans well past a
+// minute; it's not consistently one strategy over the other). Rather than
+// guess a "safe" ceiling and cut real scans off early, this uses the
+// highest duration Vercel allows: 800s (~13 min) on Fluid Compute, which
+// must be enabled in the Vercel dashboard under Project Settings →
+// Functions → Fluid Compute (available on every plan, including Hobby).
+// Without Fluid Compute enabled, Vercel silently caps this at 60s/300s
+// depending on plan, regardless of the number set here.
+export const maxDuration = 800
 
 const GOOGLE_PSI_ENDPOINT = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
 
@@ -70,9 +75,13 @@ export async function GET(req: NextRequest) {
 
   try {
     const controller = new AbortController()
-    // Leaves a buffer under the 120s function limit for our own response
-    // handling (JSON parsing, etc.) after Google replies.
-    const timeout = setTimeout(() => controller.abort(), 110_000)
+    // Leaves a ~20s buffer under the 800s function limit above for our own
+    // response handling (JSON parsing, etc.) after Google replies. This is
+    // intentionally generous rather than a tight guess — large/slow sites
+    // legitimately need more time, on either mobile or desktop, and cutting
+    // the scan off early just to fit a smaller number isn't worth the
+    // false "something went wrong" it causes for real, working scans.
+    const timeout = setTimeout(() => controller.abort(), 780_000)
 
     const res = await fetch(apiUrl.toString(), { signal: controller.signal })
     clearTimeout(timeout)
@@ -132,8 +141,12 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(result)
   } catch (err: any) {
+    // Which strategy runs slower depends on the specific site being
+    // scanned (its hosting, third-party scripts, etc.) — not on mobile vs
+    // desktop in general — so this message doesn't guess or steer the
+    // visitor toward "just try the other one."
     const message = err?.name === 'AbortError'
-      ? `The scan took too long and timed out (this happens sometimes on very large or slow sites${strategy === 'mobile' ? ' — mobile scans take longer than desktop' : ''}). Please try again${strategy === 'mobile' ? ', or try the desktop scan instead' : ''}.`
+      ? 'This scan is taking unusually long — Google is still working on it. Please try again in a moment; very large or slow sites can occasionally need more than one attempt.'
       : 'Something went wrong reaching Google PageSpeed Insights.'
     return NextResponse.json({ error: message }, { status: 500 })
   }
