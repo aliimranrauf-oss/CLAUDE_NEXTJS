@@ -85,6 +85,12 @@ function ContactPageInner() {
 
   const searchParams = useSearchParams()
   const isSpeedAudit = searchParams.get('service') === 'speed-audit'
+  // Arrive here from the "Fix My Website" / "Send Report to Us" buttons on
+  // the speed report page — domain + a score/opportunity summary come
+  // pre-filled so the visitor only has to add name/email and hit submit.
+  const prefilledDomain = searchParams.get('domain') || ''
+  const prefilledReport = searchParams.get('report') || ''
+  const prefilledPdfUrl = searchParams.get('pdfUrl') || ''
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -116,6 +122,7 @@ function ContactPageInner() {
           package: data.get('package') || null,
           payment: data.get('payment') || null,
           message,
+          pdfUrl: prefilledPdfUrl || null,
           website: data.get('website') || '', // honeypot — real users never fill this
         }),
       })
@@ -229,7 +236,18 @@ function ContactPageInner() {
                 />
                 {isSpeedAudit && (
                   <p className="text-sm text-cyan-300 bg-cyan-400/10 border border-cyan-400/20 rounded-lg px-4 py-2.5">
-                    ⚡ Requesting a <span className="font-semibold">Free Speed Audit</span> — we&apos;ve pre-selected it below. Feel free to change it if you meant something else.
+                    ⚡ Requesting a <span className="font-semibold">Free Speed Audit</span> — we&apos;ve pre-selected it below.
+                    {prefilledReport && ' Your PageSpeed report is attached below — just add your details and hit submit.'}
+                    {prefilledPdfUrl && (
+                      <>
+                        {' '}
+                        <a href={prefilledPdfUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-cyan-200">
+                          View your PDF report
+                        </a>
+                        {' '}will be attached to this request.
+                      </>
+                    )}
+                    {' '}Feel free to change it if you meant something else.
                   </p>
                 )}
                 {/* Row 1 */}
@@ -248,7 +266,7 @@ function ContactPageInner() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <Label>Desired Domain</Label>
-                    <input name="domain" className={inputCls} placeholder="e.g. myshop.com" />
+                    <input name="domain" defaultValue={prefilledDomain} className={inputCls} placeholder="e.g. myshop.com" />
                   </div>
                   <div>
                     <Label>Current Platform</Label>
@@ -315,6 +333,7 @@ function ContactPageInner() {
                     name="message"
                     rows={4}
                     className={inputCls}
+                    defaultValue={prefilledReport}
                     placeholder="Tell us about your products, target audience, or any special requirements..."
                   />
                 </div>
