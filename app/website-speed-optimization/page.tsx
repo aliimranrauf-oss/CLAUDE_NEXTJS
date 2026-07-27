@@ -44,6 +44,27 @@ export const metadata: Metadata = {
     'shopify site speed optimization',
     'next.js performance optimization',
     'wix website speed optimization',
+    // ── Additional long-tail / intent-based terms ──────────────────────
+    'test website speed google',
+    'website speed checker no sign up',
+    'free page speed test tool',
+    'site speed test tool free',
+    'mobile website speed test',
+    'desktop website speed test',
+    'check website loading time free',
+    'free website performance checker',
+    'online lighthouse audit tool',
+    'free core web vitals test online',
+    'LCP CLS FCP checker free',
+    'chrome ux report checker',
+    'why is my website slow',
+    'website speed test for SEO',
+    'page speed test for Google ranking',
+    'free website audit tool online',
+    'speed test before hiring developer',
+    'check ecommerce store speed free',
+    'speed optimization expert near me',
+    'hire someone to fix website speed',
   ],
   category: 'Web Development Services',
   authors: [{ name: 'MakeMyStore.online' }],
@@ -131,10 +152,17 @@ const toolJsonLd = {
   operatingSystem: 'Any (web-based)',
   description:
     'A free online tool that runs a real Google Lighthouse and PageSpeed Insights check on any website, showing Performance, Accessibility, Best Practices, and SEO scores plus Core Web Vitals (LCP, CLS, INP, FCP, Speed Index) and real-visitor Chrome UX field data. The full report can be downloaded as a PDF or copied, with no sign-up or email required.',
+  isAccessibleForFree: true,
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'USD',
+  },
+  screenshot: 'https://www.makemystore.online/speed-hero.webp',
+  publisher: {
+    '@type': 'Organization',
+    name: 'MakeMyStore.online',
+    url: 'https://www.makemystore.online',
   },
   featureList: [
     'Real Google Lighthouse Performance, Accessibility, Best Practices & SEO scores',
@@ -145,6 +173,27 @@ const toolJsonLd = {
     'Copyable report text',
     'Mobile and desktop testing',
     'No sign-up or email required',
+  ],
+}
+
+// Breadcrumb rich result — helps this page show a Home > Website Speed
+// Optimization trail directly in the Google search snippet.
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.makemystore.online/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Website Speed Optimization',
+      item: 'https://www.makemystore.online/website-speed-optimization',
+    },
   ],
 }
 
@@ -329,6 +378,10 @@ export default function WebsiteSpeedOptimizationPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <main id="main-content" className="bg-[#0b0f1a] text-white">
