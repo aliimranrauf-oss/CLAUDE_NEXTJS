@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Privacy Policy | MakeMyStore.online',
   description:
-    'Read the Privacy Policy for MakeMyStore.online. Learn how we collect, use, and protect your data when you use our custom ecommerce website development services.',
+    'Read the Privacy Policy for MakeMyStore.online. Learn how we collect, use, and protect your data when you use our custom website development services, including ecommerce, business, portfolio, blog, and SaaS builds.',
   robots: { index: true, follow: true },
   alternates: { canonical: 'https://www.makemystore.online/privacy' },
   openGraph: {
@@ -61,7 +61,8 @@ export default function PrivacyPolicy() {
             </h2>
             <p className="text-gray-300 leading-relaxed">
               Welcome to <strong className="text-white">MakeMyStore.online</strong> ("we," "us," or "our"). We are a
-              web development service based in Pakistan that builds custom ecommerce stores for clients worldwide. This
+              web development service based in Pakistan that builds custom websites — including ecommerce stores,
+              business sites, portfolios, blogs, and SaaS landing pages — for clients worldwide. This
               Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our
               website <a href="https://www.makemystore.online" className="text-[#00d4ff] hover:underline">www.makemystore.online</a> or
               engage our services. Please read this policy carefully. If you disagree with its terms, please discontinue
