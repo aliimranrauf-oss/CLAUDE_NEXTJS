@@ -5,23 +5,24 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'About MakeMyStore — Custom Next.js Ecommerce, You Own Everything',
+  title: 'About MakeMyStore — Custom Next.js Websites, You Own Everything',
   description:
-    'MakeMyStore builds custom Next.js ecommerce stores with full source-code ownership. Deploy to any hosting you choose. One-time build fee. Migrate from Shopify or Wix in days.',
+    'MakeMyStore builds custom Next.js websites — ecommerce stores, business sites, portfolios, blogs & SaaS landing pages — with full source-code ownership. Deploy to any hosting you choose. One-time build fee. Migrate from Shopify or Wix in days.',
   keywords: [
+    'custom website development Pakistan',
+    'Next.js website development',
     'custom ecommerce store Pakistan',
-    'Next.js ecommerce development',
     'Shopify migration',
     'Wix migration',
-    'full ownership ecommerce',
-    'own your ecommerce hosting',
-    'one-time build fee ecommerce',
+    'full ownership website',
+    'own your website hosting',
+    'one-time build fee website',
     'MakeMyStore',
   ],
   openGraph: {
-    title: 'MakeMyStore — Own Your Store, Own Your Future',
+    title: 'MakeMyStore — Own Your Website, Own Your Future',
     description:
-      'Custom-coded Next.js ecommerce. One-time build fee. Full code ownership. No subscription to us. Deployed to any hosting you choose.',
+      'Custom-coded Next.js websites of any kind. One-time build fee. Full code ownership. No subscription to us. Deployed to any hosting you choose.',
     url: 'https://makemystore.dev/about',
     siteName: 'MakeMyStore',
     type: 'website',
@@ -29,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MakeMyStore — Own Your Store, Own Your Future',
+    title: 'MakeMyStore — Own Your Website, Own Your Future',
     description:
-      'Custom Next.js ecommerce. One-time build fee. Full code ownership. Deployed to any hosting you choose.',
+      'Custom Next.js websites of any kind. One-time build fee. Full code ownership. Deployed to any hosting you choose.',
   },
   alternates: {
     canonical: 'https://makemystore.dev/about',
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
 }
 
 const WHATSAPP_MSG = encodeURIComponent(
-  "Hi Imran, I read the About page. I'm interested in the Ownership model and want to migrate my store/build a new one. Can you explain the hosting setup?"
+  "Hi Imran, I read the About page. I'm interested in the Ownership model and want to migrate my existing website/build a new one. Can you explain the hosting setup?"
 )
 const WHATSAPP_URL = `https://wa.me/923001234567?text=${WHATSAPP_MSG}` // ← replace number
 
@@ -201,15 +202,15 @@ export default function AboutPage() {
                 className="text-4xl sm:text-[42px] md:text-5xl font-bold leading-[1.15] max-w-3xl mx-auto mb-6"
                 style={{ fontFamily: 'Syne, sans-serif' }}
               >
-                We Don&apos;t Just Build Stores.<br />
-                <span className="text-gradient">We Build Scalable E-commerce Systems.</span>
+                We Don&apos;t Just Build Websites.<br />
+                <span className="text-gradient">We Build Scalable Digital Systems.</span>
               </h1>
 
               <p
                 className="max-w-2xl text-base sm:text-lg text-gray-300 mb-10"
                 style={{ fontFamily: 'DM Sans, sans-serif' }}
               >
-                Custom-coded from scratch with Next.js, deployed to any hosting you choose.<br />
+                Ecommerce, business, portfolio, blog, or SaaS — custom-coded from scratch with Next.js, deployed to any hosting you choose.<br />
                 <strong className="text-white">One-Time Build Fee. Full Code Ownership. No Subscription To Us.</strong>
               </p>
 
@@ -218,7 +219,7 @@ export default function AboutPage() {
                   href="/contact"
                   className="btn-primary text-base px-10 py-6 flex items-center gap-3 group"
                 >
-                  Get Your Custom Store
+                  Get Your Custom Website
                   <ArrowRight className="group-active:translate-x-1 transition" />
                 </Link>
                 <a
@@ -453,7 +454,7 @@ export default function AboutPage() {
                     className="text-4xl font-bold mt-4 mb-6 leading-tight"
                     style={{ fontFamily: 'Syne, sans-serif' }}
                   >
-                    Already have a store?<br />
+                    Already have a website?<br />
                     <span className="text-gradient">We migrate it in days.</span>
                   </h2>
                   <p
@@ -461,7 +462,7 @@ export default function AboutPage() {
                     style={{ fontFamily: 'DM Sans, sans-serif' }}
                   >
                     From Shopify, Wix, WooCommerce, Squarespace, or any other platform.
-                    We export your products, customers, orders, and SEO settings — then rebuild it better.
+                    We export your content, products, customers, orders, and SEO settings — then rebuild it better, whatever type of site it is.
                   </p>
 
                   {/* Rental → Ownership callout */}
@@ -518,7 +519,7 @@ export default function AboutPage() {
               className="text-4xl sm:text-5xl font-bold mb-6 leading-tight"
               style={{ fontFamily: 'Syne, sans-serif' }}
             >
-              Ready for a store that actually belongs to you?
+              Ready for a website that actually belongs to you?
             </h2>
             <p
               className="text-xl text-gray-400 mb-10"
@@ -531,7 +532,7 @@ export default function AboutPage() {
               href="/pricing"
               className="btn-primary text-xl sm:text-2xl px-10 sm:px-16 py-6 sm:py-8 inline-flex items-center gap-4"
             >
-              Order Your Custom Store Now
+              Order Your Custom Website Now
               <span className="text-3xl sm:text-4xl">→</span>
             </Link>
 
