@@ -43,7 +43,7 @@ export default function Hero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
-          alt="MakeMyStore - Custom Ecommerce Solutions"
+          alt="MakeMyStore - Custom Website Development"
           width={140}
           height={140}
           fetchPriority="high"
@@ -61,17 +61,17 @@ export default function Hero() {
         className="text-4xl sm:text-[42px] font-bold leading-[1.2] max-w-2xl mx-auto text-white"
         style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.01em' }}
       >
-        Build Your Ecommerce Website
+        Build Any Website You Need
         <br />
         <span className="text-[#40e0ff] block mt-1">One-Time Build Fee — Deploy Anywhere</span>
       </h1>
 
-      {/* ── UPDATED: honest positioning — build fee, deploy anywhere ──────── */}
+      {/* ── UPDATED: broadened positioning — all website types, not just ecommerce ──────── */}
       <p
         className="mt-5 text-gray-500 text-sm sm:text-base max-w-lg mx-auto"
         style={{ fontFamily: 'DM Sans, sans-serif' }}
       >
-        Custom online store with Stripe &amp; PayPal, SEO optimized, deployed to any hosting you choose
+        Ecommerce stores, business sites, portfolios, blogs &amp; SaaS landing pages — custom coded, SEO optimized, deployed to any hosting you choose
       </p>
 
       {/* Benefit badges */}
@@ -81,7 +81,7 @@ export default function Hero() {
       >
         <span>🚀 Live in 3–10 days</span>
         <span className="text-white/20 mx-1">|</span>
-        <span>💳 Stripe &amp; PayPal Ready</span>
+        <span>🌐 Any Website Type</span>
         <span className="text-white/20 mx-1">|</span>
         <span>🔓 Full source code, no lock-in</span>
       </div>
@@ -105,7 +105,7 @@ export default function Hero() {
             boxShadow: '0 4px 15px rgba(0,212,255,0.3)',
           }}
         >
-          Get Your Store →
+          Get Your Website →
         </a>
       </div>
 
@@ -151,15 +151,17 @@ export default function Hero() {
 
       {/* ── CHANGE 3: Hidden SEO block — updated description ─────────────── */}
       <div className="sr-only">
-        <h2>Professional Shopify Alternative</h2>
+        <h2>Custom Website Development — Any Type, One-Time Fee</h2>
         <p>
-          MakeMyStore offers custom-coded ecommerce websites with a one-time build fee.
-          Unlike subscription platforms, we provide full source code ownership, high-speed
-          performance, and advanced SEO features for growing businesses. Your store deploys
-          to GitHub for version control, connects to a Supabase database (or your existing
-          backend), and launches on any hosting you choose — your current Hostinger or
-          GoDaddy plan, or a free-tier host like Vercel — so you&apos;re never locked into our
-          platform or forced into a recurring fee from us.
+          MakeMyStore builds custom-coded websites of every kind — ecommerce stores,
+          business sites, portfolios, blogs, and SaaS landing pages — with a one-time
+          build fee. Unlike subscription platforms or Shopify, we provide full source
+          code ownership, high-speed performance, and advanced SEO features for growing
+          businesses. Your website deploys to GitHub for version control, connects to a
+          Supabase database (or your existing backend) when needed, and launches on any
+          hosting you choose — your current Hostinger or GoDaddy plan, or a free-tier
+          host like Vercel — so you&apos;re never locked into our platform or forced into
+          a recurring fee from us.
         </p>
       </div>
 
