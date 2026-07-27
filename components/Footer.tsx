@@ -39,7 +39,7 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-sm text-gray-400 mb-4 leading-relaxed">
-              Custom ecommerce stores with zero monthly fees. Built with Next.js,
+              Custom websites — ecommerce, business, portfolio &amp; more — with zero monthly fees. Built with Next.js,
               Vercel &amp; Supabase. Serving clients worldwide.
             </p>
             <a
