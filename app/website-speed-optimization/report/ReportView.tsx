@@ -13,7 +13,7 @@ import Link from 'next/link'
 import jsPDF from 'jspdf'
 import {
   AlertTriangle, CheckCircle2, Gauge, Copy, Check, Users, FlaskConical,
-  ArrowLeft, X, Download, Smartphone, Monitor,
+  ArrowLeft, X, Download, Smartphone, Monitor, Wrench, ArrowRight, Send,
 } from 'lucide-react'
 import ToolCTA from '@/app/tools/tools/ToolCTA'
 import { trackToolUsage } from '@/app/tools/tools/useToolTracking'
@@ -212,8 +212,11 @@ export default function ReportView() {
     }
   }
 
-  const downloadPdf = () => {
-    if (!result) return
+  // Builds the report PDF and returns the jsPDF doc + a filesystem-safe
+  // name — used both for the local "Download PDF" button and for the
+  // "Send Report to Us" upload flow, so the two never drift out of sync.
+  const buildPdf = () => {
+    if (!result) return null
 
     const doc = new jsPDF({ unit: 'mm', format: 'a4' })
     const pageWidth = 210
@@ -408,7 +411,79 @@ export default function ReportView() {
     addFooter()
 
     const safeName = result.url.replace(/^https?:\/\//, '').replace(/[^a-z0-9.-]+/gi, '-').toLowerCase()
-    doc.save(`pagespeed-report-${safeName}-${strategy}.pdf`)
+    return { doc, safeName }
+  }
+
+  const downloadPdf = () => {
+    const built = buildPdf()
+    if (!built) return
+    built.doc.save(`pagespeed-report-${built.safeName}-${strategy}.pdf`)
+  }
+
+  // Builds the pre-filled /contact link used by both the big "Fix My
+  // Website" CTA and the "Send Report to Us" button. It carries the
+  // domain + a compact score/opportunity summary so the contact form
+  // arrives already filled in — the visitor just adds name/email and
+  // hits submit, and we get a warm lead with full context attached.
+  // `pdfUrl`, when present, is the Supabase Storage link to the PDF that
+  // was just uploaded — it rides along so the order saved in Supabase
+  // has the actual report file attached, not just a text summary.
+  const contactUrl = (pdfUrl?: string | null) => {
+    if (!result) return '/contact?service=speed-audit'
+    const domain = result.url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    const summary = [
+      `Website Speed Report — ${result.url} (${strategy})`,
+      `Scores — Performance: ${result.scores.performance ?? '–'}/100, Accessibility: ${result.scores.accessibility ?? '–'}/100, Best Practices: ${result.scores.bestPractices ?? '–'}/100, SEO: ${result.scores.seo ?? '–'}/100`,
+      `Core Web Vitals — LCP: ${result.lab.lcp.displayValue ?? '–'}, CLS: ${result.lab.cls.displayValue ?? '–'}, TBT: ${result.lab.tbt.displayValue ?? '–'}, FCP: ${result.lab.fcp.displayValue ?? '–'}`,
+      result.opportunities.length
+        ? `Top issues found: ${result.opportunities.slice(0, 3).map((o) => o.title).join('; ')}`
+        : '',
+      '',
+      'I ran the free speed check and would like the free advanced audit + a fix quote.',
+    ].filter(Boolean).join('\n')
+
+    const params = new URLSearchParams({ service: 'speed-audit', domain, report: summary })
+    if (pdfUrl) params.set('pdfUrl', pdfUrl)
+    return `/contact?${params.toString()}`
+  }
+
+  const [sendingReport, setSendingReport] = useState(false)
+
+  // "Send Report to Us" — builds the PDF, gives the visitor their own local
+  // copy, uploads the same PDF to Supabase Storage via /api/upload-report,
+  // then takes them to the contact form with the stored PDF link + score
+  // summary already filled in. They just add name/email and hit submit —
+  // that's the lead, now with the actual report file attached to it.
+  const sendReportToUs = async () => {
+    if (!result || sendingReport) return
+    const built = buildPdf()
+    if (!built) return
+
+    setSendingReport(true)
+    const { doc, safeName } = built
+    const filename = `pagespeed-report-${safeName}-${strategy}.pdf`
+
+    // Let the visitor keep their own copy too — unchanged from before.
+    doc.save(filename)
+
+    let pdfUrl: string | null = null
+    try {
+      const dataUri = doc.output('datauristring')
+      const base64 = dataUri.split(',')[1] || ''
+      const res = await fetch('/api/upload-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename, base64 }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data?.url) pdfUrl = data.url
+    } catch {
+      // Upload failed (e.g. offline) — still send them to the contact form
+      // with the text summary; it just won't have a stored PDF link.
+    }
+
+    setSendingReport(false)
+    router.push(contactUrl(pdfUrl))
   }
 
   const closeTab = () => {
@@ -549,7 +624,38 @@ export default function ReportView() {
                   <Download size={13} />
                   Download PDF
                 </button>
+                <button
+                  onClick={sendReportToUs}
+                  disabled={sendingReport}
+                  className="flex items-center gap-1.5 text-[12px] font-semibold px-3 py-2 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{ background: 'rgba(255,107,107,0.12)', border: '1px solid rgba(255,107,107,0.35)', color: '#ff9b9b' }}
+                >
+                  <Send size={13} />
+                  {sendingReport ? 'Sending…' : 'Send Report to Us — Free Advanced Audit'}
+                </button>
               </div>
+
+              {/* Primary lead-magnet CTA — big and impossible to miss,
+                  shown right as soon as the Lighthouse check finishes. */}
+              <a
+                href={contactUrl()}
+                className="print:hidden flex items-center justify-center gap-2.5 w-full rounded-2xl px-6 py-5 mb-6 text-center font-extrabold text-white transition-transform hover:scale-[1.02]"
+                style={{
+                  background: 'linear-gradient(135deg, #ff6b6b 0%, #ff9b3d 100%)',
+                  boxShadow: '0 8px 24px rgba(255,107,107,0.3)',
+                  fontFamily: 'Syne, sans-serif',
+                  fontSize: '17px',
+                }}
+              >
+                <Wrench size={20} />
+                Fix My Website
+                <ArrowRight size={18} />
+              </a>
+              <p className="print:hidden text-center text-[12px] text-white/40 -mt-4 mb-6">
+                {isSlow
+                  ? `Your Performance score is ${perf}/100 — that's likely costing you visitors and sales. We'll fix every issue above, one tested change at a time.`
+                  : 'Want these numbers even better, or need help keeping them there? We handle it end-to-end.'}
+              </p>
 
               {/* Category scores */}
               <div className="grid grid-cols-4 gap-2 mb-6">
