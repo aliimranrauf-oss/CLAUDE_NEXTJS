@@ -45,6 +45,10 @@ export async function POST(req: NextRequest) {
     package: body.package ? String(body.package).trim() : null,
     payment: body.payment ? String(body.payment).trim() : null,
     message: body.message ? String(body.message).trim() : null,
+    // Supabase Storage link to a PageSpeed report PDF, when the lead came
+    // in via the "Send Report to Us" flow on the speed-check tool. See
+    // app/api/upload-report/route.ts for how it gets there.
+    pdf_url: body.pdfUrl ? String(body.pdfUrl).trim() : null,
   }
 
   try {
@@ -69,6 +73,7 @@ async function sendOrderEmails(order: {
   package: string | null
   payment: string | null
   message: string | null
+  pdf_url: string | null
 }) {
   const apiKey = process.env.RESEND_API_KEY
   const ownerEmail = process.env.ORDER_NOTIFICATION_EMAIL
@@ -89,6 +94,7 @@ async function sendOrderEmails(order: {
     <p><b>Platform:</b> ${escapeHtml(order.platform || '—')}</p>
     <p><b>Package:</b> ${escapeHtml(order.package || '—')}</p>
     <p><b>Payment:</b> ${escapeHtml(order.payment || '—')}</p>
+    <p><b>Speed Report PDF:</b> ${order.pdf_url ? `<a href="${order.pdf_url}">${escapeHtml(order.pdf_url)}</a>` : '—'}</p>
     <p><b>Message:</b><br/>${escapeHtml(order.message || '—')}</p>
   `
 
