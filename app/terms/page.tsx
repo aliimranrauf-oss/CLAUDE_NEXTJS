@@ -5,13 +5,13 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Terms & Conditions | MakeMyStore.online',
   description:
-    'Read the Terms & Conditions for MakeMyStore.online. Understand our one-time setup service model, code ownership policy, refund policy, and liability terms for custom ecommerce development.',
+    'Read the Terms & Conditions for MakeMyStore.online. Understand our one-time setup service model, code ownership policy, refund policy, and liability terms for custom website development, including ecommerce, business, portfolio, blog, and SaaS builds.',
   robots: { index: true, follow: true },
   alternates: { canonical: 'https://www.makemystore.online/terms' },
   openGraph: {
     title: 'Terms & Conditions | MakeMyStore.online',
     description:
-      'Service terms, code ownership, refund policy, and liability waiver for MakeMyStore.online custom ecommerce development.',
+      'Service terms, code ownership, refund policy, and liability waiver for MakeMyStore.online custom website development — ecommerce, business, portfolio, blog, and SaaS builds.',
     url: 'https://www.makemystore.online/terms',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -72,7 +72,7 @@ export default function TermsAndConditions() {
             <ul className="text-gray-300 space-y-2 text-sm leading-relaxed ml-2">
               <li><strong className="text-white">"Service Provider" / "We" / "Us":</strong> MakeMyStore.online, a web development service operated from Pakistan.</li>
               <li><strong className="text-white">"Client" / "You":</strong> Any individual or business entity that engages MakeMyStore.online for a project.</li>
-              <li><strong className="text-white">"Project":</strong> The custom ecommerce website or web application agreed upon between both parties.</li>
+              <li><strong className="text-white">"Project":</strong> The custom website (ecommerce store, business site, portfolio, blog, SaaS landing page, or other web application) agreed upon between both parties.</li>
               <li><strong className="text-white">"Deliverables":</strong> The source code, GitHub repository, and associated assets produced as part of the Project.</li>
               <li><strong className="text-white">"Platform Fee":</strong> Recurring charges imposed by third-party SaaS platforms (e.g., Shopify). MakeMyStore.online does not charge platform fees.</li>
             </ul>
@@ -86,12 +86,13 @@ export default function TermsAndConditions() {
               2. Service Model — One-Time Setup
             </h2>
             <p className="text-gray-300 leading-relaxed mb-3">
-              MakeMyStore.online provides a <strong className="text-white">one-time custom ecommerce development service</strong>.
-              This is expressly <strong className="text-white">not</strong> a subscription, SaaS platform, or ongoing
+              MakeMyStore.online provides a <strong className="text-white">one-time custom website development service</strong>,
+              covering ecommerce stores, business sites, portfolios, blogs, SaaS landing pages, and other custom web
+              applications. This is expressly <strong className="text-white">not</strong> a subscription, SaaS platform, or ongoing
               managed service unless separately agreed upon in writing.
             </p>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Upon completion and full payment, the Client receives a fully functional ecommerce store deployed to
+              Upon completion and full payment, the Client receives a fully functional website deployed to
               the hosting and backend the Client chooses — whether that is the Client's own existing hosting
               account (e.g., Hostinger, GoDaddy) or a free-tier account (e.g., Vercel and/or Supabase) that we help
               set up on the Client's behalf. The Client is thereafter solely responsible for all ongoing hosting,
@@ -230,8 +231,8 @@ export default function TermsAndConditions() {
               6.1 System vs. Business Distinction
             </h3>
             <p className="text-gray-300 leading-relaxed mb-4">
-              MakeMyStore.online delivers a technical <strong className="text-white">System</strong> (the ecommerce
-              platform). The Client operates the <strong className="text-white">Business</strong> (product sourcing,
+              MakeMyStore.online delivers a technical <strong className="text-white">System</strong> (the website or
+              web application). The Client operates the <strong className="text-white">Business</strong> (product sourcing,
               pricing, marketing, customer relations, fulfilment, legal compliance, etc.).{' '}
               <strong className="text-white">
                 We bear absolutely no responsibility for the products sold, services offered, or business decisions made
@@ -307,7 +308,7 @@ export default function TermsAndConditions() {
               <li>Provide accurate, complete, and timely project requirements and content</li>
               <li>Create and maintain their own hosting and backend accounts (e.g., Vercel, Supabase, Hostinger, GoDaddy, or another provider of their choice)</li>
               <li>Secure and keep confidential all API keys, environment variables, and database credentials</li>
-              <li>Comply with all applicable laws in operating their ecommerce business, including consumer protection, tax, and data privacy laws relevant to their jurisdiction</li>
+              <li>Comply with all applicable laws in operating their business or website, including consumer protection, tax, and data privacy laws relevant to their jurisdiction</li>
               <li>Ensure that products or services sold through the Platform do not violate any laws or third-party rights</li>
               <li>Not use the Deliverables for any unlawful, harmful, or fraudulent purpose</li>
             </ul>
