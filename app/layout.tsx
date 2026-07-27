@@ -26,18 +26,19 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.makemystore.online'),
-  title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
+  title: 'Custom Website Development – One-Time Build Fee | MakeMyStore.online',
   description:
-    'Own your ecommerce store — one-time build fee, deployed to any hosting you choose. Fully custom stores from $250 with Stripe & PayPal, no subscription.',
+    'Own your website — one-time build fee, deployed to any hosting you choose. Ecommerce stores, business sites, portfolios, blogs & SaaS landing pages from $250, no subscription.',
   keywords: [
+    'custom website development',
     'custom ecommerce website',
     'shopify alternative',
-    'one-time build fee ecommerce',
-    'one-time setup ecommerce',
+    'one-time build fee website',
+    'one-time setup website',
     'deploy to any hosting',
-    'ecommerce website builder',
+    'website builder for businesses',
     'online store development',
-    'no subscription ecommerce',
+    'no subscription website',
   ],
   authors: [{ name: 'MakeMyStore.online' }],
   robots: {
@@ -46,9 +47,9 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
   },
   openGraph: {
-    title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
+    title: 'Custom Website Development – One-Time Build Fee | MakeMyStore.online',
     description:
-      'Own your ecommerce store — one-time build fee, deployed to any hosting you choose.',
+      'Own your website — one-time build fee, deployed to any hosting you choose. Ecommerce, business, portfolio, blog & SaaS builds.',
     url: 'https://www.makemystore.online',
     siteName: 'MakeMyStore.online',
     type: 'website',
@@ -57,15 +58,15 @@ export const metadata: Metadata = {
         url: 'https://www.makemystore.online/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'MakeMyStore - Custom Ecommerce, One-Time Build Fee',
+        alt: 'MakeMyStore - Custom Websites, One-Time Build Fee',
       },
     ],
     locale: 'en_US',                    // ← Added for better social sharing
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Custom Ecommerce Website – One-Time Build Fee | MakeMyStore.online',
-    description: 'Own your ecommerce store — one-time build fee, deployed to any hosting you choose.',
+    title: 'Custom Website Development – One-Time Build Fee | MakeMyStore.online',
+    description: 'Own your website — one-time build fee, deployed to any hosting you choose.',
     images: ['https://www.makemystore.online/og-image.png'],   // ← Added (very important for X/Twitter)
   },
   alternates: {
