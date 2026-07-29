@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/follow-up-digest?secret=YOUR_CRON_SECRET_HERE",
+      "schedule": "0 9 * * *"
+    }
+  ]
+}
