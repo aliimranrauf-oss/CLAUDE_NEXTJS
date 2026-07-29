@@ -60,8 +60,10 @@ export async function POST(req: NextRequest) {
     message_id: raw['message-id'] || raw.messageId || raw.mid || null,
     link_clicked: raw.link || null,
     raw_payload: raw,
-    event_at: raw.date || raw.ts_epoch
-      ? new Date(raw.ts_epoch ? raw.ts_epoch * 1000 : raw.date).toISOString()
+    event_at: raw.ts_epoch
+      ? new Date(raw.ts_epoch).toISOString()
+      : raw.date
+      ? new Date(raw.date).toISOString()
       : new Date().toISOString(),
   })).filter((r) => r.contact_email)
 
