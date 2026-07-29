@@ -12,8 +12,9 @@ type PricingPlan = { id: string; name: string; price: number; delivery: string |
 type PaymentLink = { id: string; plan_name: string; payoneer_link: string; is_used: boolean; created_at: string }
 type Template = { id: string; name: string | null; category: string | null; description: string | null; is_primary: boolean; created_at: string }
 type EmailContact = { contact_email: string; subject: string | null; latest_status: string; latest_event_at: string; message_id: string | null; link_clicked: string | null; followed_up_at: string | null }
+type ToolUsage = { id: string; tool_name: string; input_data: Record<string, unknown> | null; result_data: Record<string, unknown> | null; created_at: string; visitor_ip: string | null; country: string | null; region: string | null; city: string | null; user_agent: string | null; referrer: string | null }
 
-type Tab = 'analytics' | 'orders' | 'leads' | 'reviews' | 'blogs' | 'pricing' | 'payments' | 'templates' | 'email_tracking'
+type Tab = 'analytics' | 'orders' | 'leads' | 'reviews' | 'blogs' | 'pricing' | 'payments' | 'templates' | 'email_tracking' | 'tool_usage'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function fmt(d: string) { return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) }
@@ -92,6 +93,8 @@ export default function AdminPage() {
   const [payments, setPayments] = useState<PaymentLink[]>([])
   const [templates, setTemplates] = useState<Template[]>([])
   const [emailContacts, setEmailContacts] = useState<EmailContact[]>([])
+  const [toolUsage, setToolUsage] = useState<ToolUsage[]>([])
+  const [toolFilter, setToolFilter] = useState<string>('all')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [search, setSearch] = useState('')
@@ -130,7 +133,7 @@ export default function AdminPage() {
   // ── Fetch ──────────────────────────────────────────────────────────────────
   const fetchData = useCallback(async () => {
     setLoading(true)
-    const [o, l, r, b, p, py, t, ec] = await Promise.all([
+    const [o, l, r, b, p, py, t, ec, tu] = await Promise.all([
       supabase.from('orders').select('*').order('created_at', { ascending: false }),
       supabase.from('leads').select('*').order('created_at', { ascending: false }),
       supabase.from('reviews').select('*').order('date', { ascending: false }),
@@ -139,6 +142,7 @@ export default function AdminPage() {
       supabase.from('payment_links').select('*').order('created_at', { ascending: false }),
       supabase.from('templates').select('*').order('created_at', { ascending: false }),
       supabase.from('email_contact_status').select('*').order('latest_event_at', { ascending: false }),
+      supabase.from('tool_usage').select('*').order('created_at', { ascending: false }).limit(500),
     ])
     if (o.data) setOrders(o.data)
     if (l.data) setLeads(l.data)
@@ -148,6 +152,7 @@ export default function AdminPage() {
     if (py.data) setPayments(py.data)
     if (t.data) setTemplates(t.data)
     if (ec.data) setEmailContacts(ec.data)
+    if (tu.data) setToolUsage(tu.data)
     setLoading(false)
   }, [])
   useEffect(() => { fetchData() }, [fetchData])
@@ -308,6 +313,9 @@ export default function AdminPage() {
   }
   function deleteTpl(t: Template) { askDelete(`Delete template "${t.name}"?`, async () => { await supabase.from('templates').delete().eq('id', t.id); setTemplates(prev => prev.filter(x => x.id !== t.id)); setConfirmDelete(null) }) }
 
+  // ── TOOL USAGE ─────────────────────────────────────────────────────────────
+  function deleteToolUsage(tu: ToolUsage) { askDelete(`Delete this "${tu.tool_name}" usage log entry?`, async () => { await supabase.from('tool_usage').delete().eq('id', tu.id); setToolUsage(prev => prev.filter(x => x.id !== tu.id)); setConfirmDelete(null) }) }
+
   // ── Search filters ─────────────────────────────────────────────────────────
   const s = search.toLowerCase()
   const fOrders = orders.filter(o => [o.name, o.email, o.domain, o.package, o.platform, o.message].join(' ').toLowerCase().includes(s))
@@ -320,6 +328,14 @@ export default function AdminPage() {
   const fEmailContacts = emailContacts.filter(ec => [ec.contact_email, ec.subject, ec.latest_status].join(' ').toLowerCase().includes(s))
   const dueFollowUps = emailContacts.filter(ec => ['opened', 'clicked'].includes(ec.latest_status) && !ec.followed_up_at && (Date.now() - new Date(ec.latest_event_at).getTime()) > 24 * 3600 * 1000).length
 
+  // Tool usage: names, per-tool counts, and search/filter
+  const toolNames = Array.from(new Set(toolUsage.map(tu => tu.tool_name))).sort()
+  const toolCounts: Record<string, number> = {}
+  toolUsage.forEach(tu => { toolCounts[tu.tool_name] = (toolCounts[tu.tool_name] || 0) + 1 })
+  const fToolUsage = toolUsage
+    .filter(tu => toolFilter === 'all' || tu.tool_name === toolFilter)
+    .filter(tu => [tu.tool_name, tu.visitor_ip, tu.country, tu.region, tu.city, tu.referrer, JSON.stringify(tu.input_data || {})].join(' ').toLowerCase().includes(s))
+
   const tabs: { key: Tab; label: string; count?: number }[] = [
     { key: 'analytics', label: '📊 Analytics' },
     { key: 'orders', label: '🛒 Orders', count: orders.length },
@@ -330,6 +346,7 @@ export default function AdminPage() {
     { key: 'payments', label: '🔗 Payments', count: payments.length },
     { key: 'templates', label: '🎨 Templates', count: templates.length },
     { key: 'email_tracking', label: dueFollowUps > 0 ? `📬 Email Tracking 🔴 ${dueFollowUps} due` : '📬 Email Tracking', count: emailContacts.length },
+    { key: 'tool_usage', label: '🚀 Tool Usage', count: toolUsage.length },
   ]
   const tabStyle = (t: Tab): React.CSSProperties => ({ padding: '7px 13px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600, transition: 'all 0.2s', whiteSpace: 'nowrap', background: tab === t ? 'linear-gradient(135deg,#00d4ff,#7a5cff)' : 'rgba(255,255,255,0.05)', color: tab === t ? 'white' : 'rgba(255,255,255,0.5)' })
   const empty = (msg: string) => <div style={{ padding: 48, textAlign: 'center', color: 'rgba(255,255,255,0.3)' }}>{msg}</div>
@@ -563,6 +580,56 @@ export default function AdminPage() {
                     </td>
                     <td style={cell}>{!ec.followed_up_at && <Btn onClick={() => markFollowedUp(ec)} color="green" small>Mark followed up</Btn>}</td>
                   </tr>)
+                })}</tbody>
+              </table>
+            </div>
+          )}</div>
+        </>}
+
+        {/* ══ TOOL USAGE ══ */}
+        {tab === 'tool_usage' && <>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))', gap: 10, marginBottom: 16 }}>
+            <div onClick={() => setToolFilter('all')} style={{ cursor: 'pointer', background: toolFilter === 'all' ? 'rgba(0,212,255,0.1)' : 'rgba(255,255,255,0.03)', border: toolFilter === 'all' ? '1px solid rgba(0,212,255,0.35)' : '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '14px 16px' }}>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>All Tools</p>
+              <p style={{ color: '#00d4ff', fontSize: 26, fontWeight: 700, margin: 0, fontFamily: 'Syne,sans-serif' }}>{toolUsage.length}</p>
+            </div>
+            {toolNames.map(name => (
+              <div key={name} onClick={() => setToolFilter(name)} style={{ cursor: 'pointer', background: toolFilter === name ? 'rgba(0,212,255,0.1)' : 'rgba(255,255,255,0.03)', border: toolFilter === name ? '1px solid rgba(0,212,255,0.35)' : '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '14px 16px' }}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{name === 'pagespeed-insights' ? '⚡ Site Speed (PSI)' : name}</p>
+                <p style={{ color: 'white', fontSize: 26, fontWeight: 700, margin: 0, fontFamily: 'Syne,sans-serif' }}>{toolCounts[name]}</p>
+              </div>
+            ))}
+          </div>
+          <div style={tblWrap}>{fToolUsage.length === 0 ? empty('No tool usage logged yet.') : (
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead><tr style={{ background: 'rgba(255,255,255,0.02)' }}>
+                  <th style={hcell}>Date</th><th style={hcell}>Tool</th><th style={hcell}>IP</th><th style={hcell}>Location</th><th style={hcell}>Input</th><th style={hcell}>Referrer</th><th style={hcell}></th>
+                </tr></thead>
+                <tbody>{fToolUsage.map(tu => {
+                  const loc = [tu.city, tu.region, tu.country].filter(Boolean).join(', ')
+                  const inputSummary = tu.input_data ? JSON.stringify(tu.input_data) : '—'
+                  return (<>
+                    <tr key={tu.id} onClick={() => setExpanded(expanded === `tu${tu.id}` ? null : `tu${tu.id}`)} style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')} onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
+                      <td style={{ ...cell, fontSize: 12, whiteSpace: 'nowrap' }}>{fmt(tu.created_at)}</td>
+                      <td style={cell}><Badge color={tu.tool_name === 'pagespeed-insights' ? 'blue' : 'purple'} label={tu.tool_name === 'pagespeed-insights' ? '⚡ Site Speed' : tu.tool_name} /></td>
+                      <td style={{ ...cell, fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>{tu.visitor_ip || '—'}</td>
+                      <td style={{ ...cell, fontSize: 12 }}>{loc || '—'}</td>
+                      <td style={{ ...cell, maxWidth: 220, fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>{inputSummary.length > 50 ? inputSummary.slice(0, 50) + '…' : inputSummary}</td>
+                      <td style={{ ...cell, maxWidth: 160, fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>{tu.referrer ? (tu.referrer.length > 30 ? tu.referrer.slice(0, 30) + '…' : tu.referrer) : '—'}</td>
+                      <td style={cell} onClick={e => e.stopPropagation()}><Btn onClick={() => deleteToolUsage(tu)} color="red" small>Del</Btn></td>
+                    </tr>
+                    {expanded === `tu${tu.id}` && (<tr key={`tuexp-${tu.id}`}><td colSpan={7} style={{ padding: '0 14px 14px 48px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <div style={{ background: 'rgba(0,212,255,0.05)', border: '1px solid rgba(0,212,255,0.15)', borderRadius: 8, padding: '12px 16px', color: 'rgba(255,255,255,0.7)', fontSize: 12, lineHeight: 1.6 }}>
+                        <p style={{ margin: '0 0 6px' }}><strong style={{ color: '#00d4ff' }}>User Agent:</strong> {tu.user_agent || '—'}</p>
+                        <p style={{ margin: '0 0 6px' }}><strong style={{ color: '#00d4ff' }}>Full Referrer:</strong> {tu.referrer || '—'}</p>
+                        <p style={{ margin: '0 0 6px' }}><strong style={{ color: '#00d4ff' }}>Input Data:</strong></p>
+                        <pre style={{ margin: '0 0 10px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', background: 'rgba(0,0,0,0.25)', padding: 8, borderRadius: 6 }}>{JSON.stringify(tu.input_data, null, 2)}</pre>
+                        <p style={{ margin: '0 0 6px' }}><strong style={{ color: '#00d4ff' }}>Result Data:</strong></p>
+                        <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all', background: 'rgba(0,0,0,0.25)', padding: 8, borderRadius: 6 }}>{JSON.stringify(tu.result_data, null, 2)}</pre>
+                      </div>
+                    </td></tr>)}
+                  </>)
                 })}</tbody>
               </table>
             </div>
