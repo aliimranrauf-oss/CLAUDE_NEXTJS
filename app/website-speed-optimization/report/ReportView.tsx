@@ -16,7 +16,6 @@ import {
   ArrowLeft, X, Download, Smartphone, Monitor, Wrench, ArrowRight, Send,
 } from 'lucide-react'
 import ToolCTA from '@/app/tools/tools/ToolCTA'
-import { trackToolUsage } from '@/app/tools/tools/useToolTracking'
 
 interface MetricBlock {
   value: number | null
@@ -151,7 +150,9 @@ export default function ReportView() {
           return
         }
         setResult(data)
-        trackToolUsage('pagespeed-insights', { url: data.url, strategy }, { scores: data.scores })
+        // Usage tracking now happens server-side in /api/pagespeed (it can
+        // read real visitor geo/IP/referrer headers the browser can't see,
+        // and it still logs even if this tab gets closed before this runs).
       })
       .catch(() => {
         if (!cancelled) setError('Something went wrong reaching Google PageSpeed Insights. Please try again.')
