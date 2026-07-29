@@ -123,21 +123,22 @@ export default function ReportView() {
 
     // Simulated progress — Google's API doesn't report real progress, so this
     // climbs quickly at first and eases off the further it gets. It used to
-    // hard-stop at 92% and sit there for the rest of a long scan, which made
-    // people think the tool had frozen and refresh/leave mid-check. Instead
-    // it now keeps creeping upward in tiny increments all the way to 99%, no
-    // matter how long Google's API takes — so there's always visible motion
-    // — and only jumps to 100% once the real response actually lands.
+    // hard-stop at 99% (`if (p >= 99) return p`) and sit there completely
+    // motionless for the rest of a long scan, which made slow sites look
+    // like the tool had frozen/hung. There is now no branch that ever
+    // returns the same value unchanged — every tick always adds at least a
+    // small amount, so the bar keeps visibly creeping forward in tiny
+    // decimal steps (30.1, 30.2, 30.3…) no matter how long Google's API
+    // takes, and only jumps to 100% once the real response actually lands.
     const progressTimer = setInterval(() => {
       setProgress((p) => {
-        if (p >= 99) return p
         const step =
-          p < 40 ? 6 + Math.random() * 6 :
-          p < 75 ? 2 + Math.random() * 3 :
-          p < 92 ? 0.4 + Math.random() * 0.8 :
-          p < 97 ? 0.12 + Math.random() * 0.18 :
-          0.02 + Math.random() * 0.05
-        return Math.min(99, p + step)
+          p < 30 ? 6 + Math.random() * 6 :
+          p < 60 ? 0.8 + Math.random() * 0.8 :
+          p < 85 ? 0.25 + Math.random() * 0.25 :
+          p < 97 ? 0.08 + Math.random() * 0.08 :
+          0.02 + Math.random() * 0.03 // slow crawl, but never zero — always moving
+        return Math.min(99.8, p + step)
       })
     }, 300)
 
@@ -565,7 +566,7 @@ export default function ReportView() {
           {loading && (
             <div className="py-12">
               <div className="text-center mb-4">
-                <span className="text-xs font-bold tracking-[0.2em] text-white/50">CHECKING YOUR SITE</span>
+                <span className="text-xs font-bold tracking-[0.2em] text-white/50 animate-pulse">CHECKING YOUR SITE</span>
               </div>
               <div
                 className="w-full h-3.5 rounded-full overflow-hidden"
@@ -581,7 +582,7 @@ export default function ReportView() {
                 />
               </div>
               <div className="text-center mt-3 text-lg font-extrabold" style={{ color: '#00ffaa' }}>
-                {progress >= 92 ? progress.toFixed(1) : Math.round(progress)}%
+                {progress >= 30 ? progress.toFixed(1) : Math.round(progress)}%
               </div>
               <p className="text-center text-white/40 text-xs mt-3">
                 {progress >= 92
