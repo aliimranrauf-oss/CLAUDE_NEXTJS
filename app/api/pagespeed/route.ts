@@ -3,6 +3,7 @@
 // Keeps GOOGLE_PAGESPEED_API_KEY secret — never call the Google API directly from the browser.
 
 import { NextRequest, NextResponse } from 'next/server'
+import { getSupabaseAdmin } from '@/lib/supabaseAdmin'
 
 export const runtime = 'nodejs'
 // Google's real Lighthouse scan can take well over 60s on slow or heavy
@@ -80,6 +81,40 @@ function explainPsiFailure(rawMessage: string | undefined, runtimeErrorCode: str
   return "Google couldn't complete this scan — this is usually caused by the page taking too long to respond, or something on the page blocking automated browsers. Please try again in a moment; if it keeps failing, check the site loads normally in a regular browser tab."
 }
 
+// Logs every check attempt (success or failure) to the tool_usage table so
+// the admin dashboard can show how many people use this tool, which sites
+// they check, and roughly where from. Done server-side (rather than only
+// client-side after the fetch resolves) so it: (a) has access to real geo
+// headers Vercel attaches to the request, which the browser never sees,
+// and (b) still gets recorded even if the visitor closes the tab before
+// the client-side result renders. Never throws — a logging failure should
+// never affect the actual PageSpeed check the visitor is waiting on.
+async function logToolUsage(
+  req: NextRequest,
+  targetUrl: string,
+  strategy: string,
+  outcome: { ok: true; scores: Record<string, number | null> } | { ok: false; error: string }
+) {
+  try {
+    const supabaseAdmin = getSupabaseAdmin()
+    await supabaseAdmin.from('tool_usage').insert({
+      tool_name: 'pagespeed-insights',
+      input_data: { url: targetUrl, strategy },
+      result_data: outcome.ok ? { scores: outcome.scores } : { error: outcome.error },
+      visitor_ip: req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null,
+      // Vercel attaches these geo headers automatically in production for
+      // both Node.js and Edge functions — no external geo-IP service needed.
+      country: req.headers.get('x-vercel-ip-country') || null,
+      region: req.headers.get('x-vercel-ip-country-region') || null,
+      city: req.headers.get('x-vercel-ip-city') ? decodeURIComponent(req.headers.get('x-vercel-ip-city')!) : null,
+      referrer: req.headers.get('referer') || null,
+      user_agent: req.headers.get('user-agent') || null,
+    })
+  } catch {
+    // Silently ignore — logging should never break the tool itself.
+  }
+}
+
 export async function GET(req: NextRequest) {
   const apiKey = process.env.GOOGLE_PAGESPEED_API_KEY
 
@@ -123,6 +158,7 @@ export async function GET(req: NextRequest) {
 
     if (!res.ok) {
       const friendly = explainPsiFailure(data?.error?.message, undefined)
+      await logToolUsage(req, targetUrl, strategy, { ok: false, error: friendly })
       return NextResponse.json({ error: friendly }, { status: res.status })
     }
 
@@ -135,6 +171,7 @@ export async function GET(req: NextRequest) {
     // null scores. Catch it explicitly and return a real, helpful error.
     if (lr?.runtimeError) {
       const friendly = explainPsiFailure(lr.runtimeError.message, lr.runtimeError.code)
+      await logToolUsage(req, targetUrl, strategy, { ok: false, error: friendly })
       return NextResponse.json({ error: friendly }, { status: 502 })
     }
 
@@ -181,6 +218,7 @@ export async function GET(req: NextRequest) {
         })),
     }
 
+    await logToolUsage(req, targetUrl, strategy, { ok: true, scores: result.scores })
     return NextResponse.json(result)
   } catch (err: any) {
     // Which strategy runs slower depends on the specific site being
@@ -190,6 +228,7 @@ export async function GET(req: NextRequest) {
     const message = err?.name === 'AbortError'
       ? 'This scan is taking unusually long — Google is still working on it. Please try again in a moment; very large or slow sites can occasionally need more than one attempt.'
       : 'Something went wrong reaching Google PageSpeed Insights.'
+    await logToolUsage(req, targetUrl, strategy, { ok: false, error: message })
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
