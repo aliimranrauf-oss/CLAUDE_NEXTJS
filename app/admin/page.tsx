@@ -11,8 +11,9 @@ type Blog = { id: string; title: string; slug: string; excerpt: string | null; c
 type PricingPlan = { id: string; name: string; price: number; delivery: string | null; description: string | null; is_popular: boolean; is_active: boolean }
 type PaymentLink = { id: string; plan_name: string; payoneer_link: string; is_used: boolean; created_at: string }
 type Template = { id: string; name: string | null; category: string | null; description: string | null; is_primary: boolean; created_at: string }
+type ToolUsageRow = { id: string; tool_name: string; input_data: Record<string, any> | null; result_data: Record<string, any> | null; country: string | null; region: string | null; city: string | null; referrer: string | null; created_at: string }
 
-type Tab = 'analytics' | 'orders' | 'leads' | 'reviews' | 'blogs' | 'pricing' | 'payments' | 'templates'
+type Tab = 'analytics' | 'orders' | 'leads' | 'reviews' | 'blogs' | 'pricing' | 'payments' | 'templates' | 'tools'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function fmt(d: string) { return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) }
@@ -90,6 +91,7 @@ export default function AdminPage() {
   const [pricing, setPricing] = useState<PricingPlan[]>([])
   const [payments, setPayments] = useState<PaymentLink[]>([])
   const [templates, setTemplates] = useState<Template[]>([])
+  const [toolUsage, setToolUsage] = useState<ToolUsageRow[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [search, setSearch] = useState('')
@@ -128,7 +130,7 @@ export default function AdminPage() {
   // ── Fetch ──────────────────────────────────────────────────────────────────
   const fetchData = useCallback(async () => {
     setLoading(true)
-    const [o, l, r, b, p, py, t] = await Promise.all([
+    const [o, l, r, b, p, py, t, tu] = await Promise.all([
       supabase.from('orders').select('*').order('created_at', { ascending: false }),
       supabase.from('leads').select('*').order('created_at', { ascending: false }),
       supabase.from('reviews').select('*').order('date', { ascending: false }),
@@ -136,6 +138,7 @@ export default function AdminPage() {
       supabase.from('pricing_plans').select('*').order('price', { ascending: true }),
       supabase.from('payment_links').select('*').order('created_at', { ascending: false }),
       supabase.from('templates').select('*').order('created_at', { ascending: false }),
+      supabase.from('tool_usage').select('*').order('created_at', { ascending: false }).limit(500),
     ])
     if (o.data) setOrders(o.data)
     if (l.data) setLeads(l.data)
@@ -144,6 +147,7 @@ export default function AdminPage() {
     if (p.data) setPricing(p.data)
     if (py.data) setPayments(py.data)
     if (t.data) setTemplates(t.data)
+    if (tu.data) setToolUsage(tu.data)
     setLoading(false)
   }, [])
   useEffect(() => { fetchData() }, [fetchData])
@@ -158,6 +162,20 @@ export default function AdminPage() {
   orders.forEach(o => { if (o.platform) platCount[o.platform] = (platCount[o.platform] || 0) + 1 })
   const topPlat = Object.entries(platCount).sort((a, b) => b[1] - a[1])[0]
   const avgRating = reviews.length ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1) : '—'
+
+  // ── Tool usage stats ──────────────────────────────────────────────────────
+  const today = new Date()
+  const psiUsage = toolUsage.filter(t => t.tool_name === 'pagespeed-insights')
+  const psiToday = psiUsage.filter(t => { const d = new Date(t.created_at); return d.toDateString() === today.toDateString() })
+  const psiFailed = psiUsage.filter(t => t.result_data?.error)
+  const psiCountryCount: Record<string, number> = {}
+  psiUsage.forEach(t => { if (t.country) psiCountryCount[t.country] = (psiCountryCount[t.country] || 0) + 1 })
+  const psiSiteCount: Record<string, number> = {}
+  psiUsage.forEach(t => { const u = t.input_data?.url; if (u) psiSiteCount[u] = (psiSiteCount[u] || 0) + 1 })
+  const topCountries = Object.entries(psiCountryCount).sort((a, b) => b[1] - a[1]).slice(0, 8)
+  const topSites = Object.entries(psiSiteCount).sort((a, b) => b[1] - a[1]).slice(0, 8)
+  const toolNameCount: Record<string, number> = {}
+  toolUsage.forEach(t => { toolNameCount[t.tool_name] = (toolNameCount[t.tool_name] || 0) + 1 })
 
   function pkgColor(pkg: string | null) {
     if (!pkg) return 'blue'
@@ -302,6 +320,7 @@ export default function AdminPage() {
   const fPricing = pricing.filter(p => p.name.toLowerCase().includes(s))
   const fPayments = payments.filter(p => [p.plan_name, p.payoneer_link].join(' ').toLowerCase().includes(s))
   const fTemplates = templates.filter(t => [t.name, t.category, t.description].join(' ').toLowerCase().includes(s))
+  const fToolUsage = toolUsage.filter(t => [t.tool_name, t.input_data?.url, t.country, t.city].join(' ').toLowerCase().includes(s))
 
   const tabs: { key: Tab; label: string; count?: number }[] = [
     { key: 'analytics', label: '📊 Analytics' },
@@ -312,6 +331,7 @@ export default function AdminPage() {
     { key: 'pricing', label: '💰 Pricing', count: pricing.length },
     { key: 'payments', label: '🔗 Payments', count: payments.length },
     { key: 'templates', label: '🎨 Templates', count: templates.length },
+    { key: 'tools', label: '🔧 Tool Usage', count: toolUsage.length },
   ]
   const tabStyle = (t: Tab): React.CSSProperties => ({ padding: '7px 13px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600, transition: 'all 0.2s', whiteSpace: 'nowrap', background: tab === t ? 'linear-gradient(135deg,#00d4ff,#7a5cff)' : 'rgba(255,255,255,0.05)', color: tab === t ? 'white' : 'rgba(255,255,255,0.5)' })
   const empty = (msg: string) => <div style={{ padding: 48, textAlign: 'center', color: 'rgba(255,255,255,0.3)' }}>{msg}</div>
@@ -525,6 +545,86 @@ export default function AdminPage() {
               </table>
             </div>
           )}</div></>}
+
+        {/* ══ TOOL USAGE ══ */}
+        {tab === 'tools' && (
+          <div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(165px,1fr))', gap: 14, marginBottom: 20 }}>
+              {[
+                { label: 'Total Speed Checks', val: psiUsage.length, color: '#00d4ff' },
+                { label: 'Checked Today', val: psiToday.length, color: '#fbbf24' },
+                { label: 'Failed / Errored', val: psiFailed.length, color: '#ff4d6d' },
+                { label: 'Unique Sites Checked', val: Object.keys(psiSiteCount).length, color: '#a78bfa' },
+                { label: 'Countries Reached', val: Object.keys(psiCountryCount).length, color: '#34d399' },
+              ].map(s => (
+                <div key={s.label} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '18px 20px' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, margin: '0 0 6px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.label}</p>
+                  <p style={{ color: s.color, fontSize: 32, fontWeight: 700, margin: 0, fontFamily: 'Syne,sans-serif' }}>{s.val}</p>
+                </div>
+              ))}
+            </div>
+
+            {Object.keys(toolNameCount).length > 1 && (
+              <div style={{ ...tblWrap, padding: 18, marginBottom: 20 }}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 14px' }}>Checks by Tool</p>
+                {Object.entries(toolNameCount).sort((a, b) => b[1] - a[1]).map(([name, cnt]) => (
+                  <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                    <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}>{name}</span>
+                    <span style={{ color: '#00d4ff', fontSize: 12, fontWeight: 600 }}>{cnt}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
+              <div style={{ ...tblWrap, padding: 18 }}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 14px' }}>Top Countries</p>
+                {topCountries.length === 0 ? <p style={{ color: 'rgba(255,255,255,0.3)', margin: 0, fontSize: 13 }}>No data yet</p> : topCountries.map(([name, cnt]) => (
+                  <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                    <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}>{name}</span>
+                    <span style={{ color: '#34d399', fontSize: 12, fontWeight: 600 }}>{cnt}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ ...tblWrap, padding: 18 }}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 14px' }}>Most-Checked Sites</p>
+                {topSites.length === 0 ? <p style={{ color: 'rgba(255,255,255,0.3)', margin: 0, fontSize: 13 }}>No data yet</p> : topSites.map(([name, cnt]) => (
+                  <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, gap: 8 }}>
+                    <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
+                    <span style={{ color: '#00d4ff', fontSize: 12, fontWeight: 600, flexShrink: 0 }}>{cnt}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={tblWrap}>{fToolUsage.length === 0 ? empty('No tool usage logged yet.') : (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead><tr style={{ background: 'rgba(255,255,255,0.02)' }}>
+                    <th style={hcell}>Date</th><th style={hcell}>Tool</th><th style={hcell}>Site Checked</th><th style={hcell}>Strategy</th>
+                    <th style={hcell}>Scores (P/A/BP/SEO)</th><th style={hcell}>Location</th><th style={hcell}>Status</th>
+                  </tr></thead>
+                  <tbody>{fToolUsage.slice(0, 200).map(t => {
+                    const scores = t.result_data?.scores
+                    const failed = !!t.result_data?.error
+                    return (
+                      <tr key={t.id} onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')} onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
+                        <td style={{ ...cell, whiteSpace: 'nowrap', fontSize: 12 }}>{fmt(t.created_at)}</td>
+                        <td style={{ ...cell, fontSize: 12 }}>{t.tool_name}</td>
+                        <td style={{ ...cell, maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12 }}>{t.input_data?.url || '—'}</td>
+                        <td style={{ ...cell, fontSize: 12 }}>{t.input_data?.strategy || '—'}</td>
+                        <td style={{ ...cell, fontSize: 12, whiteSpace: 'nowrap' }}>{scores ? `${scores.performance ?? '–'}/${scores.accessibility ?? '–'}/${scores.bestPractices ?? '–'}/${scores.seo ?? '–'}` : '—'}</td>
+                        <td style={{ ...cell, fontSize: 12 }}>{[t.city, t.country].filter(Boolean).join(', ') || '—'}</td>
+                        <td style={cell}>{failed ? <Badge color="red" label="Failed" /> : <Badge color="green" label="Success" />}</td>
+                      </tr>
+                    )
+                  })}</tbody>
+                </table>
+              </div>
+            )}</div>
+            {fToolUsage.length > 200 && <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 11, textAlign: 'center', marginTop: 10 }}>Showing 200 of {fToolUsage.length} matching rows.</p>}
+          </div>
+        )}
       </>}
 
       {/* ══ MODALS ══════════════════════════════════════════════════════════ */}
