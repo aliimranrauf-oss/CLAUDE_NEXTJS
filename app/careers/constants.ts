@@ -5,9 +5,8 @@
 // clickable during review. Replace them with your real details before going
 // live — nothing else in this page needs to change when you do.
 
-// SAMPLE WhatsApp number — replace with your real WhatsApp Business number
-// (digits only, country code first, no "+", no spaces/dashes).
-export const WHATSAPP_NUMBER = '923000000000' // ← REPLACE with real number
+// WhatsApp Business number (digits only, country code first, no "+", no spaces/dashes).
+export const WHATSAPP_NUMBER = '447988597332'
 
 // SAMPLE Fiverr gig link — replace with your real gig URL.
 export const FIVERR_GIG_URL = 'https://www.fiverr.com/s/XXXXXXX' // ← REPLACE with real gig link
