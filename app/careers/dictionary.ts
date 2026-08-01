@@ -11,6 +11,7 @@
 export interface PainPoint {
   title: string
   description: string
+  slug: string
 }
 
 export interface ExampleItem {
@@ -47,6 +48,13 @@ export interface Testimonial {
 export interface FaqItem {
   q: string
   a: string
+}
+
+export interface BlogTeaserItem {
+  title: string
+  excerpt: string
+  slug: string
+  alt: string
 }
 
 export interface CareersDictionary {
@@ -100,6 +108,13 @@ export interface CareersDictionary {
     heading: string
     items: FaqItem[]
   }
+  blogTeaser: {
+    eyebrow: string
+    heading: string
+    subheading: string
+    readMore: string
+    items: BlogTeaserItem[]
+  }
   finalCta: {
     heading: string
     subheading: string
@@ -131,16 +146,19 @@ export const en: CareersDictionary = {
         title: 'Your CV gets filtered by bots',
         description:
           'Most companies in the Gulf now run every application through an ATS before a human ever sees it. Generic CVs get auto-rejected before they reach a recruiter.',
+        slug: 'ats-cv-rejection-uae-companies',
       },
       {
         title: 'Recruiters Google your name and find nothing',
         description:
           "A recruiter interested in you searches your name — and finds a blank page. No proof of work, no credibility, no reason to follow up.",
+        slug: 'uae-recruiters-google-your-name',
       },
       {
         title: 'Everyone in your field looks the same on LinkedIn',
         description:
           'Same template headline, same bullet points, same profile photo crop. Nothing on your profile makes a hiring manager stop scrolling.',
+        slug: 'linkedin-not-enough-gulf-job-seekers',
       },
     ],
   },
@@ -304,6 +322,32 @@ export const en: CareersDictionary = {
       },
     ],
   },
+  blogTeaser: {
+    eyebrow: 'LEARN MORE',
+    heading: 'Want more detail before you decide?',
+    subheading: 'A few deeper reads on the same problems this page solves — no pressure, just context.',
+    readMore: 'Read the article',
+    items: [
+      {
+        title: 'Why Recruiters in the UAE Google Your Name Before They Call You Back',
+        excerpt: 'What recruiters are hoping to find when they search your name — and what usually turns up instead.',
+        slug: 'uae-recruiters-google-your-name',
+        alt: 'Article: why UAE recruiters search candidate names online',
+      },
+      {
+        title: 'ATS Systems in UAE Companies: Why Even Great CVs Get Rejected Automatically',
+        excerpt: 'How resume-screening software filters candidates before a human ever opens your CV.',
+        slug: 'ats-cv-rejection-uae-companies',
+        alt: 'Article: how ATS software filters CVs at UAE companies',
+      },
+      {
+        title: 'LinkedIn Isn\u2019t Enough Anymore for Gulf Job Seekers',
+        excerpt: 'What top candidates across the UAE, Qatar, and the wider Gulf are doing differently in 2026.',
+        slug: 'linkedin-not-enough-gulf-job-seekers',
+        alt: 'Article: why LinkedIn alone is not enough for Gulf job seekers',
+      },
+    ],
+  },
   finalCta: {
     heading: 'Ready to stop being invisible to recruiters?',
     subheading: 'Send your CV on WhatsApp and get a personal portfolio built around your career goals.',
@@ -335,16 +379,19 @@ export const ar: CareersDictionary = {
         title: 'سيرتك الذاتية تُصفّى بواسطة الأنظمة الآلية',
         description:
           'معظم الشركات في الخليج تُمرر كل طلب توظيف عبر نظام ATS قبل أن يراه أي إنسان. السير الذاتية العامة تُرفض تلقائيًا قبل أن تصل إلى مسؤول التوظيف.',
+        slug: 'ats-cv-rejection-uae-companies-ar',
       },
       {
         title: 'مسؤول التوظيف يبحث عن اسمك ولا يجد شيئًا',
         description:
           'عندما يهتم مسؤول توظيف بك، يبحث عن اسمك — ويجد صفحة فارغة. لا دليل على عملك، ولا مصداقية، ولا سبب للمتابعة.',
+        slug: 'uae-recruiters-google-your-name-ar',
       },
       {
         title: 'الجميع في مجالك يبدو متشابهًا على LinkedIn',
         description:
           'نفس العنوان القالبي، ونفس النقاط، ونفس تنسيق الصورة الشخصية. لا شيء في ملفك يجعل مدير التوظيف يتوقف عن التمرير.',
+        slug: 'linkedin-not-enough-gulf-job-seekers-ar',
       },
     ],
   },
@@ -500,6 +547,32 @@ export const ar: CareersDictionary = {
       {
         q: 'هل يوجد استرداد أو ضمان؟',
         a: 'إذا لم تطابق المسودة المُسلَّمة الوصف المتفق عليه، سنقوم بتعديلها حتى تطابقه. تُحدد شروط الاسترداد مسبقًا قبل بدء العمل، وفقًا للمنصة (Fiverr أو الطلب المباشر) التي تطلب من خلالها.',
+      },
+    ],
+  },
+  blogTeaser: {
+    eyebrow: 'اعرف أكثر',
+    heading: 'تريد تفاصيل أكثر قبل أن تقرر؟',
+    subheading: 'بعض المقالات المتعمقة حول نفس المشكلات التي تحلها هذه الصفحة — بدون أي التزام، فقط للاطلاع.',
+    readMore: 'اقرأ المقال',
+    items: [
+      {
+        title: 'لماذا يبحث مسؤولو التوظيف في الإمارات عن اسمك على جوجل قبل الاتصال بك؟',
+        excerpt: 'ما الذي يأمل مسؤولو التوظيف العثور عليه عند البحث عن اسمك، وما الذي يجدونه غالبًا بدلاً من ذلك.',
+        slug: 'uae-recruiters-google-your-name-ar',
+        alt: 'مقال: لماذا يبحث مسؤولو التوظيف في الإمارات عن أسماء المرشحين على الإنترنت',
+      },
+      {
+        title: 'أنظمة ATS في شركات الإمارات: لماذا تُرفض حتى السير الذاتية الممتازة تلقائيًا؟',
+        excerpt: 'كيف تقوم برامج فرز السير الذاتية بتصفية المرشحين قبل أن يفتح أي إنسان سيرتك الذاتية.',
+        slug: 'ats-cv-rejection-uae-companies-ar',
+        alt: 'مقال: كيف تعمل أنظمة ATS في فرز السير الذاتية بشركات الإمارات',
+      },
+      {
+        title: 'حساب LinkedIn وحده لم يعد كافيًا للباحثين عن عمل في الخليج',
+        excerpt: 'ما الذي يفعله المرشحون المتميزون بشكل مختلف في الإمارات وقطر وباقي دول الخليج خلال 2026.',
+        slug: 'linkedin-not-enough-gulf-job-seekers-ar',
+        alt: 'مقال: لماذا لا يكفي LinkedIn وحده للباحثين عن عمل في الخليج',
       },
     ],
   },
