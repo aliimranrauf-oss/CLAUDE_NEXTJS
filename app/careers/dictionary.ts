@@ -113,15 +113,15 @@ export const en: CareersDictionary = {
   htmlLangLabel: 'English',
   toggle: { en: 'EN', ar: 'عربي' },
   hero: {
-    badge: 'FOR PROFESSIONALS IN SAUDI ARABIA & QATAR',
-    headline: 'Get noticed by recruiters in',
-    headlineAccent: 'Saudi Arabia & Qatar',
+    badge: 'FOR PROFESSIONALS ACROSS THE GULF',
+    headline: 'Get noticed by recruiters across',
+    headlineAccent: 'the Gulf',
     subheadline:
       "Your CV gets filtered by ATS bots, your LinkedIn looks like everyone else's, and Googling your name turns up nothing. A personal portfolio website fixes all three — and puts you in front of the recruiter, not the algorithm.",
     ctaPrimary: 'Chat on WhatsApp',
     ctaSecondary: 'See packages & pricing',
     imageAlt: 'Preview of a personal portfolio website with CV, projects and blog sections',
-    imageCaption: 'DRAFT PREVIEW — swap for a real portfolio screenshot',
+    imageCaption: 'Example portfolio preview',
   },
   painPoints: {
     eyebrow: 'THE PROBLEM',
@@ -317,15 +317,15 @@ export const ar: CareersDictionary = {
   htmlLangLabel: 'العربية',
   toggle: { en: 'EN', ar: 'عربي' },
   hero: {
-    badge: 'للمحترفين في السعودية وقطر',
+    badge: 'للمحترفين في دول الخليج',
     headline: 'اجعل نفسك مرئيًا لمسؤولي التوظيف في',
-    headlineAccent: 'السعودية وقطر',
+    headlineAccent: 'دول الخليج',
     subheadline:
       'سيرتك الذاتية تُصفّى بواسطة أنظمة ATS، وحسابك على LinkedIn يشبه الجميع، والبحث عن اسمك على جوجل لا يُظهر شيئًا. موقع بورتفوليو شخصي يحل هذه المشاكل الثلاث ويضعك أمام مسؤول التوظيف مباشرة، لا أمام خوارزمية.',
     ctaPrimary: 'تواصل عبر واتساب',
     ctaSecondary: 'شاهد الباقات والأسعار',
     imageAlt: 'معاينة لموقع بورتفوليو شخصي يتضمن السيرة الذاتية والمشاريع والمدونة',
-    imageCaption: 'معاينة تجريبية — سيتم استبدالها بلقطة شاشة حقيقية للبورتفوليو',
+    imageCaption: 'معاينة توضيحية للبورتفوليو',
   },
   painPoints: {
     eyebrow: 'المشكلة',
