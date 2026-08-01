@@ -23,27 +23,44 @@ function PackageCard({ pkg, index }: { pkg: PackageItem; index: number }) {
       aria-label={pkg.name}
       className={`relative rounded-2xl flex flex-col transition-all duration-300 ${
         pkg.highlight
-          ? 'border border-cyan/35 bg-cyan/[0.035] shadow-[0_0_50px_rgba(0,212,255,0.07)]'
+          ? 'border-2 border-cyan bg-cyan/[0.06] shadow-[0_0_70px_rgba(0,212,255,0.18)] lg:-translate-y-3 lg:scale-[1.04] z-10'
           : 'border border-white/10 bg-white/[0.025] hover:border-white/18'
       }`}
     >
       {pkg.highlight && pkg.badge && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1 px-3 py-1 rounded-full bg-cyan text-[#0b0f1a] text-[11px] font-bold tracking-wider whitespace-nowrap z-10 font-display">
-          <Sparkles size={10} aria-hidden /> {pkg.badge}
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-cyan text-[#0b0f1a] text-xs font-extrabold tracking-wider whitespace-nowrap z-10 font-display shadow-[0_2px_12px_rgba(0,212,255,0.5)]">
+          <Sparkles size={12} aria-hidden /> {pkg.badge}
         </div>
       )}
 
-      <div className="p-6 sm:p-7 flex flex-col flex-1">
-        <h3 className="font-display text-xl sm:text-[22px] font-bold text-white mb-1">{pkg.name}</h3>
+      <div className={`p-6 sm:p-7 flex flex-col flex-1 ${pkg.highlight ? 'sm:pt-9' : ''}`}>
+        <h3
+          className={`font-display font-bold text-white mb-1 ${
+            pkg.highlight ? 'text-2xl sm:text-[26px]' : 'text-xl sm:text-[22px]'
+          }`}
+        >
+          {pkg.name}
+        </h3>
         <p className="font-body text-[11px] font-semibold text-cyan mb-4 tracking-widest uppercase">
           {pkg.tagline}
         </p>
 
-        <p className="font-display text-3xl font-bold text-white mb-5">{pkg.priceLabel}</p>
+        <p
+          className={`font-display font-bold text-white mb-5 ${
+            pkg.highlight ? 'text-4xl sm:text-5xl text-gradient' : 'text-3xl'
+          }`}
+        >
+          {pkg.priceLabel}
+        </p>
 
         <ul className="flex-1 space-y-3 mb-7">
           {pkg.features.map((feature) => (
-            <li key={feature} className="font-body flex items-start gap-2.5 text-sm text-white/70">
+            <li
+              key={feature}
+              className={`font-body flex items-start gap-2.5 text-sm ${
+                pkg.highlight ? 'text-white/85' : 'text-white/70'
+              }`}
+            >
               <Check size={16} className="text-cyan shrink-0 mt-0.5" aria-hidden />
               <span>{feature}</span>
             </li>
@@ -54,10 +71,10 @@ function PackageCard({ pkg, index }: { pkg: PackageItem; index: number }) {
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
+          className={`inline-flex items-center justify-center gap-2 w-full rounded-xl text-sm font-bold transition-all duration-200 ${
             pkg.highlight
-              ? 'btn-primary'
-              : 'border border-white/10 bg-white/[0.03] hover:border-cyan/25 hover:bg-cyan/[0.04] text-white/80 hover:text-white'
+              ? 'btn-primary py-3.5 text-[15px] hover:scale-[1.02]'
+              : 'py-3 border border-white/10 bg-white/[0.03] hover:border-cyan/25 hover:bg-cyan/[0.04] text-white/80 hover:text-white'
           }`}
         >
           <MessageCircle size={16} aria-hidden />
@@ -81,7 +98,7 @@ export default function CareersPackages() {
           <p className="font-body mt-4 text-white/65 leading-relaxed">{t.subheading}</p>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
+        <div className="mt-14 lg:mt-20 grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
           {t.items.map((pkg, i) => (
             <PackageCard key={pkg.id} pkg={pkg} index={i} />
           ))}
