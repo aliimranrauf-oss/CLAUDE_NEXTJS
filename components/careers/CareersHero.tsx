@@ -79,6 +79,11 @@ export default function CareersHero() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="relative"
           >
+            {/*
+              Back to aspect-[4/3] — the current hero image is generated at
+              a true 4:3 ratio, so no cropping happens here. If you ever
+              swap in a differently-shaped image, update this to match.
+            */}
             <div className="relative rounded-2xl overflow-hidden border border-cyan/20 shadow-[0_0_60px_rgba(0,212,255,0.08)] aspect-[4/3]">
               <Image
                 src="/careers/careers-hero-mockup.png"
@@ -88,11 +93,63 @@ export default function CareersHero() {
                 className="object-cover"
                 priority
               />
+
+              {/*
+                Animated border-runner — the same flowing-current idea used
+                on /how-it-works (DataFlowDiagram.tsx: gradient sweep +
+                traveling pulse along a line), reused here as a light trail
+                that continuously runs around the image's border instead of
+                along a horizontal pipeline. Pure SVG/CSS, no extra deps.
+              */}
+              <svg
+                viewBox="0 0 100 75"
+                preserveAspectRatio="none"
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="careersHeroBorderRunner" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00d4ff" stopOpacity="0" />
+                    <stop offset="50%" stopColor="#00d4ff" />
+                    <stop offset="100%" stopColor="#7a5cff" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <rect
+                  x="0.6"
+                  y="0.6"
+                  width="98.8"
+                  height="73.8"
+                  rx="5"
+                  fill="none"
+                  stroke="url(#careersHeroBorderRunner)"
+                  strokeWidth="0.6"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  className="hero-border-runner"
+                />
+              </svg>
             </div>
             <p className="font-body mt-2 text-center text-[11px] text-white/35">{t.imageCaption}</p>
           </motion.div>
         </div>
       </div>
+
+      <style jsx>{`
+        .hero-border-runner {
+          stroke-dasharray: 22 328;
+          animation: heroBorderRun 5.5s linear infinite;
+        }
+        @keyframes heroBorderRun {
+          to {
+            stroke-dashoffset: -350;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-border-runner {
+            animation: none;
+          }
+        }
+      `}</style>
     </section>
   )
 }
