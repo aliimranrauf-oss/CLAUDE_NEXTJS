@@ -127,7 +127,6 @@ export default function CareersHero() {
                 />
               </div>
             </div>
-            <p className="font-body mt-2 text-center text-[11px] text-white/35">{t.imageCaption}</p>
           </motion.div>
         </div>
       </div>
