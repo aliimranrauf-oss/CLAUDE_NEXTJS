@@ -8,9 +8,9 @@ import { Menu, X } from 'lucide-react'
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'How It Works', href: '/how-it-works' },
-  { label: 'Free Tools', href: '/tools' },
   { label: 'Site Speed', href: '/website-speed-optimization' },
   { label: 'Space & Aerospace', href: '/space' },
+  { label: 'Careers', href: '/careers' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
