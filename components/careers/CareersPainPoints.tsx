@@ -43,7 +43,7 @@ export default function CareersPainPoints({ blogImages = {} }: CareersPainPoints
                 transition={{ delay: i * 0.08, duration: 0.5 }}
               >
                 <Link
-                  href={`/blog/${item.slug}`}
+                  href={`/blog/${item.slug}?from=careers`}
                   className="group block h-full rounded-2xl border border-white/10 bg-white/[0.025] overflow-hidden hover:border-cyan/25 transition-colors"
                 >
                   {heroImage ? (
