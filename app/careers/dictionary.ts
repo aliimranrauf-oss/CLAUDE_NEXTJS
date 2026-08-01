@@ -168,7 +168,7 @@ export const en: CareersDictionary = {
         id: 'starter',
         name: 'Portfolio Starter',
         tagline: 'Your professional home online',
-        priceLabel: '[PRICE]',
+        priceLabel: '$149',
         features: [
           'Custom personal portfolio website',
           'Supabase-powered admin dashboard',
@@ -185,7 +185,7 @@ export const en: CareersDictionary = {
         id: 'ats-cv',
         name: 'Portfolio + ATS CV',
         tagline: 'Get past the bots, then impress the human',
-        priceLabel: '[PRICE]',
+        priceLabel: '$249',
         features: [
           'Everything in Portfolio Starter',
           'Professionally optimized ATS-friendly CV',
@@ -202,7 +202,7 @@ export const en: CareersDictionary = {
         id: 'career-brand',
         name: 'Career Brand Package',
         tagline: 'The complete job-search identity',
-        priceLabel: '[PRICE]',
+        priceLabel: '$399',
         features: [
           'Everything in Portfolio + ATS CV',
           'LinkedIn profile rewrite',
@@ -372,7 +372,7 @@ export const ar: CareersDictionary = {
         id: 'starter',
         name: 'باقة البداية',
         tagline: 'منزلك المهني على الإنترنت',
-        priceLabel: '[السعر]',
+        priceLabel: '$149',
         features: [
           'موقع بورتفوليو شخصي مخصص',
           'لوحة تحكم مدعومة بـ Supabase',
@@ -388,7 +388,7 @@ export const ar: CareersDictionary = {
         id: 'ats-cv',
         name: 'بورتفوليو + سيرة ذاتية ATS',
         tagline: 'تجاوز الأنظمة الآلية، ثم انبهر الإنسان',
-        priceLabel: '[السعر]',
+        priceLabel: '$249',
         features: [
           'كل ما في باقة البداية',
           'سيرة ذاتية احترافية متوافقة مع أنظمة ATS',
@@ -404,7 +404,7 @@ export const ar: CareersDictionary = {
         id: 'career-brand',
         name: 'باقة العلامة المهنية',
         tagline: 'الهوية الكاملة للبحث عن عمل',
-        priceLabel: '[السعر]',
+        priceLabel: '$399',
         features: [
           'كل ما في باقة بورتفوليو + سيرة ATS',
           'إعادة كتابة ملف LinkedIn',
