@@ -19,6 +19,7 @@ import CareersHowItWorks from '@/components/careers/CareersHowItWorks'
 import CareersTestimonials from '@/components/careers/CareersTestimonials'
 import CareersFAQ from '@/components/careers/CareersFAQ'
 import CareersCTA from '@/components/careers/CareersCTA'
+import LangToggle from '@/components/careers/LangToggle'
 
 export default function CareersShell() {
   const { dir } = useLanguage()
@@ -55,6 +56,18 @@ export default function CareersShell() {
 
       <div data-careers-root="true">
         <Navbar />
+
+        {/*
+          Persistent language toggle — fixed below the navbar so it stays
+          visible through every section as the user scrolls, not just the
+          hero. Uses logical `end-4` (not `right-4`) so it lands top-left
+          in RTL and top-right in LTR automatically, matching `dir`, the
+          same pattern as the sticky WhatsApp button in CareersCTA.tsx.
+        */}
+        <div className="fixed top-20 sm:top-24 end-4 sm:end-6 z-40">
+          <LangToggle />
+        </div>
+
         <main id="main-content">
           <CareersHero />
           <CareersPainPoints />
