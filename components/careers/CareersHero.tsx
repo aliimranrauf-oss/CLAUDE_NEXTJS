@@ -95,39 +95,37 @@ export default function CareersHero() {
               />
 
               {/*
-                Animated border-runner — the same flowing-current idea used
-                on /how-it-works (DataFlowDiagram.tsx: gradient sweep +
-                traveling pulse along a line), reused here as a light trail
-                that continuously runs around the image's border instead of
-                along a horizontal pipeline. Pure SVG/CSS, no extra deps.
+                Flowing border line — same technique as DataFlowDiagram.tsx
+                on /how-it-works: a faint base line, a bright gradient
+                sweep, and a glowing pulse dot traveling continuously.
+                Copied as-is (same colors, same glow) and run along the
+                bottom edge of the hero image instead of a horizontal
+                pipeline between icons.
               */}
-              <svg
-                viewBox="0 0 100 75"
-                preserveAspectRatio="none"
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                aria-hidden="true"
-              >
-                <defs>
-                  <linearGradient id="careersHeroBorderRunner" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00d4ff" stopOpacity="0" />
-                    <stop offset="50%" stopColor="#00d4ff" />
-                    <stop offset="100%" stopColor="#7a5cff" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <rect
-                  x="0.6"
-                  y="0.6"
-                  width="98.8"
-                  height="73.8"
-                  rx="5"
-                  fill="none"
-                  stroke="url(#careersHeroBorderRunner)"
-                  strokeWidth="0.6"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                  className="hero-border-runner"
+              <div className="absolute -bottom-[1px] left-0 right-0 h-[2px] pointer-events-none">
+                {/* base line */}
+                <div
+                  className="absolute inset-0 h-[2px]"
+                  style={{ background: 'rgba(255,255,255,0.08)' }}
                 />
-              </svg>
+                {/* flowing current sweep */}
+                <div
+                  className="absolute inset-0 h-[2px] hero-flow-sweep"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, transparent 0%, #00d4ff 12%, #7a5cff 30%, transparent 48%, transparent 100%)',
+                    backgroundSize: '260% 100%',
+                  }}
+                />
+                {/* traveling pulse */}
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-[10px] h-[10px] rounded-full hero-flow-pulse"
+                  style={{
+                    background: '#bff6ff',
+                    boxShadow: '0 0 16px 5px rgba(0,212,255,0.65)',
+                  }}
+                />
+              </div>
             </div>
             <p className="font-body mt-2 text-center text-[11px] text-white/35">{t.imageCaption}</p>
           </motion.div>
@@ -135,18 +133,41 @@ export default function CareersHero() {
       </div>
 
       <style jsx>{`
-        .hero-border-runner {
-          stroke-dasharray: 22 328;
-          animation: heroBorderRun 5.5s linear infinite;
+        .hero-flow-sweep {
+          animation: heroFlowSweep 3.4s linear infinite;
         }
-        @keyframes heroBorderRun {
-          to {
-            stroke-dashoffset: -350;
+        @keyframes heroFlowSweep {
+          0% {
+            background-position: 130% 0;
+          }
+          100% {
+            background-position: -160% 0;
+          }
+        }
+        .hero-flow-pulse {
+          left: 0%;
+          animation: heroFlowPulse 6.8s linear infinite;
+        }
+        @keyframes heroFlowPulse {
+          0% {
+            left: 0%;
+            opacity: 0;
+          }
+          6% {
+            opacity: 1;
+          }
+          94% {
+            opacity: 1;
+          }
+          100% {
+            left: calc(100% - 10px);
+            opacity: 0;
           }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hero-border-runner {
-            animation: none;
+          .hero-flow-sweep,
+          .hero-flow-pulse {
+            animation-play-state: paused;
           }
         }
       `}</style>
