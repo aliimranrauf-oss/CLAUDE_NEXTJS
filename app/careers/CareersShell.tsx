@@ -21,7 +21,11 @@ import CareersFAQ from '@/components/careers/CareersFAQ'
 import CareersCTA from '@/components/careers/CareersCTA'
 import LangToggle from '@/components/careers/LangToggle'
 
-export default function CareersShell() {
+type CareersShellProps = {
+  blogImages?: Record<string, string>
+}
+
+export default function CareersShell({ blogImages = {} }: CareersShellProps) {
   const { dir } = useLanguage()
   const isRtl = dir === 'rtl'
 
@@ -70,7 +74,7 @@ export default function CareersShell() {
 
         <main id="main-content">
           <CareersHero />
-          <CareersPainPoints />
+          <CareersPainPoints blogImages={blogImages} />
           <CareersExamples />
           <CareersPackages />
           <CareersHowItWorks />
