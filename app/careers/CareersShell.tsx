@@ -18,7 +18,6 @@ import CareersPackages from '@/components/careers/CareersPackages'
 import CareersHowItWorks from '@/components/careers/CareersHowItWorks'
 import CareersTestimonials from '@/components/careers/CareersTestimonials'
 import CareersFAQ from '@/components/careers/CareersFAQ'
-import CareersBlogTeaser from '@/components/careers/CareersBlogTeaser'
 import CareersCTA from '@/components/careers/CareersCTA'
 import LangToggle from '@/components/careers/LangToggle'
 
@@ -77,7 +76,6 @@ export default function CareersShell() {
           <CareersHowItWorks />
           <CareersTestimonials />
           <CareersFAQ />
-          <CareersBlogTeaser />
           <CareersCTA />
         </main>
         <Footer />
