@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 import { ArrowRight, MessageCircle, Briefcase } from 'lucide-react'
 import { useLanguage } from '@/app/careers/LanguageProvider'
 import { buildWhatsappUrl } from '@/app/careers/constants'
-import LangToggle from './LangToggle'
 
 export default function CareersHero() {
   const { dict } = useLanguage()
@@ -26,10 +25,6 @@ export default function CareersHero() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Local page header — language toggle, top-right */}
-        <div className="flex justify-end mb-6 sm:mb-8">
-          <LangToggle />
-        </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           {/* Left: copy */}
