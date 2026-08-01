@@ -1,0 +1,66 @@
+'use client'
+
+// components/careers/CareersExamples.tsx
+//
+// Grid of example portfolio mockups. Follows the same card pattern as
+// components/space/PortfolioGrid.tsx. Images are placeholders in
+// public/careers/ named clearly (careers-example-1.png ... 4.png) so they
+// can be swapped later without touching this file.
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { useLanguage } from '@/app/careers/LanguageProvider'
+
+const IMAGES = [
+  '/careers/careers-example-1.png',
+  '/careers/careers-example-2.png',
+  '/careers/careers-example-3.png',
+  '/careers/careers-example-4.png',
+]
+
+export default function CareersExamples() {
+  const { dict } = useLanguage()
+  const t = dict.examples
+
+  return (
+    <section className="py-16 sm:py-24 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <span className="font-body text-xs font-semibold tracking-widest text-cyan">{t.eyebrow}</span>
+        <h2 className="font-display mt-3 text-3xl sm:text-4xl font-bold tracking-tight">{t.heading}</h2>
+        <p className="font-body mt-4 max-w-xl text-white/65 leading-relaxed">{t.subheading}</p>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {t.items.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ delay: i * 0.07, duration: 0.5 }}
+              className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 hover:border-cyan/30 transition-colors"
+            >
+              <Image
+                src={IMAGES[i % IMAGES.length]}
+                alt={item.alt}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(to top, rgba(6,8,16,0.85) 0%, rgba(6,8,16,0.25) 35%, rgba(6,8,16,0) 60%)',
+                }}
+              />
+              <span className="absolute bottom-3 left-3 right-3 font-display text-sm font-bold text-white">
+                {item.title}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+
+        <p className="font-body mt-6 text-xs text-white/35">{t.note}</p>
+      </div>
+    </section>
+  )
+}
