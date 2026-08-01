@@ -2,6 +2,17 @@
 import type { Metadata } from 'next'
 import { LanguageProvider } from './LanguageProvider'
 import CareersShell from './CareersShell'
+import { supabase } from '@/lib/supabaseClient'
+
+// The 3 pain-point cards link to these blog posts (EN slugs — the Arabic
+// posts share the same image files, so we only need to fetch once). Keys
+// here match the `slug` field used in app/careers/dictionary.ts painPoints
+// items so CareersPainPoints can look them up directly.
+const PAIN_POINT_SLUGS = [
+  'ats-cv-rejection-uae-companies',
+  'uae-recruiters-google-your-name',
+  'linkedin-not-enough-gulf-job-seekers',
+] as const
 
 export const metadata: Metadata = {
   title: 'Portfolio Website for Job Seekers — Saudi Arabia & Qatar | MakeMyStore.online',
@@ -47,10 +58,20 @@ export const metadata: Metadata = {
 // Note: this page is bilingual and client-rendered (EN default, AR via
 // toggle). The global <html lang> in app/layout.tsx is intentionally left
 // as-is — server-side lang switching for metadata is out of scope here.
-export default function CareersPage() {
+export default async function CareersPage() {
+  const { data: posts } = await supabase
+    .from('blogs')
+    .select('slug, image_url')
+    .in('slug', PAIN_POINT_SLUGS)
+
+  const blogImages: Record<string, string> = {}
+  posts?.forEach((post) => {
+    if (post.image_url) blogImages[post.slug] = post.image_url
+  })
+
   return (
     <LanguageProvider>
-      <CareersShell />
+      <CareersShell blogImages={blogImages} />
     </LanguageProvider>
   )
 }
