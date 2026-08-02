@@ -3,18 +3,18 @@
    Everything lives under .p1-scope so it never leaks into the main site. */
 
 .p1-scope {
-  --p1-bg: #0d1117;
-  --p1-panel: #131a23;
-  --p1-panel-alt: #1a2330;
-  --p1-line: rgba(236, 233, 226, 0.09);
-  --p1-line-strong: rgba(236, 233, 226, 0.16);
-  --p1-text: #ece9e2;
-  --p1-muted: #8b92a0;
-  --p1-muted-2: #5d6472;
-  --p1-brass: #d2a24c;
-  --p1-brass-dim: #a67f38;
-  --p1-steel: #6fa3b8;
-  --p1-danger: #c96a4e;
+  --p1-bg: #1b2430;
+  --p1-panel: #232e3c;
+  --p1-panel-alt: #2b3747;
+  --p1-line: rgba(244, 240, 232, 0.12);
+  --p1-line-strong: rgba(244, 240, 232, 0.24);
+  --p1-text: #f7f4ee;
+  --p1-muted: #b7bfcc;
+  --p1-muted-2: #8b95a5;
+  --p1-brass: #e3ac52;
+  --p1-brass-dim: #c28f3e;
+  --p1-steel: #86bdd2;
+  --p1-danger: #e08064;
 
   background: var(--p1-bg);
   color: var(--p1-text);
