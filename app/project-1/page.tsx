@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Reveal from './_components/Reveal'
 import ProjectPlate from './_components/ProjectPlate'
+import HeroPortrait from './_components/HeroPortrait'
 import { projects, stats, services, testimonials } from './_data/content'
 
 export default function Project1Home() {
@@ -10,7 +11,7 @@ export default function Project1Home() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-[var(--p1-line)]">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <span className="p1-eyebrow">Program &amp; Structural Delivery — Abu Dhabi, UAE</span>
             <h1 className="p1-display mt-5 text-[2.6rem] font-semibold leading-[1.06] tracking-tight sm:text-6xl">
@@ -35,43 +36,9 @@ export default function Project1Home() {
             </div>
           </div>
 
-          <div className="p1-plate p-6">
-            <svg viewBox="0 0 400 260" className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g stroke="var(--p1-steel)" strokeWidth="1.4">
-                <polyline className="p1-draw" points="10,240 10,120 45,120 45,160 80,160 80,90 115,90 115,240" />
-                <polyline
-                  className="p1-draw"
-                  style={{ animationDelay: '0.3s' }}
-                  points="140,240 140,60 165,60 165,40 190,40 190,240"
-                />
-                <polyline
-                  className="p1-draw"
-                  style={{ animationDelay: '0.6s' }}
-                  points="215,240 215,150 260,150 260,180 300,180 300,110 340,110 340,240"
-                />
-                <polyline
-                  className="p1-draw"
-                  style={{ animationDelay: '0.9s' }}
-                  stroke="var(--p1-brass)"
-                  points="10,240 390,240"
-                />
-              </g>
-              <g className="p1-mono" fill="var(--p1-muted)" fontSize="9">
-                <text x="10" y="252">A</text>
-                <text x="115" y="252">B</text>
-                <text x="215" y="252">C</text>
-                <text x="340" y="252">D</text>
-              </g>
-            </svg>
-            <div className="mt-4 flex items-center justify-between border-t border-[var(--p1-line)] pt-4">
-              <span className="p1-mono text-[10px] tracking-widest text-[var(--p1-muted)]">
-                ELEVATION · GRID A–D
-              </span>
-              <span className="p1-mono text-[10px] tracking-widest text-[var(--p1-muted)]">
-                DWG 001
-              </span>
-            </div>
-          </div>
+          <Reveal delay={0.1}>
+            <HeroPortrait />
+          </Reveal>
         </div>
       </section>
 
