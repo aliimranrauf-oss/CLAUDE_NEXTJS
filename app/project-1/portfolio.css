@@ -1,0 +1,199 @@
+/* app/project-1/portfolio.css
+   Scoped design system for the "Ahmed Al Mansoori" portfolio.
+   Everything lives under .p1-scope so it never leaks into the main site. */
+
+.p1-scope {
+  --p1-bg: #0d1117;
+  --p1-panel: #131a23;
+  --p1-panel-alt: #1a2330;
+  --p1-line: rgba(236, 233, 226, 0.09);
+  --p1-line-strong: rgba(236, 233, 226, 0.16);
+  --p1-text: #ece9e2;
+  --p1-muted: #8b92a0;
+  --p1-muted-2: #5d6472;
+  --p1-brass: #d2a24c;
+  --p1-brass-dim: #a67f38;
+  --p1-steel: #6fa3b8;
+  --p1-danger: #c96a4e;
+
+  background: var(--p1-bg);
+  color: var(--p1-text);
+  font-family: var(--p1-font-body), sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+.p1-scope .p1-display {
+  font-family: var(--p1-font-display), sans-serif;
+}
+.p1-scope .p1-mono {
+  font-family: var(--p1-font-mono), monospace;
+}
+
+/* Blueprint grid backdrop */
+.p1-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--p1-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--p1-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 92%);
+}
+
+.p1-scope ::selection {
+  background: var(--p1-brass);
+  color: #10141b;
+}
+
+/* Title-block card, styled after an architectural drawing sheet */
+.p1-plate {
+  background: var(--p1-panel);
+  border: 1px solid var(--p1-line);
+  position: relative;
+}
+.p1-plate::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid var(--p1-line);
+  pointer-events: none;
+}
+
+.p1-eyebrow {
+  font-family: var(--p1-font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p1-brass);
+}
+
+.p1-crosshair {
+  position: relative;
+}
+.p1-crosshair::before,
+.p1-crosshair::after {
+  content: '';
+  position: absolute;
+  background: var(--p1-line-strong);
+}
+.p1-crosshair::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+.p1-crosshair::after {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.p1-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--p1-font-mono), monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--p1-brass);
+  color: var(--p1-brass);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.p1-btn:hover {
+  background: var(--p1-brass);
+  color: #10141b;
+}
+.p1-btn-solid {
+  background: var(--p1-brass);
+  color: #10141b;
+  border: 1px solid var(--p1-brass);
+}
+.p1-btn-solid:hover {
+  background: transparent;
+  color: var(--p1-brass);
+}
+
+.p1-scope a {
+  color: inherit;
+}
+
+.p1-underline {
+  background-image: linear-gradient(var(--p1-brass), var(--p1-brass));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s ease;
+}
+.p1-underline:hover {
+  background-size: 100% 1px;
+}
+
+.p1-draw {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: p1-draw-in 2.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes p1-draw-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.p1-fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: p1-fade-up 0.7s ease forwards;
+}
+@keyframes p1-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.p1-scope input,
+.p1-scope textarea,
+.p1-scope select {
+  background: var(--p1-panel-alt);
+  border: 1px solid var(--p1-line-strong);
+  color: var(--p1-text);
+  font-family: var(--p1-font-body), sans-serif;
+  padding: 0.75rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.p1-scope input:focus,
+.p1-scope textarea:focus,
+.p1-scope select:focus {
+  border-color: var(--p1-brass);
+}
+
+.p1-scale-bar {
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--p1-muted) 0px,
+    var(--p1-muted) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p1-draw,
+  .p1-fade-up {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+  }
+}
