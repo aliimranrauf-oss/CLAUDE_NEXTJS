@@ -13,7 +13,13 @@ export default function Project1Home() {
       <section className="relative overflow-hidden border-b border-[var(--p1-line)]">
         <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <span className="p1-eyebrow">Program &amp; Structural Delivery — Abu Dhabi, UAE</span>
+            <div className="p1-fade-up flex items-center gap-3">
+              <span className="h-px w-8 bg-[var(--p1-brass)]" />
+              <span className="p1-mono text-[13px] font-medium tracking-[0.2em] text-[var(--p1-text)]">
+                AHMED AL MANSOORI
+              </span>
+            </div>
+            <span className="p1-eyebrow mt-4 block">Program &amp; Structural Delivery — Abu Dhabi, UAE</span>
             <h1 className="p1-display mt-5 text-[2.6rem] font-semibold leading-[1.06] tracking-tight sm:text-6xl">
               Complex infrastructure,
               <br />
