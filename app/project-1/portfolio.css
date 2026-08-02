@@ -188,12 +188,72 @@
   );
 }
 
+/* Hero portrait: entrance reveal + one-time scan-line sweep + hover zoom.
+   All transform/opacity/clip-path based — GPU composited, no layout thrash,
+   negligible cost to Lighthouse performance score. */
+.p1-portrait-frame {
+  opacity: 0;
+  animation: p1-portrait-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.1s;
+}
+@keyframes p1-portrait-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+.p1-portrait-img {
+  transform: scale(1.06);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.p1-portrait-frame:hover .p1-portrait-img {
+  transform: scale(1.1);
+}
+
+.p1-scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  top: 0;
+  background: linear-gradient(90deg, transparent, var(--p1-brass), transparent);
+  opacity: 0;
+  animation: p1-scan 1.4s ease-out 0.6s 1;
+}
+@keyframes p1-scan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .p1-draw,
-  .p1-fade-up {
+  .p1-fade-up,
+  .p1-portrait-frame,
+  .p1-scan-line {
     animation: none !important;
     opacity: 1 !important;
+    clip-path: none !important;
     stroke-dashoffset: 0 !important;
+    transform: none !important;
+  }
+  .p1-portrait-img {
     transform: none !important;
   }
 }
