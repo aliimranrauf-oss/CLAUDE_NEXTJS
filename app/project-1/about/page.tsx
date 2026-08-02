@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Reveal from '../_components/Reveal'
 import { timeline, certifications, stats } from '../_data/content'
 
@@ -64,20 +65,32 @@ export default function AboutPage() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.1} className="p1-plate p-6">
-          <span className="p1-eyebrow">At a glance</span>
-          <dl className="mt-5 space-y-4">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-baseline justify-between border-b border-[var(--p1-line)] pb-3">
-                <dt className="text-xs text-[var(--p1-muted)]">{s.label}</dt>
-                <dd className="p1-mono text-sm text-[var(--p1-brass)]">{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="mt-6 text-xs leading-relaxed text-[var(--p1-muted-2)]">
-            Based in Abu Dhabi, UAE · Available for select advisory engagements
-          </div>
-        </Reveal>
+        <div>
+          <Reveal delay={0.06} className="relative mb-6 aspect-[16/10] overflow-hidden border border-[var(--p1-line-strong)]">
+            <Image
+              src="/project-1/hero-ahmed.jpg"
+              alt="Ahmed Al Mansoori"
+              fill
+              sizes="(max-width: 1024px) 100vw, 420px"
+              className="object-cover"
+            />
+          </Reveal>
+
+          <Reveal delay={0.1} className="p1-plate p-6">
+            <span className="p1-eyebrow">At a glance</span>
+            <dl className="mt-5 space-y-4">
+              {stats.map((s) => (
+                <div key={s.label} className="flex items-baseline justify-between border-b border-[var(--p1-line)] pb-3">
+                  <dt className="text-xs text-[var(--p1-muted)]">{s.label}</dt>
+                  <dd className="p1-mono text-sm text-[var(--p1-brass)]">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-6 text-xs leading-relaxed text-[var(--p1-muted-2)]">
+              Based in Abu Dhabi, UAE · Available for select advisory engagements
+            </div>
+          </Reveal>
+        </div>
       </div>
 
       {/* Skills matrix */}
