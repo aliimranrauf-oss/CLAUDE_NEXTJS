@@ -21,7 +21,7 @@ const IMAGES = [
 // Live demo portfolios, built one at a time. Empty string = not built yet
 // (card renders but isn't clickable). These routes are intentionally not
 // linked from the main nav — they're only reachable from these cards.
-const LIVE_LINKS = ['', '/project-1', '', '']
+const LIVE_LINKS = ['/project-2', '/project-1', '', '']
 
 export default function CareersExamples() {
   const { dict } = useLanguage()
