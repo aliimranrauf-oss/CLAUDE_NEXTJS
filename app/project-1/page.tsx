@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Reveal from './_components/Reveal'
 import ProjectPlate from './_components/ProjectPlate'
 import HeroPortrait from './_components/HeroPortrait'
+import TypewriterHeading from './_components/TypewriterHeading'
+import CountUp from './_components/CountUp'
 import { projects, stats, services, testimonials } from './_data/content'
 
 export default function Project1Home() {
@@ -20,13 +22,10 @@ export default function Project1Home() {
               </span>
             </div>
             <span className="p1-eyebrow mt-4 block">Program &amp; Structural Delivery — Abu Dhabi, UAE</span>
-            <h1 className="p1-display mt-5 text-[2.6rem] font-semibold leading-[1.06] tracking-tight sm:text-6xl">
-              Complex infrastructure,
-              <br />
-              delivered on the line
-              <br />
-              that matters.
-            </h1>
+            <TypewriterHeading
+              lines={['Complex infrastructure,', 'delivered on the line', 'that matters.']}
+              className="p1-display mt-5 min-h-[140px] text-[2.6rem] font-semibold leading-[1.06] tracking-tight sm:min-h-[200px] sm:text-6xl"
+            />
             <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-[var(--p1-muted)]">
               I&rsquo;m Ahmed Al Mansoori — a program director and structural engineer who has
               spent fourteen years turning ambitious transit, marine, and mixed-use schemes into
@@ -53,9 +52,10 @@ export default function Project1Home() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-5 py-12 sm:px-8 md:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.06}>
-              <div className="p1-display text-3xl font-semibold text-[var(--p1-brass)] sm:text-4xl">
-                {s.value}
-              </div>
+              <CountUp
+                value={s.value}
+                className="p1-display block text-3xl font-semibold text-[var(--p1-brass)] sm:text-4xl"
+              />
               <div className="mt-2 text-xs leading-snug text-[var(--p1-muted)]">{s.label}</div>
             </Reveal>
           ))}
