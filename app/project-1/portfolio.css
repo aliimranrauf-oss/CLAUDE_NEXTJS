@@ -188,6 +188,21 @@
   );
 }
 
+.p1-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  margin-left: 3px;
+  transform: translateY(0.08em);
+  background: var(--p1-brass);
+  animation: p1-cursor-blink 0.9s steps(1) infinite;
+}
+@keyframes p1-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Hero portrait: entrance reveal + one-time scan-line sweep + hover zoom.
    All transform/opacity/clip-path based — GPU composited, no layout thrash,
    negligible cost to Lighthouse performance score. */
@@ -246,7 +261,8 @@
   .p1-draw,
   .p1-fade-up,
   .p1-portrait-frame,
-  .p1-scan-line {
+  .p1-scan-line,
+  .p1-cursor {
     animation: none !important;
     opacity: 1 !important;
     clip-path: none !important;
