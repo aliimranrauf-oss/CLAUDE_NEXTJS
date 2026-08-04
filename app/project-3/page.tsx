@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Reveal from './_components/Reveal'
 import CountUp from './_components/CountUp'
 import HeroBrandBoard from './_components/HeroBrandBoard'
+import HeroVisual from './_components/HeroVisual'
+import FeatureStrip from './_components/FeatureStrip'
 import CredentialsRow from './_components/CredentialsRow'
 import Portrait from './_components/Portrait'
 import WorkPlate from './_components/WorkPlate'
@@ -33,8 +35,8 @@ export default function Project3Home() {
       <section className="p3-hero relative border-b border-[var(--p3-border)]">
         <div className="p3-arabesque" />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-5 py-10 sm:gap-10 sm:px-8 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
-          <div>
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-5 pb-10 pt-10 sm:px-8 sm:pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-6 lg:pb-0 lg:pt-16">
+          <div className="lg:pt-4">
             <div className="flex items-center gap-4">
               <Portrait variant="avatar" className="lg:hidden" />
               <span className="p3-eyebrow p3-fade-up">{h.eyebrow}</span>
@@ -70,7 +72,25 @@ export default function Project3Home() {
             </div>
           </div>
 
-          <div className="hidden justify-center lg:flex lg:justify-end">
+          <div className="hidden lg:flex lg:justify-end">
+            <HeroVisual />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Feature strip ────────────────────────────────────── */}
+      <FeatureStrip />
+
+      {/* ── Brand board (signature palette / stats snapshot) ──── */}
+      <section className="border-b border-[var(--p3-border)] bg-[var(--p3-bg)]">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
+          <Reveal>
+            <span className="p3-eyebrow">A glimpse of the toolkit</span>
+            <h2 className="p3-display mt-4 text-2xl font-semibold text-[var(--p3-ink)] sm:text-3xl">
+              How the work comes together
+            </h2>
+          </Reveal>
+          <div className="mt-10">
             <HeroBrandBoard />
           </div>
         </div>
