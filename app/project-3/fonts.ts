@@ -10,7 +10,6 @@ export const fraunces = Fraunces({
   display: 'swap',
   weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  axes: ['opsz', 'SOFT'],
 })
 
 // Body sans — warm, modern, highly legible at small sizes.
