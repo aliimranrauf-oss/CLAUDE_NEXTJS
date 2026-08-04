@@ -59,7 +59,12 @@ export default function Footer() {
         <div className="mt-12 h-px bg-[var(--p2-border)]" />
         <div className="mt-6 flex flex-col justify-between gap-2 text-xs text-[var(--p2-muted-2)] sm:flex-row">
           <span>{profile.name} · {profile.location} · {new Date().getFullYear()}</span>
-          <span>Demonstration portfolio — fictional profile built for design showcase purposes only.</span>
+          <span className="flex items-center gap-3">
+            Demonstration portfolio — fictional profile built for design showcase purposes only.
+            <Link href="/project-2/admin" className="opacity-60 hover:opacity-100 hover:text-[var(--p2-navy)]">
+              Admin
+            </Link>
+          </span>
         </div>
       </div>
     </footer>
