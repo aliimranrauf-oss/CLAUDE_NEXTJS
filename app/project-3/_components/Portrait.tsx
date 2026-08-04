@@ -38,12 +38,12 @@ export default function Portrait({
   }
 
   return (
-    <div className={`p3-plate relative aspect-[4/5] w-full max-w-[220px] overflow-hidden ${className}`}>
+    <div className={`p3-plate relative aspect-[4/5] w-full overflow-hidden ${className}`}>
       <Image
         src="/project-3/noor-portrait.jpg"
         alt="Noor Al-Kuwari, Senior Brand & Marketing Strategist"
         fill
-        sizes="220px"
+        sizes="(min-width: 1024px) 380px, 220px"
         className="object-cover"
         priority
       />
