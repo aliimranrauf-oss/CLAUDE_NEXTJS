@@ -13,7 +13,9 @@ const SESSION_KEY = 'p2_admin_unlocked'
 export default function AdminGate() {
   const [unlocked, setUnlocked] = useState(false)
   const [checked, setChecked] = useState(false)
-  const [pin, setPin] = useState('')
+  // Pre-filled so the code field always matches ADMIN_PIN above — change
+  // ADMIN_PIN and this default together if you want to update the code.
+  const [pin, setPin] = useState(ADMIN_PIN)
   const [error, setError] = useState(false)
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function AdminGate() {
           Enter access code
         </h1>
         <p className="mt-2 text-[13px] text-[var(--p2-muted)]">
-          This panel edits demo content — enter the code to continue.
+          This panel edits demo content — the code is pre-filled, just press Continue.
         </p>
         <form onSubmit={handleSubmit} className="mt-6 w-full">
           <input
@@ -62,6 +64,7 @@ export default function AdminGate() {
               setError(false)
             }}
             autoFocus
+            onFocus={(e) => e.currentTarget.select()}
             className="w-full text-center"
             placeholder="Access code"
           />
