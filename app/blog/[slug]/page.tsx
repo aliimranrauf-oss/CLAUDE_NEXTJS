@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="bg-white rounded-3xl p-8 md:p-16 shadow-2xl">
           <div 
             className="prose prose-lg max-w-none text-gray-700 [&_h1]:text-gray-900 [&_h2]:text-gray-900 [&_h3]:text-gray-900 [&_h4]:text-gray-900 [&_strong]:text-gray-900 [&_b]:text-gray-900 [&_a]:text-[#00d4ff]
-            [&_.cta-btn]:inline-block [&_.cta-btn]:no-underline [&_.cta-btn]:bg-gradient-to-r [&_.cta-btn]:from-[#00d4ff] [&_.cta-btn]:to-[#7a5cff] [&_.cta-btn]:text-white [&_.cta-btn]:font-bold [&_.cta-btn]:px-6 [&_.cta-btn]:py-3 [&_.cta-btn]:rounded-full [&_.cta-btn]:my-2 [&_.cta-btn]:mr-3 [&_.cta-btn]:shadow-lg [&_.cta-btn]:hover:opacity-90 [&_.cta-btn]:transition-opacity
+            [&_.cta-btn]:inline-block [&_.cta-btn]:no-underline [&_.cta-btn]:bg-gradient-to-r [&_.cta-btn]:from-[#00d4ff] [&_.cta-btn]:to-[#7a5cff] [&_.cta-btn]:text-white [&_.cta-btn]:font-bold [&_.cta-btn]:px-6 [&_.cta-btn]:py-3 [&_.cta-btn]:rounded-full [&_.cta-btn]:my-2 [&_.cta-btn]:mr-3 [&_.cta-btn]:shadow-lg [&_.cta-btn:hover]:opacity-90 [&_.cta-btn]:transition-opacity
             [&_.tldr-box]:bg-[#00d4ff]/5 [&_.tldr-box]:border [&_.tldr-box]:border-[#00d4ff]/20 [&_.tldr-box]:rounded-2xl [&_.tldr-box]:p-6 [&_.tldr-box]:my-8 [&_.tldr-box_p]:m-0 [&_.tldr-box_ul]:m-0
             [&_.callout-box]:bg-gray-50 [&_.callout-box]:border-l-4 [&_.callout-box]:border-[#7a5cff] [&_.callout-box]:rounded-r-xl [&_.callout-box]:p-6 [&_.callout-box]:my-8 [&_.callout-box]:italic [&_.callout-box]:text-gray-800 [&_.callout-box]:text-lg [&_.callout-box_p]:m-0
             [&_.post-img]:rounded-2xl [&_.post-img]:shadow-md [&_.post-img]:my-8 [&_.post-img]:w-full [&_.post-img]:h-auto
