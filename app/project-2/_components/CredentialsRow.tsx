@@ -1,9 +1,15 @@
+'use client'
+
 import { Award, Clock, MapPin, Compass } from 'lucide-react'
 import { hero } from '../_data/content'
+import { useSiteSettings } from '../_context/SiteSettingsContext'
 
 const ICONS = [Award, Clock, MapPin, Compass]
 
 export default function CredentialsRow() {
+  const { settings } = useSiteSettings()
+  if (!settings.hero.showCredentials) return null
+
   return (
     <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
       {hero.credentials.map((c, i) => {
