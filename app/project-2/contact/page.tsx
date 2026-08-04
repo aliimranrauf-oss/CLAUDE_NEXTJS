@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import { MapPin, Mail, Clock } from 'lucide-react'
 import Reveal from '../_components/Reveal'
 import ContactForm from './ContactForm'
-import { profile } from '../_data/content'
+import ContactInfo from './ContactInfo'
 
 export const metadata: Metadata = {
   title: 'Contact — Khalid Al-Mansour',
@@ -25,35 +24,7 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="p2-card mt-9 flex flex-col gap-5 p-6">
-              <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--p2-gold-tint)] text-[var(--p2-gold)]">
-                  <MapPin size={16} />
-                </span>
-                <div>
-                  <div className="text-[13px] font-semibold text-[var(--p2-navy)]">Location</div>
-                  <div className="text-[13px] text-[var(--p2-muted)]">{profile.location}</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--p2-gold-tint)] text-[var(--p2-gold)]">
-                  <Mail size={16} />
-                </span>
-                <div>
-                  <div className="text-[13px] font-semibold text-[var(--p2-navy)]">Email</div>
-                  <div className="text-[13px] text-[var(--p2-muted)]">hello@khalidalmansour.demo</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--p2-gold-tint)] text-[var(--p2-gold)]">
-                  <Clock size={16} />
-                </span>
-                <div>
-                  <div className="text-[13px] font-semibold text-[var(--p2-navy)]">Response time</div>
-                  <div className="text-[13px] text-[var(--p2-muted)]">Within one business day</div>
-                </div>
-              </div>
-            </div>
+            <ContactInfo />
           </Reveal>
         </div>
 
