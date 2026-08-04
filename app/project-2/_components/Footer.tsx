@@ -1,7 +1,13 @@
+'use client'
+
 import Link from 'next/link'
-import { profile, footer } from '../_data/content'
+import { profile } from '../_data/content'
+import { useSiteSettings } from '../_context/SiteSettingsContext'
 
 export default function Footer() {
+  const { settings } = useSiteSettings()
+  const { contact, footer, nav: navSettings } = settings
+
   return (
     <footer className="border-t border-[var(--p2-border)] bg-[var(--p2-bg-alt)]">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -13,15 +19,30 @@ export default function Footer() {
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-[var(--p2-muted)]">
               {footer.blurb}
             </p>
+            {(contact.showEmail || contact.showPhone || contact.showAddress) && (
+              <div className="mt-5 flex flex-col gap-1.5 text-sm text-[var(--p2-muted)]">
+                {contact.showEmail && <span>{contact.email}</span>}
+                {contact.showPhone && <span>{contact.phone}</span>}
+                {contact.showAddress && <span>{contact.address}</span>}
+              </div>
+            )}
           </div>
 
           <div>
             <span className="p2-eyebrow">Sitemap</span>
             <ul className="mt-5 flex flex-col gap-2.5 text-sm text-[var(--p2-muted)]">
-              <li><Link href="/project-2/about" className="hover:text-[var(--p2-navy)]">About</Link></li>
-              <li><Link href="/project-2/expertise" className="hover:text-[var(--p2-navy)]">Expertise</Link></li>
-              <li><Link href="/project-2/experience" className="hover:text-[var(--p2-navy)]">Experience</Link></li>
-              <li><Link href="/project-2/insights" className="hover:text-[var(--p2-navy)]">Insights</Link></li>
+              {navSettings.showAbout && (
+                <li><Link href="/project-2/about" className="hover:text-[var(--p2-navy)]">About</Link></li>
+              )}
+              {navSettings.showExpertise && (
+                <li><Link href="/project-2/expertise" className="hover:text-[var(--p2-navy)]">Expertise</Link></li>
+              )}
+              {navSettings.showExperience && (
+                <li><Link href="/project-2/experience" className="hover:text-[var(--p2-navy)]">Experience</Link></li>
+              )}
+              {navSettings.showInsights && (
+                <li><Link href="/project-2/insights" className="hover:text-[var(--p2-navy)]">Insights</Link></li>
+              )}
               <li><Link href="/project-2/contact" className="hover:text-[var(--p2-navy)]">Contact</Link></li>
             </ul>
           </div>
