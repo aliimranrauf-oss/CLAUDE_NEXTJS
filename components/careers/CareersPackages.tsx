@@ -45,13 +45,25 @@ function PackageCard({ pkg, index }: { pkg: PackageItem; index: number }) {
           {pkg.tagline}
         </p>
 
-        <p
-          className={`font-display font-bold text-white mb-5 ${
-            pkg.highlight ? 'text-4xl sm:text-5xl text-gradient' : 'text-3xl'
-          }`}
-        >
-          {pkg.priceLabel}
-        </p>
+        <div className="flex items-end flex-wrap gap-x-3 gap-y-1 mb-5">
+          <p
+            className={`font-display font-bold text-white leading-none ${
+              pkg.highlight ? 'text-4xl sm:text-5xl text-gradient' : 'text-3xl'
+            }`}
+          >
+            {pkg.priceLabel}
+          </p>
+          {pkg.originalPriceLabel && (
+            <span className="font-body text-white/40 line-through text-base sm:text-lg leading-none mb-0.5">
+              {pkg.originalPriceLabel}
+            </span>
+          )}
+          {pkg.discountLabel && (
+            <span className="font-body text-[11px] font-bold text-cyan bg-cyan/10 border border-cyan/25 rounded-full px-2 py-0.5 leading-none mb-0.5">
+              {pkg.discountLabel}
+            </span>
+          )}
+        </div>
 
         <ul className="flex-1 space-y-3 mb-7">
           {pkg.features.map((feature) => (
@@ -96,9 +108,14 @@ export default function CareersPackages() {
           <span className="font-body text-xs font-semibold tracking-widest text-cyan">{t.eyebrow}</span>
           <h2 className="font-display mt-3 text-3xl sm:text-4xl font-bold tracking-tight">{t.heading}</h2>
           <p className="font-body mt-4 text-white/65 leading-relaxed">{t.subheading}</p>
+          {t.discountNote && (
+            <p className="font-body mt-4 inline-block text-xs sm:text-sm font-semibold text-cyan bg-cyan/[0.08] border border-cyan/20 rounded-full px-4 py-1.5">
+              {t.discountNote}
+            </p>
+          )}
         </div>
 
-        <div className="mt-14 lg:mt-20 grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
+        <div className="mt-14 lg:mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {t.items.map((pkg, i) => (
             <PackageCard key={pkg.id} pkg={pkg} index={i} />
           ))}
