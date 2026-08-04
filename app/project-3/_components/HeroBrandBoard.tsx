@@ -5,6 +5,7 @@ import Reveal from './Reveal'
 import DonutChart from './DonutChart'
 import CountUp from './CountUp'
 import ArabicMonogram from './ArabicMonogram'
+import Portrait from './Portrait'
 import { hero } from '../_data/content'
 import { useSiteSettings } from '../_context/SiteSettingsContext'
 
@@ -27,6 +28,10 @@ export default function HeroBrandBoard() {
 
   return (
     <div className="flex w-full max-w-[360px] flex-col items-end gap-4">
+      <Reveal delay={0.02} className="w-full max-w-[220px] self-center sm:self-end">
+        <Portrait variant="plate" />
+      </Reveal>
+
       <Reveal delay={0.05} className="w-full max-w-[220px] self-center sm:self-end">
         <ArabicMonogram />
       </Reveal>
