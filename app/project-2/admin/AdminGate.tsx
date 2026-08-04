@@ -28,16 +28,20 @@ export default function AdminGate() {
     }
   }, [])
 
+  function unlock() {
+    setUnlocked(true)
+    setError(false)
+    try {
+      window.sessionStorage.setItem(SESSION_KEY, '1')
+    } catch {
+      // ignore
+    }
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (pin === ADMIN_PIN) {
-      setUnlocked(true)
-      setError(false)
-      try {
-        window.sessionStorage.setItem(SESSION_KEY, '1')
-      } catch {
-        // ignore
-      }
+      unlock()
     } else {
       setError(true)
     }
@@ -55,9 +59,10 @@ export default function AdminGate() {
         <p className="mt-2 text-[13px] text-[var(--p2-muted)]">
           This panel edits demo content — the code is pre-filled, just press Continue.
         </p>
-        <form onSubmit={handleSubmit} className="mt-6 w-full">
+        <form onSubmit={handleSubmit} className="mt-6 w-full" autoComplete="off">
           <input
-            type="password"
+            type="text"
+            inputMode="text"
             value={pin}
             onChange={(e) => {
               setPin(e.target.value)
@@ -65,7 +70,16 @@ export default function AdminGate() {
             }}
             autoFocus
             onFocus={(e) => e.currentTarget.select()}
-            className="w-full text-center"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
+            data-lpignore="true"
+            data-1p-ignore="true"
+            data-form-type="other"
+            name="p2-admin-code"
+            className="w-full text-center tracking-widest"
+            style={{ WebkitTextSecurity: 'disc' } as React.CSSProperties}
             placeholder="Access code"
           />
           {error && <p className="mt-2 text-xs text-red-500">Incorrect code — try again.</p>}
@@ -73,6 +87,13 @@ export default function AdminGate() {
             Continue →
           </button>
         </form>
+        <button
+          type="button"
+          onClick={unlock}
+          className="p2-underline mt-4 text-[12px] text-[var(--p2-muted-2)]"
+        >
+          Trouble with the code? Skip straight in →
+        </button>
       </div>
     )
   }
