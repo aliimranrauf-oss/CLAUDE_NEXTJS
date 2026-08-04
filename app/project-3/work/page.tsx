@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-exporafault function WorkPage() {
+export default function WorkPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
       <Reveal>
