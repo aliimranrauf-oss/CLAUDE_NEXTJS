@@ -5,6 +5,7 @@ import Reveal from './_components/Reveal'
 import CountUp from './_components/CountUp'
 import HeroBrandBoard from './_components/HeroBrandBoard'
 import CredentialsRow from './_components/CredentialsRow'
+import Portrait from './_components/Portrait'
 import WorkPlate from './_components/WorkPlate'
 import { stats, services, work, testimonials } from './_data/content'
 import { useSiteSettings } from './_context/SiteSettingsContext'
@@ -32,12 +33,15 @@ export default function Project3Home() {
       <section className="p3-hero relative border-b border-[var(--p3-border)]">
         <div className="p3-arabesque" />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-5 py-10 sm:gap-10 sm:px-8 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
           <div>
-            <span className="p3-eyebrow p3-fade-up">{h.eyebrow}</span>
+            <div className="flex items-center gap-4">
+              <Portrait variant="avatar" className="lg:hidden" />
+              <span className="p3-eyebrow p3-fade-up">{h.eyebrow}</span>
+            </div>
 
             <h1
-              className="p3-display p3-fade-up mt-5 text-[2.5rem] font-semibold italic leading-[1.14] text-[var(--p3-ink)] sm:text-[3.3rem]"
+              className="p3-display p3-fade-up mt-4 text-[2.1rem] font-semibold italic leading-[1.14] text-[var(--p3-ink)] sm:mt-5 sm:text-[3.3rem]"
               style={{ animationDelay: '0.08s' }}
             >
               <span className="block">{renderHeadingLine(h.headingLine1, h.accentWord)}</span>
@@ -66,7 +70,7 @@ export default function Project3Home() {
             </div>
           </div>
 
-          <div className="flex justify-center lg:justify-end">
+          <div className="hidden justify-center lg:flex lg:justify-end">
             <HeroBrandBoard />
           </div>
         </div>
