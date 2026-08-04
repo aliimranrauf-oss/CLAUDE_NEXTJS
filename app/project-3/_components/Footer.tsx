@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { profile } from '../_data/content'
 import { useSiteSettings } from '../_context/SiteSettingsContext'
+import SocialLinks from './SocialLinks'
 
 export default function Footer() {
   const { settings } = useSiteSettings()
@@ -23,6 +24,7 @@ export default function Footer() {
                 {contact.showAddress && <span>{contact.address}</span>}
               </div>
             )}
+            <SocialLinks className="mt-6" />
           </div>
 
           <div>
