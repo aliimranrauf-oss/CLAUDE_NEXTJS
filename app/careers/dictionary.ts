@@ -20,10 +20,14 @@ export interface ExampleItem {
 }
 
 export interface PackageItem {
-  id: 'starter' | 'ats-cv' | 'career-brand'
+  id: 'starter' | 'ats-cv-only' | 'ats-cv' | 'career-brand'
   name: string
   tagline: string
   priceLabel: string
+  /** Pre-discount price, shown struck through next to priceLabel. Optional. */
+  originalPriceLabel?: string
+  /** Short badge text, e.g. "50% OFF". Optional. */
+  discountLabel?: string
   features: string[]
   cta: string
   whatsappMessage: string
@@ -87,6 +91,7 @@ export interface CareersDictionary {
     heading: string
     subheading: string
     popularBadge: string
+    discountNote: string
     priceNote: string
     items: PackageItem[]
   }
@@ -180,19 +185,26 @@ export const en: CareersDictionary = {
     heading: 'Pick the package that fits your search',
     subheading: 'One-time price. You own the site. No subscriptions.',
     popularBadge: 'Most Popular',
-    priceNote: 'Final pricing confirmed on WhatsApp before you commit.',
+    discountNote: '🔥 Launch offer — 50% off every package, for a limited time.',
+    priceNote: 'Prices shown already include the 50% launch discount. Final pricing confirmed on WhatsApp before you commit.',
     items: [
       {
         id: 'starter',
         name: 'Portfolio Starter',
         tagline: 'Your professional home online',
         priceLabel: '$149',
+        originalPriceLabel: '$298',
+        discountLabel: '50% OFF',
         features: [
-          'Custom personal portfolio website',
-          'Supabase-powered admin dashboard',
-          'Edit projects, CV & blog without touching code',
-          'Mobile-optimized, fast-loading design',
-          'Basic SEO so your name is searchable',
+          'Custom personal portfolio website built around your profile and industry',
+          'Supabase-powered admin dashboard — no code needed to manage anything',
+          'Dedicated Projects section to showcase your work with images & descriptions',
+          'CV page on your site, always up to date and downloadable as PDF',
+          'Built-in blog section to publish articles and build authority in your field',
+          'Mobile-optimized, fast-loading design tested across phones, tablets & desktop',
+          'Basic on-page SEO so recruiters find your name when they Google you',
+          'Working contact form connected directly to your email',
+          '1 round of revisions before final delivery',
         ],
         cta: 'Get Portfolio Starter',
         whatsappMessage:
@@ -200,16 +212,44 @@ export const en: CareersDictionary = {
         highlight: false,
       },
       {
+        id: 'ats-cv-only',
+        name: 'ATS CV Package',
+        tagline: 'Get past the bots before a human even looks',
+        priceLabel: '$99',
+        originalPriceLabel: '$198',
+        discountLabel: '50% OFF',
+        features: [
+          'Professionally rewritten CV, built from scratch or your existing draft',
+          'Keyword-matched to the exact job titles & industry you are targeting',
+          'Clean, recruiter-friendly formatting proven to pass automated ATS screening',
+          'Optimized for the ATS platforms most used by Gulf employers',
+          'Achievement-focused bullet points instead of generic duty lists',
+          'Matching cover letter template included',
+          'Editable source file (Word & Google Docs) so you can update it yourself anytime',
+          '1 round of revisions included',
+        ],
+        cta: 'Get ATS CV Package',
+        whatsappMessage:
+          "Hi! I'm interested in the ATS CV Package (CV only, no portfolio site). Can you share more details?",
+        highlight: false,
+      },
+      {
         id: 'ats-cv',
         name: 'Portfolio + ATS CV',
         tagline: 'Get past the bots, then impress the human',
         priceLabel: '$249',
+        originalPriceLabel: '$498',
+        discountLabel: '50% OFF',
         features: [
-          'Everything in Portfolio Starter',
-          'Professionally optimized ATS-friendly CV',
-          'Keyword-matched to your target roles',
-          'Clean, recruiter-friendly formatting',
-          'Editable source file included',
+          'Custom personal portfolio website built around your profile and industry',
+          'Supabase-powered admin dashboard — no code needed to manage anything',
+          'Dedicated Projects section, editable CV page & built-in blog',
+          'Mobile-optimized, fast-loading design with basic on-page SEO',
+          'Professionally rewritten, ATS-friendly CV matched to your target roles',
+          'Clean, recruiter-friendly CV formatting that passes automated screening',
+          'Editable CV source file included, plus a matching cover letter template',
+          'Your website content and CV kept consistent with each other',
+          '1 round of revisions on the site and on the CV',
         ],
         cta: 'Get Portfolio + ATS CV',
         whatsappMessage:
@@ -221,12 +261,17 @@ export const en: CareersDictionary = {
         name: 'Career Brand Package',
         tagline: 'The complete job-search identity',
         priceLabel: '$399',
+        originalPriceLabel: '$798',
+        discountLabel: '50% OFF',
         features: [
-          'Everything in Portfolio + ATS CV',
-          'LinkedIn profile rewrite',
-          'Custom domain & 1 year hosting included',
-          '1 round of interview-ready polish',
-          'Priority delivery & support',
+          'Custom personal portfolio website with admin dashboard, projects, CV page & blog',
+          'Professionally rewritten, ATS-friendly CV matched to your target roles',
+          'Complete LinkedIn profile rewrite — headline, About section & experience bullets',
+          'Custom domain name included, plus 1 year of hosting at no extra cost',
+          '1 round of interview-ready polish on your CV, LinkedIn & portfolio together',
+          'Priority delivery ahead of standard turnaround',
+          'Priority WhatsApp support throughout the process',
+          '2 rounds of revisions across all deliverables',
         ],
         cta: 'Get Career Brand Package',
         whatsappMessage:
@@ -413,22 +458,50 @@ export const ar: CareersDictionary = {
     heading: 'اختر الباقة المناسبة لبحثك عن عمل',
     subheading: 'سعر لمرة واحدة. الموقع ملكك بالكامل. بدون اشتراكات.',
     popularBadge: 'الأكثر طلبًا',
-    priceNote: 'يتم تأكيد السعر النهائي عبر واتساب قبل الالتزام.',
+    discountNote: '🔥 عرض الإطلاق — خصم 50% على جميع الباقات لفترة محدودة.',
+    priceNote: 'الأسعار المعروضة تشمل خصم الإطلاق 50%. يتم تأكيد السعر النهائي عبر واتساب قبل الالتزام.',
     items: [
       {
         id: 'starter',
         name: 'باقة البداية',
         tagline: 'منزلك المهني على الإنترنت',
         priceLabel: '$149',
+        originalPriceLabel: '$298',
+        discountLabel: 'خصم 50%',
         features: [
-          'موقع بورتفوليو شخصي مخصص',
-          'لوحة تحكم مدعومة بـ Supabase',
-          'تعديل المشاريع والسيرة الذاتية والمدونة دون كتابة كود',
-          'تصميم سريع ومتوافق مع الجوال',
-          'إعداد أساسي لمحركات البحث (SEO)',
+          'موقع بورتفوليو شخصي مصمم خصيصًا لمجالك المهني',
+          'لوحة تحكم مدعومة بـ Supabase — بدون الحاجة لأي كود',
+          'قسم مخصص للمشاريع لعرض أعمالك بالصور والوصف',
+          'صفحة سيرة ذاتية على موقعك، قابلة للتحديث ويمكن تحميلها كملف PDF',
+          'قسم مدونة مدمج لنشر المقالات وبناء حضورك في مجالك',
+          'تصميم سريع ومتوافق تمامًا مع الجوال والتابلت وسطح المكتب',
+          'إعداد أساسي لمحركات البحث (SEO) ليجدك المسؤولون عن التوظيف عند البحث باسمك',
+          'نموذج تواصل يعمل ومرتبط مباشرة ببريدك الإلكتروني',
+          'جولة تعديل واحدة قبل التسليم النهائي',
         ],
         cta: 'اطلب باقة البداية',
         whatsappMessage: 'مرحبًا! أنا مهتم بباقة البداية لإنشاء موقع بورتفوليو شخصي. هل يمكنكم مشاركة التفاصيل؟',
+        highlight: false,
+      },
+      {
+        id: 'ats-cv-only',
+        name: 'باقة السيرة الذاتية ATS',
+        tagline: 'تجاوز الأنظمة الآلية قبل أن يراها أي إنسان',
+        priceLabel: '$99',
+        originalPriceLabel: '$198',
+        discountLabel: 'خصم 50%',
+        features: [
+          'سيرة ذاتية مُعادة كتابتها باحترافية، من الصفر أو من مسودتك الحالية',
+          'مطابقة دقيقة للكلمات المفتاحية للوظائف والمجال الذي تستهدفه',
+          'تنسيق واضح ومريح للقراءة، مُثبت أنه يتجاوز أنظمة الفرز الآلي',
+          'مُحسّنة لتتوافق مع أنظمة ATS الأكثر استخدامًا لدى الشركات في الخليج',
+          'نقاط إنجاز واضحة بدلًا من قوائم المهام العامة',
+          'قالب خطاب تقديمي (Cover Letter) مطابق مرفق',
+          'ملف قابل للتعديل (Word و Google Docs) لتحديثه بنفسك في أي وقت',
+          'جولة تعديل واحدة مشمولة',
+        ],
+        cta: 'اطلب باقة السيرة الذاتية ATS',
+        whatsappMessage: 'مرحبًا! أنا مهتم بباقة السيرة الذاتية ATS فقط (بدون موقع بورتفوليو). هل يمكنكم مشاركة التفاصيل؟',
         highlight: false,
       },
       {
@@ -436,12 +509,18 @@ export const ar: CareersDictionary = {
         name: 'بورتفوليو + سيرة ذاتية ATS',
         tagline: 'تجاوز الأنظمة الآلية، ثم انبهر الإنسان',
         priceLabel: '$249',
+        originalPriceLabel: '$498',
+        discountLabel: 'خصم 50%',
         features: [
-          'كل ما في باقة البداية',
-          'سيرة ذاتية احترافية متوافقة مع أنظمة ATS',
-          'مطابقة الكلمات المفتاحية للوظائف المستهدفة',
-          'تنسيق واضح وسهل القراءة لمسؤولي التوظيف',
-          'ملف قابل للتعديل',
+          'موقع بورتفوليو شخصي مصمم خصيصًا لمجالك المهني',
+          'لوحة تحكم مدعومة بـ Supabase — بدون الحاجة لأي كود',
+          'قسم للمشاريع، وصفحة سيرة ذاتية قابلة للتعديل، ومدونة مدمجة',
+          'تصميم سريع ومتوافق مع الجوال، مع إعداد أساسي لمحركات البحث',
+          'سيرة ذاتية مُعادة كتابتها باحترافية ومتوافقة مع أنظمة ATS',
+          'تنسيق واضح للسيرة الذاتية يتجاوز أنظمة الفرز الآلي',
+          'ملف سيرة ذاتية قابل للتعديل، مع قالب خطاب تقديمي مطابق',
+          'تناسق كامل بين محتوى موقعك ومحتوى سيرتك الذاتية',
+          'جولة تعديل واحدة على الموقع وجولة على السيرة الذاتية',
         ],
         cta: 'اطلب بورتفوليو + سيرة ATS',
         whatsappMessage: 'مرحبًا! أنا مهتم بباقة البورتفوليو + السيرة الذاتية ATS. هل يمكنكم مشاركة التفاصيل؟',
@@ -452,12 +531,17 @@ export const ar: CareersDictionary = {
         name: 'باقة العلامة المهنية',
         tagline: 'الهوية الكاملة للبحث عن عمل',
         priceLabel: '$399',
+        originalPriceLabel: '$798',
+        discountLabel: 'خصم 50%',
         features: [
-          'كل ما في باقة بورتفوليو + سيرة ATS',
-          'إعادة كتابة ملف LinkedIn',
-          'دومين مخصص واستضافة لمدة سنة',
-          'جولة صقل واحدة قبل المقابلات',
-          'تسليم ودعم بأولوية',
+          'موقع بورتفوليو شخصي مع لوحة تحكم، قسم مشاريع، صفحة سيرة ذاتية ومدونة',
+          'سيرة ذاتية مُعادة كتابتها باحترافية ومتوافقة مع أنظمة ATS',
+          'إعادة كتابة كاملة لملفك على LinkedIn — العنوان، نبذة عنك، ووصف الخبرات',
+          'دومين مخصص لموقعك، مع استضافة مجانية لمدة سنة كاملة',
+          'جولة صقل واحدة قبل المقابلات على السيرة الذاتية وLinkedIn والموقع معًا',
+          'تسليم بأولوية أسرع من المدة المعتادة',
+          'دعم بأولوية عبر واتساب طوال مراحل العمل',
+          'جولتا تعديل على جميع عناصر الباقة',
         ],
         cta: 'اطلب باقة العلامة المهنية',
         whatsappMessage:
