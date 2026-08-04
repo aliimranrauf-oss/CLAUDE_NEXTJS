@@ -4,8 +4,6 @@ import { Palette, Rocket, TrendingUp, Compass, PenTool, Layers, Target } from 'l
 import Reveal from './Reveal'
 import DonutChart from './DonutChart'
 import CountUp from './CountUp'
-import ArabicMonogram from './ArabicMonogram'
-import Portrait from './Portrait'
 import { hero } from '../_data/content'
 import { useSiteSettings } from '../_context/SiteSettingsContext'
 
@@ -14,10 +12,12 @@ const DISCIPLINE_ICONS = [Compass, PenTool, Layers, Target]
 const SPARK_POINTS = '0,30 14,26 28,28 42,18 56,20 70,8 84,6 98,0'
 
 /**
- * The hero's right-column "brand board": a stack of glass cards showing
- * Noor's own signature palette, headline stats, and audience-growth
- * figures — the visual equivalent of a case-study cover slide, standing
- * in for a personal photo. Sits above/behind the ArabicMonogram plate.
+ * "Brand board" strip: Noor's own signature palette, headline stats, and
+ * audience-growth figures, laid out as an even row beneath the hero —
+ * a live example of her design work. Previously this was stacked inside
+ * the hero's right column, which made that column far taller than the
+ * text column and pushed/cut off the headline; living in its own
+ * full-width section fixes that.
  */
 export default function HeroBrandBoard() {
   const { palette, campaigns, audience, disciplines } = hero.cards
@@ -27,18 +27,10 @@ export default function HeroBrandBoard() {
   if (!showPaletteCard && !showCampaignsCard && !showAudienceCard && !showDisciplinesCard) return null
 
   return (
-    <div className="flex w-full max-w-[360px] flex-col items-end gap-4">
-      <Reveal delay={0.02} className="w-full max-w-[220px] self-center sm:self-end">
-        <Portrait variant="plate" />
-      </Reveal>
-
-      <Reveal delay={0.05} className="w-full max-w-[220px] self-center sm:self-end">
-        <ArabicMonogram />
-      </Reveal>
-
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {showPaletteCard && (
-        <Reveal delay={0.15} className="w-full">
-          <div className="p3-glass p-5">
+        <Reveal delay={0.05} className="h-full">
+          <div className="p3-glass h-full p-5">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--p3-muted)]">
                 {palette.label}
@@ -62,8 +54,8 @@ export default function HeroBrandBoard() {
       )}
 
       {showCampaignsCard && (
-        <Reveal delay={0.25} className="w-full">
-          <div className="p3-glass p-5">
+        <Reveal delay={0.12} className="h-full">
+          <div className="p3-glass h-full p-5">
             <div className="flex items-start justify-between">
               <div>
                 <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--p3-muted)]">
@@ -93,8 +85,8 @@ export default function HeroBrandBoard() {
       )}
 
       {showAudienceCard && (
-        <Reveal delay={0.35} className="w-full">
-          <div className="p3-glass p-5">
+        <Reveal delay={0.19} className="h-full">
+          <div className="p3-glass h-full p-5">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--p3-muted)]">
                 {audience.label}
@@ -122,8 +114,8 @@ export default function HeroBrandBoard() {
       )}
 
       {showDisciplinesCard && (
-        <Reveal delay={0.45} className="w-full">
-          <div className="p3-glass p-5">
+        <Reveal delay={0.26} className="h-full">
+          <div className="p3-glass h-full p-5">
             <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--p3-muted)]">
               {disciplines.label}
             </span>
