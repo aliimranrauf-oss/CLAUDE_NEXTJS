@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { LayoutDashboard } from 'lucide-react'
 import { nav, profile } from '../_data/content'
 import { useSiteSettings } from '../_context/SiteSettingsContext'
 
@@ -67,6 +68,14 @@ export default function Header() {
               </Link>
             )
           })}
+          <Link
+            href="/project-2/admin"
+            className="flex items-center gap-1.5 rounded-full border border-[var(--p2-gold)]/40 bg-[var(--p2-gold-tint)] px-3 py-1.5 text-[11.5px] font-semibold tracking-wide text-[var(--p2-gold)] transition-colors hover:border-[var(--p2-gold)]"
+            title="Demo feature — client-editable content & visibility panel"
+          >
+            <LayoutDashboard size={13} />
+            ADMIN PANEL
+          </Link>
         </nav>
 
         <Link href="/project-2/contact" className="p2-btn p2-btn-solid hidden md:inline-flex">
@@ -99,6 +108,15 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/project-2/admin"
+                className="flex w-fit items-center gap-1.5 rounded-full border border-[var(--p2-gold)]/40 bg-[var(--p2-gold-tint)] px-3 py-1.5 text-[11.5px] font-semibold tracking-wide text-[var(--p2-gold)]"
+              >
+                <LayoutDashboard size={13} />
+                ADMIN PANEL
+              </Link>
+            </li>
             <li>
               <Link href="/project-2/contact" className="p2-btn p2-btn-solid w-full justify-center">
                 <span style={{ color: '#fff', display: 'inline-block' }}>
