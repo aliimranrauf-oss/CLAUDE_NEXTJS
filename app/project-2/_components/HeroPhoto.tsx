@@ -26,7 +26,6 @@ export default function HeroPhoto({ src = '/project-2/hero-finance.jpg' }: { src
           alt=""
           onError={() => setErrored(true)}
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: '62% center' }}
         />
       )}
       <div className="p2-hero-scrim" />
