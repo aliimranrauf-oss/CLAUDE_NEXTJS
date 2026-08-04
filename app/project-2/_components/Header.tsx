@@ -4,11 +4,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { nav, profile } from '../_data/content'
+import { useSiteSettings } from '../_context/SiteSettingsContext'
 
 export default function Header() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { settings } = useSiteSettings()
 
   useEffect(() => {
     setOpen(false)
@@ -20,6 +22,19 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const visibleNav = nav.slice(1).filter((item) => {
+    if (item.href.endsWith('/about')) return settings.nav.showAbout
+    if (item.href.endsWith('/expertise')) return settings.nav.showExpertise
+    if (item.href.endsWith('/experience')) return settings.nav.showExperience
+    if (item.href.endsWith('/insights')) return settings.nav.showInsights
+    return true
+  })
+
+  // Guaranteed non-empty label: falls back to the hardcoded default the
+  // instant the saved value is missing, blank, or still hydrating —
+  // this button can never render as an empty pill.
+  const connectLabel = (settings.nav.connectLabel || "Let's Connect").trim() || "Let's Connect"
 
   return (
     <header
@@ -38,7 +53,7 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
-          {nav.slice(1).map((item) => {
+          {visibleNav.map((item) => {
             const active = pathname === item.href
             return (
               <Link
@@ -55,7 +70,9 @@ export default function Header() {
         </nav>
 
         <Link href="/project-2/contact" className="p2-btn p2-btn-solid hidden md:inline-flex">
-          Let&rsquo;s Connect →
+          <span style={{ color: '#fff', display: 'inline-block' }}>
+            {connectLabel} →
+          </span>
         </Link>
 
         <button
@@ -75,7 +92,7 @@ export default function Header() {
       {open && (
         <nav className="border-t border-[var(--p2-border)] bg-[var(--p2-bg)] px-5 py-4 md:hidden">
           <ul className="flex flex-col gap-4">
-            {nav.slice(1).map((item) => (
+            {visibleNav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-sm font-medium tracking-wide text-[var(--p2-muted)]">
                   {item.label.toUpperCase()}
@@ -84,7 +101,9 @@ export default function Header() {
             ))}
             <li>
               <Link href="/project-2/contact" className="p2-btn p2-btn-solid w-full justify-center">
-                Let&rsquo;s Connect →
+                <span style={{ color: '#fff', display: 'inline-block' }}>
+                  {connectLabel} →
+                </span>
               </Link>
             </li>
           </ul>
