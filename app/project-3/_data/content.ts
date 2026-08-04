@@ -12,6 +12,14 @@ export const profile = {
   tagline: 'Brand Strategist | Qatar',
 }
 
+// Demo-only placeholder links — swap the `href` values for real profiles
+// when this stops being a portfolio showcase.
+export const socials = [
+  { platform: 'LinkedIn', icon: 'linkedin', href: 'https://linkedin.com' },
+  { platform: 'X', icon: 'x', href: 'https://x.com' },
+  { platform: 'Instagram', icon: 'instagram', href: 'https://instagram.com' },
+]
+
 export const nav = [
   { href: '/project-3', label: 'Overview' },
   { href: '/project-3/about', label: 'About' },
