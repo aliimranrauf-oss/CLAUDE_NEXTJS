@@ -64,6 +64,29 @@ export const hero = {
   },
 }
 
+export const heroFeatures = [
+  {
+    icon: 'target',
+    title: 'Strategic Thinking',
+    description: 'Data-driven strategies that create clarity and long-term growth.',
+  },
+  {
+    icon: 'pen-tool',
+    title: 'Brand Development',
+    description: 'Distinctive brand identities that connect and convert.',
+  },
+  {
+    icon: 'megaphone',
+    title: 'Marketing Impact',
+    description: 'Campaigns that spark conversations and deliver measurable ROI.',
+  },
+  {
+    icon: 'trending-up',
+    title: 'Growth Focused',
+    description: 'Sustainable brand growth through smart positioning and storytelling.',
+  },
+]
+
 export const stats = [
   { value: '12+', label: 'Years shaping brand strategy across the GCC' },
   { value: '40+', label: 'Brand campaigns launched to market' },
