@@ -167,7 +167,7 @@
 }
 .p2-hero-photo img {
   object-fit: cover;
-  object-position: 62% center;
+  object-position: 48% 22%;
 }
 
 /* Soft daylight fade so the copy on the left stays perfectly legible
@@ -178,7 +178,8 @@
   z-index: 1;
   background:
     linear-gradient(90deg, var(--p2-bg) 0%, rgba(248, 247, 244, 0.94) 22%, rgba(248, 247, 244, 0.55) 42%, rgba(248, 247, 244, 0.08) 60%, transparent 72%),
-    linear-gradient(180deg, rgba(248, 247, 244, 0.5) 0%, rgba(248, 247, 244, 0) 18%, rgba(248, 247, 244, 0) 78%, rgba(248, 247, 244, 0.9) 100%);
+    linear-gradient(180deg, rgba(248, 247, 244, 0.5) 0%, rgba(248, 247, 244, 0) 18%, rgba(248, 247, 244, 0) 78%, rgba(248, 247, 244, 0.9) 100%),
+    radial-gradient(55% 65% at 88% 8%, rgba(248, 247, 244, 0.4), transparent 70%);
 }
 
 /* Fallback backdrop used when no hero photo is present yet — a soft
@@ -237,7 +238,7 @@
 
 @media (max-width: 1024px) {
   .p2-hero-photo img {
-    object-position: 68% center;
+    object-position: 55% 18%;
   }
 }
 
