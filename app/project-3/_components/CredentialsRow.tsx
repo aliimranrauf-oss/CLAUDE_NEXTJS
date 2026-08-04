@@ -11,7 +11,7 @@ export default function CredentialsRow() {
   if (!settings.hero.showCredentials) return null
 
   return (
-    <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+    <div className="mt-10 hidden grid-cols-2 gap-x-6 gap-y-5 sm:grid sm:grid-cols-4">
       {hero.credentials.map((c, i) => {
         const Icon = ICONS[i % ICONS.length]
         return (
