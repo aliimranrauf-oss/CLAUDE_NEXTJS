@@ -46,6 +46,8 @@ export default function Project4Home() {
               <span className="block">{renderHeadingLine(h.headingLine3, h.accentWord)}</span>
             </h1>
 
+            <Portrait className="p4-fade-up mx-auto my-7 w-full max-w-[230px] lg:hidden" />
+
             <p className="p4-fade-up mt-6 max-w-md text-[15.5px] leading-relaxed text-[var(--p4-muted)]" style={{ animationDelay: '0.16s' }}>
               {h.paragraph}
             </p>
@@ -69,7 +71,7 @@ export default function Project4Home() {
           </div>
 
           <div className="flex flex-col items-center gap-8 lg:items-end">
-            <Portrait className="w-full max-w-[300px] sm:max-w-[380px] lg:max-w-[440px]" />
+            <Portrait className="hidden w-full max-w-[440px] lg:block" />
             <div className="w-full max-w-[300px] sm:max-w-[380px] lg:max-w-[440px]">
               <HeroStatCards />
             </div>
