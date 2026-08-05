@@ -33,7 +33,7 @@ export default function Project4Home() {
       <section className="p4-hero relative border-b border-[var(--p4-border)]">
         <div className="p4-hero-blobs" aria-hidden="true" />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:py-24">
           <div>
             <div>
               <span className="p4-eyebrow p4-fade-up">{h.eyebrow}</span>
