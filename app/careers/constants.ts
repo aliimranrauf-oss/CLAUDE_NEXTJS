@@ -6,7 +6,7 @@
 // live — nothing else in this page needs to change when you do.
 
 // WhatsApp Business number (digits only, country code first, no "+", no spaces/dashes).
-export const WHATSAPP_NUMBER = '447988597332'
+export const WHATSAPP_NUMBER = '441111111111'
 
 // SAMPLE Fiverr gig link — replace with your real gig URL.
 export const FIVERR_GIG_URL = 'https://www.fiverr.com/s/XXXXXXX' // ← REPLACE with real gig link
