@@ -35,12 +35,9 @@ export default function Project4Home() {
 
         <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
           <div>
-            <div className="flex items-center gap-3">
-              <Portrait variant="avatar" className="lg:hidden" />
-              <div>
-                <span className="p4-eyebrow p4-fade-up">{h.eyebrow}</span>
-                <PulseLine className="p4-pulse p4-fade-up mt-1.5" />
-              </div>
+            <div>
+              <span className="p4-eyebrow p4-fade-up">{h.eyebrow}</span>
+              <PulseLine className="p4-pulse p4-fade-up mt-1.5" />
             </div>
 
             <h1 className="p4-display p4-fade-up mt-5 text-[2.5rem] font-medium italic leading-[1.14] text-[var(--p4-sage-2)] sm:text-[3.3rem]" style={{ animationDelay: '0.08s' }}>
@@ -71,9 +68,11 @@ export default function Project4Home() {
             </p>
           </div>
 
-          <div className="flex justify-center gap-6 lg:justify-end lg:items-end">
-            <Portrait className="hidden w-full max-w-[280px] lg:block" />
-            <HeroStatCards />
+          <div className="flex flex-col items-center gap-8 lg:items-end">
+            <Portrait className="w-full max-w-[300px] sm:max-w-[380px] lg:max-w-[440px]" />
+            <div className="w-full max-w-[300px] sm:max-w-[380px] lg:max-w-[440px]">
+              <HeroStatCards />
+            </div>
           </div>
         </div>
       </section>
