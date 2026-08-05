@@ -2,7 +2,7 @@
    Scoped design system for the "Consultant Dermatologist, Dubai" portfolio —
    codename "Clinical Luxe". Everything lives under .p4-scope so it never
    leaks into the main site or Project-1/2/3. No shared class names,
-   variables, or fonts with p1-*/p2-*/p3-*.
+   variables, or fonts with p1, p2, or p3.
 
    Identity: warm porcelain white + deep sage green + soft terracotta/clay
    accent. Soft blurred organic gradient blobs instead of a hard grid
