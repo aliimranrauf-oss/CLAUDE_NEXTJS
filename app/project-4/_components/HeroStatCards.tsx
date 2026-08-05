@@ -17,7 +17,7 @@ export default function HeroStatCards() {
   if (!showPatientsCard && !showSatisfactionCard && !showSuccessCard && !showFocusCard) return null
 
   return (
-    <div className="flex w-full max-w-[340px] flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       {/* Patients Treated */}
       {showPatientsCard && (
         <Reveal delay={0.15}>
