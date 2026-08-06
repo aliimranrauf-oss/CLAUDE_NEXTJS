@@ -106,10 +106,20 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile hamburger
+            ── contrast fix ──────────────────────────────────────────────
+            Before, this button only got a background once `scrolled` was
+            true (bg-white/10 on hover only). Near the top of the page,
+            with a transparent navbar, plain white icon lines could get
+            lost against light/bright hero photos (e.g. a sunset-sky
+            slide) — it wasn't a language bug, just a contrast bug that
+            happened to show up on whichever hero slide was active.
+            Now the button always carries a small dark, blurred chip
+            behind it so the icon has guaranteed contrast against any
+            background image, on every page and scroll position. */}
         <button
           onClick={() => setOpen(!open)}
-          className="xl:hidden p-2 text-white rounded-lg hover:bg-white/10 transition-colors shrink-0"
+          className="xl:hidden p-2 text-white rounded-lg bg-black/20 backdrop-blur-sm ring-1 ring-white/10 hover:bg-white/10 transition-colors shrink-0"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
