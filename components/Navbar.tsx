@@ -107,19 +107,27 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger
-            ── contrast fix ──────────────────────────────────────────────
-            Before, this button only got a background once `scrolled` was
-            true (bg-white/10 on hover only). Near the top of the page,
-            with a transparent navbar, plain white icon lines could get
-            lost against light/bright hero photos (e.g. a sunset-sky
-            slide) — it wasn't a language bug, just a contrast bug that
-            happened to show up on whichever hero slide was active.
-            Now the button always carries a small dark, blurred chip
-            behind it so the icon has guaranteed contrast against any
-            background image, on every page and scroll position. */}
+            ── contrast fix (v2, inline style) ──────────────────────────
+            Previously this only got a background once `scrolled` was
+            true. Near the top of the page (transparent navbar), a plain
+            white icon can get lost against a light/bright hero photo
+            behind it. First attempt used Tailwind opacity utilities
+            (bg-black/20, backdrop-blur-sm) for the fix — switched to
+            plain inline styles here instead, so the contrast chip is
+            guaranteed to render regardless of whether those specific
+            utility classes make it into the production CSS build. This
+            has nothing to do with language — it renders identically for
+            EN and AR. */}
         <button
           onClick={() => setOpen(!open)}
-          className="xl:hidden p-2 text-white rounded-lg bg-black/20 backdrop-blur-sm ring-1 ring-white/10 hover:bg-white/10 transition-colors shrink-0"
+          className="xl:hidden p-2 rounded-lg transition-colors shrink-0"
+          style={{
+            color: '#ffffff',
+            backgroundColor: 'rgba(0,0,0,0.35)',
+            WebkitBackdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(6px)',
+            border: '1px solid rgba(255,255,255,0.12)',
+          }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
