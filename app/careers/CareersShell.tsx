@@ -62,13 +62,15 @@ export default function CareersShell({ blogImages = {} }: CareersShellProps) {
         <Navbar />
 
         {/*
-          Persistent language toggle — fixed below the navbar so it stays
-          visible through every section as the user scrolls, not just the
-          hero. Uses logical `end-4` (not `right-4`) so it lands top-left
-          in RTL and top-right in LTR automatically, matching `dir`, the
-          same pattern as the sticky WhatsApp button in CareersCTA.tsx.
+          Persistent language toggle. On mobile it sits in normal document
+          flow just under the fixed navbar (so it can never float on top of
+          the hero image below it — that was the overlap bug). From the sm
+          breakpoint up there's enough clearance for it to go back to a
+          fixed pill that stays visible while scrolling, same pattern as
+          the sticky WhatsApp button in CareersCTA.tsx. Uses logical `end`
+          (not `right`) so it lands top-left in RTL, top-right in LTR.
         */}
-        <div className="fixed top-20 sm:top-24 end-4 sm:end-6 z-40">
+        <div className="flex justify-end px-4 sm:px-0 pt-20 sm:pt-0 sm:fixed sm:top-24 sm:end-6 sm:z-40">
           <LangToggle />
         </div>
 
