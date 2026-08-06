@@ -90,7 +90,7 @@ export default function CareersHero() {
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative"
+            className="relative order-first lg:order-none"
           >
             {/*
               Back to aspect-[4/3] — the current hero image is generated at
