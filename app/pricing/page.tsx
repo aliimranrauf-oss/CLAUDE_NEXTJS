@@ -87,37 +87,43 @@ const FEATURES_BY_TYPE: Record<WebsiteType, Record<string, string[]>> = {
       'Full Source Code Ownership',
     ],
   },
+  // Mirrors the /careers page packages exactly: Portfolio Starter → Launch,
+  // Portfolio + ATS CV → Growth, Career Brand Package → Scale. Keep these in
+  // sync with app/careers/dictionary.ts (packages.items) if that copy changes.
   portfolio: {
     Launch: [
-      'Up to 5 pages',
-      'About + project gallery',
-      'Contact form',
-      'Mobile-optimized design',
-      'Basic SEO setup',
-      'Deployed to your hosting (or free-tier Vercel + Supabase)',
-      'Google Analytics setup',
-      'Full Source Code Ownership',
+      'Custom personal portfolio website built around your profile and industry',
+      'Supabase-powered admin dashboard — no code needed to manage anything',
+      'Dedicated Projects section to showcase your work with images & descriptions',
+      'CV page on your site, always up to date and downloadable as PDF',
+      'Built-in blog section to publish articles and build authority in your field',
+      'Mobile-optimized, fast-loading design tested across phones, tablets & desktop',
+      'Basic on-page SEO so recruiters find your name when they Google you',
+      'Working contact form connected directly to your email',
+      '1 month of WhatsApp support after delivery',
+      '1 round of revisions before final delivery',
     ],
     Growth: [
-      'Unlimited pages & projects',
-      'Blog / case-study section',
-      'Testimonials section',
-      'Advanced SEO + sitemap',
-      'Google Search Console setup',
-      'Cloudflare protection',
-      'Contact form + email notifications',
-      'Analytics + tracking',
-      'Full Source Code Ownership',
+      'Custom personal portfolio website built around your profile and industry',
+      'Supabase-powered admin dashboard — no code needed to manage anything',
+      'Dedicated Projects section, editable CV page & built-in blog',
+      'Mobile-optimized, fast-loading design with basic on-page SEO',
+      'Professionally rewritten, ATS-friendly CV matched to your target roles',
+      'Clean, recruiter-friendly CV formatting that passes automated screening',
+      'Editable CV source file included, plus a matching cover letter template',
+      'Your website content and CV kept consistent with each other',
+      '2 months of WhatsApp support after delivery',
+      '1 round of revisions on the site and on the CV',
     ],
     Scale: [
-      'Everything in Growth',
-      'Custom animations & interactions',
-      'Advanced portfolio filtering',
-      'Performance optimization',
-      'Custom UI/UX system',
-      'Priority support (30 days)',
-      'Scalable architecture',
-      'Full Source Code Ownership',
+      'Custom personal portfolio website with admin dashboard, projects, CV page & blog',
+      'Professionally rewritten, ATS-friendly CV matched to your target roles',
+      'Complete LinkedIn profile rewrite — headline, About section & experience bullets',
+      'Custom domain name included (up to $20/year — standard registration), plus 1 year of hosting. Premium or aftermarket domains available at cost.',
+      '1 round of interview-ready polish on your CV, LinkedIn & portfolio together',
+      'Priority delivery ahead of standard turnaround',
+      '6 months of priority WhatsApp support after delivery',
+      '2 rounds of revisions across all deliverables',
     ],
   },
   business: {
@@ -281,6 +287,33 @@ function buildJsonLd(plans: MergedPlan[]) {
       },
     })),
   }
+}
+
+// ─── Standalone ATS CV Package (Portfolio tab only) ────────────────────────
+// This mirrors the $99 "ATS CV Package" on /careers — a CV-only gig, not a
+// website tier, so it isn't one of the Launch/Growth/Scale DB plans. It's
+// appended as a 4th card only when Website Type = Portfolio / Personal.
+const ATS_CV_STANDALONE_PLAN: MergedPlan = {
+  id: 'ats-cv-standalone',
+  name: 'ATS CV Package',
+  price: 99,
+  delivery: null,
+  description: 'Get past the bots before a human even looks',
+  is_popular: false,
+  is_active: true,
+  created_at: '',
+  basePrice: 99,
+  displayPrice: 99,
+  features: [
+    'Professionally rewritten CV, built from scratch or your existing draft',
+    'Keyword-matched to the exact job titles & industry you are targeting',
+    'Clean, recruiter-friendly formatting proven to pass automated ATS screening',
+    'Optimized for the ATS platforms most used by Gulf employers',
+    'Achievement-focused bullet points instead of generic duty lists',
+    'Matching cover letter template included',
+    'Editable source file (Word & Google Docs) so you can update it yourself anytime',
+    '1 round of revisions included',
+  ],
 }
 
 // ─── Memoized Plan Card (already optimized) ───────────────────────────────────
@@ -787,8 +820,8 @@ export default function PricingPage() {
               ) : error ? (
                 <p className="text-center py-20 text-red-400" role="alert">{error}</p>
               ) : (
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-                  {plans.map((plan) => {
+                <div className={`grid sm:grid-cols-2 gap-5 ${websiteType === 'portfolio' ? 'lg:grid-cols-4' : 'md:grid-cols-3'}`}>
+                  {(websiteType === 'portfolio' ? [...plans, ATS_CV_STANDALONE_PLAN] : plans).map((plan) => {
                     const pop = plan.is_popular
                     return <PlanCard key={plan.id} plan={plan} pop={pop} websiteType={websiteType} />
                   })}
