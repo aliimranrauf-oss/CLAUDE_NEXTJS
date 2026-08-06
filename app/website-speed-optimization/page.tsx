@@ -370,6 +370,7 @@ function getDiscountPercent(oldPrice: number, price: number) {
 }
 
 const FIVERR_GIG_URL = 'https://www.fiverr.com/s/ljqAq5g'
+const NEW_FIVERR_GIG_URL = 'https://www.fiverr.com/s/NN7qXxa'
 const CONTACT_URL = '/contact?service=speed-audit'
 
 export default function WebsiteSpeedOptimizationPage() {
@@ -460,12 +461,12 @@ export default function WebsiteSpeedOptimizationPage() {
                   Website Speed &amp; Core Web Vitals Specialist
                 </div>
                 <Link
-                  href="#discount"
-                  aria-label="See 50% off packages"
+                  href="#pricing"
+                  aria-label="See discounted packages"
                   className="inline-flex items-center gap-1.5 rounded-full bg-[#00d4ff] text-[#0b0f1a] font-bold text-xs sm:text-sm px-4 py-1.5 shadow-lg shadow-[#00d4ff]/30 hover:scale-105 transition-transform"
                 >
                   <Zap size={14} />
-                  50% OFF
+                  Up to 79% OFF
                 </Link>
               </div>
 
@@ -619,8 +620,10 @@ export default function WebsiteSpeedOptimizationPage() {
                     ))}
                   </ul>
 
-                  <Link
-                    href={CONTACT_URL}
+                  <a
+                    href={NEW_FIVERR_GIG_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={
                       plan.highlighted
                         ? 'btn-primary text-sm px-6 py-2.5 text-center inline-block'
@@ -628,29 +631,9 @@ export default function WebsiteSpeedOptimizationPage() {
                     }
                   >
                     Order Now
-                  </Link>
+                  </a>
                 </div>
               ))}
-            </div>
-
-            {/* Discount banner */}
-            <div id="discount" className="mt-10 max-w-xl mx-auto text-center glass rounded-2xl p-8 border border-[#00d4ff]/30 scroll-mt-20">
-              <p className="text-xl sm:text-2xl font-bold text-white mb-2">
-                🎉 Get <span className="text-[#00d4ff]">50% OFF</span> Any Package
-              </p>
-              <p className="text-sm sm:text-base text-white/70 mb-6">
-                Available exclusively when you order through Fiverr &mdash; a safe, secure
-                payment method with full buyer protection.
-              </p>
-              <a
-                href={FIVERR_GIG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2"
-              >
-                Order on Fiverr
-                <ArrowRight size={18} />
-              </a>
             </div>
           </div>
         </section>
