@@ -1,7 +1,7 @@
 // components/space/SatelliteTrackerGig.tsx
 import { Check, ArrowRight } from 'lucide-react'
 
-const GIG_URL = 'https://www.fiverr.com/s/gDAqyQL'
+const CONTACT_URL = '/contact'
 
 const tiers = [
   {
@@ -108,16 +108,14 @@ export default function SatelliteTrackerGig() {
               </ul>
 
               <a
-                href={GIG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={CONTACT_URL}
                 className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors ${
                   tier.highlighted
                     ? 'btn-primary'
                     : 'border border-white/15 text-white/80 hover:border-cyan/30 hover:text-white'
                 }`}
               >
-                Order this tier
+                Contact Us
                 <ArrowRight size={15} />
               </a>
             </div>
