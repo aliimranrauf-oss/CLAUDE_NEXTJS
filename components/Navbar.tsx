@@ -51,7 +51,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
 
-        <Link href="/" className="flex items-center gap-2 group shrink-0" aria-label="MakeMyStore home">
+        <Link href="/" className="flex items-center gap-2 group min-w-0" aria-label="MakeMyStore home">
           {/*
             ── CLS fix ───────────────────────────────────────────────────────
             Added explicit width/height attributes AND inline style dimensions.
@@ -67,11 +67,11 @@ export default function Navbar() {
             height={36}
             fetchPriority="high"
             decoding="async"
-            className="rounded-lg object-contain"
+            className="rounded-lg object-contain shrink-0"
             style={{ mixBlendMode: 'lighten', width: 36, height: 36 }}
           />
           <span
-            className="font-bold text-xl"
+            className="font-bold text-lg sm:text-xl truncate"
             style={{ fontFamily: 'var(--font-syne), Syne, sans-serif' }}
           >
             <span className="text-gradient">MakeMyStore</span>
@@ -108,7 +108,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="xl:hidden p-2 text-white rounded-lg hover:bg-white/10 transition-colors"
+          className="xl:hidden p-2 text-white rounded-lg hover:bg-white/10 transition-colors shrink-0"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
