@@ -124,6 +124,8 @@ export interface CareersDictionary {
     items: PackageItem[]
     /** Grouped feature rows for the comparison table. See ComparisonGroup above. */
     comparisonGroups: ComparisonGroup[]
+    /** Short intro line shown above the standalone ATS CV Package card (it's excluded from the comparison table since it's a CV-only gig, not a portfolio-website tier). */
+    standaloneNote: string
   }
   howItWorks: {
     eyebrow: string
@@ -310,48 +312,49 @@ export const en: CareersDictionary = {
         badge: 'Most Popular',
       },
     ],
-    // Order of values in every row below: [Portfolio Starter, ATS CV Package, Portfolio + ATS CV, Career Brand Package]
+    // Order of values in every row below: [Portfolio Starter, Portfolio + ATS CV, Career Brand Package]
+    // (ATS CV Package is a standalone CV-only gig, shown separately below the table — see packages.standaloneNote)
     comparisonGroups: [
       {
         title: 'Website & Portfolio',
-        naNotes: [null, 'CV-only package — no website included', null, null],
         rows: [
-          { label: 'Custom personal portfolio website', values: [true, false, true, true] },
-          { label: 'No-code admin dashboard (Supabase)', values: [true, false, true, true] },
-          { label: 'Dedicated Projects section', values: [true, false, true, true] },
-          { label: 'CV page on your site (PDF download)', values: [true, false, true, true] },
-          { label: 'Built-in blog section', values: [true, false, true, true] },
-          { label: 'Mobile-optimized, fast-loading design', values: [true, false, true, true] },
-          { label: 'Basic on-page SEO', values: [true, false, true, true] },
-          { label: 'Working contact form', values: [true, false, true, true] },
-          { label: 'Custom domain + 1 year hosting', values: [false, false, false, true] },
+          { label: 'Custom personal portfolio website', values: [true, true, true] },
+          { label: 'No-code admin dashboard (Supabase)', values: [true, true, true] },
+          { label: 'Dedicated Projects section', values: [true, true, true] },
+          { label: 'CV page on your site (PDF download)', values: [true, true, true] },
+          { label: 'Built-in blog section', values: [true, true, true] },
+          { label: 'Mobile-optimized, fast-loading design', values: [true, true, true] },
+          { label: 'Basic on-page SEO', values: [true, true, true] },
+          { label: 'Working contact form', values: [true, true, true] },
+          { label: 'Custom domain + 1 year hosting', values: [false, false, true] },
         ],
       },
       {
         title: 'CV & Career Documents',
         rows: [
-          { label: 'Professionally rewritten CV', values: [false, true, true, true] },
-          { label: 'Keyword-matched to target roles', values: [false, true, true, true] },
-          { label: 'ATS-optimized formatting', values: [false, true, true, true] },
-          { label: 'Matching cover letter template', values: [false, true, true, false] },
-          { label: 'Editable CV source file (Word & Docs)', values: [false, true, true, false] },
+          { label: 'Professionally rewritten CV', values: [false, true, true] },
+          { label: 'Keyword-matched to target roles', values: [false, true, true] },
+          { label: 'ATS-optimized formatting', values: [false, true, true] },
+          { label: 'Matching cover letter template', values: [false, true, false] },
+          { label: 'Editable CV source file (Word & Docs)', values: [false, true, false] },
         ],
       },
       {
         title: 'LinkedIn & Personal Brand',
         rows: [
-          { label: 'Complete LinkedIn profile rewrite', values: [false, false, false, true] },
+          { label: 'Complete LinkedIn profile rewrite', values: [false, false, true] },
         ],
       },
       {
         title: 'Delivery & Support',
         rows: [
-          { label: 'Revisions included', values: ['1 round', '1 round', '1 round', '2 rounds'] },
-          { label: 'Priority delivery', values: [false, false, false, true] },
-          { label: 'Priority WhatsApp support', values: [false, false, false, true] },
+          { label: 'Revisions included', values: ['1 round', '1 round', '2 rounds'] },
+          { label: 'Priority delivery', values: [false, false, true] },
+          { label: 'Priority WhatsApp support', values: [false, false, true] },
         ],
       },
     ],
+    standaloneNote: "Just need a CV, not a website? The ATS CV Package below is a standalone service — no portfolio site included.",
   },
   howItWorks: {
     eyebrow: 'HOW IT WORKS',
@@ -622,48 +625,49 @@ export const ar: CareersDictionary = {
         badge: 'الأكثر طلبًا',
       },
     ],
-    // ترتيب القيم في كل صف: [باقة البداية، باقة السيرة الذاتية ATS، بورتفوليو + سيرة ATS، باقة العلامة المهنية]
+    // ترتيب القيم في كل صف: [باقة البداية، بورتفوليو + سيرة ATS، باقة العلامة المهنية]
+    // (باقة السيرة الذاتية ATS خدمة مستقلة، مُعروضة بشكل منفصل أسفل الجدول)
     comparisonGroups: [
       {
         title: 'الموقع والبورتفوليو',
-        naNotes: [null, 'باقة سيرة ذاتية فقط — بدون موقع إلكتروني', null, null],
         rows: [
-          { label: 'موقع بورتفوليو شخصي مخصص', values: [true, false, true, true] },
-          { label: 'لوحة تحكم بدون كود (Supabase)', values: [true, false, true, true] },
-          { label: 'قسم مخصص للمشاريع', values: [true, false, true, true] },
-          { label: 'صفحة سيرة ذاتية على موقعك (تحميل PDF)', values: [true, false, true, true] },
-          { label: 'قسم مدونة مدمج', values: [true, false, true, true] },
-          { label: 'تصميم سريع ومتوافق مع الجوال', values: [true, false, true, true] },
-          { label: 'إعداد أساسي لمحركات البحث (SEO)', values: [true, false, true, true] },
-          { label: 'نموذج تواصل يعمل', values: [true, false, true, true] },
-          { label: 'دومين مخصص + استضافة سنة كاملة', values: [false, false, false, true] },
+          { label: 'موقع بورتفوليو شخصي مخصص', values: [true, true, true] },
+          { label: 'لوحة تحكم بدون كود (Supabase)', values: [true, true, true] },
+          { label: 'قسم مخصص للمشاريع', values: [true, true, true] },
+          { label: 'صفحة سيرة ذاتية على موقعك (تحميل PDF)', values: [true, true, true] },
+          { label: 'قسم مدونة مدمج', values: [true, true, true] },
+          { label: 'تصميم سريع ومتوافق مع الجوال', values: [true, true, true] },
+          { label: 'إعداد أساسي لمحركات البحث (SEO)', values: [true, true, true] },
+          { label: 'نموذج تواصل يعمل', values: [true, true, true] },
+          { label: 'دومين مخصص + استضافة سنة كاملة', values: [false, false, true] },
         ],
       },
       {
         title: 'السيرة الذاتية والمستندات المهنية',
         rows: [
-          { label: 'سيرة ذاتية مُعادة كتابتها باحترافية', values: [false, true, true, true] },
-          { label: 'مطابقة للكلمات المفتاحية للوظائف المستهدفة', values: [false, true, true, true] },
-          { label: 'تنسيق متوافق مع أنظمة ATS', values: [false, true, true, true] },
-          { label: 'قالب خطاب تقديمي مطابق', values: [false, true, true, false] },
-          { label: 'ملف سيرة ذاتية قابل للتعديل (Word و Docs)', values: [false, true, true, false] },
+          { label: 'سيرة ذاتية مُعادة كتابتها باحترافية', values: [false, true, true] },
+          { label: 'مطابقة للكلمات المفتاحية للوظائف المستهدفة', values: [false, true, true] },
+          { label: 'تنسيق متوافق مع أنظمة ATS', values: [false, true, true] },
+          { label: 'قالب خطاب تقديمي مطابق', values: [false, true, false] },
+          { label: 'ملف سيرة ذاتية قابل للتعديل (Word و Docs)', values: [false, true, false] },
         ],
       },
       {
         title: 'LinkedIn والعلامة الشخصية',
         rows: [
-          { label: 'إعادة كتابة كاملة لملف LinkedIn', values: [false, false, false, true] },
+          { label: 'إعادة كتابة كاملة لملف LinkedIn', values: [false, false, true] },
         ],
       },
       {
         title: 'التسليم والدعم',
         rows: [
-          { label: 'جولات التعديل المشمولة', values: ['جولة واحدة', 'جولة واحدة', 'جولة واحدة', 'جولتان'] },
-          { label: 'تسليم بأولوية', values: [false, false, false, true] },
-          { label: 'دعم بأولوية عبر واتساب', values: [false, false, false, true] },
+          { label: 'جولات التعديل المشمولة', values: ['جولة واحدة', 'جولة واحدة', 'جولتان'] },
+          { label: 'تسليم بأولوية', values: [false, false, true] },
+          { label: 'دعم بأولوية عبر واتساب', values: [false, false, true] },
         ],
       },
     ],
+    standaloneNote: 'تحتاج فقط سيرة ذاتية بدون موقع؟ باقة السيرة الذاتية ATS أدناه خدمة مستقلة — لا تشمل موقع بورتفوليو.',
   },
   howItWorks: {
     eyebrow: 'كيف تسير العملية',
