@@ -35,6 +35,25 @@ export interface PackageItem {
   badge?: string
 }
 
+// ── Comparison table types ───────────────────────────────────────────────
+// Used to render the /careers pricing section as a feature-comparison
+// table instead of 4 cards each repeating a long flat bullet list.
+//
+// `values` is one entry per package, in the SAME ORDER as packages.items
+// (currently: starter, ats-cv-only, ats-cv, career-brand). Each value is
+// either:
+//   - true  → shown as a checkmark (feature included)
+//   - false → shown as a dash (feature not included)
+//   - string → shown as-is (for things that vary by amount, e.g. "1 round" / "2 rounds")
+export interface ComparisonRow {
+  label: string
+  values: (boolean | string)[]
+}
+export interface ComparisonGroup {
+  title: string
+  rows: ComparisonRow[]
+}
+
 export interface HowItWorksStep {
   step: string
   title: string
@@ -94,6 +113,8 @@ export interface CareersDictionary {
     discountNote: string
     priceNote: string
     items: PackageItem[]
+    /** Grouped feature rows for the comparison table. See ComparisonGroup above. */
+    comparisonGroups: ComparisonGroup[]
   }
   howItWorks: {
     eyebrow: string
@@ -278,6 +299,47 @@ export const en: CareersDictionary = {
           "Hi! I'm interested in the Career Brand Package (portfolio + ATS CV + LinkedIn rewrite). Can you share more details?",
         highlight: true,
         badge: 'Most Popular',
+      },
+    ],
+    // Order of values in every row below: [Portfolio Starter, ATS CV Package, Portfolio + ATS CV, Career Brand Package]
+    comparisonGroups: [
+      {
+        title: 'Website & Portfolio',
+        rows: [
+          { label: 'Custom personal portfolio website', values: [true, false, true, true] },
+          { label: 'No-code admin dashboard (Supabase)', values: [true, false, true, true] },
+          { label: 'Dedicated Projects section', values: [true, false, true, true] },
+          { label: 'CV page on your site (PDF download)', values: [true, false, true, true] },
+          { label: 'Built-in blog section', values: [true, false, true, true] },
+          { label: 'Mobile-optimized, fast-loading design', values: [true, false, true, true] },
+          { label: 'Basic on-page SEO', values: [true, false, true, true] },
+          { label: 'Working contact form', values: [true, false, true, true] },
+          { label: 'Custom domain + 1 year hosting', values: [false, false, false, true] },
+        ],
+      },
+      {
+        title: 'CV & Career Documents',
+        rows: [
+          { label: 'Professionally rewritten CV', values: [false, true, true, true] },
+          { label: 'Keyword-matched to target roles', values: [false, true, true, true] },
+          { label: 'ATS-optimized formatting', values: [false, true, true, true] },
+          { label: 'Matching cover letter template', values: [false, true, true, false] },
+          { label: 'Editable CV source file (Word & Docs)', values: [false, true, true, false] },
+        ],
+      },
+      {
+        title: 'LinkedIn & Personal Brand',
+        rows: [
+          { label: 'Complete LinkedIn profile rewrite', values: [false, false, false, true] },
+        ],
+      },
+      {
+        title: 'Delivery & Support',
+        rows: [
+          { label: 'Revisions included', values: ['1 round', '1 round', '1 round', '2 rounds'] },
+          { label: 'Priority delivery', values: [false, false, false, true] },
+          { label: 'Priority WhatsApp support', values: [false, false, false, true] },
+        ],
       },
     ],
   },
@@ -548,6 +610,47 @@ export const ar: CareersDictionary = {
           'مرحبًا! أنا مهتم بباقة العلامة المهنية (بورتفوليو + سيرة ATS + إعادة كتابة LinkedIn). هل يمكنكم مشاركة التفاصيل؟',
         highlight: true,
         badge: 'الأكثر طلبًا',
+      },
+    ],
+    // ترتيب القيم في كل صف: [باقة البداية، باقة السيرة الذاتية ATS، بورتفوليو + سيرة ATS، باقة العلامة المهنية]
+    comparisonGroups: [
+      {
+        title: 'الموقع والبورتفوليو',
+        rows: [
+          { label: 'موقع بورتفوليو شخصي مخصص', values: [true, false, true, true] },
+          { label: 'لوحة تحكم بدون كود (Supabase)', values: [true, false, true, true] },
+          { label: 'قسم مخصص للمشاريع', values: [true, false, true, true] },
+          { label: 'صفحة سيرة ذاتية على موقعك (تحميل PDF)', values: [true, false, true, true] },
+          { label: 'قسم مدونة مدمج', values: [true, false, true, true] },
+          { label: 'تصميم سريع ومتوافق مع الجوال', values: [true, false, true, true] },
+          { label: 'إعداد أساسي لمحركات البحث (SEO)', values: [true, false, true, true] },
+          { label: 'نموذج تواصل يعمل', values: [true, false, true, true] },
+          { label: 'دومين مخصص + استضافة سنة كاملة', values: [false, false, false, true] },
+        ],
+      },
+      {
+        title: 'السيرة الذاتية والمستندات المهنية',
+        rows: [
+          { label: 'سيرة ذاتية مُعادة كتابتها باحترافية', values: [false, true, true, true] },
+          { label: 'مطابقة للكلمات المفتاحية للوظائف المستهدفة', values: [false, true, true, true] },
+          { label: 'تنسيق متوافق مع أنظمة ATS', values: [false, true, true, true] },
+          { label: 'قالب خطاب تقديمي مطابق', values: [false, true, true, false] },
+          { label: 'ملف سيرة ذاتية قابل للتعديل (Word و Docs)', values: [false, true, true, false] },
+        ],
+      },
+      {
+        title: 'LinkedIn والعلامة الشخصية',
+        rows: [
+          { label: 'إعادة كتابة كاملة لملف LinkedIn', values: [false, false, false, true] },
+        ],
+      },
+      {
+        title: 'التسليم والدعم',
+        rows: [
+          { label: 'جولات التعديل المشمولة', values: ['جولة واحدة', 'جولة واحدة', 'جولة واحدة', 'جولتان'] },
+          { label: 'تسليم بأولوية', values: [false, false, false, true] },
+          { label: 'دعم بأولوية عبر واتساب', values: [false, false, false, true] },
+        ],
       },
     ],
   },
