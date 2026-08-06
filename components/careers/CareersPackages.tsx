@@ -2,98 +2,33 @@
 
 // components/careers/CareersPackages.tsx
 //
-// 3-column package cards. The "Career Brand Package" is marked
-// Most Popular / Recommended using the same highlighted-border + badge
-// treatment used for the featured tier in app/pricing/page.tsx.
+// Feature-comparison table for the 4 packages. Replaces the old 4-card
+// grid (where every tier re-listed everything from the tier below it,
+// making the page feel long and repetitive). Now:
+//   - Row 1 (sticky header): package name, tagline, price, CTA button.
+//   - Below that: features grouped under category headers, one row per
+//     feature, with a check / dash / short text per package.
+//   - The "Career Brand Package" column is highlighted the same way the
+//     old featured card was (cyan border + tint + "Most Popular" badge).
+//   - Horizontally scrollable on small screens, with the feature-label
+//     column pinned (sticky) so you always know which row you're reading.
+//
+// All copy and the check/dash matrix live in app/careers/dictionary.ts
+// (packages.items + packages.comparisonGroups) — nothing is hardcoded here.
 import { motion } from 'framer-motion'
-import { Check, MessageCircle, Sparkles } from 'lucide-react'
+import { Fragment } from 'react'
+import { Check, Minus, MessageCircle, Sparkles } from 'lucide-react'
 import { useLanguage } from '@/app/careers/LanguageProvider'
 import { buildWhatsappUrl } from '@/app/careers/constants'
-import type { PackageItem } from '@/app/careers/dictionary'
 
-function PackageCard({ pkg, index }: { pkg: PackageItem; index: number }) {
-  const whatsappHref = buildWhatsappUrl(pkg.whatsappMessage)
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
-      aria-label={pkg.name}
-      className={`relative rounded-2xl flex flex-col transition-all duration-300 ${
-        pkg.highlight
-          ? 'border-2 border-cyan bg-cyan/[0.06] shadow-[0_0_70px_rgba(0,212,255,0.18)] lg:-translate-y-3 lg:scale-[1.04] z-10'
-          : 'border border-white/10 bg-white/[0.025] hover:border-white/18'
-      }`}
-    >
-      {pkg.highlight && pkg.badge && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-cyan text-[#0b0f1a] text-xs font-extrabold tracking-wider whitespace-nowrap z-10 font-display shadow-[0_2px_12px_rgba(0,212,255,0.5)]">
-          <Sparkles size={12} aria-hidden /> {pkg.badge}
-        </div>
-      )}
-
-      <div className={`p-6 sm:p-7 flex flex-col flex-1 ${pkg.highlight ? 'sm:pt-9' : ''}`}>
-        <h3
-          className={`font-display font-bold text-white mb-1 ${
-            pkg.highlight ? 'text-2xl sm:text-[26px]' : 'text-xl sm:text-[22px]'
-          }`}
-        >
-          {pkg.name}
-        </h3>
-        <p className="font-body text-[11px] font-semibold text-cyan mb-4 tracking-widest uppercase">
-          {pkg.tagline}
-        </p>
-
-        <div className="flex items-end flex-wrap gap-x-3 gap-y-1 mb-5">
-          <p
-            className={`font-display font-bold text-white leading-none ${
-              pkg.highlight ? 'text-4xl sm:text-5xl text-gradient' : 'text-3xl'
-            }`}
-          >
-            {pkg.priceLabel}
-          </p>
-          {pkg.originalPriceLabel && (
-            <span className="font-body text-white/40 line-through text-base sm:text-lg leading-none mb-0.5">
-              {pkg.originalPriceLabel}
-            </span>
-          )}
-          {pkg.discountLabel && (
-            <span className="font-body text-[11px] font-bold text-cyan bg-cyan/10 border border-cyan/25 rounded-full px-2 py-0.5 leading-none mb-0.5">
-              {pkg.discountLabel}
-            </span>
-          )}
-        </div>
-
-        <ul className="flex-1 space-y-3 mb-7">
-          {pkg.features.map((feature) => (
-            <li
-              key={feature}
-              className={`font-body flex items-start gap-2.5 text-sm ${
-                pkg.highlight ? 'text-white/85' : 'text-white/70'
-              }`}
-            >
-              <Check size={16} className="text-cyan shrink-0 mt-0.5" aria-hidden />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`inline-flex items-center justify-center gap-2 w-full rounded-xl text-sm font-bold transition-all duration-200 ${
-            pkg.highlight
-              ? 'btn-primary py-3.5 text-[15px] hover:scale-[1.02]'
-              : 'py-3 border border-white/10 bg-white/[0.03] hover:border-cyan/25 hover:bg-cyan/[0.04] text-white/80 hover:text-white'
-          }`}
-        >
-          <MessageCircle size={16} aria-hidden />
-          {pkg.cta}
-        </a>
-      </div>
-    </motion.article>
+function Cell({ value }: { value: boolean | string }) {
+  if (typeof value === 'string') {
+    return <span className="font-body text-xs sm:text-sm text-white/80 font-semibold">{value}</span>
+  }
+  return value ? (
+    <Check size={18} className="text-cyan mx-auto" aria-label="Included" />
+  ) : (
+    <Minus size={14} className="text-white/20 mx-auto" aria-label="Not included" />
   )
 }
 
@@ -115,11 +50,133 @@ export default function CareersPackages() {
           )}
         </div>
 
-        <div className="mt-14 lg:mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {t.items.map((pkg, i) => (
-            <PackageCard key={pkg.id} pkg={pkg} index={i} />
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5 }}
+          className="mt-14 lg:mt-20 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto"
+        >
+          <table className="w-full border-separate border-spacing-0 min-w-[720px]">
+            <thead>
+              <tr>
+                <th
+                  className="sticky left-0 z-20 bg-[#0b0f1a] text-start align-bottom p-0 w-[200px] sm:w-[240px]"
+                  aria-hidden
+                />
+                {t.items.map((pkg) => (
+                  <th
+                    key={pkg.id}
+                    scope="col"
+                    className={`align-bottom text-start sm:text-center p-4 sm:p-5 min-w-[150px] sm:min-w-[180px] relative rounded-t-2xl ${
+                      pkg.highlight
+                        ? 'border-2 border-b-0 border-cyan bg-cyan/[0.06]'
+                        : 'border border-b-0 border-white/10 bg-white/[0.025]'
+                    }`}
+                  >
+                    {pkg.highlight && pkg.badge && (
+                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan text-[#0b0f1a] text-[10px] sm:text-xs font-extrabold tracking-wider whitespace-nowrap z-10 font-display shadow-[0_2px_12px_rgba(0,212,255,0.5)]">
+                        <Sparkles size={11} aria-hidden /> {pkg.badge}
+                      </div>
+                    )}
+
+                    <h3
+                      className={`font-display font-bold text-white leading-tight ${
+                        pkg.highlight ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'
+                      }`}
+                    >
+                      {pkg.name}
+                    </h3>
+                    <p className="font-body text-[10px] sm:text-[11px] font-semibold text-cyan mt-1 mb-3 tracking-widest uppercase leading-snug">
+                      {pkg.tagline}
+                    </p>
+
+                    <div className="flex items-end flex-wrap sm:justify-center gap-x-2 gap-y-0.5 mb-4">
+                      <p
+                        className={`font-display font-bold text-white leading-none ${
+                          pkg.highlight ? 'text-2xl sm:text-3xl text-gradient' : 'text-xl sm:text-2xl'
+                        }`}
+                      >
+                        {pkg.priceLabel}
+                      </p>
+                      {pkg.originalPriceLabel && (
+                        <span className="font-body text-white/40 line-through text-xs sm:text-sm leading-none mb-0.5">
+                          {pkg.originalPriceLabel}
+                        </span>
+                      )}
+                    </div>
+
+                    <a
+                      href={buildWhatsappUrl(pkg.whatsappMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center justify-center gap-1.5 w-full rounded-lg text-xs sm:text-sm font-bold transition-all duration-200 py-2.5 sm:py-3 px-2 ${
+                        pkg.highlight
+                          ? 'btn-primary hover:scale-[1.02]'
+                          : 'border border-white/10 bg-white/[0.03] hover:border-cyan/25 hover:bg-cyan/[0.04] text-white/80 hover:text-white'
+                      }`}
+                    >
+                      <MessageCircle size={14} aria-hidden />
+                      <span className="truncate">{pkg.cta}</span>
+                    </a>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+
+            <tbody>
+              {t.comparisonGroups.map((group, gi) => (
+                <Fragment key={group.title}>
+                  <tr>
+                    <td
+                      colSpan={t.items.length + 1}
+                      className={`sticky left-0 bg-[#0b0f1a] font-body text-[11px] font-bold uppercase tracking-widest text-white/45 px-1 sm:px-0 ${
+                        gi === 0 ? 'pt-6 pb-2' : 'pt-8 pb-2'
+                      }`}
+                    >
+                      {group.title}
+                    </td>
+                  </tr>
+                  {group.rows.map((row, ri) => {
+                    const isLastRowOfLastGroup =
+                      gi === t.comparisonGroups.length - 1 && ri === group.rows.length - 1
+                    return (
+                      <tr key={row.label}>
+                        <th
+                          scope="row"
+                          className="sticky left-0 z-10 bg-[#0b0f1a] text-start font-body font-normal text-xs sm:text-sm text-white/70 py-2.5 pe-3 align-middle"
+                        >
+                          {row.label}
+                        </th>
+                        {row.values.map((value, ci) => {
+                          const pkg = t.items[ci]
+                          return (
+                            <td
+                              key={pkg.id}
+                              className={`text-center align-middle py-2.5 px-2 sm:px-4 border-x ${
+                                pkg.highlight
+                                  ? 'border-cyan bg-cyan/[0.06]'
+                                  : 'border-white/10 bg-white/[0.025]'
+                              } ${
+                                isLastRowOfLastGroup
+                                  ? pkg.highlight
+                                    ? 'border-b-2 rounded-b-2xl'
+                                    : 'border-b rounded-b-2xl'
+                                  : ''
+                              }`}
+                            >
+                              <Cell value={value} />
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
+        </motion.div>
 
         <p className="font-body text-center text-[11px] text-white/30 mt-8">{t.priceNote}</p>
       </div>
