@@ -121,21 +121,21 @@ const jsonLd = {
     {
       '@type': 'Offer',
       name: 'Basic',
-      price: '299',
+      price: '70',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
     {
       '@type': 'Offer',
       name: 'Standard',
-      price: '699',
+      price: '150',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
     {
       '@type': 'Offer',
       name: 'Premium',
-      price: '1299',
+      price: '300',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
@@ -311,10 +311,14 @@ const process = [
   },
 ]
 
+// Old (pre-discount) prices are kept as numbers so the % off shown on each
+// card is always calculated from oldPrice -> price, instead of being typed
+// in by hand and risking going out of sync.
 const pricingPlans = [
   {
     name: 'Basic',
-    price: '$299',
+    oldPrice: 299,
+    price: 70,
     tagline: 'Full optimization + report',
     bestFor: 'Best for small sites needing a quick, focused fix',
     delivery: '3\u20135 day delivery',
@@ -329,7 +333,8 @@ const pricingPlans = [
   },
   {
     name: 'Standard',
-    price: '$699',
+    oldPrice: 699,
+    price: 150,
     tagline: 'Everything + lazy loading & caching setup',
     bestFor: 'Best for most sites aiming for a 90+ score',
     delivery: '5\u20137 day delivery',
@@ -343,7 +348,8 @@ const pricingPlans = [
   },
   {
     name: 'Premium',
-    price: '$1,299',
+    oldPrice: 1299,
+    price: 300,
     tagline: 'Complex & e-commerce sites + 30-day monitoring',
     bestFor: 'Best for large, complex, or e-commerce sites',
     delivery: '7\u201310 day delivery + 30 days monitoring',
@@ -357,6 +363,11 @@ const pricingPlans = [
     highlighted: false,
   },
 ]
+
+// e.g. oldPrice 299, price 70 -> 77
+function getDiscountPercent(oldPrice: number, price: number) {
+  return Math.round(((oldPrice - price) / oldPrice) * 100)
+}
 
 const FIVERR_GIG_URL = 'https://www.fiverr.com/s/ljqAq5g'
 const CONTACT_URL = '/contact?service=speed-audit'
@@ -587,7 +598,15 @@ export default function WebsiteSpeedOptimizationPage() {
 
                   <h3 className="text-lg font-bold mb-1">{plan.name}</h3>
                   <p className="text-[11px] font-medium text-[#00d4ff]/80 mb-3">{plan.bestFor}</p>
-                  <div className="text-3xl font-bold mb-2">{plan.price}</div>
+
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-3xl font-bold">${plan.price}</span>
+                    <span className="text-base text-white/40 line-through">${plan.oldPrice}</span>
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[#00d4ff]/15 text-[#00d4ff]">
+                      {getDiscountPercent(plan.oldPrice, plan.price)}% OFF
+                    </span>
+                  </div>
+
                   <p className="text-white/60 text-sm mb-1">{plan.tagline}</p>
                   <p className="text-white/55 text-xs mb-6">{plan.delivery}</p>
 
