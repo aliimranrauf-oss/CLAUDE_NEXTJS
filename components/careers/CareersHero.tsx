@@ -2,10 +2,11 @@
 
 // components/careers/CareersHero.tsx
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, MessageCircle, Briefcase } from 'lucide-react'
 import { useLanguage } from '@/app/careers/LanguageProvider'
-import { buildWhatsappUrl } from '@/app/careers/constants'
+import { buildWhatsappUrl, HERO_IMAGES, HERO_SLIDE_INTERVAL_MS } from '@/app/careers/constants'
 
 export default function CareersHero() {
   const { dict } = useLanguage()
@@ -13,6 +14,23 @@ export default function CareersHero() {
   const whatsappHref = buildWhatsappUrl(
     "Hi! I'm exploring portfolio website packages for my job search. Can you tell me more?"
   )
+
+  // ── Hero image slideshow ──────────────────────────────────────────────
+  // Cycles through HERO_IMAGES (see app/careers/constants.ts) one at a
+  // time, crossfading between them. Pauses automatically if the array
+  // only has one image, and respects prefers-reduced-motion.
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  useEffect(() => {
+    if (HERO_IMAGES.length <= 1) return
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+    const id = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % HERO_IMAGES.length)
+    }, HERO_SLIDE_INTERVAL_MS)
+    return () => clearInterval(id)
+  }, [])
 
   return (
     <section className="relative overflow-hidden pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-24">
@@ -80,14 +98,45 @@ export default function CareersHero() {
               swap in a differently-shaped image, update this to match.
             */}
             <div className="relative rounded-2xl overflow-hidden border border-cyan/20 shadow-[0_0_60px_rgba(0,212,255,0.08)] aspect-[4/3]">
-              <Image
-                src="/careers/careers-hero-mockup.png"
-                alt={t.imageAlt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
+              <AnimatePresence initial={false} mode="sync">
+                <motion.div
+                  key={HERO_IMAGES[activeSlide]?.src ?? activeSlide}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.9, ease: 'easeInOut' }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={HERO_IMAGES[activeSlide]?.src ?? '/careers/careers-hero-1.jpg'}
+                    alt={HERO_IMAGES[activeSlide]?.alt ?? t.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                    priority={activeSlide === 0}
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Slide indicator dots — only shown when there's more than one image */}
+              {HERO_IMAGES.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5">
+                  {HERO_IMAGES.map((img, i) => (
+                    <button
+                      key={img.src}
+                      type="button"
+                      aria-label={`Show slide ${i + 1}`}
+                      onClick={() => setActiveSlide(i)}
+                      className="h-1.5 rounded-full transition-all duration-300"
+                      style={{
+                        width: i === activeSlide ? '18px' : '6px',
+                        background:
+                          i === activeSlide ? '#00d4ff' : 'rgba(255,255,255,0.35)',
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
 
               {/*
                 Flowing border line — same technique as DataFlowDiagram.tsx
