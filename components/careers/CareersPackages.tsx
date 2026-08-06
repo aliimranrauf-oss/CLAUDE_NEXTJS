@@ -2,9 +2,10 @@
 
 // components/careers/CareersPackages.tsx
 //
-// Feature-comparison table for the 4 packages. Replaces the old 4-card
-// grid (where every tier re-listed everything from the tier below it,
-// making the page feel long and repetitive). Now:
+// Feature-comparison table for the 3 PORTFOLIO packages (Portfolio
+// Starter, Portfolio + ATS CV, Career Brand Package). Replaces the old
+// 4-card grid (where every tier re-listed everything from the tier
+// below it, making the page feel long and repetitive). Now:
 //   - Row 1 (sticky header): package name, tagline, price, CTA button.
 //   - Below that: features grouped under category headers, one row per
 //     feature, with a check / dash / short text per package.
@@ -13,11 +14,18 @@
 //   - Horizontally scrollable on small screens, with the feature-label
 //     column pinned (sticky) so you always know which row you're reading.
 //
-// All copy and the check/dash matrix live in app/careers/dictionary.ts
-// (packages.items + packages.comparisonGroups) — nothing is hardcoded here.
+// The ATS CV Package ($99, CV-only, no website) is intentionally NOT in
+// this table — it's a different kind of product (a CV-writing gig, not
+// a portfolio-website tier), so comparing it feature-by-feature against
+// website packages was confusing. It's shown below the table instead,
+// as its own standalone card with its own full feature list.
+//
+// All copy lives in app/careers/dictionary.ts (packages.items +
+// packages.comparisonGroups + packages.standaloneNote) — nothing is
+// hardcoded here.
 import { motion } from 'framer-motion'
 import { Fragment } from 'react'
-import { Check, Minus, MessageCircle, Sparkles } from 'lucide-react'
+import { Check, Minus, MessageCircle, Sparkles, FileText } from 'lucide-react'
 import { useLanguage } from '@/app/careers/LanguageProvider'
 import { buildWhatsappUrl } from '@/app/careers/constants'
 
@@ -35,6 +43,11 @@ function Cell({ value }: { value: boolean | string }) {
 export default function CareersPackages() {
   const { dict } = useLanguage()
   const t = dict.packages
+
+  // Portfolio-website tiers — these go in the comparison table.
+  const comparisonItems = t.items.filter((pkg) => pkg.id !== 'ats-cv-only')
+  // CV-only gig — shown separately below the table, not compared feature-by-feature.
+  const standaloneItem = t.items.find((pkg) => pkg.id === 'ats-cv-only')
 
   return (
     <section id="packages" className="py-16 sm:py-24 border-t border-white/5 scroll-mt-24">
@@ -57,14 +70,14 @@ export default function CareersPackages() {
           transition={{ duration: 0.5 }}
           className="mt-14 lg:mt-20 -mx-4 px-4 sm:mx-0 sm:px-0 pt-7 overflow-x-auto"
         >
-          <table className="w-full border-separate border-spacing-0 min-w-[720px]">
+          <table className="w-full border-separate border-spacing-0 min-w-[600px]">
             <thead>
               <tr>
                 <th
                   className="sticky left-0 z-20 bg-[#0b0f1a] text-start align-bottom p-0 w-[200px] sm:w-[240px]"
                   aria-hidden
                 />
-                {t.items.map((pkg) => (
+                {comparisonItems.map((pkg) => (
                   <th
                     key={pkg.id}
                     scope="col"
@@ -129,7 +142,7 @@ export default function CareersPackages() {
                 <Fragment key={group.title}>
                   <tr>
                     <td
-                      colSpan={t.items.length + 1}
+                      colSpan={comparisonItems.length + 1}
                       className={`sticky left-0 bg-[#0b0f1a] font-body text-[11px] font-bold uppercase tracking-widest text-white/45 px-1 sm:px-0 ${
                         gi === 0 ? 'pt-6 pb-2' : 'pt-8 pb-2'
                       }`}
@@ -149,8 +162,7 @@ export default function CareersPackages() {
                           {row.label}
                         </th>
                         {row.values.map((value, ci) => {
-                          const pkg = t.items[ci]
-                          const naNote = group.naNotes?.[ci]
+                          const pkg = comparisonItems[ci]
                           const cellBorderClasses = `border-x ${
                             pkg.highlight ? 'border-cyan bg-cyan/[0.06]' : 'border-white/10 bg-white/[0.025]'
                           } ${
@@ -160,27 +172,6 @@ export default function CareersPackages() {
                                 : 'border-b rounded-b-2xl'
                               : ''
                           }`
-
-                          // Whole group doesn't apply to this package (e.g. a
-                          // CV-only package has no "Website & Portfolio" rows)
-                          // — merge it into one note instead of a dash per row.
-                          if (naNote) {
-                            if (ri === 0) {
-                              return (
-                                <td
-                                  key={pkg.id}
-                                  rowSpan={group.rows.length}
-                                  className={`text-center align-middle px-3 sm:px-4 py-3 ${cellBorderClasses}`}
-                                >
-                                  <span className="font-body text-[11px] sm:text-xs text-white/40 italic leading-snug">
-                                    {naNote}
-                                  </span>
-                                </td>
-                              )
-                            }
-                            // Covered by the rowSpan cell rendered on the group's first row.
-                            return null
-                          }
 
                           return (
                             <td key={pkg.id} className={`text-center align-middle py-2.5 px-2 sm:px-4 ${cellBorderClasses}`}>
@@ -198,6 +189,76 @@ export default function CareersPackages() {
         </motion.div>
 
         <p className="font-body text-center text-[11px] text-white/30 mt-8">{t.priceNote}</p>
+
+        {/* ── Standalone CV-only gig ─────────────────────────────────────
+            Deliberately separate from the table above: it's a different
+            product (a CV rewrite service, no website), not another tier
+            to compare feature-by-feature against the portfolio packages. */}
+        {standaloneItem && (
+          <div className="mt-16 sm:mt-20 max-w-2xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-white/10" />
+              <p className="font-body text-xs sm:text-sm text-white/50 text-center shrink-0 max-w-md">
+                {t.standaloneNote}
+              </p>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+
+            <motion.article
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-2xl border border-white/10 bg-white/[0.025] hover:border-white/18 transition-all duration-300 p-6 sm:p-8"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+                <div className="shrink-0 inline-flex items-center justify-center w-12 h-12 rounded-xl border border-cyan/25 bg-cyan/[0.06] text-cyan">
+                  <FileText size={22} aria-hidden />
+                </div>
+
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 mb-1">
+                    <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
+                      {standaloneItem.name}
+                    </h3>
+                    <div className="flex items-end gap-2">
+                      <p className="font-display font-bold text-2xl sm:text-3xl text-white leading-none">
+                        {standaloneItem.priceLabel}
+                      </p>
+                      {standaloneItem.originalPriceLabel && (
+                        <span className="font-body text-white/40 line-through text-sm leading-none mb-0.5">
+                          {standaloneItem.originalPriceLabel}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <p className="font-body text-[11px] font-semibold text-cyan mb-4 tracking-widest uppercase">
+                    {standaloneItem.tagline}
+                  </p>
+
+                  <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 mb-7">
+                    {standaloneItem.features.map((feature) => (
+                      <li key={feature} className="font-body flex items-start gap-2.5 text-sm text-white/70">
+                        <Check size={16} className="text-cyan shrink-0 mt-0.5" aria-hidden />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    href={buildWhatsappUrl(standaloneItem.whatsappMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex items-center justify-center gap-2 text-sm font-bold rounded-xl py-3 px-6 w-full sm:w-auto hover:scale-[1.02] transition-all duration-200"
+                  >
+                    <MessageCircle size={16} aria-hidden />
+                    {standaloneItem.cta}
+                  </a>
+                </div>
+              </div>
+            </motion.article>
+          </div>
+        )}
       </div>
     </section>
   )
