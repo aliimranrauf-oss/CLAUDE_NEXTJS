@@ -71,7 +71,7 @@ export default function CareersPainPoints({ blogImages = {} }: CareersPainPoints
                   <div className="p-6">
                     <h3 className="font-display text-lg font-bold mb-2">{item.title}</h3>
                     <p className="font-body text-sm text-white/60 leading-relaxed">{item.description}</p>
-                    <span className="font-body mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-cyan opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="font-body mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-cyan opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                       {readMoreLabel}
                       <ArrowRight size={13} aria-hidden className="rtl:rotate-180" />
                     </span>
