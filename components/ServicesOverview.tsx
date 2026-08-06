@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { Globe, Zap, Rocket, ArrowRight } from 'lucide-react'
+import { Globe, Zap, Rocket, Briefcase, ArrowRight } from 'lucide-react'
 
 // ── Server component (no interactivity needed — hover is pure CSS) ────────
-// Surfaces all 3 services on the homepage. Previously Site Speed and
+// Surfaces all 4 services on the homepage. Previously Site Speed and
 // Space & Aerospace were only discoverable via the Navbar menu.
 
 const services = [
@@ -27,6 +27,13 @@ const services = [
     href: '/space',
     cta: 'Explore',
   },
+  {
+    icon: Briefcase,
+    title: 'Career Portfolio Websites',
+    description: 'A personal portfolio site, ATS-optimized CV, and LinkedIn rewrite to help job seekers get noticed by recruiters.',
+    href: '/careers',
+    cta: 'Boost My Career',
+  },
 ]
 
 export default function ServicesOverview() {
@@ -45,12 +52,12 @@ export default function ServicesOverview() {
             What We <span className="text-[#40e0ff]">Build</span>
           </h2>
           <p className="mt-4 text-gray-400 max-w-xl mx-auto">
-            Three specialized services, one build-quality standard — pick the one that fits.
+            Four specialized services, one build-quality standard — pick the one that fits.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map(({ icon: Icon, title, description, href, cta }) => (
             <Link
               key={href}
