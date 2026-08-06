@@ -55,7 +55,7 @@ export default function CareersPackages() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
-          className="mt-14 lg:mt-20 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto"
+          className="mt-14 lg:mt-20 -mx-4 px-4 sm:mx-0 sm:px-0 pt-7 overflow-x-auto"
         >
           <table className="w-full border-separate border-spacing-0 min-w-[720px]">
             <thead>
@@ -150,21 +150,40 @@ export default function CareersPackages() {
                         </th>
                         {row.values.map((value, ci) => {
                           const pkg = t.items[ci]
+                          const naNote = group.naNotes?.[ci]
+                          const cellBorderClasses = `border-x ${
+                            pkg.highlight ? 'border-cyan bg-cyan/[0.06]' : 'border-white/10 bg-white/[0.025]'
+                          } ${
+                            isLastRowOfLastGroup
+                              ? pkg.highlight
+                                ? 'border-b-2 rounded-b-2xl'
+                                : 'border-b rounded-b-2xl'
+                              : ''
+                          }`
+
+                          // Whole group doesn't apply to this package (e.g. a
+                          // CV-only package has no "Website & Portfolio" rows)
+                          // — merge it into one note instead of a dash per row.
+                          if (naNote) {
+                            if (ri === 0) {
+                              return (
+                                <td
+                                  key={pkg.id}
+                                  rowSpan={group.rows.length}
+                                  className={`text-center align-middle px-3 sm:px-4 py-3 ${cellBorderClasses}`}
+                                >
+                                  <span className="font-body text-[11px] sm:text-xs text-white/40 italic leading-snug">
+                                    {naNote}
+                                  </span>
+                                </td>
+                              )
+                            }
+                            // Covered by the rowSpan cell rendered on the group's first row.
+                            return null
+                          }
+
                           return (
-                            <td
-                              key={pkg.id}
-                              className={`text-center align-middle py-2.5 px-2 sm:px-4 border-x ${
-                                pkg.highlight
-                                  ? 'border-cyan bg-cyan/[0.06]'
-                                  : 'border-white/10 bg-white/[0.025]'
-                              } ${
-                                isLastRowOfLastGroup
-                                  ? pkg.highlight
-                                    ? 'border-b-2 rounded-b-2xl'
-                                    : 'border-b rounded-b-2xl'
-                                  : ''
-                              }`}
-                            >
+                            <td key={pkg.id} className={`text-center align-middle py-2.5 px-2 sm:px-4 ${cellBorderClasses}`}>
                               <Cell value={value} />
                             </td>
                           )
