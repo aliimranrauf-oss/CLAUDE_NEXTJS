@@ -424,23 +424,35 @@ export const en: CareersDictionary = {
     items: [
       {
         q: 'What payment methods do you accept?',
-        a: 'We accept payment via Fiverr (card, PayPal, Apple Pay depending on your region) or directly for WhatsApp orders — bank transfer and major cards are supported. Details are confirmed once you choose a package.',
+        a: 'Order through Fiverr and you\u2019re covered by Fiverr Buyer Protection — your payment is held securely until you approve the delivery. Prefer to order directly over WhatsApp? We accept payment via Payoneer. Pricing and deliverables are identical either way, so pick whichever platform you\u2019re more comfortable with.',
+      },
+      {
+        q: 'Which package should I choose?',
+        a: 'If you only need a CV that survives ATS screening, the ATS CV Package covers that on its own. If you also want a site recruiters can browse, go with Portfolio Starter — or Portfolio + ATS CV if your current CV needs a rewrite too. Career Brand Package adds a custom domain, a full LinkedIn rewrite and priority delivery, so it suits a complete job-search relaunch rather than a single document.',
       },
       {
         q: 'How long does delivery take?',
-        a: 'Most portfolios are delivered within the timeline shown in the "How It Works" section above, depending on the package and how quickly you send feedback on the draft.',
+        a: 'Most orders follow the 4 steps in the "How It Works" section above: Day 1 to receive your CV and brief, 2-3 days for the first draft, 1-2 days for revisions based on your feedback, then 1 day to go live. Career Brand Package gets priority delivery ahead of this standard timeline.',
       },
       {
-        q: 'What is your revisions policy?',
-        a: 'Each package includes a review-and-revise round after the first draft, so the final site matches what you had in mind before it goes live.',
+        q: 'How many revisions are included?',
+        a: 'Portfolio Starter, ATS CV Package, and Portfolio + ATS CV each include 1 round of revisions on every deliverable. Career Brand Package includes 2 rounds across the CV, LinkedIn profile and portfolio together, since there\u2019s more to keep aligned.',
+      },
+      {
+        q: 'Is there support after delivery?',
+        a: 'Yes — every package includes WhatsApp support after delivery for small tweaks or questions: 1 month with Portfolio Starter, 2 months with Portfolio + ATS CV, and 6 months of priority support with Career Brand Package. ATS CV Package support runs through the revision round.',
+      },
+      {
+        q: 'Does the price include a custom domain and hosting?',
+        a: 'Only Career Brand Package includes a custom domain name (up to $20/year, standard registration) and 1 year of hosting. The other packages deliver the site itself — a domain and hosting can be added on request if you\u2019d like your own address from day one.',
+      },
+      {
+        q: 'Do you offer a refund or guarantee?',
+        a: 'If a delivered draft doesn\u2019t match the agreed brief, we revise it until it does — that\u2019s what the included revision rounds are for. Beyond that, refund terms follow the platform you order through: Fiverr Buyer Protection covers Fiverr orders, and refund terms for direct Payoneer orders are agreed upfront before work begins.',
       },
       {
         q: 'Why not just use LinkedIn alone?',
         a: "LinkedIn is one profile among millions using the same template. A personal portfolio gives you a dedicated, memorable link you control — one that shows up when recruiters Google your name, and works alongside your LinkedIn, not instead of it.",
-      },
-      {
-        q: 'Do you offer a refund or guarantee?',
-        a: 'If the delivered draft doesn\u2019t match the agreed brief, we\u2019ll revise it until it does. Refund terms are confirmed upfront before work begins, in line with the platform (Fiverr or direct) you order through.',
       },
     ],
   },
@@ -736,23 +748,35 @@ export const ar: CareersDictionary = {
     items: [
       {
         q: 'ما هي طرق الدفع المتاحة؟',
-        a: 'نقبل الدفع عبر Fiverr (بطاقة، PayPal، Apple Pay حسب منطقتك) أو مباشرة عبر واتساب — التحويل البنكي وأغلب البطاقات مدعومة. يتم تأكيد التفاصيل عند اختيار الباقة.',
+        a: 'إذا طلبت عبر Fiverr، فأنت مشمول بـ Fiverr Buyer Protection — تبقى دفعتك محفوظة بأمان حتى توافق على التسليم. وإذا كنت تفضل الطلب المباشر عبر واتساب، فنقبل الدفع عبر Payoneer. السعر والخدمات نفسها في الحالتين، فاختر المنصة الأنسب لك.',
+      },
+      {
+        q: 'أي باقة تناسبني؟',
+        a: 'إذا كنت تحتاج فقط سيرة ذاتية تجتاز فرز ATS، فباقة ATS CV وحدها كافية. وإذا أردت أيضًا موقعًا يستعرضه مسؤولو التوظيف، اختر Portfolio Starter — أو Portfolio + ATS CV إذا كانت سيرتك الحالية تحتاج إعادة كتابة أيضًا. باقة Career Brand تضيف نطاقًا مخصصًا وإعادة كتابة كاملة لـ LinkedIn وتسليمًا ذا أولوية، فهي مناسبة لإعادة إطلاق شاملة لبحثك عن عمل وليس مستندًا واحدًا فقط.',
       },
       {
         q: 'كم يستغرق التسليم؟',
-        a: 'يتم تسليم معظم مواقع البورتفوليو خلال المدة الموضحة في قسم "كيف تسير العملية" أعلاه، حسب الباقة وسرعة ملاحظاتك على المسودة.',
+        a: 'تسير معظم الطلبات وفق الخطوات الأربع في قسم "كيف تسير العملية" أعلاه: اليوم 1 لاستلام سيرتك الذاتية وتفاصيلك، 2-3 أيام لتجهيز أول مسودة، 1-2 يوم للتعديلات بناءً على ملاحظاتك، ثم يوم واحد للإطلاق. باقة Career Brand تحصل على تسليم ذي أولوية أسرع من هذا الجدول المعتاد.',
       },
       {
-        q: 'ما هي سياسة التعديلات؟',
-        a: 'تشمل كل باقة جولة مراجعة وتعديل بعد المسودة الأولى، لضمان مطابقة الموقع النهائي لما كنت تتصوره قبل إطلاقه.',
+        q: 'كم عدد جولات التعديل المتاحة؟',
+        a: 'تشمل باقات Portfolio Starter وATS CV وPortfolio + ATS CV جولة تعديل واحدة على كل عنصر يُسلَّم. أما باقة Career Brand فتشمل جولتين تعديل تشمل السيرة الذاتية وLinkedIn والبورتفوليو معًا، نظرًا لوجود عناصر أكثر يجب مواءمتها.',
+      },
+      {
+        q: 'هل يوجد دعم بعد التسليم؟',
+        a: 'نعم — تشمل كل باقة دعمًا عبر واتساب بعد التسليم لأي تعديل بسيط أو استفسار: شهر واحد مع Portfolio Starter، شهران مع Portfolio + ATS CV، و6 أشهر من الدعم ذي الأولوية مع Career Brand Package. أما باقة ATS CV فيستمر دعمها خلال جولة التعديل.',
+      },
+      {
+        q: 'هل يشمل السعر نطاقًا مخصصًا واستضافة؟',
+        a: 'باقة Career Brand فقط هي التي تشمل نطاقًا مخصصًا (بقيمة تصل إلى 20$ سنويًا، تسجيل قياسي) وسنة استضافة مجانية. باقي الباقات تسلّم الموقع نفسه — ويمكن إضافة نطاق واستضافة عند الطلب إذا رغبت بعنوانك الخاص من اليوم الأول.',
+      },
+      {
+        q: 'هل يوجد استرداد أو ضمان؟',
+        a: 'إذا لم تطابق المسودة المُسلَّمة الوصف المتفق عليه، سنقوم بتعديلها حتى تطابقه — لهذا وُجدت جولات التعديل المشمولة. وفيما عدا ذلك، تُحدد شروط الاسترداد حسب المنصة التي تطلب من خلالها: Fiverr Buyer Protection يغطي طلبات Fiverr، أما طلبات Payoneer المباشرة فتُتفق شروط استردادها مسبقًا قبل بدء العمل.',
       },
       {
         q: 'لماذا لا أكتفي باستخدام LinkedIn فقط؟',
         a: 'LinkedIn هو ملف واحد من بين الملايين التي تستخدم نفس القالب. البورتفوليو الشخصي يمنحك رابطًا مميزًا تتحكم فيه بالكامل — يظهر عند بحث مسؤولي التوظيف عن اسمك، ويعمل جنبًا إلى جنب مع LinkedIn وليس بديلاً عنه.',
-      },
-      {
-        q: 'هل يوجد استرداد أو ضمان؟',
-        a: 'إذا لم تطابق المسودة المُسلَّمة الوصف المتفق عليه، سنقوم بتعديلها حتى تطابقه. تُحدد شروط الاسترداد مسبقًا قبل بدء العمل، وفقًا للمنصة (Fiverr أو الطلب المباشر) التي تطلب من خلالها.',
       },
     ],
   },
