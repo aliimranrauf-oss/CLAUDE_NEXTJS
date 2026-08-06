@@ -229,8 +229,21 @@ const FEATURES_BY_TYPE: Record<WebsiteType, Record<string, string[]>> = {
 const BOLD_FEATURES = new Set(['Full Source Code Ownership'])
 const getFeatures = (type: WebsiteType, planName: string) => FEATURES_BY_TYPE[type]?.[planName] ?? []
 
+// Portfolio / Personal pricing is pinned to match the /careers page packages
+// (Portfolio Starter $149, Portfolio + ATS CV $249, Career Brand Package $399)
+// instead of the generic base-price + adjustment formula used by the other
+// website types.
+const PORTFOLIO_PRICE_OVERRIDES: Record<string, number> = {
+  Launch: 149,
+  Growth: 249,
+  Scale: 399,
+}
+
 // Compute the final price shown on a card for a given base plan + website type.
-const getAdjustedPrice = (basePrice: number, type: WebsiteType): number | null => {
+const getAdjustedPrice = (basePrice: number, type: WebsiteType, planName: string): number | null => {
+  if (type === 'portfolio' && planName in PORTFOLIO_PRICE_OVERRIDES) {
+    return PORTFOLIO_PRICE_OVERRIDES[planName]
+  }
   const t = getWebsiteType(type)
   if (t.adjustment === null) return null // Custom Website → "Contact for Quote"
   return basePrice + t.adjustment
@@ -271,7 +284,9 @@ function buildJsonLd(plans: MergedPlan[]) {
 }
 
 // ─── Memoized Plan Card (already optimized) ───────────────────────────────────
-const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
+const PlanCard = memo(({ plan, pop, websiteType }: { plan: MergedPlan; pop: boolean; websiteType: WebsiteType }) => {
+  // Portfolio / Personal has no dedicated Fiverr gig — both CTAs go to Contact.
+  const isPortfolio = websiteType === 'portfolio'
   return (
     <article
       aria-label={`${plan.name} plan`}
@@ -373,8 +388,8 @@ const PlanCard = memo(({ plan, pop }: { plan: MergedPlan; pop: boolean }) => {
 
         <div className="mt-auto space-y-2.5">
           <a
-            href={FIVERR_GIG_LINK}
-            target="_blank" rel="noopener noreferrer"
+            href={isPortfolio ? CONTACT_HREF : FIVERR_GIG_LINK}
+            {...(isPortfolio ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
             className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border border-green-500/20 bg-green-500/[0.03] hover:border-green-400/40 hover:bg-green-500/[0.06] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
           >
             <div className="flex items-center gap-2.5">
@@ -600,7 +615,7 @@ export default function PricingPage() {
   const plans = useMemo<MergedPlan[]>(() => rawPlans.map(p => ({
     ...p,
     basePrice: p.price,
-    displayPrice: getAdjustedPrice(p.price, websiteType),
+    displayPrice: getAdjustedPrice(p.price, websiteType, p.name),
     features: getFeatures(websiteType, p.name),
   })), [rawPlans, websiteType])
 
@@ -775,7 +790,7 @@ export default function PricingPage() {
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
                   {plans.map((plan) => {
                     const pop = plan.is_popular
-                    return <PlanCard key={plan.id} plan={plan} pop={pop} />
+                    return <PlanCard key={plan.id} plan={plan} pop={pop} websiteType={websiteType} />
                   })}
                 </div>
               )}
