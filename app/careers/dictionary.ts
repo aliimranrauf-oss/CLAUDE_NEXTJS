@@ -52,6 +52,15 @@ export interface ComparisonRow {
 export interface ComparisonGroup {
   title: string
   rows: ComparisonRow[]
+  /**
+   * Optional: one entry per package (same order as packages.items). If set
+   * for a package, that package's cells for this ENTIRE group are merged
+   * into a single note (e.g. "CV-only package — no website included")
+   * instead of a row of individual checks/dashes. Use this when a whole
+   * category of features genuinely doesn't apply to that package, rather
+   * than showing a wall of dashes.
+   */
+  naNotes?: (string | null)[]
 }
 
 export interface HowItWorksStep {
@@ -305,6 +314,7 @@ export const en: CareersDictionary = {
     comparisonGroups: [
       {
         title: 'Website & Portfolio',
+        naNotes: [null, 'CV-only package — no website included', null, null],
         rows: [
           { label: 'Custom personal portfolio website', values: [true, false, true, true] },
           { label: 'No-code admin dashboard (Supabase)', values: [true, false, true, true] },
@@ -616,6 +626,7 @@ export const ar: CareersDictionary = {
     comparisonGroups: [
       {
         title: 'الموقع والبورتفوليو',
+        naNotes: [null, 'باقة سيرة ذاتية فقط — بدون موقع إلكتروني', null, null],
         rows: [
           { label: 'موقع بورتفوليو شخصي مخصص', values: [true, false, true, true] },
           { label: 'لوحة تحكم بدون كود (Supabase)', values: [true, false, true, true] },
