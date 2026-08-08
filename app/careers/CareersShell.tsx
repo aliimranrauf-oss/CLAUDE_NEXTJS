@@ -32,7 +32,7 @@ export default function CareersShell({ blogImages = {} }: CareersShellProps) {
   return (
     <div
       dir={dir}
-      className={tajawal.variable}
+      className={`overflow-x-hidden ${tajawal.variable}`}
       style={isRtl ? { fontFamily: 'var(--font-tajawal), Tajawal, sans-serif' } : undefined}
     >
       {/*
