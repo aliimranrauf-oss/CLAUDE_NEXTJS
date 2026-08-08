@@ -3,6 +3,7 @@ import { newsreader, plusJakarta, reemKufi } from './fonts'
 import './portfolio.css'
 import Header from './_components/Header'
 import Footer from './_components/Footer'
+import TemplateActionBar from './_components/TemplateActionBar'
 import { SiteSettingsProvider } from './_context/SiteSettingsContext'
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function Project4Layout({ children }: { children: React.ReactNode
         <Header />
         <main>{children}</main>
         <Footer />
+        <TemplateActionBar />
       </SiteSettingsProvider>
     </div>
   )
