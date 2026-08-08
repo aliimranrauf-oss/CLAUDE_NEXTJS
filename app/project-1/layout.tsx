@@ -3,6 +3,7 @@ import { spaceGrotesk, inter, plexMono } from './fonts'
 import './portfolio.css'
 import Header from './_components/Header'
 import Footer from './_components/Footer'
+import TemplateActionBar from './_components/TemplateActionBar'
 
 export const metadata: Metadata = {
   title: 'Ahmed Al Mansoori — Senior Infrastructure & Program Director',
@@ -19,6 +20,7 @@ export default function Project1Layout({ children }: { children: React.ReactNode
         <Header />
         <main>{children}</main>
         <Footer />
+        <TemplateActionBar />
       </div>
     </div>
   )
