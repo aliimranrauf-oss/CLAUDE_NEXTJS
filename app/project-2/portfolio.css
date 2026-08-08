@@ -248,6 +248,37 @@
   }
 }
 
+/* ── Mobile-only hero legibility fix ─────────────────────────
+   On phones the copy column and the photo/stat-card column stack
+   into a single full-width column, so the desktop scrim (a
+   left-to-right fade that goes fully transparent past ~42% of the
+   width) no longer covers enough of the image — the heading text
+   ends up sitting directly on the portrait with poor contrast.
+   This block only changes behaviour at <=640px (phones); tablet
+   (the 1024px rule above) and desktop are completely untouched. */
+@media (max-width: 640px) {
+  .p2-hero-scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(248, 247, 244, 0.97) 0%,
+        rgba(248, 247, 244, 0.95) 46%,
+        rgba(248, 247, 244, 0.86) 62%,
+        rgba(248, 247, 244, 0.7) 78%,
+        rgba(248, 247, 244, 0.92) 100%
+      ),
+      radial-gradient(70% 45% at 88% 8%, rgba(248, 247, 244, 0.35), transparent 70%);
+  }
+
+  .p2-hero-photo img {
+    /* Nudge the portrait further right/down and soften it slightly so
+       it reads as a subtle backdrop rather than competing with the
+       heading text for attention. */
+    object-position: 78% 12%;
+    opacity: 0.6;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .p2-fade-up,
   .p2-card {
