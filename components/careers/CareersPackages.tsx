@@ -68,13 +68,13 @@ export default function CareersPackages() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
-          className="mt-14 lg:mt-20 -mx-4 px-4 sm:mx-0 sm:px-0 pt-7 overflow-x-auto"
+          className="mt-14 lg:mt-20 -mx-4 px-4 sm:mx-0 sm:px-0 pt-7 overflow-x-auto overscroll-x-contain"
         >
           <table className="w-full border-separate border-spacing-0 min-w-[600px]">
             <thead>
               <tr>
                 <th
-                  className="sticky left-0 z-20 bg-[#0b0f1a] text-start align-bottom p-0 w-[200px] sm:w-[240px]"
+                  className="text-start align-bottom p-0 w-[200px] sm:w-[240px]"
                   aria-hidden
                 />
                 {comparisonItems.map((pkg) => (
